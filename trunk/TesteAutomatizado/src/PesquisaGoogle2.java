@@ -1,8 +1,8 @@
 
 import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,8 +20,8 @@ public class PesquisaGoogle2{
 	public void setUp(){
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
-		PropertyConfigurator.configure("log4j.properties");
-		log = Logger.getLogger(PesquisaGoogle2.class);
+
+		log = LogManager.getLogger(PesquisaGoogle2.class);
 	}
 	
 	@After
@@ -31,7 +31,7 @@ public class PesquisaGoogle2{
 	
 	@Test
 	public void realizaBusca(){
-		log.debug("teste de mensagem");
+		log.info("Inicio do teste");
 		
 		long timestart = System.currentTimeMillis();
 		
@@ -44,7 +44,7 @@ public class PesquisaGoogle2{
 		
 		WebElement botaoAcessar = driver.findElement(By.name("formSubmit"));
 		botaoAcessar.click();
-		System.out.println("Entrada no sistema - "+ (System.currentTimeMillis() - timestart) + "segundos");
 		
-		}
+		log.info("Entrada no sistema - "+ (System.currentTimeMillis() - timestart) + "segundos");		
+	}
 }
