@@ -1,16 +1,16 @@
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
 import java.util.concurrent.TimeUnit;
 
-import org.junit.After;  
-import org.junit.Before;  
-import org.junit.Test;  
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
   
 public class pesquisa_google{
 	
@@ -20,6 +20,7 @@ public class pesquisa_google{
 	public void setUp(){
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+		
 	}
 	
 	@After
