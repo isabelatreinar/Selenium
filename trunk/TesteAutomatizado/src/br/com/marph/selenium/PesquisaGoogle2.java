@@ -14,22 +14,23 @@ import org.openqa.selenium.firefox.FirefoxDriver;
   
 public class PesquisaGoogle2{
 
+	private final String LOG_NAME = "ISABELA";
 	private WebDriver driver;
-	private Logger log = null;
+	private Logger log = LogManager.getLogger(LOG_NAME);
+	
 	
 	@Before
-	public void setUp(){
-		log = LogManager.getLogger(PesquisaGoogle2.class);
+	public void startBrowser(){
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 
 	
 	}
 	
-	@After
+/*	@After
 	public void tearDown(){
 		driver.quit();
-		}
+		}*/
 	
 	@Test
 	public void realizaBusca(){
@@ -47,6 +48,29 @@ public class PesquisaGoogle2{
 		WebElement botaoAcessar = driver.findElement(By.name("formSubmit"));
 		botaoAcessar.click();
 		
-		log.info("Entrada no sistema - "+ (System.currentTimeMillis() - timestart) + "segundos");		
+		WebElement radio = driver.findElement(By.name("exPapel"));
+		radio.click();
+		
+		WebElement botaoAcessar2 = driver.findElement(By.name("formSubmit"));
+		botaoAcessar2.click();
+		
+		float tempoGasto = (System.currentTimeMillis() - timestart);
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("Entrada no sistema - ").append(tempoGasto).append(" segundos");
+		
+/*		sb.append("Entrada no sistema - ");
+		sb.append(tempoGasto);
+		sb.append("segundos");*/
+		
+		if(tempoGasto>5000){
+			log.warn(sb.toString());
+		}else{
+			log.info(sb.toString());
+		}
+
+		
+		
+		
 	}
 }
