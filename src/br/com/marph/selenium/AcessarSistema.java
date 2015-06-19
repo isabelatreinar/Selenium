@@ -59,7 +59,7 @@ public class AcessarSistema{
 		StringBuilder sb = new StringBuilder();
 		sb.append("Entrada no sistema - ").append(tempoGasto).append(" segundos");
 		
-/*		sb.append("Entrada no sistema - ");
+/*		sb.append("Entrada no sistemas - ");
 		sb.append(tempoGasto);
 		sb.append("segundos");*/
 		
