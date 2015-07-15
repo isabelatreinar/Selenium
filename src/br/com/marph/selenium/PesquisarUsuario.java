@@ -47,9 +47,11 @@ public class PesquisarUsuario{
 		WebElement cpf = driver.findElement(By.id("filtroUsuarioCpf"));
 		cpf.sendKeys("-08936836633");
 
-				
+		WebElement botaoExpandir = driver.findElement(By.id("btnExpandirPesquisaAvancada"));
+		botaoExpandir.click();
+		
 		/*Select papel = new Select(driver.findElement(By.id("perfil")));
-		papel.selectByValue("JURIDICO");*/
+		papel.selectByValue("COMISSAO_AVALIACAO");*/
 		
 		
 		WebElement botaoPesquisar = driver.findElement(By.id("btnPesquisar"));
