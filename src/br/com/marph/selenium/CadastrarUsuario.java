@@ -22,10 +22,9 @@ public class CadastrarUsuario{
 	@Before
 	public void startBrowser(){
 		driver = new FirefoxDriver();
+		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
-
-	
-	}
+		}
 	
 /*	@After
 	public void tearDown(){
@@ -38,10 +37,27 @@ public class CadastrarUsuario{
 		
 		long timestart = System.currentTimeMillis();
 		
-		driver.get("http://172.16.10.115:8083/usuario/crud/usuarioListagem");
+		driver.get("http://172.16.10.115:8081");
 		
+		WebElement fecharbtn = driver.findElement(By.id("closeModalHome"));
+		fecharbtn.click();
 		
-		WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
+		WebElement btnEntrar = driver.findElement(By.id("btnEntradaSistemaID"));
+		btnEntrar.click();
+		
+		WebElement btnAcessar = driver.findElement(By.id("btnAcessar"));
+		btnAcessar.click();
+		
+		WebElement btnConfirmar = driver.findElement(By.id("confirmarDados"));
+		btnConfirmar.click();
+		
+		WebElement btnAcessarSist = driver.findElement(By.id("acessarSistema"));
+		btnAcessarSist.click();
+		
+		WebElement menuUsuario = driver.findElement(By.id(""));
+		//menuUsuario.click();		
+		/*
+	  WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
 		botaoCadastrar.click();
 		
 		WebElement nome = driver.findElement(By.id("usuarioNome"));
@@ -55,6 +71,8 @@ public class CadastrarUsuario{
 		
 		WebElement telefone = driver.findElement(By.id("usuarioCpf"));
 		telefone.sendKeys("788.993.311-89");
+		*/
+		
 		
 				
 		float tempoGasto = (System.currentTimeMillis() - timestart);
