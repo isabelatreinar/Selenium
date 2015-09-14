@@ -8,10 +8,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
   
 public class CadastrarUsuarioMozilla{
 
@@ -54,14 +54,13 @@ public class CadastrarUsuarioMozilla{
 		btnConfirmar.click();
 		
 		WebElement btnAcessarSist = driver.findElement(By.id("acessarSistema"));
-		btnAcessarSist.click();	
+		btnAcessarSist.click();			
 		
-		//TODO fazer 
-	/*	WebElement menuCadastrar = driver.findElement(By.xpath("//*[@id='E1']/table/tbody/tr/td[2]/span[2]"));
-		menuCadastrar.click();
+		WebElement menuCadastrar = driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,2)']"));
+		menuCadastrar.click(); 
 		
 		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='usuariosMenu']"));
-		menuUsuario.click();	*/		
+		menuUsuario.click();		
 		
 	  WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
 		botaoCadastrar.click();
@@ -76,8 +75,22 @@ public class CadastrarUsuarioMozilla{
 		cpf.sendKeys("788.993.311-89");
 		
 		WebElement telefone = driver.findElement(By.id("usuarioCpf"));
-		telefone.sendKeys("788.993.311-89");		
-				
+		telefone.sendKeys("788.993.311-89");	
+		
+		WebElement btnAvancar = driver.findElement(By.id("btnSalvar"));
+		btnAvancar.click(); 		 
+		
+		WebElement perfil = driver.findElement(By.id("modalPerfil_chosen"));
+		perfil.click();
+		
+		//TESTAR A BAIXO
+		WebElement escrevePerfil = driver.findElement(By.id("chosen-results"));
+		escrevePerfil.sendKeys("Comiss");
+		
+		driver.findElement(By.id("chosen-search")).sendKeys(Keys.ENTER);
+		
+		
+		//FIM
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		
 		StringBuilder sb = new StringBuilder();
