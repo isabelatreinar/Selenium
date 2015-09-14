@@ -11,6 +11,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
   
 public class CadastrarUsuario{
 
@@ -21,7 +22,10 @@ public class CadastrarUsuario{
 	
 	@Before
 	public void startBrowser(){
-		driver = new FirefoxDriver();
+		//driver = new FirefoxDriver();
+		System.setProperty("webdriver.chrome.driver", "C://chromedriver.exe");
+        WebDriver driver = new ChromeDriver();   
+        driver.get("http://www.google.com");        
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 		}
@@ -32,12 +36,15 @@ public class CadastrarUsuario{
 		}*/
 	
 	@Test
-	public void realizaBusca(){
+	public void realizaBusca(){	
+		
+		
 		log.info("Inicio do teste");
 		
 		long timestart = System.currentTimeMillis();
 		
-		driver.get("http://172.16.10.115:8081");
+		//driver.get("http://172.16.10.115:8081");
+		
 		
 		WebElement fecharbtn = driver.findElement(By.id("closeModalHome"));
 		fecharbtn.click();
@@ -52,10 +59,16 @@ public class CadastrarUsuario{
 		btnConfirmar.click();
 		
 		WebElement btnAcessarSist = driver.findElement(By.id("acessarSistema"));
-		btnAcessarSist.click();
+		btnAcessarSist.click();	
 		
-		WebElement menuUsuario = driver.findElement(By.id(""));
-		//menuUsuario.click();		
+		
+		WebElement menuCadastrar = driver.findElement(By.xpath("//Span[@Class='ThemeOfficeMainItem']"));
+		menuCadastrar.click();
+		//TODO fazer 
+		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='usuarios']"));
+		menuUsuario.click();	
+		
+		System.err.println("passei pelo menu usuarios");
 		/*
 	  WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
 		botaoCadastrar.click();
@@ -72,7 +85,6 @@ public class CadastrarUsuario{
 		WebElement telefone = driver.findElement(By.id("usuarioCpf"));
 		telefone.sendKeys("788.993.311-89");
 		*/
-		
 		
 				
 		float tempoGasto = (System.currentTimeMillis() - timestart);
