@@ -14,9 +14,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-  
-public class CadastrarUsuarioMozilla{
 
+public class InativarUsuario {
 	private final String LOG_NAME = "ISABELA";
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -29,15 +28,9 @@ public class CadastrarUsuarioMozilla{
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 		}
-	
-/*	@After
-	public void tearDown(){
-		driver.quit();
-		}*/
-	
+
 	@Test
-	public void realizaBusca(){	
-		
+	public void realizaBusca(){			
 		
 		log.info("Inicio do teste");
 		
@@ -63,62 +56,33 @@ public class CadastrarUsuarioMozilla{
 		
 		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='usuariosMenu']"));
 		menuUsuario.click();		
+		//FIM MENU
 		
-	  WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
-		botaoCadastrar.click();
+		//TODO ACESSAR USUÀRIO com ID
 		
-		WebElement nome = driver.findElement(By.id("usuarioNome"));
-		nome.sendKeys("Ana Maria Oliveira");
+		WebElement btnPerfil = driver.findElement(By.id("btnPerfil1"));
+		btnPerfil.click();
 		
-		WebElement email = driver.findElement(By.id("usuarioEmail"));
-		email.sendKeys("ana@gmail.com");
+		WebElement btnInativar = driver.findElement(By.id("btnInativar1"));
+		btnInativar.click();		
 		
-		WebElement cpf = driver.findElement(By.id("usuarioCpf"));
-		cpf.sendKeys("788.993.311-89");
-		
-		WebElement telefone = driver.findElement(By.id("usuarioCpf"));
-		telefone.sendKeys("788.993.311-89");	
-		
-		WebElement btnAvancar = driver.findElement(By.id("btnSalvar"));
-		btnAvancar.click(); 		 
-		
-		WebElement perfil = driver.findElement(By.id("modalPerfil_chosen"));
-		perfil.click();
-		
-		//TESTAR A BAIXO
-		WebElement selecionarPerfil = driver.findElement(By.xpath("//li[@data-option-array-index='3']"));
-		selecionarPerfil.click();				
-		
-		WebElement extensao = driver.findElement(By.id("modalExtensaoPerfilId"));
-		extensao.sendKeys("uni");
-		WebElement extensaoSeleciona = driver.findElement(By.id("ui-id-1"));
-		extensaoSeleciona.click();
-		
-		WebElement salvar = driver.findElement(By.id("btnSalvar"));
-		salvar.click();
+		WebElement btnSim = driver.findElement(By.xpath("//button[@class='btn btn-primary btn-sm']"));
+		btnSim.click();
 
-		
-		
-		//*[@id="modalPerfil_chosen"]/div/div/input
-		//FIM
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("Entrada no sistema - ").append(tempoGasto).append(" segundos");
 		
-/*		sb.append("Entrada no sistema - ");
-		sb.append(tempoGasto);
-		sb.append("segundos");*/
-		
+
 		if(tempoGasto>5000){
 			log.warn(sb.toString());
 		}else{
 			log.info(sb.toString());
 		}
 
-		/*teste*/
+		
 		
 		
 	}
 }
-
