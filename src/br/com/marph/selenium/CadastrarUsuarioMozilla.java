@@ -12,6 +12,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
   
 public class CadastrarUsuarioMozilla{
 
@@ -84,12 +86,17 @@ public class CadastrarUsuarioMozilla{
 		perfil.click();
 		
 		//TESTAR A BAIXO
-		WebElement escrevePerfil = driver.findElement(By.id("chosen-results"));
-		escrevePerfil.sendKeys("Comiss");
-		
+		WebElement selecionarPerfil = driver.findElement(By.xpath("//li[@data-option-array-index='3']"));
+		selecionarPerfil.click();		
 		driver.findElement(By.id("chosen-search")).sendKeys(Keys.ENTER);
 		
+		WebElement selecionarExtensaoPerfil = driver.findElement(By.xpath("//li[@id='ui-id-12']"));
+		selecionarExtensaoPerfil.sendKeys("788.993.311-89");		
+		driver.findElement(By.id("chosen-search")).sendKeys(Keys.ENTER);
+
 		
+		
+		//*[@id="modalPerfil_chosen"]/div/div/input
 		//FIM
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		
