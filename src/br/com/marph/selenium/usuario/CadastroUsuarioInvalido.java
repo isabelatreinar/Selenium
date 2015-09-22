@@ -1,4 +1,4 @@
-package br.com.marph.selenium;
+package br.com.marph.selenium.usuario;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,8 +15,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class InativarUsuario {
-	private final String LOG_NAME = "ISABELA";
+public class CadastroUsuarioInvalido {
+
+	private final String LOG_NAME = "RAFAEL";
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 	
@@ -28,9 +29,10 @@ public class InativarUsuario {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 		}
-
+	
 	@Test
-	public void realizaBusca(){			
+	public void realizaBusca(){	
+		
 		
 		log.info("Inicio do teste");
 		
@@ -57,23 +59,38 @@ public class InativarUsuario {
 		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='usuariosMenu']"));
 		menuUsuario.click();		
 		//FIM MENU
+	  WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
+		botaoCadastrar.click();
 		
-		//TODO ACESSAR USUÀRIO com ID
+		WebElement nome = driver.findElement(By.id("usuarioNome"));
+		nome.sendKeys("TESTE");
 		
-		WebElement btnPerfil = driver.findElement(By.id("btnPerfil1"));
-		btnPerfil.click();
+		WebElement cpf = driver.findElement(By.id("usuarioCpf"));
+		cpf.sendKeys("988.993.311-89");
 		
-		WebElement btnInativar = driver.findElement(By.id("btnInativar1"));
-		btnInativar.click();		
+		WebElement telefone = driver.findElement(By.id("usuarioCpf"));
+		telefone.sendKeys("988.993.311-89");	
 		
-		WebElement btnSim = driver.findElement(By.xpath("//button[@class='btn btn-primary btn-sm']"));
-		btnSim.click();
+		WebElement btnAvancar = driver.findElement(By.id("btnSalvar"));
+		btnAvancar.click(); 		 
+		
+		try {
+			if ("Obrigatório!".equals(driver.findElement(By.cssSelector(".text-danger")).getText())) {  
+                System.out.println("Sucesso");  
+			}
+			
+		} catch (Exception e) {
+			
+		}
+		
+		
+		
+
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("Entrada no sistema - ").append(tempoGasto).append(" segundos");
-		
 
 		if(tempoGasto>5000){
 			log.warn(sb.toString());
@@ -81,7 +98,6 @@ public class InativarUsuario {
 			log.info(sb.toString());
 		}
 
-		
 		
 		
 	}

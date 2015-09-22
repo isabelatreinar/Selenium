@@ -1,4 +1,4 @@
-package br.com.marph.selenium;
+package br.com.marph.selenium.base;
 
 import java.util.concurrent.TimeUnit;
 

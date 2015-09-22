@@ -1,4 +1,4 @@
-package br.com.marph.selenium;
+package br.com.marph.selenium.beneficiario;
 
 import java.util.concurrent.TimeUnit;
 
@@ -13,7 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class PesquisarBaseLegalMozilla {
+public class PesquisarBeneficiarioMozilla {
 	private final String LOG_NAME = "RAFAEL";
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);	
@@ -52,36 +52,25 @@ public class PesquisarBaseLegalMozilla {
 		WebElement menuCadastrar = driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,2)']"));
 		menuCadastrar.click(); 
 		
-		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='baseLegalMenu']"));
+		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='beneficiarioMenu']"));
 		menuUsuario.click();
 		
-		//CADASTRO
-		WebElement btnNovoUsu = driver.findElement(By.id("btnNovoUsuario"));
-		btnNovoUsu.click();	
+		//PESQUISAR
 	
-		WebElement tipoBase = driver.findElement(By.id("tipoBaseLegal_chosen"));
-		tipoBase.click();
+		WebElement nome = driver.findElement(By.id("buscaNome"));
+		nome.sendKeys("CONFERÊNCIA DE SÃO VICENTE DE PAULO DE TURMALINA");
 		
-		WebElement procuraTipoBase = driver.findElement(By.xpath("//li[@data-option-array-index='1']"));
-		procuraTipoBase.click();
+		//Selecionar unidade regional
+		WebElement unidadeRegional = driver.findElement(By.id("unidadeRegional_chosen"));
+		unidadeRegional.click();
+		WebElement procuraTipoRegional = driver.findElement(By.xpath("//li[@data-option-array-index='2']"));
+		procuraTipoRegional.click(); 
+		//fim
 		
-		WebElement numero = driver.findElement(By.id("numero"));
-		numero.sendKeys("654456");
+		WebElement btnPesquisar = driver.findElement(By.id("btnPesquisar"));
+		btnPesquisar.click();
 		
-		WebElement data = driver.findElement(By.id("dataPublicacao"));
-		data.click();
-		WebElement dataSeleciona = driver.findElement(By.xpath("//td[@class='day']"));
-		dataSeleciona.click();
-		
-		WebElement anoVigencia = driver.findElement(By.id("dataVigencia_chosen"));
-		anoVigencia.click();
-		
-		WebElement anoVigenciaSeleciona = driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/ul/li[1]"));
-		anoVigenciaSeleciona.click();
-		
-		driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\\rafael.sad\\Downloads\\TESTEEE.pdf");
-		
-		//FIM CADASTRO 
+		//FIM PESQUISAR
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		

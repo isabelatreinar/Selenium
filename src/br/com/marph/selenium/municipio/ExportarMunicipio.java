@@ -1,4 +1,4 @@
-package br.com.marph.selenium;
+package br.com.marph.selenium.municipio;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,8 +15,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ExportarBaseLegal {
-	private final String LOG_NAME = "ISABELA";
+public class ExportarMunicipio {
+	private final String LOG_NAME = "RAFAEL";
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 	
@@ -54,11 +54,11 @@ public class ExportarBaseLegal {
 		WebElement menuCadastrar = driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,2)']"));
 		menuCadastrar.click(); 
 		
-		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='baseLegalMenu']"));
+		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='municipioMenu']"));
 		menuUsuario.click();		
 		//FIM MENU				
 		
-		WebElement btnPerfil = driver.findElement(By.xpath("//button[@data-id-datatable='baseLegalDataTable']"));
+		WebElement btnPerfil = driver.findElement(By.xpath("//button[@data-id-datatable='municipioDataTable']"));
 		btnPerfil.click();	
 		
 
