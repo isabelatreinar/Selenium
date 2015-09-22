@@ -1,4 +1,4 @@
-package br.com.marph.selenium;
+package br.com.marph.selenium.base;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,8 +12,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-public class PesquisarBaseLegal {
 
+public class CadastrarBaseLegalMozilla {
 	private final String LOG_NAME = "RAFAEL";
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);	
@@ -54,11 +54,13 @@ public class PesquisarBaseLegal {
 		
 		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='baseLegalMenu']"));
 		menuUsuario.click();
-		//FIM ENTRADA
 		
-		//PESQUISA
-		WebElement tipo = driver.findElement(By.id("tipoBaseLegal_chosen"));
-		tipo.click();	
+		//CADASTRO
+		WebElement btnNovoUsu = driver.findElement(By.id("btnNovoUsuario"));
+		btnNovoUsu.click();	
+	
+		WebElement tipoBase = driver.findElement(By.id("tipoBaseLegal_chosen"));
+		tipoBase.click();
 		
 		WebElement procuraTipoBase = driver.findElement(By.xpath("//li[@data-option-array-index='1']"));
 		procuraTipoBase.click();
@@ -77,10 +79,9 @@ public class PesquisarBaseLegal {
 		WebElement anoVigenciaSeleciona = driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/ul/li[1]"));
 		anoVigenciaSeleciona.click();
 		
-		WebElement btnPesquisa = driver.findElement(By.id("btnPesquisar"));
-		btnPesquisa.click();
+		driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\\rafael.sad\\Downloads\\TESTEEE.pdf");
 		
-		//FIM PESQUISA
+		//FIM CADASTRO 
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		

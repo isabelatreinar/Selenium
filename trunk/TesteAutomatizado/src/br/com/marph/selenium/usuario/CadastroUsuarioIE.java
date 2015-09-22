@@ -1,5 +1,4 @@
-package br.com.marph.selenium;
-
+package br.com.marph.selenium.usuario;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
@@ -9,20 +8,20 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-  
-public class CadastroUsuarioChrome {
+import org.openqa.selenium.ie.InternetExplorerDriver;
+
+
+public class CadastroUsuarioIE {
 	private final String LOG_NAME = "RAFAEL";
 	private Logger log = LogManager.getLogger(LOG_NAME);
 	
 	
 	@Test
 	public void startBrowser(){		
-		System.setProperty("webdriver.chrome.driver", "C://chromedriver.exe");
-        WebDriver driver = new ChromeDriver();   
-        driver.get("http://www.google.com");        
+		System.setProperty("webdriver.ie.driver", "C://IEDriverServer.exe");
+		WebDriver driver=new InternetExplorerDriver();  
+        driver.get("http://172.16.10.115:8081");        
 		driver.manage().window().maximize();
-		System.err.println("passei pelo menu usuarios");
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);		
 		
 		log.info("Inicio do teste");
@@ -30,11 +29,11 @@ public class CadastroUsuarioChrome {
 		long timestart = System.currentTimeMillis();			
 		
 		System.err.println("passei pelo menu usuarios");
-		WebElement fecharbtn = driver.findElement(By.id("lst-ib"));
+		WebElement fecharbtn = driver.findElement(By.id("closeModalHome"));
 		fecharbtn.click();
 		
-		WebElement nome = driver.findElement(By.id("lst-ib"));
-		nome.sendKeys("Marph");			
+		WebElement btnEntrar = driver.findElement(By.id("btnEntradaSistemaID"));
+		btnEntrar.click();		
 		
 				
 		float tempoGasto = (System.currentTimeMillis() - timestart);

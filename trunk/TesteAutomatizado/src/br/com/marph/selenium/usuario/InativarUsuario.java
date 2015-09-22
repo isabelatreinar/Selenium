@@ -1,4 +1,4 @@
-package br.com.marph.selenium;
+package br.com.marph.selenium.usuario;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,11 +12,14 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class PesquisarBeneficiarioMozilla {
+public class InativarUsuario {
 	private final String LOG_NAME = "RAFAEL";
 	private WebDriver driver;
-	private Logger log = LogManager.getLogger(LOG_NAME);	
+	private Logger log = LogManager.getLogger(LOG_NAME);
+	
 	
 	@Before
 	public void startBrowser(){
@@ -24,16 +27,15 @@ public class PesquisarBeneficiarioMozilla {
 		driver.get("http://172.16.10.115:8081");  
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
-		}	
+		}
 
 	@Test
-	public void realizaCadastro(){			
+	public void realizaBusca(){			
 		
 		log.info("Inicio do teste");
 		
 		long timestart = System.currentTimeMillis();		
 		
-		//ENTRADA
 		WebElement fecharbtn = driver.findElement(By.id("closeModalHome"));
 		fecharbtn.click();
 		
@@ -52,35 +54,35 @@ public class PesquisarBeneficiarioMozilla {
 		WebElement menuCadastrar = driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,2)']"));
 		menuCadastrar.click(); 
 		
-		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='beneficiarioMenu']"));
-		menuUsuario.click();
+		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='usuariosMenu']"));
+		menuUsuario.click();		
+		//FIM MENU
 		
-		//PESQUISAR
-	
-		WebElement nome = driver.findElement(By.id("buscaNome"));
-		nome.sendKeys("CONFERÊNCIA DE SÃO VICENTE DE PAULO DE TURMALINA");
+		//TODO ACESSAR USUÀRIO com ID
 		
-		//Selecionar unidade regional
-		WebElement unidadeRegional = driver.findElement(By.id("unidadeRegional_chosen"));
-		unidadeRegional.click();
-		WebElement procuraTipoRegional = driver.findElement(By.xpath("//li[@data-option-array-index='2']"));
-		procuraTipoRegional.click(); 
-		//fim
+		WebElement btnPerfil = driver.findElement(By.id("btnPerfil1"));
+		btnPerfil.click();
 		
-		WebElement btnPesquisar = driver.findElement(By.id("btnPesquisar"));
-		btnPesquisar.click();
+		WebElement btnInativar = driver.findElement(By.id("btnInativar1"));
+		btnInativar.click();		
 		
-		//FIM PESQUISAR
-		
+		WebElement btnSim = driver.findElement(By.xpath("//button[@class='btn btn-primary btn-sm']"));
+		btnSim.click();
+
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("Entrada no sistema - ").append(tempoGasto).append(" segundos");
-	
+		
+
 		if(tempoGasto>5000){
 			log.warn(sb.toString());
 		}else{
 			log.info(sb.toString());
-		}		
+		}
+
+		
+		
+		
 	}
 }

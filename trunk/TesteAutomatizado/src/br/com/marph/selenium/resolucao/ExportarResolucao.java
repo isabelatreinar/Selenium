@@ -1,4 +1,4 @@
-package br.com.marph.selenium;
+package br.com.marph.selenium.resolucao;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,8 +15,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ExportarUsuarios {
-	private final String LOG_NAME = "ISABELA";
+public class ExportarResolucao {
+	private final String LOG_NAME = "RAFAEL";
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 	
@@ -54,11 +54,11 @@ public class ExportarUsuarios {
 		WebElement menuCadastrar = driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,2)']"));
 		menuCadastrar.click(); 
 		
-		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='usuariosMenu']"));
+		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='resolucaoMenu']"));
 		menuUsuario.click();		
 		//FIM MENU				
 		
-		WebElement btnPerfil = driver.findElement(By.xpath("//button[@data-id-datatable='usuarioDataTable']"));
+		WebElement btnPerfil = driver.findElement(By.xpath("//button[@data-id-datatable='baseLegalDataTable']"));
 		btnPerfil.click();	
 		
 
@@ -72,10 +72,6 @@ public class ExportarUsuarios {
 			log.warn(sb.toString());
 		}else{
 			log.info(sb.toString());
-		}
-
-		
-		
-		
+		}		
 	}
 }
