@@ -59,33 +59,68 @@ public class CadastroUsuarioInvalido {
 		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='usuariosMenu']"));
 		menuUsuario.click();		
 		//FIM MENU
-	  WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
-		botaoCadastrar.click();
 		
-		WebElement nome = driver.findElement(By.id("usuarioNome"));
-		nome.sendKeys("TESTE");
+		WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
+		botaoCadastrar.click();	
 		
 		WebElement cpf = driver.findElement(By.id("usuarioCpf"));
-		cpf.sendKeys("988.993.311-89");
-		
-		WebElement telefone = driver.findElement(By.id("usuarioCpf"));
-		telefone.sendKeys("988.993.311-89");	
+		cpf.sendKeys("788.993.311-89");
+		cpf.sendKeys("788.993.311-89");
 		
 		WebElement btnAvancar = driver.findElement(By.id("btnSalvar"));
 		btnAvancar.click(); 		 
-		
-		try {
-			if ("Obrigatório!".equals(driver.findElement(By.cssSelector(".text-danger")).getText())) {  
-                System.out.println("Sucesso");  
+			
+			//VALIDAÇÂO
+			if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='usuarioNome_label']/label/span")).getText())){			
+				WebElement nome = driver.findElement(By.id("usuarioNome"));
+				nome.sendKeys("TESTE");
+				log.info("1");
 			}
 			
-		} catch (Exception e) {
+			if("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='usuarioCpf_label']/label/span")).getText())){				
+				log.info("2"); 
+			}
 			
-		}
-		
-		
-		
-
+			if("CPF inválido!".equals(driver.findElement(By.xpath("//*[@id='usuarioCpf_label']/label/span")).getText())){
+				WebElement cpf3 = driver.findElement(By.id("usuarioCpf"));
+				cpf3.clear();
+				cpf3.sendKeys("303.642.297-80");
+				cpf3.sendKeys("303.642.297-80");
+			}
+			
+			if("CPF já cadastrado.".equals(driver.findElement(By.xpath("//*[@id='usuarioCpf_label']/label/span")).getText())){
+				WebElement cpf3 = driver.findElement(By.id("usuarioCpf"));
+				cpf3.clear();
+				cpf3.sendKeys("196.516.366-10");
+				cpf3.sendKeys("196.516.366-10");
+			}
+			//FIM VALIDAÇÃO	
+			WebElement btnAvancar1 = driver.findElement(By.id("btnSalvar"));
+			btnAvancar1.click();
+			
+			WebElement btnSalvar = driver.findElement(By.id("btnSalvar"));
+			btnSalvar.click();
+			
+			//VALIDAÇÂO
+			if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='modalPerfil_label']/label/span")).getText())){			
+				WebElement perfil = driver.findElement(By.id("modalPerfil_chosen"));
+				perfil.click();				
+				
+				WebElement selecionarPerfil = driver.findElement(By.xpath("//li[@data-option-array-index='3']"));
+				selecionarPerfil.click();				
+			}
+			//FIM
+			
+			WebElement extensao = driver.findElement(By.id("modalExtensaoPerfilId"));
+			extensao.sendKeys("uni");
+			WebElement extensaoSeleciona = driver.findElement(By.id("ui-id-2"));
+			extensaoSeleciona.click();
+			
+			WebElement salvar = driver.findElement(By.id("btnSalvar"));
+			salvar.click();
+			
+			WebElement voltar = driver.findElement(By.id("btnVoltar"));
+			voltar.click();
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		
