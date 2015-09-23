@@ -32,7 +32,7 @@ public class ExportarResolucao {
 	@Test
 	public void realizaBusca(){			
 		
-		log.info("Inicio do teste");
+		log.info("Inicio do teste - Exportar resolução");
 		
 		long timestart = System.currentTimeMillis();		
 		
@@ -58,20 +58,21 @@ public class ExportarResolucao {
 		menuUsuario.click();		
 		//FIM MENU				
 		
-		WebElement btnPerfil = driver.findElement(By.xpath("//button[@data-id-datatable='baseLegalDataTable']"));
-		btnPerfil.click();	
+		WebElement btnExportar = driver.findElement(By.xpath("//button[@data-id-datatable='resolucaoDataTable']"));
+		btnExportar.click();	
 		
 
-		float tempoGasto = (System.currentTimeMillis() - timestart);
+		float tempoGasto = (System.currentTimeMillis() - timestart );
+		float tempoSegundos = tempoGasto/1000;
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoGasto).append(" segundos");
-		
-
-		if(tempoGasto>5000){
-			log.warn(sb.toString());
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
+	
+		if(tempoSegundos>5000){
+			log.warn(sb.toString()+"\n");
 		}else{
-			log.info(sb.toString());
+			log.info(sb.toString()+"\n");
 		}		
-	}
+	}	
+	
 }

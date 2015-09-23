@@ -29,7 +29,7 @@ public class CadastrarBaseLegalMozilla {
 	@Test
 	public void realizaCadastro(){			
 		
-		log.info("Inicio do teste");
+		log.info("Inicio do teste - cadastrar base legal");
 		
 		long timestart = System.currentTimeMillis();		
 		
@@ -59,11 +59,10 @@ public class CadastrarBaseLegalMozilla {
 		WebElement btnNovoUsu = driver.findElement(By.id("btnNovoUsuario"));
 		btnNovoUsu.click();	
 	
-		WebElement tipoBase = driver.findElement(By.id("tipoBaseLegal_chosen"));
-		tipoBase.click();
-		
+		/*WebElement tipoBase = driver.findElement(By.id("tipoBaseLegal_chosen"));
+		tipoBase.click();		
 		WebElement procuraTipoBase = driver.findElement(By.xpath("//li[@data-option-array-index='1']"));
-		procuraTipoBase.click();
+		procuraTipoBase.click();*/
 		
 		WebElement numero = driver.findElement(By.id("numero"));
 		numero.sendKeys("654456");
@@ -81,17 +80,25 @@ public class CadastrarBaseLegalMozilla {
 		
 		driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\\rafael.sad\\Downloads\\TESTEEE.pdf");
 		
+		WebElement salvar = driver.findElement(By.id("btnSalvar"));
+		salvar.click();		
 		//FIM CADASTRO 
 		
-		float tempoGasto = (System.currentTimeMillis() - timestart);
+		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='tipoBaseLegal_label']/label/span")).getText())){			
+			log.info("Campo de Tipo estava em branco - Obrigatório");
+		}
+		
+		float tempoGasto = (System.currentTimeMillis() - timestart );
+		float tempoSegundos = tempoGasto/1000;
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoGasto).append(" segundos");
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
 	
-		if(tempoGasto>5000){
-			log.warn(sb.toString());
+		if(tempoSegundos>5000){
+			log.warn(sb.toString()+"\n");
 		}else{
-			log.info(sb.toString());
+			log.info(sb.toString()+"\n");
 		}		
+		
 	}
 }

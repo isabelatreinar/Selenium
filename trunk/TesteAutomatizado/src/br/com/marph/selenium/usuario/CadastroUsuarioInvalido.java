@@ -33,8 +33,7 @@ public class CadastroUsuarioInvalido {
 	@Test
 	public void realizaBusca(){	
 		
-		
-		log.info("Inicio do teste");
+		log.info("Inicio do teste - Cadastro usuarios invalidos");
 		
 		long timestart = System.currentTimeMillis();		
 		
@@ -63,43 +62,45 @@ public class CadastroUsuarioInvalido {
 		WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
 		botaoCadastrar.click();	
 		
+		WebElement nome = driver.findElement(By.id("usuarioNome"));
+		nome.sendKeys("TESTE");
+		
 		WebElement cpf = driver.findElement(By.id("usuarioCpf"));
-		cpf.sendKeys("788.993.311-89");
-		cpf.sendKeys("788.993.311-89");
+		cpf.sendKeys("-78899331189");
+		
+		WebElement cargo = driver.findElement(By.id("cargo_chosen"));
+		cargo.click();
+		
+		WebElement selecionarCargo = driver.findElement(By.xpath("//li[@data-option-array-index='3']"));
+		selecionarCargo.click();
 		
 		WebElement btnAvancar = driver.findElement(By.id("btnSalvar"));
 		btnAvancar.click(); 		 
 			
 			//VALIDAÇÂO
 			if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='usuarioNome_label']/label/span")).getText())){			
-				WebElement nome = driver.findElement(By.id("usuarioNome"));
-				nome.sendKeys("TESTE");
-				log.info("1");
+				log.info("Campo de nome estava em branco - Obrigatório");
 			}
 			
 			if("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='usuarioCpf_label']/label/span")).getText())){				
-				log.info("2"); 
+				log.info("Campo CPF estava em branco - Obrigatório"); 
 			}
 			
 			if("CPF inválido!".equals(driver.findElement(By.xpath("//*[@id='usuarioCpf_label']/label/span")).getText())){
-				WebElement cpf3 = driver.findElement(By.id("usuarioCpf"));
-				cpf3.clear();
-				cpf3.sendKeys("303.642.297-80");
-				cpf3.sendKeys("303.642.297-80");
+				log.info("CPF inválido");
 			}
 			
 			if("CPF já cadastrado.".equals(driver.findElement(By.xpath("//*[@id='usuarioCpf_label']/label/span")).getText())){
-				WebElement cpf3 = driver.findElement(By.id("usuarioCpf"));
-				cpf3.clear();
-				cpf3.sendKeys("196.516.366-10");
-				cpf3.sendKeys("196.516.366-10");
+				log.info("CPF já cadastrado");
 			}
+			
+			if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='cargo_label']/label/span")).getText())){			
+				log.info("Campo de cargo estava em branco - Obrigatório");
+			}
+			
 			//FIM VALIDAÇÃO	
 			WebElement btnAvancar1 = driver.findElement(By.id("btnSalvar"));
 			btnAvancar1.click();
-			
-			WebElement btnSalvar = driver.findElement(By.id("btnSalvar"));
-			btnSalvar.click();
 			
 			//VALIDAÇÂO
 			if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='modalPerfil_label']/label/span")).getText())){			
@@ -122,17 +123,17 @@ public class CadastroUsuarioInvalido {
 			WebElement voltar = driver.findElement(By.id("btnVoltar"));
 			voltar.click();
 
-		float tempoGasto = (System.currentTimeMillis() - timestart);
+			float tempoGasto = (System.currentTimeMillis() - timestart );
+			float tempoSegundos = tempoGasto/1000;
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
 		
-		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoGasto).append(" segundos");
-
-		if(tempoGasto>5000){
-			log.warn(sb.toString());
-		}else{
-			log.info(sb.toString());
-		}
-
+			if(tempoSegundos>5000){
+				log.warn(sb.toString()+"\n");
+			}else{
+				log.info(sb.toString()+"\n");
+			}		
 		
 		
 	}

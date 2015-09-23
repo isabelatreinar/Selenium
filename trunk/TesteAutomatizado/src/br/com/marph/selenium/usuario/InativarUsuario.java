@@ -32,7 +32,7 @@ public class InativarUsuario {
 	@Test
 	public void realizaBusca(){			
 		
-		log.info("Inicio do teste");
+		log.info("Inicio do teste - Inativar Usuario");
 		
 		long timestart = System.currentTimeMillis();		
 		
@@ -55,10 +55,16 @@ public class InativarUsuario {
 		menuCadastrar.click(); 
 		
 		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='usuariosMenu']"));
-		menuUsuario.click();		
+		menuUsuario.click();
 		//FIM MENU
 		
-		//TODO ACESSAR USUÀRIO com ID
+		String idUsuario = "rowId2163";
+		
+		WebElement selecionarUsuario = driver.findElement(By.id(idUsuario));
+		selecionarUsuario.click();
+		
+		WebElement Usuario = driver.findElement(By.xpath("//*[@id='"+idUsuario+"']/td[2]"));
+		Usuario.click();
 		
 		WebElement btnPerfil = driver.findElement(By.id("btnPerfil1"));
 		btnPerfil.click();
@@ -69,20 +75,16 @@ public class InativarUsuario {
 		WebElement btnSim = driver.findElement(By.xpath("//button[@class='btn btn-primary btn-sm']"));
 		btnSim.click();
 
-		float tempoGasto = (System.currentTimeMillis() - timestart);
+		float tempoGasto = (System.currentTimeMillis() - timestart );
+		float tempoSegundos = tempoGasto/1000;
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoGasto).append(" segundos");
-		
-
-		if(tempoGasto>5000){
-			log.warn(sb.toString());
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
+	
+		if(tempoSegundos>5000){
+			log.warn(sb.toString()+"\n");
 		}else{
-			log.info(sb.toString());
-		}
-
-		
-		
-		
+			log.info(sb.toString()+"\n");
+		}		
 	}
 }

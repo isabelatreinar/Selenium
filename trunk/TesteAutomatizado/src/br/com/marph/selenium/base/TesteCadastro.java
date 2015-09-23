@@ -1,4 +1,4 @@
-package br.com.marph.selenium.municipio;
+package br.com.marph.selenium.base;
 
 import java.util.concurrent.TimeUnit;
 
@@ -13,8 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-
-public class PesquisarMunicipio {
+public class TesteCadastro {
 	private final String LOG_NAME = "RAFAEL";
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);	
@@ -30,7 +29,7 @@ public class PesquisarMunicipio {
 	@Test
 	public void realizaCadastro(){			
 		
-		log.info("Inicio do teste - pesquisar municipio");
+		log.info("Inicio do teste");
 		
 		long timestart = System.currentTimeMillis();		
 		
@@ -53,37 +52,46 @@ public class PesquisarMunicipio {
 		WebElement menuCadastrar = driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,2)']"));
 		menuCadastrar.click(); 
 		
-		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='municipioMenu']"));
+		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='baseLegalMenu']"));
 		menuUsuario.click();
 		
-		//PESQUISAR
+		//CADASTRO
+		WebElement btnNovoUsu = driver.findElement(By.id("btnNovoUsuario"));
+		btnNovoUsu.click();	
 	
-		WebElement nome = driver.findElement(By.id("nome"));
-		nome.sendKeys("BARBACENA");
+		WebElement tipoBase = driver.findElement(By.id("tipoBaseLegal_chosen"));
+		tipoBase.click();
 		
-		//Selecionar unidade regional
-		WebElement unidadeRegional = driver.findElement(By.id("unidadeRegional_chosen"));
-		unidadeRegional.click();
-		WebElement procuraTipoRegional = driver.findElement(By.xpath("//li[@data-option-array-index='2']"));
-		procuraTipoRegional.click(); 
-		//fim
+		WebElement procuraTipoBase = driver.findElement(By.xpath("//li[@data-option-array-index='1']"));
+		procuraTipoBase.click();
 		
-		WebElement btnPesquisar = driver.findElement(By.id("btnPesquisar"));
-		btnPesquisar.click();
+		WebElement numero = driver.findElement(By.id("numero"));
+		numero.sendKeys("654456");
 		
-		//FIM PESQUISAR
+		WebElement data = driver.findElement(By.id("dataPublicacao"));
+		data.click();
+		WebElement dataSeleciona = driver.findElement(By.xpath("//td[@class='day']"));
+		dataSeleciona.click();
 		
-		float tempoGasto = (System.currentTimeMillis() - timestart );
-		float tempoSegundos = tempoGasto/1000;
+		WebElement anoVigencia = driver.findElement(By.id("dataVigencia_chosen"));
+		anoVigencia.click();
+		
+		WebElement anoVigenciaSeleciona = driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/ul/li[1]"));
+		anoVigenciaSeleciona.click();
+		
+		driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\\rafael.sad\\Downloads\\TESTEEE.pdf");
+		
+		//FIM CADASTRO 
+		
+		float tempoGasto = (System.currentTimeMillis() - timestart);
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
+		sb.append("Entrada no sistema - ").append(tempoGasto).append(" segundos");
 	
-		if(tempoSegundos>5000){
-			log.warn(sb.toString()+"\n");
+		if(tempoGasto>5000){
+			log.warn(sb.toString());
 		}else{
-			log.info(sb.toString()+"\n");
+			log.info(sb.toString());
 		}		
 	}
 }
-
