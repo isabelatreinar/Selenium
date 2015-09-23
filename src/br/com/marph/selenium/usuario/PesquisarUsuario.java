@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.Select;
   
 public class PesquisarUsuario{
 
-	private final String LOG_NAME = "ISABELA";
+	private final String LOG_NAME = "RAFAEL";
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 	
@@ -23,6 +23,8 @@ public class PesquisarUsuario{
 	@Before
 	public void startBrowser(){
 		driver = new FirefoxDriver();
+		driver.get("http://172.16.10.115:8081");
+		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 
 	
@@ -35,12 +37,32 @@ public class PesquisarUsuario{
 	
 	@Test
 	public void PesquisarUsuario(){
-		log.info("Inicio do teste");
+		log.info("Inicio do teste - Pesquisar usuario");
 		
 		long timestart = System.currentTimeMillis();
 		
-		driver.get("http://172.16.10.115:8083/usuario/crud/usuarioListagem");
-
+		WebElement fecharbtn = driver.findElement(By.id("closeModalHome"));
+		fecharbtn.click();
+		
+		WebElement btnEntrar = driver.findElement(By.id("btnEntradaSistemaID"));
+		btnEntrar.click();
+		
+		WebElement btnAcessar = driver.findElement(By.id("btnAcessar"));
+		btnAcessar.click();
+		
+		WebElement btnConfirmar = driver.findElement(By.id("confirmarDados"));
+		btnConfirmar.click();
+		
+		WebElement btnAcessarSist = driver.findElement(By.id("acessarSistema"));
+		btnAcessarSist.click();			
+		
+		WebElement menuCadastrar = driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,2)']"));
+		menuCadastrar.click(); 
+		
+		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='usuariosMenu']"));
+		menuUsuario.click();
+		//FIM MENU
+		
 		WebElement nome = driver.findElement(By.id("nome"));
 		nome.sendKeys("Isabela");
 		
@@ -57,23 +79,21 @@ public class PesquisarUsuario{
 		WebElement botaoPesquisar = driver.findElement(By.id("btnPesquisar"));
 		botaoPesquisar.click();
 		
-		float tempoGasto = (System.currentTimeMillis() - timestart);
+		float tempoGasto = (System.currentTimeMillis() - timestart );
+		float tempoSegundos = tempoGasto/1000;
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoGasto).append(" segundos");
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
+	
+		if(tempoSegundos>5000){
+			log.warn(sb.toString()+"\n");
+		}else{
+			log.info(sb.toString()+"\n");
+		}		
 		
 /*		sb.append("Entrada no sistema - ");
 		sb.append(tempoGasto);
 		sb.append("segundos");*/
-		
-		if(tempoGasto>5000){
-			log.warn(sb.toString());
-		}else{
-			log.info(sb.toString());
-		}
-
-		/*teste*/
-		
 		
 	}
 }

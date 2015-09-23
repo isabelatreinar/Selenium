@@ -32,7 +32,7 @@ public class ExportarMunicipio {
 	@Test
 	public void realizaBusca(){			
 		
-		log.info("Inicio do teste");
+		log.info("Inicio do teste - Exportar municipios");
 		
 		long timestart = System.currentTimeMillis();		
 		
@@ -62,16 +62,18 @@ public class ExportarMunicipio {
 		btnPerfil.click();	
 		
 
-		float tempoGasto = (System.currentTimeMillis() - timestart);
+		float tempoGasto = (System.currentTimeMillis() - timestart );
+		float tempoSegundos = tempoGasto/1000;
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoGasto).append(" segundos");
-		
-
-		if(tempoGasto>5000){
-			log.warn(sb.toString());
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
+	
+		if(tempoSegundos>5000){
+			log.warn(sb.toString()+"\n");
 		}else{
-			log.info(sb.toString());
+			log.info(sb.toString()+"\n");
 		}		
+		
+	
 	}
 }

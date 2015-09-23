@@ -17,7 +17,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
   
 public class CadastrarUsuarioMozilla{
 
-	private final String LOG_NAME = "ISABELA";
+	private final String LOG_NAME = "RAFAEL";
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 	
@@ -39,7 +39,7 @@ public class CadastrarUsuarioMozilla{
 	public void realizaBusca(){	
 		
 		
-		log.info("Inicio do teste");
+		log.info("Inicio do teste - cadastrar usuarios");
 		
 		long timestart = System.currentTimeMillis();		
 		
@@ -74,10 +74,13 @@ public class CadastrarUsuarioMozilla{
 		email.sendKeys("ana@gmail.com");
 		
 		WebElement cpf = driver.findElement(By.id("usuarioCpf"));
-		cpf.sendKeys("788.993.311-89");
+		cpf.sendKeys("-48121366283");
 		
-		WebElement telefone = driver.findElement(By.id("usuarioCpf"));
-		telefone.sendKeys("788.993.311-89");	
+		WebElement cargo = driver.findElement(By.id("cargo_chosen"));
+		cargo.click();
+		
+		WebElement selecionarCargo = driver.findElement(By.xpath("//li[@data-option-array-index='3']"));
+		selecionarCargo.click();
 		
 		WebElement btnAvancar = driver.findElement(By.id("btnSalvar"));
 		btnAvancar.click(); 		 
@@ -91,7 +94,7 @@ public class CadastrarUsuarioMozilla{
 		
 		WebElement extensao = driver.findElement(By.id("modalExtensaoPerfilId"));
 		extensao.sendKeys("uni");
-		WebElement extensaoSeleciona = driver.findElement(By.id("ui-id-1"));
+		WebElement extensaoSeleciona = driver.findElement(By.id("ui-id-2"));
 		extensaoSeleciona.click();
 		
 		WebElement salvar = driver.findElement(By.id("btnSalvar"));
@@ -101,22 +104,22 @@ public class CadastrarUsuarioMozilla{
 		
 		//*[@id="modalPerfil_chosen"]/div/div/input
 		//FIM
-		float tempoGasto = (System.currentTimeMillis() - timestart);
+		
+		float tempoGasto = (System.currentTimeMillis() - timestart );
+		float tempoSegundos = tempoGasto/1000;
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoGasto).append(" segundos");
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
+	
+		if(tempoSegundos>5000){
+			log.warn(sb.toString()+"\n");
+		}else{
+			log.info(sb.toString()+"\n");
+		}		
 		
 /*		sb.append("Entrada no sistema - ");
 		sb.append(tempoGasto);
 		sb.append("segundos");*/
-		
-		if(tempoGasto>5000){
-			log.warn(sb.toString());
-		}else{
-			log.info(sb.toString());
-		}
-
-		/*teste*/
 		
 		
 	}

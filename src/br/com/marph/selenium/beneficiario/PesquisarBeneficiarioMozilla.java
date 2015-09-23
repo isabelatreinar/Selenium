@@ -29,7 +29,7 @@ public class PesquisarBeneficiarioMozilla {
 	@Test
 	public void realizaCadastro(){			
 		
-		log.info("Inicio do teste");
+		log.info("Inicio do teste Pesquisa Beneficiario");
 		
 		long timestart = System.currentTimeMillis();		
 		
@@ -72,15 +72,16 @@ public class PesquisarBeneficiarioMozilla {
 		
 		//FIM PESQUISAR
 		
-		float tempoGasto = (System.currentTimeMillis() - timestart);
+		float tempoGasto = (System.currentTimeMillis() - timestart );
+		float tempoSegundos = tempoGasto/1000;
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoGasto).append(" segundos");
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
 	
-		if(tempoGasto>5000){
-			log.warn(sb.toString());
+		if(tempoSegundos>5000){
+			log.warn(sb.toString()+"\n");
 		}else{
-			log.info(sb.toString());
-		}		
+			log.info(sb.toString()+"\n");
+		}	
 	}
 }
