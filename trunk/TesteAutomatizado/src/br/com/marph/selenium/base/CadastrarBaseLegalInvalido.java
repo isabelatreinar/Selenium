@@ -104,7 +104,7 @@ public class CadastrarBaseLegalInvalido {
 			log.info("Campo PDF em branco - Obrigatório");
 		}
 		
-		//FIM CADASTRO 
+		//FIM CADASTROo
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart );
 		float tempoSegundos = tempoGasto/1000;
