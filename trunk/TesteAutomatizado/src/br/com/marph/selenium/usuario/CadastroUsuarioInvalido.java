@@ -4,16 +4,14 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import br.com.marph.selenium.conexao.Conexao;
 
 public class CadastroUsuarioInvalido {
 
@@ -25,7 +23,7 @@ public class CadastroUsuarioInvalido {
 	@Before
 	public void startBrowser(){
 		driver = new FirefoxDriver();
-		driver.get("http://172.16.10.115:8081");  
+		Conexao.ip(driver);  
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 		}
