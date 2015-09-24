@@ -12,6 +12,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.marph.selenium.conexao.Conexao;
+
 public class CadastrarBaseLegalInvalido {
 	private final String LOG_NAME = "RAFAEL";
 	private WebDriver driver;
@@ -20,7 +22,7 @@ public class CadastrarBaseLegalInvalido {
 	@Before
 	public void startBrowser(){
 		driver = new FirefoxDriver();
-		driver.get("http://172.16.10.115:8081");  
+		Conexao.ip(driver);  
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 		}	

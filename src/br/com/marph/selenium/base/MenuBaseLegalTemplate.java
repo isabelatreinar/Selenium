@@ -29,5 +29,6 @@ public class MenuBaseLegalTemplate {
 		
 		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='baseLegalMenu']"));
 		menuUsuario.click();
-	}			
+	}		
+		
 }
