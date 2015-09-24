@@ -4,16 +4,14 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import br.com.marph.selenium.beneficiario.MenuBeneficiarioTemplate;
 
 public class ExportarMunicipio {
 	private final String LOG_NAME = "RAFAEL";
@@ -34,34 +32,12 @@ public class ExportarMunicipio {
 		
 		log.info("Inicio do teste - Exportar municipios");
 		
-		long timestart = System.currentTimeMillis();		
+		MenuMunicipioTemplate.prepararAcessoBaseLegal(driver);
 		
-		WebElement fecharbtn = driver.findElement(By.id("closeModalHome"));
-		fecharbtn.click();
+		long timestart = System.currentTimeMillis();
 		
-		WebElement btnEntrar = driver.findElement(By.id("btnEntradaSistemaID"));
-		btnEntrar.click();
+		exportar();			
 		
-		WebElement btnAcessar = driver.findElement(By.id("btnAcessar"));
-		btnAcessar.click();
-		
-		WebElement btnConfirmar = driver.findElement(By.id("confirmarDados"));
-		btnConfirmar.click();
-		
-		WebElement btnAcessarSist = driver.findElement(By.id("acessarSistema"));
-		btnAcessarSist.click();			
-		
-		WebElement menuCadastrar = driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,2)']"));
-		menuCadastrar.click(); 
-		
-		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='municipioMenu']"));
-		menuUsuario.click();		
-		//FIM MENU				
-		
-		WebElement btnPerfil = driver.findElement(By.xpath("//button[@data-id-datatable='municipioDataTable']"));
-		btnPerfil.click();	
-		
-
 		float tempoGasto = (System.currentTimeMillis() - timestart );
 		float tempoSegundos = tempoGasto/1000;
 		
@@ -73,7 +49,10 @@ public class ExportarMunicipio {
 		}else{
 			log.info(sb.toString()+"\n");
 		}		
-		
-	
+	}
+
+	private void exportar() {
+		WebElement btnPerfil = driver.findElement(By.xpath("//button[@data-id-datatable='municipioDataTable']"));
+		btnPerfil.click();
 	}
 }
