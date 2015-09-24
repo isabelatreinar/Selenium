@@ -38,30 +38,39 @@ public class EditarUsuario {
 		
 		long timestart = System.currentTimeMillis();		
 		
-		//MENU
-		WebElement fecharbtn = driver.findElement(By.id("closeModalHome"));
-		fecharbtn.click();
+		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);
 		
-		WebElement btnEntrar = driver.findElement(By.id("btnEntradaSistemaID"));
-		btnEntrar.click();
+		cadastrar();
 		
-		WebElement btnAcessar = driver.findElement(By.id("btnAcessar"));
-		btnAcessar.click();
+		validacao();
+
+		float tempoGasto = (System.currentTimeMillis() - timestart );
+		float tempoSegundos = tempoGasto/1000;
 		
-		WebElement btnConfirmar = driver.findElement(By.id("confirmarDados"));
-		btnConfirmar.click();
+		StringBuilder sb = new StringBuilder();
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
+	
+		if(tempoSegundos>5000){
+			log.warn(sb.toString()+"\n");
+		}else{
+			log.info(sb.toString()+"\n");
+		}		
 		
-		WebElement btnAcessarSist = driver.findElement(By.id("acessarSistema"));
-		btnAcessarSist.click();			
+	}
+
+
+	private void validacao() {
+		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='usuarioNome_label']/label/span")).getText())){			
+			log.info("Campo de nome estava em branco - Obrigatório");
+		}
 		
-		WebElement menuCadastrar = driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,2)']"));
-		menuCadastrar.click(); 
-		
-		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='usuariosMenu']"));
-		menuUsuario.click();		
-		//FIM MENU
-		
-		//EDIÇÂO
+		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='cargo_label']/label/span")).getText())){			
+			log.info("Campo de cargo estava em branco - Obrigatório");
+		}
+	}
+
+
+	private void cadastrar() {
 		String idUsuario = "rowId2159";
 		
 		WebElement selecionarUsuario = driver.findElement(By.id(idUsuario));
@@ -85,27 +94,5 @@ public class EditarUsuario {
 		
 		WebElement salvar = driver.findElement(By.id("btnSalvar"));
 		salvar.click();
-		
-		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='usuarioNome_label']/label/span")).getText())){			
-			log.info("Campo de nome estava em branco - Obrigatório");
-		}
-		
-		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='cargo_label']/label/span")).getText())){			
-			log.info("Campo de cargo estava em branco - Obrigatório");
-		}
-		
-		//FIM
-		float tempoGasto = (System.currentTimeMillis() - timestart );
-		float tempoSegundos = tempoGasto/1000;
-		
-		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
-	
-		if(tempoSegundos>5000){
-			log.warn(sb.toString()+"\n");
-		}else{
-			log.info(sb.toString()+"\n");
-		}		
-		
 	}
 }

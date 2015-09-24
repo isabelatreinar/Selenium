@@ -43,28 +43,50 @@ public class CadastrarUsuarioMozilla{
 		
 		long timestart = System.currentTimeMillis();		
 		
-		WebElement fecharbtn = driver.findElement(By.id("closeModalHome"));
-		fecharbtn.click();
+		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);		
 		
-		WebElement btnEntrar = driver.findElement(By.id("btnEntradaSistemaID"));
-		btnEntrar.click();
+		cadastro();
 		
-		WebElement btnAcessar = driver.findElement(By.id("btnAcessar"));
-		btnAcessar.click();
 		
-		WebElement btnConfirmar = driver.findElement(By.id("confirmarDados"));
-		btnConfirmar.click();
+		testar();		
 		
-		WebElement btnAcessarSist = driver.findElement(By.id("acessarSistema"));
-		btnAcessarSist.click();			
+		//*[@id="modalPerfil_chosen"]/div/div/input
+		//FIM
 		
-		WebElement menuCadastrar = driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,2)']"));
-		menuCadastrar.click(); 
+		float tempoGasto = (System.currentTimeMillis() - timestart );
+		float tempoSegundos = tempoGasto/1000;
 		
-		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='usuariosMenu']"));
-		menuUsuario.click();		
+		StringBuilder sb = new StringBuilder();
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
+	
+		if(tempoSegundos>5000){
+			log.warn(sb.toString()+"\n");
+		}else{
+			log.info(sb.toString()+"\n");
+		}		
 		
-	  WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
+/*		sb.append("Entrada no sistema - ");
+		sb.append(tempoGasto);
+		sb.append("segundos");*/
+		
+		
+	}
+
+	private void testar() {
+		WebElement selecionarPerfil = driver.findElement(By.xpath("//li[@data-option-array-index='3']"));
+		selecionarPerfil.click();				
+		
+		WebElement extensao = driver.findElement(By.id("modalExtensaoPerfilId"));
+		extensao.sendKeys("uni");
+		WebElement extensaoSeleciona = driver.findElement(By.id("ui-id-2"));
+		extensaoSeleciona.click();
+		
+		WebElement salvar = driver.findElement(By.id("btnSalvar"));
+		salvar.click();
+	}
+
+	private void cadastro() {
+	WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
 		botaoCadastrar.click();
 		
 		WebElement nome = driver.findElement(By.id("usuarioNome"));
@@ -87,41 +109,6 @@ public class CadastrarUsuarioMozilla{
 		
 		WebElement perfil = driver.findElement(By.id("modalPerfil_chosen"));
 		perfil.click();
-		
-		//TESTAR A BAIXO
-		WebElement selecionarPerfil = driver.findElement(By.xpath("//li[@data-option-array-index='3']"));
-		selecionarPerfil.click();				
-		
-		WebElement extensao = driver.findElement(By.id("modalExtensaoPerfilId"));
-		extensao.sendKeys("uni");
-		WebElement extensaoSeleciona = driver.findElement(By.id("ui-id-2"));
-		extensaoSeleciona.click();
-		
-		WebElement salvar = driver.findElement(By.id("btnSalvar"));
-		salvar.click();
-
-		
-		
-		//*[@id="modalPerfil_chosen"]/div/div/input
-		//FIM
-		
-		float tempoGasto = (System.currentTimeMillis() - timestart );
-		float tempoSegundos = tempoGasto/1000;
-		
-		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
-	
-		if(tempoSegundos>5000){
-			log.warn(sb.toString()+"\n");
-		}else{
-			log.info(sb.toString()+"\n");
-		}		
-		
-/*		sb.append("Entrada no sistema - ");
-		sb.append(tempoGasto);
-		sb.append("segundos");*/
-		
-		
 	}
 }
 

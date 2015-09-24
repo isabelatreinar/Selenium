@@ -36,31 +36,9 @@ public class ExportarResolucao {
 		
 		long timestart = System.currentTimeMillis();		
 		
-		WebElement fecharbtn = driver.findElement(By.id("closeModalHome"));
-		fecharbtn.click();
+		MenuResolucaoTemplate.prepararAcessoBaseLegal(driver);
 		
-		WebElement btnEntrar = driver.findElement(By.id("btnEntradaSistemaID"));
-		btnEntrar.click();
-		
-		WebElement btnAcessar = driver.findElement(By.id("btnAcessar"));
-		btnAcessar.click();
-		
-		WebElement btnConfirmar = driver.findElement(By.id("confirmarDados"));
-		btnConfirmar.click();
-		
-		WebElement btnAcessarSist = driver.findElement(By.id("acessarSistema"));
-		btnAcessarSist.click();			
-		
-		WebElement menuCadastrar = driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,2)']"));
-		menuCadastrar.click(); 
-		
-		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='resolucaoMenu']"));
-		menuUsuario.click();		
-		//FIM MENU				
-		
-		WebElement btnExportar = driver.findElement(By.xpath("//button[@data-id-datatable='resolucaoDataTable']"));
-		btnExportar.click();	
-		
+		exportar();			
 
 		float tempoGasto = (System.currentTimeMillis() - timestart );
 		float tempoSegundos = tempoGasto/1000;
@@ -73,6 +51,11 @@ public class ExportarResolucao {
 		}else{
 			log.info(sb.toString()+"\n");
 		}		
+	}
+
+	private void exportar() {
+		WebElement btnExportar = driver.findElement(By.xpath("//button[@data-id-datatable='resolucaoDataTable']"));
+		btnExportar.click();
 	}	
 	
 }

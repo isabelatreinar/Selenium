@@ -4,11 +4,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -33,29 +31,58 @@ public class EditarBaseLegalMozilla {
 		
 		long timestart = System.currentTimeMillis();		
 		
-		//ENTRADA
-		WebElement fecharbtn = driver.findElement(By.id("closeModalHome"));
-		fecharbtn.click();
+		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
 		
-		WebElement btnEntrar = driver.findElement(By.id("btnEntradaSistemaID"));
-		btnEntrar.click();
 		
-		WebElement btnAcessar = driver.findElement(By.id("btnAcessar"));
-		btnAcessar.click();
+		edicaoCampos();
+
 		
-		WebElement btnConfirmar = driver.findElement(By.id("confirmarDados"));
-		btnConfirmar.click();
+		validacao();
 		
-		WebElement btnAcessarSist = driver.findElement(By.id("acessarSistema"));
-		btnAcessarSist.click();			
+		float tempoGasto = (System.currentTimeMillis() - timestart );
+		float tempoSegundos = tempoGasto/1000;
 		
-		WebElement menuCadastrar = driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,2)']"));
-		menuCadastrar.click(); 
+		StringBuilder sb = new StringBuilder();
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
+	
+		if(tempoSegundos>5000){
+			log.warn(sb.toString()+"\n");
+		}else{
+			log.info(sb.toString()+"\n");
+		}		
+	}
+
+	private void validacao() {
+		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='tipoBaseLegal_label']/label/span")).getText())){			
+			log.info("Campo tipo estava em branco - Obrigatório");
+		}
 		
-		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='baseLegalMenu']"));
-		menuUsuario.click();
+		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='numero_label']/label/span")).getText())){			
+			log.info("Campo numero estava em branco - Obrigatório");
+		}
 		
-		//EDIÇÂO
+		if ("Existe uma Deliberação cadastrada com este número.".equals(driver.findElement(By.xpath("//*[@id='numero_label']/label/span")).getText())){			
+			log.info("Existe uma Deliberação cadastrada com este número.");
+		}
+		
+		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='dataPublicacao_label']/label/span")).getText())){			
+			log.info("Campo data estava em branco - Obrigatório");
+		}
+		
+		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='dataVigencia_label']/label/span")).getText())){			
+			log.info("Campo data estava em branco - Obrigatório");
+		}
+
+		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='textoPublicado_label']/label/span")).getText())){			
+			log.info("Campo PDF estava em branco - Obrigatório");
+		}
+		
+		if ("Tamanho de arquivo não suportado. Selecione um arquivo com até 5 MB.".equals(driver.findElement(By.xpath("//*[@id='textoPublicado_label']/label/span")).getText())){			
+			log.info("PDF maior que 5mb.");
+		}
+	}
+
+	private void edicaoCampos() {
 		String idBase = "rowId269";
 		
 		WebElement selecionarBase = driver.findElement(By.id(idBase));
@@ -86,43 +113,9 @@ public class EditarBaseLegalMozilla {
 		WebElement anoVigenciaSeleciona = driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/ul/li[3]"));
 		anoVigenciaSeleciona.click();
 	
-		//driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\\rafael.sad\\Downloads\\TESTEEE2.pdf");
+		driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\\rafael.sad\\Downloads\\TESTEEE2.pdf");
 		
 		WebElement salvar = driver.findElement(By.id("btnSalvar"));
 		salvar.click();
-		
-		//FIM EDIÇÂO
-		
-		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='tipoBaseLegal_label']/label/span")).getText())){			
-			log.info("Campo tipo estava em branco - Obrigatório");
-		}
-		
-		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='numero_label']/label/span")).getText())){			
-			log.info("Campo numero estava em branco - Obrigatório");
-		}
-		
-		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='dataPublicacao_label']/label/span")).getText())){			
-			log.info("Campo data estava em branco - Obrigatório");
-		}
-		
-		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='dataVigencia_label']/label/span")).getText())){			
-			log.info("Campo data estava em branco - Obrigatório");
-		}
-
-		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='textoPublicado_label']/label/span")).getText())){			
-			log.info("Campo PDF estava em branco - Obrigatório");
-		}
-		
-		float tempoGasto = (System.currentTimeMillis() - timestart );
-		float tempoSegundos = tempoGasto/1000;
-		
-		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
-	
-		if(tempoSegundos>5000){
-			log.warn(sb.toString()+"\n");
-		}else{
-			log.info(sb.toString()+"\n");
-		}		
 	}
 }

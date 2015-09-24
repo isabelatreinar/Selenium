@@ -41,43 +41,9 @@ public class PesquisarUsuario{
 		
 		long timestart = System.currentTimeMillis();
 		
-		WebElement fecharbtn = driver.findElement(By.id("closeModalHome"));
-		fecharbtn.click();
+		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);
 		
-		WebElement btnEntrar = driver.findElement(By.id("btnEntradaSistemaID"));
-		btnEntrar.click();
-		
-		WebElement btnAcessar = driver.findElement(By.id("btnAcessar"));
-		btnAcessar.click();
-		
-		WebElement btnConfirmar = driver.findElement(By.id("confirmarDados"));
-		btnConfirmar.click();
-		
-		WebElement btnAcessarSist = driver.findElement(By.id("acessarSistema"));
-		btnAcessarSist.click();			
-		
-		WebElement menuCadastrar = driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,2)']"));
-		menuCadastrar.click(); 
-		
-		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='usuariosMenu']"));
-		menuUsuario.click();
-		//FIM MENU
-		
-		WebElement nome = driver.findElement(By.id("nome"));
-		nome.sendKeys("Isabela");
-		
-		WebElement cpf = driver.findElement(By.id("filtroUsuarioCpf"));
-		cpf.sendKeys("-08936836633");
-
-		WebElement botaoExpandir = driver.findElement(By.id("btnExpandirPesquisaAvancada"));
-		botaoExpandir.click();
-		
-		/*Select papel = new Select(driver.findElement(By.id("perfil")));
-		papel.selectByValue("COMISSAO_AVALIACAO");*/
-		
-		
-		WebElement botaoPesquisar = driver.findElement(By.id("btnPesquisar"));
-		botaoPesquisar.click();
+		pesquisar();
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart );
 		float tempoSegundos = tempoGasto/1000;
@@ -96,4 +62,22 @@ public class PesquisarUsuario{
 		sb.append("segundos");*/
 		
 	}
+
+private void pesquisar() {
+	WebElement nome = driver.findElement(By.id("nome"));
+	nome.sendKeys("Isabela");
+	
+	WebElement cpf = driver.findElement(By.id("filtroUsuarioCpf"));
+	cpf.sendKeys("-08936836633");
+
+	WebElement botaoExpandir = driver.findElement(By.id("btnExpandirPesquisaAvancada"));
+	botaoExpandir.click();
+	
+	/*Select papel = new Select(driver.findElement(By.id("perfil")));
+	papel.selectByValue("COMISSAO_AVALIACAO");*/
+	
+	
+	WebElement botaoPesquisar = driver.findElement(By.id("btnPesquisar"));
+	botaoPesquisar.click();
+}
 }

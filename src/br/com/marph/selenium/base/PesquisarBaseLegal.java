@@ -4,11 +4,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -33,30 +31,25 @@ public class PesquisarBaseLegal {
 		
 		long timestart = System.currentTimeMillis();		
 		
-		//ENTRADA
-		WebElement fecharbtn = driver.findElement(By.id("closeModalHome"));
-		fecharbtn.click();
+		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
+			
+		pesquisar();
 		
-		WebElement btnEntrar = driver.findElement(By.id("btnEntradaSistemaID"));
-		btnEntrar.click();
+		float tempoGasto = (System.currentTimeMillis() - timestart );
+		float tempoSegundos = tempoGasto/1000;
 		
-		WebElement btnAcessar = driver.findElement(By.id("btnAcessar"));
-		btnAcessar.click();
+		StringBuilder sb = new StringBuilder();
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
+	
+		if(tempoSegundos>5000){
+			log.warn(sb.toString()+"\n");
+		}else{
+			log.info(sb.toString()+"\n");
+		}		
 		
-		WebElement btnConfirmar = driver.findElement(By.id("confirmarDados"));
-		btnConfirmar.click();
-		
-		WebElement btnAcessarSist = driver.findElement(By.id("acessarSistema"));
-		btnAcessarSist.click();			
-		
-		WebElement menuCadastrar = driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,2)']"));
-		menuCadastrar.click(); 
-		
-		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='baseLegalMenu']"));
-		menuUsuario.click();
-		//FIM ENTRADA
-		
-		//PESQUISA
+	}
+
+	private void pesquisar() {
 		WebElement tipo = driver.findElement(By.id("tipoBaseLegal_chosen"));
 		tipo.click();	
 		
@@ -79,20 +72,5 @@ public class PesquisarBaseLegal {
 		
 		WebElement btnPesquisa = driver.findElement(By.id("btnPesquisar"));
 		btnPesquisa.click();
-		
-		//FIM PESQUISA
-		
-		float tempoGasto = (System.currentTimeMillis() - timestart );
-		float tempoSegundos = tempoGasto/1000;
-		
-		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
-	
-		if(tempoSegundos>5000){
-			log.warn(sb.toString()+"\n");
-		}else{
-			log.info(sb.toString()+"\n");
-		}		
-		
 	}
 }

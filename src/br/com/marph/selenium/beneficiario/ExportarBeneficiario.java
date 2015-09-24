@@ -15,6 +15,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import br.com.marph.selenium.base.MenuBaseLegalTemplate;
+
 public class ExportarBeneficiario {
 	private final String LOG_NAME = "RAFAEL";
 	private WebDriver driver;
@@ -36,30 +38,9 @@ public class ExportarBeneficiario {
 		
 		long timestart = System.currentTimeMillis();		
 		
-		WebElement fecharbtn = driver.findElement(By.id("closeModalHome"));
-		fecharbtn.click();
+		MenuBeneficiarioTemplate.prepararAcessoBaseLegal(driver);		
 		
-		WebElement btnEntrar = driver.findElement(By.id("btnEntradaSistemaID"));
-		btnEntrar.click();
-		
-		WebElement btnAcessar = driver.findElement(By.id("btnAcessar"));
-		btnAcessar.click();
-		
-		WebElement btnConfirmar = driver.findElement(By.id("confirmarDados"));
-		btnConfirmar.click();
-		
-		WebElement btnAcessarSist = driver.findElement(By.id("acessarSistema"));
-		btnAcessarSist.click();			
-		
-		WebElement menuCadastrar = driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,2)']"));
-		menuCadastrar.click(); 
-		
-		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='beneficiarioMenu']"));
-		menuUsuario.click();		
-		//FIM MENU				
-		
-		WebElement btnPerfil = driver.findElement(By.xpath("//button[@data-id-datatable='beneficiarioDataTable']"));
-		btnPerfil.click();	
+		exportar();	
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart );
 		float tempoSegundos = tempoGasto/1000;
@@ -72,5 +53,10 @@ public class ExportarBeneficiario {
 		}else{
 			log.info(sb.toString()+"\n");
 		}	
+	}
+
+	private void exportar() {
+		WebElement btnPerfil = driver.findElement(By.xpath("//button[@data-id-datatable='beneficiarioDataTable']"));
+		btnPerfil.click();
 	}
 }

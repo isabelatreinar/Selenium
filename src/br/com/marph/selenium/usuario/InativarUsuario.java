@@ -36,28 +36,24 @@ public class InativarUsuario {
 		
 		long timestart = System.currentTimeMillis();		
 		
-		WebElement fecharbtn = driver.findElement(By.id("closeModalHome"));
-		fecharbtn.click();
+		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);
 		
-		WebElement btnEntrar = driver.findElement(By.id("btnEntradaSistemaID"));
-		btnEntrar.click();
+		inativar();
+
+		float tempoGasto = (System.currentTimeMillis() - timestart );
+		float tempoSegundos = tempoGasto/1000;
 		
-		WebElement btnAcessar = driver.findElement(By.id("btnAcessar"));
-		btnAcessar.click();
-		
-		WebElement btnConfirmar = driver.findElement(By.id("confirmarDados"));
-		btnConfirmar.click();
-		
-		WebElement btnAcessarSist = driver.findElement(By.id("acessarSistema"));
-		btnAcessarSist.click();			
-		
-		WebElement menuCadastrar = driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,2)']"));
-		menuCadastrar.click(); 
-		
-		WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='usuariosMenu']"));
-		menuUsuario.click();
-		//FIM MENU
-		
+		StringBuilder sb = new StringBuilder();
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
+	
+		if(tempoSegundos>5000){
+			log.warn(sb.toString()+"\n");
+		}else{
+			log.info(sb.toString()+"\n");
+		}		
+	}
+
+	private void inativar() {
 		String idUsuario = "rowId2163";
 		
 		WebElement selecionarUsuario = driver.findElement(By.id(idUsuario));
@@ -74,17 +70,5 @@ public class InativarUsuario {
 		
 		WebElement btnSim = driver.findElement(By.xpath("//button[@class='btn btn-primary btn-sm']"));
 		btnSim.click();
-
-		float tempoGasto = (System.currentTimeMillis() - timestart );
-		float tempoSegundos = tempoGasto/1000;
-		
-		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
-	
-		if(tempoSegundos>5000){
-			log.warn(sb.toString()+"\n");
-		}else{
-			log.info(sb.toString()+"\n");
-		}		
 	}
 }
