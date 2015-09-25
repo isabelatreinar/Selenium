@@ -50,8 +50,7 @@ public class CadastrarBaseLegalInvalido {
 			log.warn(sb.toString()+"\n");
 		}else{
 			log.info(sb.toString()+"\n");
-		}		
-		
+		}
 	}
 
 	private void validar() {
@@ -95,23 +94,22 @@ public class CadastrarBaseLegalInvalido {
 		procuraTipoBase.click();
 		
 		WebElement numero = driver.findElement(By.id("numero"));
-		numero.sendKeys("654456");
+		numero.sendKeys("2641156");
 		
 		WebElement data = driver.findElement(By.id("dataPublicacao"));
 		data.click();
-		WebElement dataSeleciona = driver.findElement(By.xpath("//td[@class='day']"));
+		WebElement dataSeleciona = driver.findElement(By.xpath("/html/body/div[4]/div[1]/table/tbody/tr[4]/td[5]"));
 		dataSeleciona.click();
 		
 		WebElement anoVigencia = driver.findElement(By.id("dataVigencia_chosen"));
 		anoVigencia.click();
 		
-		WebElement anoVigenciaSeleciona = driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/ul/li[1]"));
+		WebElement anoVigenciaSeleciona = driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/ul/li[2]"));
 		anoVigenciaSeleciona.click();
 		
-		driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\\rafael.sad\\Downloads\\6mb.pdf");
+		driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\\rafael.sad\\Downloads\\TESTE.pdf");
 		
 		WebElement salvar = driver.findElement(By.id("btnSalvar"));
 		salvar.click();
 	}
 }
-
