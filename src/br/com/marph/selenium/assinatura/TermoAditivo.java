@@ -33,7 +33,13 @@ public class TermoAditivo {
 		long timestart = System.currentTimeMillis();		
 		
 		MenuAssinauraTemplate.prepararAcessoBaseLegal(driver);
-	
+		
+		try {
+		    Thread.sleep(10000);           
+		} catch(InterruptedException ex) {
+		    Thread.currentThread().interrupt();
+		}
+		
 		WebElement programa = driver.findElement(By.id("programaFiltro_chosen"));
 		programa.click();		
 		WebElement programaSeleciona = driver.findElement(By.xpath("//li[@data-option-array-index='2']"));

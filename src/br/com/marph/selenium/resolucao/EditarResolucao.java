@@ -1,38 +1,53 @@
-package br.com.marph.selenium.municipio;
+package br.com.marph.selenium.resolucao;
 
 import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
 
-public class ExportarMunicipio {
+public class EditarResolucao {
 	private final String LOG_NAME = "RAFAEL";
+	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 	
 	
-	@Test
+	@Before
 	public void startBrowser(){
-		System.setProperty("webdriver.ie.driver", "C://IEDriverServer.exe");
-		WebDriver driver=new InternetExplorerDriver();
-		Conexao.ip(driver);  
+		driver = new FirefoxDriver();
+		Conexao.ip(driver); 
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+		}
+
+	@Test
+	public void realizaBusca(){			
 		
-		log.info("Inicio do teste - Exportar municipios");
+		log.info("Inicio do teste - Editar resolução");
 		
-		MenuMunicipioTemplate.prepararAcessoBaseLegal(driver);
+		long timestart = System.currentTimeMillis();		
 		
-		long timestart = System.currentTimeMillis();
+		MenuResolucaoTemplate.prepararAcessoBaseLegal(driver);
 		
-		WebElement btnPerfil = driver.findElement(By.xpath("//button[@data-id-datatable='municipioDataTable']"));
-		btnPerfil.click();		
+		String idResolucao = "rowId334";
+		
+		WebElement selecionarResolucao = driver.findElement(By.id(idResolucao));
+		selecionarResolucao.click();
+		
+		WebElement resolucao = driver.findElement(By.xpath("//*[@id='"+idResolucao+"']/td[2]"));
+		resolucao.click();
+		
+		//if(){
+			
+		//}
+		
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart );
 		float tempoSegundos = tempoGasto/1000;
@@ -46,4 +61,5 @@ public class ExportarMunicipio {
 			log.info(sb.toString()+"\n");
 		}		
 	}
+
 }
