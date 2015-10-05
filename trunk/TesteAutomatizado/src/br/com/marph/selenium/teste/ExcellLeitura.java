@@ -17,7 +17,9 @@ import jxl.Workbook;
 
 public class ExcellLeitura {
 	private WebDriver driver;	
-	
+	public static void main(String[] args) {
+		
+	}
 	@Before
 	public void startBrowser(){
 		driver = new FirefoxDriver();
@@ -25,8 +27,8 @@ public class ExcellLeitura {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 		
-		}		
-		
+	}
+	
 	@Test	
 	public void teste(){
 		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);
@@ -37,7 +39,7 @@ public class ExcellLeitura {
 			Workbook wb= Workbook.getWorkbook(new File("./data/teste.xls"));
 			Sheet sheet = wb.getSheet(0);
 			String nome = sheet.getCell(0,1).getContents();
-		String email = sheet.getCell(1,1).getContents();
+			String email = sheet.getCell(1,1).getContents();
 			String cpf = sheet.getCell(2,1).getContents();
 			String cargo = sheet.getCell(3,1).getContents();
 			
@@ -61,7 +63,7 @@ public class ExcellLeitura {
 			e.printStackTrace();
 		}
 		
-	}
+	} 
 	
 	/*public void rafaelDoidao(){
 		
