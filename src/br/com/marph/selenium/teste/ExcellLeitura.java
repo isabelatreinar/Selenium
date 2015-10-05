@@ -6,9 +6,11 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.usuario.MenuUsuarioTemplate;
@@ -25,13 +27,13 @@ public class ExcellLeitura {
 		driver = new FirefoxDriver();
 		Conexao.ip(driver); 
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
-		
+		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);		
 	}
 	
 	@Test	
 	public void teste(){
 		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);
+		Actions action = new Actions(driver);
 		WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
 		botaoCadastrar.click();
 		
@@ -42,6 +44,9 @@ public class ExcellLeitura {
 			String email = sheet.getCell(1,1).getContents();
 			String cpf = sheet.getCell(2,1).getContents();
 			String cargo = sheet.getCell(3,1).getContents();
+			String perfil = sheet.getCell(4,1).getContents();
+			String extensao = sheet.getCell(5,1).getContents();
+			
 			
 			WebElement nomeCampo = driver.findElement(By.id("usuarioNome"));
 			nomeCampo.sendKeys(nome);
@@ -58,6 +63,21 @@ public class ExcellLeitura {
 			WebElement selecionarCargo = driver.findElement(By.xpath("//li[@data-option-array-index='"+cargo+"']"));
 			selecionarCargo.click();
 			
+			WebElement salvar = driver.findElement(By.id("btnSalvar1"));
+			salvar.click();
+			
+			WebElement perfilC = driver.findElement(By.id("modalPerfil_chosen"));
+			perfilC.click();
+			
+			WebElement selecionarPerfil = driver.findElement(By.xpath("//li[@data-option-array-index='"+perfil+"']"));
+			selecionarPerfil.click();
+			
+			WebElement extensaoPerfil = driver.findElement(By.id("modalExtensaoPerfilId"));
+			extensaoPerfil.sendKeys(extensao);
+			
+			WebElement extensaoSeleciona = driver.findElement(By.id("ui-id-1"));
+			extensaoSeleciona.sendKeys(Keys.DOWN);
+			extensaoSeleciona.sendKeys(Keys.TAB);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
