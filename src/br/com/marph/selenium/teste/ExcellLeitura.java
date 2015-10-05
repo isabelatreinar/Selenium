@@ -10,7 +10,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
 
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.usuario.MenuUsuarioTemplate;
@@ -19,9 +18,7 @@ import jxl.Workbook;
 
 public class ExcellLeitura {
 	private WebDriver driver;	
-	public static void main(String[] args) {
-		
-	}
+
 	@Before
 	public void startBrowser(){
 		driver = new FirefoxDriver();
@@ -33,7 +30,6 @@ public class ExcellLeitura {
 	@Test	
 	public void teste(){
 		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);
-		Actions action = new Actions(driver);
 		WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
 		botaoCadastrar.click();
 		
@@ -76,36 +72,15 @@ public class ExcellLeitura {
 			extensaoPerfil.sendKeys(extensao);
 			
 			WebElement extensaoSeleciona = driver.findElement(By.id("ui-id-1"));
-			extensaoSeleciona.sendKeys(Keys.DOWN);
-			extensaoSeleciona.sendKeys(Keys.TAB);
+			extensaoSeleciona.click();
+			extensaoPerfil.sendKeys(Keys.TAB);
+			
+			WebElement salvar1 = driver.findElement(By.id("btnSalvar1"));
+			salvar1.click();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 	} 
-	
-	/*public void rafaelDoidao(){
-		
-		try {				
-			Workbook wb= Workbook.getWorkbook(new File("./data/teste.xls"));			
-			Sheet sheet = wb.getSheet(0);			
-			int linhas = sheet.getRows();
-			
-			for(int i = 0;i < linhas;i++){
-				
-				Cell celula1 = sheet.getCell(0, i);
-
-	            Cell celula2 = sheet.getCell(1, i);            
-
-	            System.out.println("celula 1: "+ celula1.getContents());
-
-	            System.out.println("celula 2: "+ celula2.getContents());				
-			}			
-					
-		
-		} catch (Exception e) {
-			e.printStackTrace();
-		}		
-	}*/
 }
