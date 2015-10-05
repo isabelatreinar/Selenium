@@ -1,4 +1,4 @@
-package br.com.marph.selenium.teste;
+package br.com.marph.selenium.testesExcell;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -16,7 +16,7 @@ import br.com.marph.selenium.usuario.MenuUsuarioTemplate;
 import jxl.Sheet;
 import jxl.Workbook;
 
-public class ExcellLeitura {
+public class usuarioExcell {
 	private WebDriver driver;	
 
 	@Before
@@ -34,7 +34,7 @@ public class ExcellLeitura {
 		botaoCadastrar.click();
 		
 		try {
-			Workbook wb= Workbook.getWorkbook(new File("./data/teste.xls"));
+			Workbook wb= Workbook.getWorkbook(new File("./data/usuario.xls"));
 			Sheet sheet = wb.getSheet(0);
 			String nome = sheet.getCell(0,1).getContents();
 			String email = sheet.getCell(1,1).getContents();
