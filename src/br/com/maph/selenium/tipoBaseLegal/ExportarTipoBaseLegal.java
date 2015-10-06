@@ -11,7 +11,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import br.com.marph.selenium.base.MenuBaseLegalTemplate;
 import br.com.marph.selenium.conexao.Conexao;
 
 public class ExportarTipoBaseLegal {
