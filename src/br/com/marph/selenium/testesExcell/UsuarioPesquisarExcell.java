@@ -14,6 +14,7 @@ import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.usuario.MenuUsuarioTemplate;
 import jxl.Sheet;
 import jxl.Workbook;
+import jxl.WorkbookSettings;
 
 public class UsuarioPesquisarExcell {
 	private WebDriver driver;	
@@ -32,18 +33,24 @@ public class UsuarioPesquisarExcell {
 		
 		
 		try {
-			Workbook wb= Workbook.getWorkbook(new File("./data/usuarioPesquisa.xls"));
+			WorkbookSettings workbookSettings = new WorkbookSettings();
+		    workbookSettings.setEncoding("ISO-8859-1");
+			Workbook wb= Workbook.getWorkbook(new File("./data/usuarioPesquisa.xls"), workbookSettings);
 			Sheet sheet = wb.getSheet(0);
 			String nome = sheet.getCell(0,1).getContents();
 			String cpf = sheet.getCell(1,1).getContents();
 			String nomeEditado = sheet.getCell(2,1).getContents();
 			String email = sheet.getCell(3,1).getContents();
 			
+			if(!"".equals(nome)){
 			WebElement nome1 = driver.findElement(By.id("nome"));
 			nome1.sendKeys(nome);
-			
+			}
+			if(!"".equals(cpf)){
 			WebElement cpf1 = driver.findElement(By.id("filtroUsuarioCpf"));
-			cpf1.sendKeys(cpf);			
+			cpf1.sendKeys(cpf);
+			}
+			
 			WebElement botaoPesquisar = driver.findElement(By.id("btnPesquisar"));
 			botaoPesquisar.click();
 			
@@ -53,14 +60,18 @@ public class UsuarioPesquisarExcell {
 			WebElement botaoEditar = driver.findElement(By.id("btnEditar1"));
 			botaoEditar.click();
 			
+			if(!"".equals(nomeEditado)){
 			WebElement nomeEditar = driver.findElement(By.id("usuarioNome"));
 			nomeEditar.clear();
 			nomeEditar.sendKeys(nomeEditado);
+			}
 			
+			if(!"".equals(email)){
 			WebElement email1 = driver.findElement(By.id("usuarioEmail"));
 			email1.clear();
 			email1.sendKeys(email);
-	
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
