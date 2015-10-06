@@ -35,7 +35,7 @@ public class PesquisarBeneficiarioMozilla {
 		
 		MenuBeneficiarioTemplate.prepararAcessoBaseLegal(driver);	
 	
-		pesquisar();	
+		pesquisar(driver);	
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart );
 		float tempoSegundos = tempoGasto/1000;
@@ -50,14 +50,14 @@ public class PesquisarBeneficiarioMozilla {
 		}	
 	}
 
-	private void pesquisar() {
+	public static void pesquisar(WebDriver driver) {
 		WebElement nome = driver.findElement(By.id("buscaNome"));
-		nome.sendKeys("CONFERÊNCIA DE SÃO VICENTE DE PAULO DE TURMALINA");
+		nome.sendKeys("FUNDO MUNICIPAL DE SAÚDE DE CAMPO BELO");
 		
 		//Selecionar unidade regional
 		WebElement unidadeRegional = driver.findElement(By.id("unidadeRegional_chosen"));
 		unidadeRegional.click();
-		WebElement procuraTipoRegional = driver.findElement(By.xpath("//li[@data-option-array-index='2']"));
+		WebElement procuraTipoRegional = driver.findElement(By.xpath("//li[@data-option-array-index='6']"));
 		procuraTipoRegional.click(); 
 		//fim
 		

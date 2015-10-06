@@ -14,7 +14,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.marph.selenium.conexao.Conexao;
 
 public class VisualizarResponsavel {
-	private final String LOG_NAME = "RAFAEL";
+	private final String LOG_NAME = "Karini";
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);	
 	
@@ -45,6 +45,13 @@ public class VisualizarResponsavel {
 		//Visualizar responsável legal
 		visualizar();
 		
+		// teste botão voltar superior
+		voltarSuperior();		
+		
+		// teste botão voltar inferior
+		visualizar();
+		voltarInferior();
+		
 		float tempoGasto = (System.currentTimeMillis() - timestart );
 		float tempoSegundos = tempoGasto/1000;
 		
@@ -58,10 +65,20 @@ public class VisualizarResponsavel {
 		}
 	}
 
-	private void visualizar() {
+	public void visualizar() {
 		// clica no botão de responsável legal
 		WebElement btnResponsavel = driver.findElement(By.id("btnPerfil1"));
 		btnResponsavel.click();
+	}
+	
+	public void voltarSuperior(){
+		WebElement btnVoltar = driver.findElement(By.id("btnVoltarBarraTarefas"));
+		btnVoltar.click();
+	}
+	
+	public void voltarInferior(){
+		WebElement btnVoltar = driver.findElement(By.id("btnVoltar"));
+		btnVoltar.click();
 	}
 	
 	
