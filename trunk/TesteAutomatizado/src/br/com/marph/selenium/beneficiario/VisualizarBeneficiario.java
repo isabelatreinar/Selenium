@@ -42,6 +42,13 @@ public class VisualizarBeneficiario {
 		// visualizar beneficiario
 		visualizar(driver);
 		
+		//teste botão voltar superior
+		voltarSuperior();
+		
+		// teste botão voltar inferior
+		visualizar(driver);
+		voltarInferior();
+		
 		float tempoGasto = (System.currentTimeMillis() - timestart );
 		float tempoSegundos = tempoGasto/1000;
 		
@@ -58,6 +65,15 @@ public class VisualizarBeneficiario {
 	public static void visualizar(WebDriver driver){
 		WebElement beneficiario = driver.findElement(By.xpath("//td[@class='sorting_1']"));
 		beneficiario.click();
-		
+	}
+	
+	public void voltarSuperior(){
+		WebElement btnVoltar = driver.findElement(By.id("btnVoltarBarraTarefas"));
+		btnVoltar.click();
+	}
+	
+	public void voltarInferior(){
+		WebElement btnVoltar = driver.findElement(By.id("btnVoltar"));
+		btnVoltar.click();
 	}
 }
