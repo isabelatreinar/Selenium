@@ -51,9 +51,8 @@ public class BeneficiarioPesquisar {
 				WebElement unidadeDigita = driver.findElement(By.xpath("//*[@id='unidadeRegional_chosen']/div/div/input"));
 				unidadeDigita.sendKeys(unidade);
 				unidadeDigita.sendKeys(Keys.TAB);
-			}else{
-				System.out.println("VAZIOO");
 			}
+			
 			
 			WebElement pesquisar = driver.findElement(By.id("btnPesquisar"));
 			pesquisar.click();
