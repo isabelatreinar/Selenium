@@ -14,6 +14,7 @@ import br.com.marph.selenium.base.MenuBaseLegalTemplate;
 import br.com.marph.selenium.conexao.Conexao;
 import jxl.Sheet;
 import jxl.Workbook;
+import jxl.WorkbookSettings;
 
 public class BaseLegalExcell {
 	private WebDriver driver;	
@@ -33,7 +34,9 @@ public class BaseLegalExcell {
 		botaoCadastrar.click();
 		
 		try {
-			Workbook wb= Workbook.getWorkbook(new File("./data/baseLegal.xls"));
+			WorkbookSettings workbookSettings = new WorkbookSettings();
+		    workbookSettings.setEncoding("ISO-8859-1");
+			Workbook wb= Workbook.getWorkbook(new File("./data/baseLegal.xls"), workbookSettings);
 			Sheet sheet = wb.getSheet(0);
 			String tipo = sheet.getCell(0,1).getContents();
 			String numero = sheet.getCell(1,1).getContents();
