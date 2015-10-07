@@ -21,7 +21,7 @@ public class VisualizarBeneficiario {
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 
-	public String beneficiarioSelecionado;
+	public static String beneficiarioSelecionado;
 
 	@Before
 	public void startBrowser() {
@@ -70,10 +70,13 @@ public class VisualizarBeneficiario {
 		}
 	}
 
-	public void visualizar(WebDriver driver) {
+	public static void visualizar(WebDriver driver) {
 		WebElement beneficiario = driver.findElement(By.xpath("//td[@class='sorting_1']"));
 		beneficiarioSelecionado = beneficiario.getText();
 		beneficiario.click();
-		
+	}
+	
+	public static String getBeneficiarioSelecionado(){
+		return beneficiarioSelecionado;
 	}
 }

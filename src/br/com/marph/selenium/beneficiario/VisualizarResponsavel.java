@@ -13,10 +13,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.conexao.Conexao;
+import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class VisualizarResponsavel {
-	private final String LOG_NAME = "RAFAEL";
+	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);	
 	
@@ -29,10 +30,9 @@ public class VisualizarResponsavel {
 	}
 	
 	@Test
-	public void visualizarResponsavel(){
+	public void visualizarResponsavel() throws TesteAutomatizadoException{
 		
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
-		
 		long timestart = System.currentTimeMillis();
 		
 		//Acessa Menu Cadastros Beneficiário
@@ -47,13 +47,12 @@ public class VisualizarResponsavel {
 		//Visualizar responsável legal
 		visualizar();
 		
-		// teste botão voltar superior
-		voltarSuperior();		
+		// Validar o responsável é do beneficiário acessado
+		if(!VisualizarBeneficiario.getBeneficiarioSelecionado().equalsIgnoreCase(driver.findElement(By.id("idNomeBeneficiarioP")).getText())){
+			throw new TesteAutomatizadoException(EnumMensagens.BENEFICIARIO_INCORRETO, this.getClass());
+		}
 		
-		// teste botão voltar inferior
-		visualizar();
-		voltarInferior();
-		
+		// Se o beneficiário é o mesmmo acessoado o teste se encerra
 		float tempoGasto = (System.currentTimeMillis() - timestart );
 		float tempoSegundos = tempoGasto/1000;
 		
@@ -72,16 +71,5 @@ public class VisualizarResponsavel {
 		WebElement btnResponsavel = driver.findElement(By.id("btnPerfil1"));
 		btnResponsavel.click();
 	}
-	
-	public void voltarSuperior(){
-		WebElement btnVoltar = driver.findElement(By.id("btnVoltarBarraTarefas"));
-		btnVoltar.click();
-	}
-	
-	public void voltarInferior(){
-		WebElement btnVoltar = driver.findElement(By.id("btnVoltar"));
-		btnVoltar.click();
-	}
-	
 	
 }
