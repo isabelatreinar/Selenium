@@ -11,10 +11,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.conexao.Conexao;
+import br.com.marph.selenium.utils.LogUtils;
 
 public class PesquisarTipoBaseLegal {
-	private final String LOG_NAME = "Karini";
+	private final String LOG_NAME = "RAFAEL" ;
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 
@@ -29,7 +31,7 @@ public class PesquisarTipoBaseLegal {
 	@Test 
 	public void pesquisaTipoBaseLegal(){
 		
-		log.info("Início do teste - pesquisar tipo de base legal");
+		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		
 		long timestart = System.currentTimeMillis();
 		
@@ -41,7 +43,7 @@ public class PesquisarTipoBaseLegal {
 		float tempoSegundos = tempoGasto/1000;
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos - FINALIZADO COM SUCESSO\n");
 	
 		if(tempoSegundos>5000){
 			log.warn(sb.toString()+"\n");

@@ -11,7 +11,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.conexao.Conexao;
+import br.com.marph.selenium.utils.LogUtils;
 
 public class TermoAditivo {
 	private final String LOG_NAME = "RAFAEL";
@@ -29,7 +31,7 @@ public class TermoAditivo {
 	@Test
 	public void realizaBusca(){			
 		
-		log.info("Inicio do teste - Termo Aditivo");		
+		LogUtils.log(EnumMensagens.INICIO, this.getClass());		
 		long timestart = System.currentTimeMillis();		
 		
 		MenuAssinauraTemplate.prepararAcessoBaseLegal(driver);
@@ -57,7 +59,7 @@ public class TermoAditivo {
 		float tempoSegundos = tempoGasto/1000;
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos - FINALIZADO COM SUCESSO\n");
 	
 		if(tempoSegundos>5000){
 			log.warn(sb.toString()+"\n");
