@@ -3,6 +3,9 @@ package br.com.marph.selenium.testesExcell;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -10,14 +13,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.usuario.MenuUsuarioTemplate;
+import br.com.marph.selenium.utils.LogUtils;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
 
 public class UsuarioPesquisarExcell {
+	private final String LOG_NAME = "RAFAEL";
 	private WebDriver driver;	
+	private Logger log = LogManager.getLogger(LOG_NAME);
 
 	@Before
 	public void startBrowser(){
@@ -29,8 +36,9 @@ public class UsuarioPesquisarExcell {
 	
 	@Test	
 	public void teste(){
-		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);
-		
+		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		long timestart = System.currentTimeMillis();
+		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);		
 		
 		try {
 			WorkbookSettings workbookSettings = new WorkbookSettings();
@@ -42,11 +50,11 @@ public class UsuarioPesquisarExcell {
 			String nomeEditado = sheet.getCell(2,1).getContents();
 			String email = sheet.getCell(3,1).getContents();
 			
-			if(!"".equals(nome)){
+			if(StringUtils.isNotBlank(nome)){
 			WebElement nome1 = driver.findElement(By.id("nome"));
 			nome1.sendKeys(nome);
 			}
-			if(!"".equals(cpf)){
+			if(StringUtils.isNotBlank(cpf)){
 			WebElement cpf1 = driver.findElement(By.id("filtroUsuarioCpf"));
 			cpf1.sendKeys(cpf);
 			}
@@ -60,13 +68,13 @@ public class UsuarioPesquisarExcell {
 			WebElement botaoEditar = driver.findElement(By.id("btnEditar1"));
 			botaoEditar.click();
 			
-			if(!"".equals(nomeEditado)){
+			if(StringUtils.isNotBlank(nomeEditado)){
 			WebElement nomeEditar = driver.findElement(By.id("usuarioNome"));
 			nomeEditar.clear();
 			nomeEditar.sendKeys(nomeEditado);
 			}
 			
-			if(!"".equals(email)){
+			if(StringUtils.isNotBlank(email)){
 			WebElement email1 = driver.findElement(By.id("usuarioEmail"));
 			email1.clear();
 			email1.sendKeys(email);
@@ -76,5 +84,15 @@ public class UsuarioPesquisarExcell {
 			e.printStackTrace();
 		}
 		
+		float tempoGasto = (System.currentTimeMillis() - timestart);
+		float tempoSegundos = tempoGasto / 1000;
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos - FINALIZADO COM SUCESSO\n");
+		if (tempoSegundos > 5000) {
+			log.warn(sb.toString() + "\n");
+		} else {
+			log.info(sb.toString() + "\n");
+		}
 	} 
 }

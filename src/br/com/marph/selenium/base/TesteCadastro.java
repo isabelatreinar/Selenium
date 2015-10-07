@@ -11,7 +11,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.conexao.Conexao;
+import br.com.marph.selenium.utils.LogUtils;
 
 public class TesteCadastro {
 	private final String LOG_NAME = "RAFAEL";
@@ -29,7 +31,7 @@ public class TesteCadastro {
 	@Test
 	public void realizaCadastro(){			
 		
-		log.info("Inicio do teste");
+		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		
 		long timestart = System.currentTimeMillis();		
 		
@@ -86,7 +88,7 @@ public class TesteCadastro {
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoGasto).append(" segundos");
+		sb.append("Entrada no sistema - ").append(tempoGasto).append(" segundos - FINALIZADO COM SUCESSO\n");
 	
 		if(tempoGasto>5000){
 			log.warn(sb.toString());

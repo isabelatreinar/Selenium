@@ -10,7 +10,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
+import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.conexao.Conexao;
+import br.com.marph.selenium.utils.LogUtils;
 
 public class ExportarMunicipio {
 	private final String LOG_NAME = "RAFAEL";
@@ -25,7 +27,7 @@ public class ExportarMunicipio {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 		
-		log.info("Inicio do teste - Exportar municipios");
+		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		
 		MenuMunicipioTemplate.prepararAcessoBaseLegal(driver);
 		
@@ -38,7 +40,7 @@ public class ExportarMunicipio {
 		float tempoSegundos = tempoGasto/1000;
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos - FINALIZADO COM SUCESSO\n");
 	
 		if(tempoSegundos>5000){
 			log.warn(sb.toString()+"\n");
