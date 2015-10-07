@@ -9,6 +9,8 @@ public enum EnumMensagens {
 	CARGO_EM_BRANCO("Cargo em branco - Obrigatório\n"),
 	PERFIL_EM_BRANCO("Perfil em branco - Obrigatório\n"),
 	EXTENSAO_EM_BRANCO("Extensao em branco - Obrigatório\n"),
+	TELA_INCORRETA("Página acessada não é a correta\n"),
+	BENEFICIARIO_INCORRETO("Beneficiário incorreto.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 
 	private String mensagem;
