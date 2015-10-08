@@ -14,8 +14,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
+import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 
 public class VisualizarBeneficiario {
 	private final String LOG_NAME = System.getProperty("user.name");

@@ -14,6 +14,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.conexao.Conexao;
+import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class CadastrarBaseLegalMozilla {
@@ -30,7 +31,7 @@ public class CadastrarBaseLegalMozilla {
 	}
 
 	@Test
-	public void realizaCadastro() {
+	public void realizaCadastro() throws Exception {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 
@@ -40,7 +41,13 @@ public class CadastrarBaseLegalMozilla {
 
 		cadastro();
 
-		validacao();
+		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
+		
+		if (validar == true) {
+			LogUtils.log(EnumMensagens.CADASTRO_BASE_VALIDADO, this.getClass());
+		} else {
+			throw new TesteAutomatizadoException(EnumMensagens.CADASTRO_BASE_NAO_VALIDADO, this.getClass());
+		}
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -67,29 +74,24 @@ public class CadastrarBaseLegalMozilla {
 		procuraTipoBase.click();
 
 		WebElement numero = driver.findElement(By.id("numero"));
-		numero.sendKeys("651456");
+		numero.sendKeys("61561");
 
 		WebElement data = driver.findElement(By.id("dataPublicacao"));
 		data.sendKeys("-12082015");
-		data.sendKeys(Keys.TAB);				
+		data.sendKeys(Keys.TAB);
 
-		driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\rafael.sad\\TESTEEE.pdf");
-		
+		driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\\rafael.sad\\Documents\\TESTEEE.pdf");
+
 		WebElement anoVigencia = driver.findElement(By.id("dataVigencia_chosen"));
-		anoVigencia.click();		
+		anoVigencia.click();
 		WebElement anoVigenciaSeleciona = driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input"));
 		anoVigenciaSeleciona.sendKeys("2015");
 		anoVigenciaSeleciona.sendKeys(Keys.TAB);
 
-	WebElement salvar = driver.findElement(By.id("btnSalvar"));
+		WebElement salvar = driver.findElement(By.id("btnSalvar"));
 		salvar.click();
 		// FIM CADASTRO
 	}
+	// toast-container
 
-	private void validacao() {
-		if ("Obrigatório!"
-				.equals(driver.findElement(By.xpath("//*[@id='tipoBaseLegal_label']/label/span")).getText())) {
-			log.info("Campo de Tipo estava em branco - Obrigatório");
-		}
-	}
 }

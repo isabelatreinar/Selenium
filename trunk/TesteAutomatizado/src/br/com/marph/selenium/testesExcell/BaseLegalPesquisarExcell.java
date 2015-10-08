@@ -15,6 +15,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.base.MenuBaseLegalTemplate;
 import br.com.marph.selenium.conexao.Conexao;
+import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -30,14 +31,41 @@ public class BaseLegalPesquisarExcell {
 		Conexao.ip(driver);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-	}
+	} 
 
 	@Test
-	public void teste() {
+	public void teste() throws Exception {
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
 
+		pesquisaEdicao();
+		
+		validar();
+		
+		float tempoGasto = (System.currentTimeMillis() - timestart);
+		float tempoSegundos = tempoGasto / 1000;
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos - FINALIZADO COM SUCESSO\n");
+		if (tempoSegundos > 5000) {
+			log.warn(sb.toString() + "\n");
+		} else {
+			log.info(sb.toString() + "\n");
+		}
+	}
+
+	protected void validar() throws TesteAutomatizadoException {
+		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
+
+		if (validar == true) {
+			LogUtils.log(EnumMensagens.CADASTRO_BASE_VALIDADO, this.getClass());
+		} else {
+			throw new TesteAutomatizadoException(EnumMensagens.CADASTRO_BASE_NAO_VALIDADO, this.getClass());
+		}
+	}
+
+	protected void pesquisaEdicao() {
 		try {
 			Workbook wb = Workbook.getWorkbook(new File("./data/baseLegalPesquisa.xls"));
 			Sheet sheet = wb.getSheet(0);
@@ -106,16 +134,6 @@ public class BaseLegalPesquisarExcell {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		float tempoGasto = (System.currentTimeMillis() - timestart);
-		float tempoSegundos = tempoGasto / 1000;
-
-		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos - FINALIZADO COM SUCESSO\n");
-		if (tempoSegundos > 5000) {
-			log.warn(sb.toString() + "\n");
-		} else {
-			log.info(sb.toString() + "\n");
 		}
 	}
 }

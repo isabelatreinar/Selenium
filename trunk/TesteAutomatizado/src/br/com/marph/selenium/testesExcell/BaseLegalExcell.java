@@ -15,6 +15,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.base.MenuBaseLegalTemplate;
 import br.com.marph.selenium.conexao.Conexao;
+import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -26,61 +27,27 @@ public class BaseLegalExcell {
 	private Logger log = LogManager.getLogger(LOG_NAME);
 
 	@Before
-	public void startBrowser(){
+	public void startBrowser() {
 		driver = new FirefoxDriver();
-		Conexao.ip(driver); 
+		Conexao.ip(driver);
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);		
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
-	
-	@Test	
-	public void teste(){
+
+	@Test
+	public void teste() throws Exception {
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
-		
+
 		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
-		
+
 		WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
 		botaoCadastrar.click();
+
+		cadastro();
 		
-		try {
-			WorkbookSettings workbookSettings = new WorkbookSettings();
-		    workbookSettings.setEncoding("ISO-8859-1");
-			Workbook wb= Workbook.getWorkbook(new File("./data/baseLegal.xls"), workbookSettings);
-			Sheet sheet = wb.getSheet(0);
-			String tipo = sheet.getCell(0,1).getContents();
-			String numero = sheet.getCell(1,1).getContents();
-			String data = sheet.getCell(2,1).getContents();
-			String ano = sheet.getCell(3,1).getContents();
-			String pdf = sheet.getCell(4,1).getContents();
-			
-			WebElement tipoBase = driver.findElement(By.id("tipoBaseLegal_chosen"));
-			tipoBase.click();
-			
-			WebElement procuraTipoBase = driver.findElement(By.xpath("//li[@data-option-array-index='"+tipo+"']"));
-			procuraTipoBase.click();
-			
-			WebElement numero1 = driver.findElement(By.id("numero"));
-			numero1.sendKeys(numero);
-			
-			WebElement data1 = driver.findElement(By.id("dataPublicacao"));
-			data1.sendKeys(data);			
-		
-			WebElement anoVigencia = driver.findElement(By.id("dataVigencia_chosen"));
-			anoVigencia.click();
-			
-			WebElement anoVigenciaSeleciona = driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/ul/li["+ano+"]"));
-			anoVigenciaSeleciona.click();
-			
-			driver.findElement(By.id("textoPublicado")).sendKeys(pdf);
-			
-			WebElement salvar = driver.findElement(By.id("btnSalvar"));
-			salvar.click();	
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+		validar();
+
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
@@ -91,5 +58,56 @@ public class BaseLegalExcell {
 		} else {
 			log.info(sb.toString() + "\n");
 		}
-	} 
+	}
+
+	protected void validar() throws TesteAutomatizadoException {
+		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
+
+		if (validar == true) {
+			LogUtils.log(EnumMensagens.CADASTRO_BASE_VALIDADO, this.getClass());
+		} else {
+			throw new TesteAutomatizadoException(EnumMensagens.CADASTRO_BASE_NAO_VALIDADO, this.getClass());
+		}
+	}
+
+	protected void cadastro() {
+		try {
+			WorkbookSettings workbookSettings = new WorkbookSettings();
+			workbookSettings.setEncoding("ISO-8859-1");
+			Workbook wb = Workbook.getWorkbook(new File("./data/baseLegal.xls"), workbookSettings);
+			Sheet sheet = wb.getSheet(0);
+			String tipo = sheet.getCell(0, 1).getContents();
+			String numero = sheet.getCell(1, 1).getContents();
+			String data = sheet.getCell(2, 1).getContents();
+			String ano = sheet.getCell(3, 1).getContents();
+			String pdf = sheet.getCell(4, 1).getContents();
+
+			WebElement tipoBase = driver.findElement(By.id("tipoBaseLegal_chosen"));
+			tipoBase.click();
+
+			WebElement procuraTipoBase = driver.findElement(By.xpath("//li[@data-option-array-index='" + tipo + "']"));
+			procuraTipoBase.click();
+
+			WebElement numero1 = driver.findElement(By.id("numero"));
+			numero1.sendKeys(numero);
+
+			WebElement data1 = driver.findElement(By.id("dataPublicacao"));
+			data1.sendKeys(data);
+
+			WebElement anoVigencia = driver.findElement(By.id("dataVigencia_chosen"));
+			anoVigencia.click();
+
+			WebElement anoVigenciaSeleciona = driver
+					.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/ul/li[" + ano + "]"));
+			anoVigenciaSeleciona.click();
+
+			driver.findElement(By.id("textoPublicado")).sendKeys(pdf);
+
+			WebElement salvar = driver.findElement(By.id("btnSalvar"));
+			salvar.click();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

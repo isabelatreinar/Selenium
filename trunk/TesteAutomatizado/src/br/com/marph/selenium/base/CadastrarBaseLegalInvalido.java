@@ -14,6 +14,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.conexao.Conexao;
+import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class CadastrarBaseLegalInvalido {
@@ -30,7 +31,7 @@ public class CadastrarBaseLegalInvalido {
 	}
 
 	@Test
-	public void realizaCadastro() {
+	public void realizaCadastro() throws Exception {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 
@@ -41,6 +42,14 @@ public class CadastrarBaseLegalInvalido {
 		cadastrar();
 
 		validar();
+
+		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
+
+		if (validar == true) {
+			LogUtils.log(EnumMensagens.CADASTRO_BASE_VALIDADO, this.getClass());
+		} else {
+			throw new TesteAutomatizadoException(EnumMensagens.CADASTRO_BASE_NAO_VALIDADO, this.getClass());
+		}
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;

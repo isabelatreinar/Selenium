@@ -11,7 +11,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.conexao.Conexao;
+import br.com.marph.selenium.utils.LogUtils;
 
 public class CadastroResolucao {
 	private final String LOG_NAME = "RAFAEL";
@@ -30,7 +32,7 @@ public class CadastroResolucao {
 	@Test
 	public void realizaBusca(){			
 		
-		log.info("Inicio do teste - Cadastrar resolução");
+		LogUtils.log(EnumMensagens.INICIO, this.getClass());	
 		
 		long timestart = System.currentTimeMillis();		
 		
