@@ -1,5 +1,6 @@
 package br.com.marph.selenium.base;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
@@ -10,13 +11,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 
 import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class LimparPesquisaBaseLegal {
+public class QtdeRegistrosBaseLegal {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -30,45 +32,57 @@ public class LimparPesquisaBaseLegal {
 	}
 
 	@Test
-	public void limparPesquisaBaseLegal() throws TesteAutomatizadoException {
+	public void qtdeRegistrosBaseLegal() throws TesteAutomatizadoException, InterruptedException {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
-		
+
 		// Acessar menu
 		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
-		
-		// Preencher os filtros de pesquisa
-		PesquisarBaseLegal.pesquisar(driver);
-		
-		//Limpar os filtros
-		limpar();
-		
-		// validar exclusão de dados dos campos
-		if((!driver.findElement(By.id("tipoBaseLegal")).getText().equals("")) || (!driver.findElement(By.id("numero")).getText().equals(""))
-				|| (!driver.findElement(By.id("dataPublicacao")).getText().equals("")) || (!driver.findElement(By.id("dataVigencia")).getText().equals(""))){
-			throw new TesteAutomatizadoException(EnumMensagens.CAMPO_PREENCHIDO, this.getClass());
+
+		// Validar quantidade selecionada --> 10
+		selecionarQuantidade(driver, "10");
+		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS); 
+		if (contaRegistros(driver) != 10) {
+			throw new TesteAutomatizadoException(EnumMensagens.QUANTIDADE_EXCEDIDA, this.getClass());
 		}
-		
+
+		// validar quantidade selecionada --> 50
+		selecionarQuantidade(driver, "50");
+		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS); 
+		if (contaRegistros(driver) != 50) {
+			throw new TesteAutomatizadoException(EnumMensagens.QUANTIDADE_EXCEDIDA, this.getClass());
+		}
+
+		// validar quantidade selecionada --> 100
+		selecionarQuantidade(driver, "100");
+		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS); 
+		if (contaRegistros(driver) != 100) {
+			throw new TesteAutomatizadoException(EnumMensagens.QUANTIDADE_EXCEDIDA, this.getClass());
+		}
+
 		// se o campo estiver vazio o teste é finalizado com sucesso
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos - FINALIZADO COM SUCESSO\n");
-		
 
 		if (tempoSegundos > 5000) {
 			log.warn(sb.toString() + "\n");
 		} else {
 			log.info(sb.toString() + "\n");
 		}
-		
-	}
-	
-	public void limpar(){	// aguardando alterar o nome do botão
-		WebElement btnLimpar = driver.findElement(By.id("btnLimparPesquisa"));
-		btnLimpar.click();
 	}
 
+	public void selecionarQuantidade(WebDriver driver, String valor) {
+		Select selecionarValor = new Select(
+				driver.findElement(By.xpath("//div[@id='baseLegalDataTable_length']/label/select")));
+		selecionarValor.selectByVisibleText(valor);
+	}
+
+	public int contaRegistros(WebDriver driver) {
+		List<WebElement> trColecao = driver.findElements(By.cssSelector("tbody tr"));
+		return trColecao.size();
+	}
 }
