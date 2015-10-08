@@ -30,7 +30,7 @@ public class PesquisarBaseLegal {
 	}
 
 	@Test
-	public void realizaCadastro() {
+	public void pesquisarBaseLegal() {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 
@@ -38,7 +38,7 @@ public class PesquisarBaseLegal {
 
 		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
 
-		pesquisar();
+		pesquisar(driver);
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -54,7 +54,7 @@ public class PesquisarBaseLegal {
 
 	}
 
-	private void pesquisar() {
+	public static void pesquisar(WebDriver driver) {
 		WebElement tipo = driver.findElement(By.id("tipoBaseLegal_chosen"));
 		tipo.click();
 
