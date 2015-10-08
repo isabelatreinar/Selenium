@@ -14,6 +14,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.conexao.Conexao;
+import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class EditarBaseLegalMozilla {
@@ -30,7 +31,7 @@ public class EditarBaseLegalMozilla {
 	}
 
 	@Test
-	public void realizaCadastro() {
+	public void realizaCadastro() throws Exception {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 
@@ -41,7 +42,15 @@ public class EditarBaseLegalMozilla {
 		edicaoCampos();
 
 		validacao();
+		
+		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
 
+		if (validar == true) {
+			LogUtils.log(EnumMensagens.CADASTRO_BASE_VALIDADO, this.getClass());
+		} else {
+			throw new TesteAutomatizadoException(EnumMensagens.CADASTRO_BASE_NAO_VALIDADO, this.getClass());
+		}
+		
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
@@ -91,7 +100,7 @@ public class EditarBaseLegalMozilla {
 	}
 
 	private void edicaoCampos() {
-		String idBase = "rowId269";
+		String idBase = "rowId313";
 
 		WebElement selecionarBase = driver.findElement(By.id(idBase));
 		selecionarBase.click();
@@ -115,7 +124,7 @@ public class EditarBaseLegalMozilla {
 		data.sendKeys("-12082015");
 		data.sendKeys(Keys.TAB);				
 
-		driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\rafael.sad\\TESTEEE.pdf");
+		driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\\rafael.sad\\Documents\\TESTEEE.pdf");
 		
 		WebElement anoVigencia = driver.findElement(By.id("dataVigencia_chosen"));
 		anoVigencia.click();		

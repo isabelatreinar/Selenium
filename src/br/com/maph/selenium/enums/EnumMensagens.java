@@ -11,6 +11,8 @@ public enum EnumMensagens {
 	EXTENSAO_EM_BRANCO("Extensao em branco - Obrigatório\n"),
 	TELA_INCORRETA("Página acessada não é a correta\n"),
 	BENEFICIARIO_INCORRETO("Beneficiário incorreto.\n"),
+	CADASTRO_BASE_VALIDADO("**Base legal validada.**", TipoMensagem.VALIDACAO),
+	CADASTRO_BASE_NAO_VALIDADO("**Base legal não validada.**"),
 	CAMPO_PREENCHIDO("Campo preenchido.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 

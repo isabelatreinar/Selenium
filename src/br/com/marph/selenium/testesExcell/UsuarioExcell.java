@@ -37,7 +37,7 @@ public class UsuarioExcell {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
-
+ 
 	@Test
 	public void teste() throws Exception {
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
@@ -47,6 +47,33 @@ public class UsuarioExcell {
 		WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
 		botaoCadastrar.click();
 
+		cadastro();
+		
+		validar();
+
+		float tempoGasto = (System.currentTimeMillis() - timestart);
+		float tempoSegundos = tempoGasto / 1000;
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos - FINALIZADO COM SUCESSO\n");
+		if (tempoSegundos > 5000) {
+			log.warn(sb.toString() + "\n");
+		} else {
+			log.info(sb.toString() + "\n");
+		}
+	}
+
+	protected void validar() throws TesteAutomatizadoException {
+		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
+
+		if (validar == true) {
+			LogUtils.log(EnumMensagens.CADASTRO_BASE_VALIDADO, this.getClass());
+		} else {
+			throw new TesteAutomatizadoException(EnumMensagens.CADASTRO_BASE_NAO_VALIDADO, this.getClass());
+		}
+	}
+
+	protected void cadastro() throws TesteAutomatizadoException {
 		/**@author rafael.sad
 		 * Try catch para tratar a leitura dos dados na planilha e para
 		 * alimentar os campos a serem testados no brownser.
@@ -144,17 +171,6 @@ public class UsuarioExcell {
 
 		} catch (BiffException | IOException e) {
 			e.printStackTrace();
-		}
-
-		float tempoGasto = (System.currentTimeMillis() - timestart);
-		float tempoSegundos = tempoGasto / 1000;
-
-		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos - FINALIZADO COM SUCESSO\n");
-		if (tempoSegundos > 5000) {
-			log.warn(sb.toString() + "\n");
-		} else {
-			log.info(sb.toString() + "\n");
 		}
 	}
 }

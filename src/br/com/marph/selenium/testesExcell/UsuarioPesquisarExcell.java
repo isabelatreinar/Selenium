@@ -33,13 +33,28 @@ public class UsuarioPesquisarExcell {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);		
 	}
-	
+	 
 	@Test	
 	public void teste(){
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);		
 		
+		pesquisaEdicao();
+		
+		float tempoGasto = (System.currentTimeMillis() - timestart);
+		float tempoSegundos = tempoGasto / 1000;
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos - FINALIZADO COM SUCESSO\n");
+		if (tempoSegundos > 5000) {
+			log.warn(sb.toString() + "\n");
+		} else {
+			log.info(sb.toString() + "\n");
+		}
+	}
+
+	protected void pesquisaEdicao() {
 		try {
 			WorkbookSettings workbookSettings = new WorkbookSettings();
 		    workbookSettings.setEncoding("ISO-8859-1");
@@ -82,17 +97,6 @@ public class UsuarioPesquisarExcell {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
-		float tempoGasto = (System.currentTimeMillis() - timestart);
-		float tempoSegundos = tempoGasto / 1000;
-
-		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos - FINALIZADO COM SUCESSO\n");
-		if (tempoSegundos > 5000) {
-			log.warn(sb.toString() + "\n");
-		} else {
-			log.info(sb.toString() + "\n");
 		}
 	} 
 }
