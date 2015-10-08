@@ -14,6 +14,13 @@ public enum EnumMensagens {
 	CADASTRO_BASE_VALIDADO("**Base legal validada.**", TipoMensagem.VALIDACAO),
 	CADASTRO_BASE_NAO_VALIDADO("**Base legal não validada.**"),
 	CAMPO_PREENCHIDO("Campo preenchido.\n"),
+	TIPO_EM_BRANCO("Campo tipo estava em branco - Obrigatório"),
+	NUMERO_EM_BRANCO("Campo numero estava em branco - Obrigatório"),
+	DELIBERACAO_CADASTRADO("Existe uma Deliberação cadastrada com este número."),
+	DATA_PUBLICACAO_EM_BRANCO("Campo data publicação estava em branco - Obrigatório"),
+	DATA_VIGENCIA_EM_BRANCO("Campo data vigencia estava em branco - Obrigatório"),
+	PDF_EM_BRANCO("Campo PDF em branco - Obrigatório"),
+	PDF_MAIOR("PDF maior que 5mb."),
 	QUANTIDADE_EXCEDIDA("Quantidade de registros excedida.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 

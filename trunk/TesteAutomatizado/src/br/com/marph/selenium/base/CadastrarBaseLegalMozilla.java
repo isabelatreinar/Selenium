@@ -74,7 +74,7 @@ public class CadastrarBaseLegalMozilla {
 		procuraTipoBase.click();
 
 		WebElement numero = driver.findElement(By.id("numero"));
-		numero.sendKeys("61561");
+		numero.sendKeys("615621");
 
 		WebElement data = driver.findElement(By.id("dataPublicacao"));
 		data.sendKeys("-12082015");
