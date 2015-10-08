@@ -14,6 +14,7 @@ public enum EnumMensagens {
 	CADASTRO_BASE_VALIDADO("**Base legal validada.**", TipoMensagem.VALIDACAO),
 	CADASTRO_BASE_NAO_VALIDADO("**Base legal não validada.**"),
 	CAMPO_PREENCHIDO("Campo preenchido.\n"),
+	QUANTIDADE_EXCEDIDA("Quantidade de registros excedida.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 
 	private String mensagem;
