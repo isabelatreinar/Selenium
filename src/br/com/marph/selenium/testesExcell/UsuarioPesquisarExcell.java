@@ -15,6 +15,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.conexao.Conexao;
+import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.usuario.MenuUsuarioTemplate;
 import br.com.marph.selenium.utils.LogUtils;
 import jxl.Sheet;
@@ -35,12 +36,14 @@ public class UsuarioPesquisarExcell {
 	}
 	 
 	@Test	
-	public void teste(){
+	public void teste() throws Exception{
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);		
 		
 		pesquisaEdicao();
+		
+		validar();
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -51,6 +54,16 @@ public class UsuarioPesquisarExcell {
 			log.warn(sb.toString() + "\n");
 		} else {
 			log.info(sb.toString() + "\n");
+		}
+	}
+	
+	protected void validar() throws TesteAutomatizadoException {
+		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
+
+		if (validar == true) {
+			LogUtils.log(EnumMensagens.CADASTRO_BASE_VALIDADO, this.getClass());
+		} else {
+			throw new TesteAutomatizadoException(EnumMensagens.CADASTRO_BASE_NAO_VALIDADO, this.getClass());
 		}
 	}
 
@@ -94,6 +107,9 @@ public class UsuarioPesquisarExcell {
 			email1.clear();
 			email1.sendKeys(email);
 			}
+			
+			WebElement salvar = driver.findElement(By.id("btnSalvar"));
+			salvar.click();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

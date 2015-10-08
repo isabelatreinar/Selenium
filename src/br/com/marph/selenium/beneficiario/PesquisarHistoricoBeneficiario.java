@@ -83,7 +83,7 @@ public class PesquisarHistoricoBeneficiario {
 			String dataInicial = sheet.getCell(0, 2).getContents();
 			String dataFinal = sheet.getCell(1, 2).getContents();
 			String campoAlterado = sheet.getCell(2, 2).getContents();
-			String modificadoPor = sheet.getCell(2, 2).getContents();
+			//String modificadoPor = sheet.getCell(2, 2).getContents();
 
 			WebElement exibirPesquisa = driver.findElement(By.xpath("//button[@class='btn btCollapseOpen']"));
 			exibirPesquisa.click();
