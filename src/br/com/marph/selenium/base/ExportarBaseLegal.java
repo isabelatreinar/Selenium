@@ -19,40 +19,38 @@ public class ExportarBaseLegal {
 	private final String LOG_NAME = "RAFAEL";
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
-	
-	
+
 	@Before
-	public void startBrowser(){
+	public void startBrowser() {
 		driver = new FirefoxDriver();
-		Conexao.ip(driver);  
+		Conexao.ip(driver);
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
-		}
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	}
 
 	@Test
-	public void realizaBusca(){			
-		
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
-		
-		long timestart = System.currentTimeMillis();		
-		
-		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);			
-		
-		exportar();	
-		
+	public void realizaBusca() {
 
-		float tempoGasto = (System.currentTimeMillis() - timestart );
-		float tempoSegundos = tempoGasto/1000;
-		
+		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+
+		long timestart = System.currentTimeMillis();
+
+		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
+
+		exportar();
+
+		float tempoGasto = (System.currentTimeMillis() - timestart);
+		float tempoSegundos = tempoGasto / 1000;
+
 		StringBuilder sb = new StringBuilder();
 		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos - FINALIZADO COM SUCESSO\n");
-	
-		if(tempoSegundos>5000){
-			log.warn(sb.toString()+"\n");
-		}else{
-			log.info(sb.toString()+"\n");
-		}			
-		
+
+		if (tempoSegundos > 5000) {
+			log.warn(sb.toString() + "\n");
+		} else {
+			log.info(sb.toString() + "\n");
+		}
+
 	}
 
 	private void exportar() {
