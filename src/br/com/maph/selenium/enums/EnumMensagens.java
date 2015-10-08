@@ -11,6 +11,7 @@ public enum EnumMensagens {
 	EXTENSAO_EM_BRANCO("Extensao em branco - Obrigatório\n"),
 	TELA_INCORRETA("Página acessada não é a correta\n"),
 	BENEFICIARIO_INCORRETO("Beneficiário incorreto.\n"),
+	CAMPO_PREENCHIDO("Campo preenchido.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 
 	private String mensagem;
