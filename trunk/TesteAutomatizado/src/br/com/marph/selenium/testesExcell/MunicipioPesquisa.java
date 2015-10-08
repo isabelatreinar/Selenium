@@ -23,7 +23,7 @@ import jxl.Workbook;
 import jxl.WorkbookSettings;
 
 public class MunicipioPesquisa {
-	private final String LOG_NAME = "RAFAEL";
+	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 
@@ -85,8 +85,7 @@ public class MunicipioPesquisa {
 			}
 			
 			WebElement btnPesquisar = driver.findElement(By.id("btnPesquisar"));
-			btnPesquisar.click();
-		
+			btnPesquisar.click();		
 
 		} catch (Exception e) {
 			e.printStackTrace();

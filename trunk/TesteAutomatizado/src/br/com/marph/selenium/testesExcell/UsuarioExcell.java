@@ -26,7 +26,7 @@ import jxl.WorkbookSettings;
 import jxl.read.biff.BiffException;
 
 public class UsuarioExcell {
-	private final String LOG_NAME = "RAFAEL";
+	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 
@@ -40,13 +40,17 @@ public class UsuarioExcell {
 
 	@Test
 	public void teste() throws Exception {
-		// log.info("Inicio do teste - cadastrar usuarios Excell");
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
 		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);
 		WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
 		botaoCadastrar.click();
+
+		/**@author rafael.sad
+		 * Try catch para tratar a leitura dos dados na planilha e para
+		 * alimentar os campos a serem testados no brownser.
+		 */
 
 		try {
 			WorkbookSettings workbookSettings = new WorkbookSettings();
@@ -103,6 +107,15 @@ public class UsuarioExcell {
 			if (StringUtils.isNotBlank(celular)) {
 				WebElement celularCampo = driver.findElement(By.id("usuarioCelular"));
 				celularCampo.sendKeys(celular);
+			}
+			if ("CPF inválido!"
+					.equals(driver.findElement(By.xpath("//*[@id='usuarioCpf_label']/label/span")).getText())) {
+				throw new TesteAutomatizadoException(EnumMensagens.CPF_INVALIDO, this.getClass());
+			}
+
+			if ("CPF já cadastrado."
+					.equals(driver.findElement(By.xpath("//*[@id='usuarioCpf_label']/label/span")).getText())) {
+				throw new TesteAutomatizadoException(EnumMensagens.CPF_JA_CADASTRADO, this.getClass());
 			}
 
 			WebElement avancar = driver.findElement(By.id("btnSalvar1"));
