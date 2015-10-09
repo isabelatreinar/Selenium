@@ -49,9 +49,9 @@ public class CadastrarUsuarioMozilla {
 		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
 
 		if (validar == true) {
-			LogUtils.log(EnumMensagens.CADASTRO_BASE_VALIDADO, this.getClass());
+			LogUtils.log(EnumMensagens.BASE_LEGAL_VALIDADO, this.getClass());
 		} else {
-			throw new TesteAutomatizadoException(EnumMensagens.CADASTRO_BASE_NAO_VALIDADO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_NAO_VALIDADO, this.getClass());
 		}
 
 		// *[@id="modalPerfil_chosen"]/div/div/input

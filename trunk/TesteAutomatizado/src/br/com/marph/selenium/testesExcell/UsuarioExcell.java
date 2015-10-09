@@ -67,9 +67,9 @@ public class UsuarioExcell {
 		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
 
 		if (validar == true) {
-			LogUtils.log(EnumMensagens.CADASTRO_BASE_VALIDADO, this.getClass());
+			LogUtils.log(EnumMensagens.USUARIO_VALIDADO, this.getClass());
 		} else {
-			throw new TesteAutomatizadoException(EnumMensagens.CADASTRO_BASE_NAO_VALIDADO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagens.USUARIO_NAO_VALIDADO, this.getClass());
 		}
 	}
 
@@ -116,23 +116,27 @@ public class UsuarioExcell {
 				WebElement cargoCampo = driver.findElement(By.id("cargo_chosen"));
 				cargoCampo.click();
 				WebElement selecionarCargo = driver
-						.findElement(By.xpath("//li[@data-option-array-index='" + cargo + "']"));
-				selecionarCargo.click();
+						.findElement(By.xpath("//*[@id='cargo_chosen']/div/div/input"));
+				selecionarCargo.sendKeys(cargo);
+				selecionarCargo.sendKeys(Keys.TAB);
 			} else
 				throw new TesteAutomatizadoException(EnumMensagens.CARGO_EM_BRANCO, this.getClass());
 
 			if (StringUtils.isNotBlank(masp)) {
 				WebElement maspCampo = driver.findElement(By.id("usuarioMasp"));
+				maspCampo.clear();
 				maspCampo.sendKeys(masp);
 			}
 
 			if (StringUtils.isNotBlank(telefone)) {
 				WebElement telefoneCampo = driver.findElement(By.id("usuarioTelefone"));
+				telefoneCampo.clear();
 				telefoneCampo.sendKeys(telefone);
 			}
 
 			if (StringUtils.isNotBlank(celular)) {
 				WebElement celularCampo = driver.findElement(By.id("usuarioCelular"));
+				celularCampo.clear();
 				celularCampo.sendKeys(celular);
 			}
 			if ("CPF inválido!"
@@ -149,13 +153,12 @@ public class UsuarioExcell {
 			avancar.click();
 
 			if (StringUtils.isNotBlank(perfil)) {
-				WebElement perfilC = driver.findElement(By.id("modalPerfil_chosen"));
-				perfilC.click();
-				WebElement selecionarPerfil = driver
-						.findElement(By.xpath("//li[@data-option-array-index='" + perfil + "']"));
-				selecionarPerfil.click();
-			} else
-				LogUtils.log(EnumMensagens.PERFIL_EM_BRANCO, this.getClass());
+				WebElement perfilClica = driver.findElement(By.id("modalPerfil_chosen"));
+				perfilClica.click();
+				WebElement perfilPreenche = driver.findElement(By.xpath("//*[@id='modalPerfil_chosen']/div/div/input"));
+				perfilPreenche.sendKeys(perfil);
+				perfilPreenche.sendKeys(Keys.TAB);
+			}
 
 			if (StringUtils.isNotBlank(extensao)) {
 				WebElement extensaoPerfil = driver.findElement(By.id("modalExtensaoPerfilId"));

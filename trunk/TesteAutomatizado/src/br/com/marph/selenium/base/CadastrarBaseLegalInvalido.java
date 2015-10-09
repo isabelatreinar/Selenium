@@ -45,7 +45,7 @@ public class CadastrarBaseLegalInvalido {
 		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
 
 		if (validar == true) {
-			LogUtils.log(EnumMensagens.CADASTRO_BASE_VALIDADO, this.getClass());
+			LogUtils.log(EnumMensagens.BASE_LEGAL_VALIDADO, this.getClass());
 		} 
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
