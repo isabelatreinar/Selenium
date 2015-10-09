@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -57,23 +58,21 @@ public class PesquisarBaseLegal {
 	public static void pesquisar(WebDriver driver) {
 		WebElement tipo = driver.findElement(By.id("tipoBaseLegal_chosen"));
 		tipo.click();
-
-		WebElement procuraTipoBase = driver.findElement(By.xpath("//li[@data-option-array-index='1']"));
-		procuraTipoBase.click();
+		WebElement procuraTipoBase = driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input"));
+		procuraTipoBase.sendKeys("Delibera");
+		procuraTipoBase.sendKeys(Keys.TAB);
 
 		WebElement numero = driver.findElement(By.id("numero"));
 		numero.sendKeys("654456");
 
 		WebElement data = driver.findElement(By.id("dataPublicacao"));
-		data.click();
-		WebElement dataSeleciona = driver.findElement(By.xpath("//td[@class='day']"));
-		dataSeleciona.click();
+		data.sendKeys("-25082015");		
 
 		WebElement anoVigencia = driver.findElement(By.id("dataVigencia_chosen"));
 		anoVigencia.click();
-
-		WebElement anoVigenciaSeleciona = driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/ul/li[1]"));
-		anoVigenciaSeleciona.click();
+		WebElement anoVigenciaSeleciona = driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input"));
+		anoVigenciaSeleciona.sendKeys("2015");
+		anoVigenciaSeleciona.sendKeys(Keys.TAB);
 
 		WebElement btnPesquisa = driver.findElement(By.id("btnPesquisar"));
 		btnPesquisa.click();

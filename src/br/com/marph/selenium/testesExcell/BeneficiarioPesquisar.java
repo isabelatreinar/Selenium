@@ -16,7 +16,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.beneficiario.MenuBeneficiarioTemplate;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -43,8 +42,6 @@ public class BeneficiarioPesquisar {
 
 		pesquisa();
 		
-		validar();
-		
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
@@ -54,16 +51,6 @@ public class BeneficiarioPesquisar {
 			log.warn(sb.toString() + "\n");
 		} else {
 			log.info(sb.toString() + "\n");
-		}
-	}
-
-	protected void validar() throws TesteAutomatizadoException {
-		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
-
-		if (validar == true) {
-			LogUtils.log(EnumMensagens.CADASTRO_BASE_VALIDADO, this.getClass());
-		} else {
-			throw new TesteAutomatizadoException(EnumMensagens.CADASTRO_BASE_NAO_VALIDADO, this.getClass());
 		}
 	}
 
