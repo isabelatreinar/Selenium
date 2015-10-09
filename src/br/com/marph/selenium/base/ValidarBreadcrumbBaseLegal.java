@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.maph.selenium.enums.EnumMensagens;
@@ -16,11 +15,10 @@ import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class VisualizarBaseLegal {
+public class ValidarBreadcrumbBaseLegal {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
-	private static String baseSelecionada;
 
 	@Before
 	public void startBrowser() {
@@ -31,7 +29,7 @@ public class VisualizarBaseLegal {
 	}
 
 	@Test
-	public void visualizarBaseLegal() throws TesteAutomatizadoException {
+	public void visualizarBreadcrumbBaseLegal() throws TesteAutomatizadoException {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
@@ -43,16 +41,16 @@ public class VisualizarBaseLegal {
 		PesquisarBaseLegal.pesquisar(driver);
 
 		// visualizar base legal
-		visualizar(driver);
+		VisualizarBaseLegal.visualizar(driver);
+		
+		// visualizar histórico
+		VisualizarHistoricoBaseLegal.visualizar(driver);
+		
+		// validar breadcrumb
+		if(!driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText().equalsIgnoreCase("Você está em: Base Legal > Visualizar Base Legal > Histórico")){
+			throw new TesteAutomatizadoException(EnumMensagens.BREADCRUMB_INCORRETO, this.getClass());
+		}
 
-		// valida se a tela acessada é a correta
-		if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar base legal")) {
-			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
-		}
-		// validar se a tela corresponde a base legal acessada
-		if (!baseSelecionada.equalsIgnoreCase(driver.findElement(By.id("numero")).getText())) {
-			throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_INCORRETA, this.getClass());
-		}
 
 		// Se a tela e a base legal forem os corretos o teste se encerra
 		float tempoGasto = (System.currentTimeMillis() - timestart);
@@ -67,12 +65,6 @@ public class VisualizarBaseLegal {
 			log.info(sb.toString() + "\n");
 		}
 
-	}
-
-	public static void visualizar(WebDriver driver) {
-		WebElement selecionar = driver.findElement(By.xpath("//td[@class='sorting_1']"));
-		baseSelecionada = selecionar.getText();
-		selecionar.click();
 	}
 
 }
