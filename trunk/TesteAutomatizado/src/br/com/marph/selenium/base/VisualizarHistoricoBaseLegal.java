@@ -16,11 +16,10 @@ import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class VisualizarBaseLegal {
+public class VisualizarHistoricoBaseLegal {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
-	private static String baseSelecionada;
 
 	@Before
 	public void startBrowser() {
@@ -43,15 +42,14 @@ public class VisualizarBaseLegal {
 		PesquisarBaseLegal.pesquisar(driver);
 
 		// visualizar base legal
+		VisualizarBaseLegal.visualizar(driver);
+		
+		// visualizar histórico
 		visualizar(driver);
 
 		// valida se a tela acessada é a correta
-		if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar base legal")) {
+		if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Histórico")) {
 			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
-		}
-		// validar se a tela corresponde a base legal acessada
-		if (!baseSelecionada.equalsIgnoreCase(driver.findElement(By.id("numero")).getText())) {
-			throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_INCORRETA, this.getClass());
 		}
 
 		// Se a tela e a base legal forem os corretos o teste se encerra
@@ -70,9 +68,8 @@ public class VisualizarBaseLegal {
 	}
 
 	public static void visualizar(WebDriver driver) {
-		WebElement selecionar = driver.findElement(By.xpath("//td[@class='sorting_1']"));
-		baseSelecionada = selecionar.getText();
-		selecionar.click();
+		WebElement historico = driver.findElement(By.id("btnHistorico1"));
+		historico.click();
 	}
 
 }
