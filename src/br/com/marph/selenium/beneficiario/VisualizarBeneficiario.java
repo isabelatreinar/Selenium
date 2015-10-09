@@ -2,7 +2,6 @@ package br.com.marph.selenium.beneficiario;
 
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -48,24 +47,20 @@ public class VisualizarBeneficiario {
 		visualizar(driver);
 
 		// valida se a tela acessada é a correta
-		if(StringUtils.isNotBlank(driver.findElement(By.id("gridSystemModalLabel")).getText())){
-			if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar beneficiário")) {
-				throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
-			}
+		if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar beneficiário")) {
+			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
 		}
-		
 		// se a tela é a correta -> verifica se é do beneficiario correto
 		if (!beneficiarioSelecionado.equalsIgnoreCase(driver.findElement(By.id("modalVisualizarNome")).getText())) {
 			throw new TesteAutomatizadoException(EnumMensagens.BENEFICIARIO_INCORRETO, this.getClass());
 		}
 
-		// Se for a correta o teste se encerra
+		// Se a tela e o beneficiario forem os corretos o teste se encerra
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos - FINALIZADO COM SUCESSO\n");
-		
 
 		if (tempoSegundos > 5000) {
 			log.warn(sb.toString() + "\n");
@@ -79,8 +74,8 @@ public class VisualizarBeneficiario {
 		beneficiarioSelecionado = beneficiario.getText();
 		beneficiario.click();
 	}
-	
-	public static String getBeneficiarioSelecionado(){
+
+	public static String getBeneficiarioSelecionado() {
 		return beneficiarioSelecionado;
 	}
 }

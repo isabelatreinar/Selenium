@@ -59,19 +59,19 @@ public class PesquisarBaseLegal {
 		WebElement tipo = driver.findElement(By.id("tipoBaseLegal_chosen"));
 		tipo.click();
 		WebElement procuraTipoBase = driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input"));
-		procuraTipoBase.sendKeys("Delibera");
+		procuraTipoBase.sendKeys("Resolu");
 		procuraTipoBase.sendKeys(Keys.TAB);
 
 		WebElement numero = driver.findElement(By.id("numero"));
-		numero.sendKeys("654456");
+		numero.sendKeys("430");
 
 		WebElement data = driver.findElement(By.id("dataPublicacao"));
-		data.sendKeys("-25082015");		
+		data.sendKeys("-14012015");		
 
 		WebElement anoVigencia = driver.findElement(By.id("dataVigencia_chosen"));
 		anoVigencia.click();
 		WebElement anoVigenciaSeleciona = driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input"));
-		anoVigenciaSeleciona.sendKeys("2015");
+		anoVigenciaSeleciona.sendKeys("2020");
 		anoVigenciaSeleciona.sendKeys(Keys.TAB);
 
 		WebElement btnPesquisa = driver.findElement(By.id("btnPesquisar"));
