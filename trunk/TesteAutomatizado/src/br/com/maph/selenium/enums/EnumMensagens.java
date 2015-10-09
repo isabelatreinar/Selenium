@@ -27,7 +27,7 @@ public enum EnumMensagens {
 	ANO_EM_BRANCO("Ano em branco! - Obrigatório\n"),
 	DATA_EM_BRANCO("Data em branco! - Obrigatório\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
-
+	//teste
 	private String mensagem;
 	private TipoMensagem tipoMensagem;
 	
