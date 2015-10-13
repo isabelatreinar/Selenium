@@ -40,7 +40,7 @@ public class PesquisarHistoricoBeneficiario {
 		long timestart = System.currentTimeMillis();
 
 		// Acessar menu
-		MenuBeneficiarioTemplate.prepararAcessoBaseLegal(driver);
+		MenuBeneficiarioTemplate.prepararAcessoBeneficiario(driver);
 
 		// Lê e armazena os dados do Excel
 

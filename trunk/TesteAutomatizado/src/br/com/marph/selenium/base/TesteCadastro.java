@@ -16,7 +16,7 @@ import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class TesteCadastro {
-	private final String LOG_NAME = "RAFAEL";
+	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 

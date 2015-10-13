@@ -36,7 +36,7 @@ public class VisualizarResponsavel {
 		long timestart = System.currentTimeMillis();
 		
 		//Acessa Menu Cadastros Beneficiário
-		MenuBeneficiarioTemplate.prepararAcessoBaseLegal(driver);
+		MenuBeneficiarioTemplate.prepararAcessoBeneficiario(driver);
 		
 		// Pesquisa um beneficiário na base de dados
 		PesquisarBeneficiarioMozilla.pesquisar(driver);

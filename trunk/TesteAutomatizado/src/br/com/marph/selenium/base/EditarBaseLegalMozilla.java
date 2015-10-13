@@ -18,7 +18,7 @@ import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class EditarBaseLegalMozilla {
-	private final String LOG_NAME = "RAFAEL";
+	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 
@@ -113,12 +113,13 @@ public class EditarBaseLegalMozilla {
 
 		WebElement TipoBase = driver.findElement(By.id("tipoBaseLegal_chosen"));
 		TipoBase.click();
-		WebElement procuraTipoBase = driver.findElement(By.xpath("//li[@data-option-array-index='2']"));
-		procuraTipoBase.click();
+		WebElement procuraTipoBase = driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']"));
+		procuraTipoBase.sendKeys("Nota Técnica");//numero 2
+		procuraTipoBase.sendKeys(Keys.TAB);
 
 		WebElement numero = driver.findElement(By.id("numero"));
 		numero.clear();
-		numero.sendKeys("654458");
+		numero.sendKeys("654158");
 
 		WebElement data = driver.findElement(By.id("dataPublicacao"));
 		data.sendKeys("-12082015");

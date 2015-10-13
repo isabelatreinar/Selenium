@@ -38,7 +38,7 @@ public class VisualizarBeneficiario {
 		long timestart = System.currentTimeMillis();
 
 		// Acessa menu
-		MenuBeneficiarioTemplate.prepararAcessoBaseLegal(driver);
+		MenuBeneficiarioTemplate.prepararAcessoBeneficiario(driver);
 
 		// Pesquisa um beneficiário na base de dados
 		PesquisarBeneficiarioMozilla.pesquisar(driver);

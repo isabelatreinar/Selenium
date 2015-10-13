@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -16,7 +17,7 @@ import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class PesquisarTipoBaseLegal {
-	private final String LOG_NAME = "RAFAEL";
+	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 
@@ -61,23 +62,23 @@ public class PesquisarTipoBaseLegal {
 
 		WebElement transfRecursos = driver.findElement(By.id("transferenciaRecursosFinanceiros_chosen"));
 		transfRecursos.click();
-
-		WebElement transSeleciona = driver.findElement(By.xpath("//li[@data-option-array-index='1']"));
-		transSeleciona.click();
-
+		WebElement transSeleciona = driver.findElement(By.xpath("//*[@id='transferenciaRecursosFinanceiros_chosen']/div/div/input"));
+		transSeleciona.sendKeys("Sim");
+		transSeleciona.sendKeys(Keys.TAB);
+		
 		WebElement prestacaoMetas = driver.findElement(By.id("prestacaoMetas_chosen"));
 		prestacaoMetas.click();
-
 		WebElement prestacaoMetasSeleciona = driver
-				.findElement(By.xpath("//*[@id='prestacaoMetas_chosen']/div/ul/li[1]"));
-		prestacaoMetasSeleciona.click();
+				.findElement(By.xpath("//*[@id='prestacaoMetas_chosen']/div/div/input"));
+		prestacaoMetasSeleciona.sendKeys("Sim");
+		prestacaoMetasSeleciona.sendKeys(Keys.TAB);
 
 		WebElement prestacaoContas = driver.findElement(By.id("prestacaoContas_chosen"));
 		prestacaoContas.click();
-
 		WebElement prestacaoContasSeleciona = driver
-				.findElement(By.xpath("//*[@id='prestacaoContas_chosen']/div/ul/li[2]"));
-		prestacaoContasSeleciona.click();
+				.findElement(By.xpath("//*[@id='prestacaoContas_chosen']/div/div/input"));
+		prestacaoContasSeleciona.sendKeys("Sim");
+		prestacaoContasSeleciona.sendKeys(Keys.TAB);
 
 		WebElement btnPesquisar = driver.findElement(By.id("btnPesquisar"));
 		btnPesquisar.click();

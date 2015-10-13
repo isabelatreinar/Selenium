@@ -6,7 +6,8 @@ import org.openqa.selenium.WebElement;
 
 public class PesquisarBeneficiarioMozilla {
 
-	public static void pesquisar(WebDriver driver) {
+	
+	public static void pesquisar(WebDriver driver) {		
 		WebElement nome = driver.findElement(By.id("buscaNome"));
 		nome.sendKeys("FUNDO MUNICIPAL DE SAÚDE DE CAMPO BELO");
 		
