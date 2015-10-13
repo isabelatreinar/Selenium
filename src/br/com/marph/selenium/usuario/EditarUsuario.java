@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -17,7 +18,7 @@ import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class EditarUsuario {
-	private final String LOG_NAME = "RAFAEL";
+	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 
@@ -45,9 +46,9 @@ public class EditarUsuario {
 		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
 
 		if (validar == true) {
-			LogUtils.log(EnumMensagens.BASE_LEGAL_VALIDADO, this.getClass());
+			LogUtils.log(EnumMensagens.USUARIO_VALIDADO, this.getClass());
 		} else {
-			throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_NAO_VALIDADO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagens.USUARIO_NAO_VALIDADO, this.getClass());
 		}
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
@@ -66,11 +67,11 @@ public class EditarUsuario {
 
 	private void validacao() {
 		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='usuarioNome_label']/label/span")).getText())) {
-			log.info("Campo de nome estava em branco - Obrigatório");
+			LogUtils.log(EnumMensagens.NOME_EM_BRANCO, this.getClass());
 		}
 
 		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='cargo_label']/label/span")).getText())) {
-			log.info("Campo de cargo estava em branco - Obrigatório");
+			LogUtils.log(EnumMensagens.CARGO_EM_BRANCO, this.getClass());
 		}
 	}
 
@@ -88,13 +89,13 @@ public class EditarUsuario {
 
 		WebElement nome = driver.findElement(By.id("usuarioNome"));
 		nome.clear();
-		// nome.sendKeys("TESTE");
+		nome.sendKeys("TESTE");
 
 		WebElement cargo = driver.findElement(By.id("cargo_chosen"));
 		cargo.click();
-
-		WebElement selecionarCargo = driver.findElement(By.xpath("//li[@data-option-array-index='4']"));
-		selecionarCargo.click();
+		WebElement selecionarCargo = driver.findElement(By.xpath("//*[@id='cargo_chosen']/div/div/input"));
+		selecionarCargo.sendKeys("Prefeito");
+		selecionarCargo.sendKeys(Keys.TAB);
 
 		WebElement salvar = driver.findElement(By.id("btnSalvar"));
 		salvar.click();

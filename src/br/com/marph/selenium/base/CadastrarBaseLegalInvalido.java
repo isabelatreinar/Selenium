@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -17,7 +18,7 @@ import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class CadastrarBaseLegalInvalido {
-	private final String LOG_NAME = "RAFAEL";
+	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 
@@ -53,7 +54,6 @@ public class CadastrarBaseLegalInvalido {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos - FINALIZADO COM SUCESSO\n");
-
 		if (tempoSegundos > 5000) {
 			log.warn(sb.toString() + "\n");
 		} else {
@@ -105,24 +105,24 @@ public class CadastrarBaseLegalInvalido {
 
 		WebElement tipoBase = driver.findElement(By.id("tipoBaseLegal_chosen"));
 		tipoBase.click();
-		WebElement procuraTipoBase = driver.findElement(By.xpath("//li[@data-option-array-index='1']"));
-		procuraTipoBase.click();
+		WebElement procuraTipoBase = driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input"));
+		procuraTipoBase.sendKeys("Deliberação");
+		procuraTipoBase.sendKeys(Keys.TAB);
 
 		WebElement numero = driver.findElement(By.id("numero"));
-		numero.sendKeys("63221");
+		numero.sendKeys("633221");
 
 		WebElement data = driver.findElement(By.id("dataPublicacao"));
-		data.click();
-		WebElement dataSeleciona = driver.findElement(By.xpath("/html/body/div[4]/div[1]/table/tbody/tr[4]/td[5]"));
-		dataSeleciona.click();
+		data.sendKeys("-12082015");
+		data.sendKeys(Keys.TAB);
+
+		driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\\rafael.sad\\Documents\\TESTEEE.pdf");
 
 		WebElement anoVigencia = driver.findElement(By.id("dataVigencia_chosen"));
 		anoVigencia.click();
-
-		WebElement anoVigenciaSeleciona = driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/ul/li[2]"));
-		anoVigenciaSeleciona.click();
-
-		driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\\rafael.sad\\Downloads\\TESTE.pdf");
+		WebElement anoVigenciaSeleciona = driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input"));
+		anoVigenciaSeleciona.sendKeys("2015");
+		anoVigenciaSeleciona.sendKeys(Keys.TAB);
 
 		WebElement salvar = driver.findElement(By.id("btnSalvar"));
 		salvar.click();

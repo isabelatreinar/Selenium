@@ -18,7 +18,7 @@ import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class CadastrarBaseLegalMozilla {
-	private final String LOG_NAME = "RAFAEL";
+	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 
@@ -65,13 +65,15 @@ public class CadastrarBaseLegalMozilla {
 
 	private void cadastro() {
 		// CADASTRO
+				
 		WebElement btnNovoUsu = driver.findElement(By.id("btnNovoUsuario"));
 		btnNovoUsu.click();
 
 		WebElement tipoBase = driver.findElement(By.id("tipoBaseLegal_chosen"));
 		tipoBase.click();
-		WebElement procuraTipoBase = driver.findElement(By.xpath("//li[@data-option-array-index='1']"));
-		procuraTipoBase.click();
+		WebElement procuraTipoBase = driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input"));
+		procuraTipoBase.sendKeys("Deliberação");
+		procuraTipoBase.sendKeys(Keys.TAB);
 
 		WebElement numero = driver.findElement(By.id("numero"));
 		numero.sendKeys("615621");

@@ -15,7 +15,7 @@ import br.com.marph.selenium.conexao.Conexao;
   
 public class PesquisarUsuario{
 
-	private final String LOG_NAME = "RAFAEL";
+	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 	

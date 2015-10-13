@@ -19,7 +19,7 @@ import br.com.marph.selenium.utils.LogUtils;
 
 public class CadastrarUsuarioMozilla {
 
-	private final String LOG_NAME = "RAFAEL";
+	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 
@@ -87,11 +87,10 @@ public class CadastrarUsuarioMozilla {
 		email.sendKeys("ana@gmail.com");
 
 		WebElement cpf = driver.findElement(By.id("usuarioCpf"));
-		cpf.sendKeys("-88752594378");
+		cpf.sendKeys("-63812631130");	//- E NECESSARIO PARA INSERIR O CPF CORRETAMENTE
 
 		WebElement cargo = driver.findElement(By.id("cargo_chosen"));
 		cargo.click();
-
 		WebElement selecionarCargo = driver.findElement(By.xpath("//*[@id='cargo_chosen']/div/div/input"));
 		selecionarCargo.sendKeys("Prefeito");
 		selecionarCargo.sendKeys(Keys.TAB);
@@ -101,15 +100,14 @@ public class CadastrarUsuarioMozilla {
 
 		WebElement perfil = driver.findElement(By.id("modalPerfil_chosen"));
 		perfil.click();
-
-		WebElement selecionarPerfil = driver.findElement(By.xpath("//li[@data-option-array-index='3']"));
-		selecionarPerfil.click();
+		WebElement selecionarPerfil = driver.findElement(By.xpath("//*[@id='modalPerfil_chosen']/div/div/input"));
+		selecionarPerfil.sendKeys("Gestor do Beneficiário");
+		selecionarPerfil.sendKeys(Keys.TAB);
 
 		WebElement extensao = driver.findElement(By.id("modalExtensaoPerfilId"));
-		extensao.sendKeys("uni");
-		WebElement extensaoSeleciona = driver.findElement(By.id("ui-id-2"));
-		extensaoSeleciona.click();
-
+		extensao.sendKeys("FUNDO MUNICIPAL DE SAÚDE DE ABAETÉ");
+		extensao.sendKeys(Keys.TAB);
+		
 		WebElement salvar = driver.findElement(By.id("btnSalvar"));
 		salvar.click();
 	}

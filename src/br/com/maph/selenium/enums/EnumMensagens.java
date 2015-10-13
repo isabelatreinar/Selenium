@@ -27,7 +27,7 @@ public enum EnumMensagens {
 	ANO_EM_BRANCO("Ano em branco! - Obrigatório\n"),
 	DATA_EM_BRANCO("Data em branco! - Obrigatório\n"),
 	BREADCRUMB_INCORRETO("Breadcrumb incorreto.\n"),
-	BASE_LEGAL_INCORRETA("Base Legal incorreta.\n"),
+	BASE_LEGAL_INCORRETA("Base legal incorreta !"),
 	ERRO_HISTORICO("Erro na pesquisa do histórico.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	

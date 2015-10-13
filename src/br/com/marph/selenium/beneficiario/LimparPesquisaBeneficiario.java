@@ -36,7 +36,7 @@ public class LimparPesquisaBeneficiario {
 		long timestart = System.currentTimeMillis();
 		
 		// Acessar menu
-		MenuBeneficiarioTemplate.prepararAcessoBaseLegal(driver);
+		MenuBeneficiarioTemplate.prepararAcessoBeneficiario(driver);
 		
 		// Preencher os filtros de pesquisa
 		PesquisarBeneficiarioMozilla.pesquisar(driver);
@@ -70,6 +70,8 @@ public class LimparPesquisaBeneficiario {
 	public void limpar(){	
 		WebElement btnLimpar = driver.findElement(By.id("btnLimparPesquisa"));
 		btnLimpar.click();
+		WebElement btnPesquisa = driver.findElement(By.id("btnPesquisar"));
+		btnPesquisa.click();
 	}
 
 }

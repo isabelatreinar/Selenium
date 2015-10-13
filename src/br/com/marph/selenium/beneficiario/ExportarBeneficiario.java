@@ -16,7 +16,7 @@ import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class ExportarBeneficiario {
-	private final String LOG_NAME = "RAFAEL";
+	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 
@@ -35,7 +35,7 @@ public class ExportarBeneficiario {
 
 		long timestart = System.currentTimeMillis();
 
-		MenuBeneficiarioTemplate.prepararAcessoBaseLegal(driver);
+		MenuBeneficiarioTemplate.prepararAcessoBeneficiario(driver);
 
 		exportar();
 
