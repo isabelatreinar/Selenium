@@ -66,7 +66,7 @@ public class LimparPesquisaBaseLegal {
 		
 	}
 	
-	public void limpar(){	// aguardando alterar o nome do botão
+	public void limpar(){	
 		WebElement btnLimpar = driver.findElement(By.id("btnLimparPesquisa"));
 		btnLimpar.click();
 	}
