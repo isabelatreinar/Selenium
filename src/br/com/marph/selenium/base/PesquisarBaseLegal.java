@@ -18,7 +18,7 @@ import br.com.marph.selenium.utils.LogUtils;
 
 public class PesquisarBaseLegal {
 
-	private final String LOG_NAME = "RAFAEL";
+	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 
@@ -63,15 +63,15 @@ public class PesquisarBaseLegal {
 		procuraTipoBase.sendKeys(Keys.TAB);
 
 		WebElement numero = driver.findElement(By.id("numero"));
-		numero.sendKeys("430");
+		numero.sendKeys("500");
 
 		WebElement data = driver.findElement(By.id("dataPublicacao"));
-		data.sendKeys("-14012015");		
+		data.sendKeys("-22092015");		
 
 		WebElement anoVigencia = driver.findElement(By.id("dataVigencia_chosen"));
 		anoVigencia.click();
 		WebElement anoVigenciaSeleciona = driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input"));
-		anoVigenciaSeleciona.sendKeys("2020");
+		anoVigenciaSeleciona.sendKeys("2019");
 		anoVigenciaSeleciona.sendKeys(Keys.TAB);
 
 		WebElement btnPesquisa = driver.findElement(By.id("btnPesquisar"));

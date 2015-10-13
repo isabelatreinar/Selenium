@@ -28,6 +28,7 @@ public enum EnumMensagens {
 	DATA_EM_BRANCO("Data em branco! - Obrigatório\n"),
 	BREADCRUMB_INCORRETO("Breadcrumb incorreto.\n"),
 	BASE_LEGAL_INCORRETA("Base Legal incorreta.\n"),
+	ERRO_HISTORICO("Erro na pesquisa do histórico.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;
