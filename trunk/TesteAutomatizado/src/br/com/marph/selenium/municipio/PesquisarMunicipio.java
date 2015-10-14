@@ -17,7 +17,7 @@ import br.com.marph.selenium.utils.LogUtils;
 
 
 public class PesquisarMunicipio {
-	private final String LOG_NAME = "RAFAEL";
+	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);	
 	
@@ -30,15 +30,15 @@ public class PesquisarMunicipio {
 		}	
 
 	@Test
-	public void realizaCadastro(){			
+	public void realizaBusca(){			
 		
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		
 		long timestart = System.currentTimeMillis();		
 		
-		MenuMunicipioTemplate.prepararAcessoBaseLegal(driver);
+		MenuMunicipioTemplate.prepararAcessoMunicipio(driver);
 			
-		pesquisar();
+		pesquisar(driver);
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart );
 		float tempoSegundos = tempoGasto/1000;
@@ -53,14 +53,14 @@ public class PesquisarMunicipio {
 		}		
 	}
 
-	private void pesquisar() {
+	public static void pesquisar(WebDriver driver) {
 		WebElement nome = driver.findElement(By.id("nome"));
-		nome.sendKeys("BARBACENA");
+		nome.sendKeys("BELO VALE");
 		
 		//Selecionar unidade regional
 		WebElement unidadeRegional = driver.findElement(By.id("unidadeRegional_chosen"));
 		unidadeRegional.click();
-		WebElement procuraTipoRegional = driver.findElement(By.xpath("//li[@data-option-array-index='2']"));
+		WebElement procuraTipoRegional = driver.findElement(By.xpath("//li[@data-option-array-index='3']"));
 		procuraTipoRegional.click(); 
 		//fim
 		
