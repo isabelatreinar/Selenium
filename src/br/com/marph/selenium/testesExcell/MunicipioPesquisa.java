@@ -40,7 +40,7 @@ public class MunicipioPesquisa {
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 		
-		MenuMunicipioTemplate.prepararAcessoBaseLegal(driver);
+		MenuMunicipioTemplate.prepararAcessoMunicipio(driver);
 
 		pesquisa();
 		

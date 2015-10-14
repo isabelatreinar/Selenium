@@ -63,7 +63,8 @@ public class LimparPesquisaHistoricoBeneficiario {
 		dataFinal.sendKeys("-15102015");
 		
 		/*WebElement campoAlterado = driver.findElement(By.id("camposBeneficiario_chosen"));
-		campoAlterado.sendKeys("CNJP");*/		
+		campoAlterado.sendKeys("CNJP");*/
+		
 		
 		WebElement modificado = driver.findElement(By.id("usuariosAlteracao_chosen"));
 		modificado.click();

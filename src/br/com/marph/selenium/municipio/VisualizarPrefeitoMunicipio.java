@@ -11,13 +11,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.conexao.Conexao;
+import br.com.marph.selenium.utils.LogUtils;
 
-public class ExportarMunicipioIE {
+public class VisualizarPrefeitoMunicipio {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
-	private Logger log = LogManager.getLogger(LOG_NAME);
-	
+	private Logger log = LogManager.getLogger(LOG_NAME);	
 	
 	@Before
 	public void startBrowser(){
@@ -25,24 +26,31 @@ public class ExportarMunicipioIE {
 		Conexao.ip(driver);  
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
-		}
+		}	
 
 	@Test
 	public void realizaBusca(){			
 		
-		log.info("Inicio do teste - Exportar municipios");
+		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		
+		long timestart = System.currentTimeMillis();		
 		
 		MenuMunicipioTemplate.prepararAcessoMunicipio(driver);
+			
+		PesquisarMunicipio.pesquisar(driver);
 		
-		long timestart = System.currentTimeMillis();
+		WebElement entrar = driver.findElement(By.xpath("//td[@class='sorting_1']"));
+		entrar.click();
 		
-		exportar();			
+		WebElement prefeito = driver.findElement(By.id("btnVisualizarPrefeito"));
+		prefeito.click();
+		 		
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart );
 		float tempoSegundos = tempoGasto/1000;
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos - FINALIZADO COM SUCESSO\n");
 	
 		if(tempoSegundos>5000){
 			log.warn(sb.toString()+"\n");
@@ -51,8 +59,4 @@ public class ExportarMunicipioIE {
 		}		
 	}
 
-	private void exportar() {
-		WebElement btnPerfil = driver.findElement(By.xpath("//button[@data-id-datatable='municipioDataTable']"));
-		btnPerfil.click();
-	}
 }

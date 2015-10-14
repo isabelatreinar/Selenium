@@ -15,7 +15,7 @@ import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class ExportarMunicipio {
-	private final String LOG_NAME = "RAFAEL";
+	private final String LOG_NAME = System.getProperty("user.name");
 	private Logger log = LogManager.getLogger(LOG_NAME);
 	
 	
@@ -29,7 +29,7 @@ public class ExportarMunicipio {
 		
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		
-		MenuMunicipioTemplate.prepararAcessoBaseLegal(driver);
+		MenuMunicipioTemplate.prepararAcessoMunicipio(driver);
 		
 		long timestart = System.currentTimeMillis();
 		
