@@ -43,7 +43,7 @@ public class VisualizarHistoricoBeneficiario {
 		// Pesquisa um beneficiário na base de dados
 		PesquisarBeneficiarioMozilla.pesquisar(driver);
 		
-		visualiza();
+		visualizar(driver);
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -58,7 +58,7 @@ public class VisualizarHistoricoBeneficiario {
 		}
 	}
 
-	protected void visualiza() {
+	public static void visualizar(WebDriver driver) {
 		WebElement beneficiario = driver.findElement(By.xpath("//td[@class='sorting_1']"));
 		beneficiarioSelecionado = beneficiario.getText();
 		beneficiario.click();
@@ -66,4 +66,6 @@ public class VisualizarHistoricoBeneficiario {
 		WebElement btnHistorico = driver.findElement(By.id("btnHistorico1"));
 		btnHistorico.click();
 	}
+	
+	
 }

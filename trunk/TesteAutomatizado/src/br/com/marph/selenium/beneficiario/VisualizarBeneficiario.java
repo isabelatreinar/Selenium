@@ -50,6 +50,7 @@ public class VisualizarBeneficiario {
 		if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar beneficiário")) {
 			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
 		}
+		
 		// se a tela é a correta -> verifica se é do beneficiario correto
 		if (!beneficiarioSelecionado.equalsIgnoreCase(driver.findElement(By.id("modalVisualizarNome")).getText())) {
 			throw new TesteAutomatizadoException(EnumMensagens.BENEFICIARIO_INCORRETO, this.getClass());
@@ -74,8 +75,9 @@ public class VisualizarBeneficiario {
 		beneficiarioSelecionado = beneficiario.getText();
 		beneficiario.click();
 	}
-
-	public static String getBeneficiarioSelecionado() {
+	
+	// Este método é utilizado na classe Visualizar Responsável
+	public static String getBeneficiarioSelecionado(){
 		return beneficiarioSelecionado;
 	}
 }
