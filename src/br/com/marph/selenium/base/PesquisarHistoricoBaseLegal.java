@@ -67,7 +67,10 @@ public class PesquisarHistoricoBaseLegal {
 	public void pesquisar() throws TesteAutomatizadoException {
 		WebElement exibirPesquisa = driver.findElement(By.xpath("//button[@class='btn btCollapseOpen']"));
 		exibirPesquisa.click();
-
+		
+		/*
+		 * O sinal de menos é colocado antes da data para a máscara do campo seja considerada.
+		 */
 		WebElement dataInicial = driver.findElement(By.id("dataInicialHistorico"));
 		dataInicial.sendKeys("-14012015");
 		dataInicial.sendKeys(Keys.TAB);
@@ -87,7 +90,7 @@ public class PesquisarHistoricoBaseLegal {
 		 */
 		// verifica se possui a mensagem "Resultado não encontrado"
 		if(!driver.findElement(By.xpath("/html/body/div[2]/div[5]/div[2]")).getText().contains("Resultado não encontrado.")){
-			
+			System.out.println(driver.findElements(By.cssSelector(".chosen-results li")).size());
 			// verifica se possui usuários, se não possui a mensagem nem usuários -> erro
 			if(driver.findElements(By.cssSelector(".chosen-results li")).size() == 0){
 				throw new TesteAutomatizadoException(EnumMensagens.ERRO_HISTORICO, this.getClass());
