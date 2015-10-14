@@ -1,6 +1,5 @@
 package br.com.marph.selenium.beneficiario;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
@@ -17,8 +16,6 @@ import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
-import jxl.Sheet;
-import jxl.Workbook;
 
 public class PesquisarHistoricoBeneficiario {
 	private final String LOG_NAME = System.getProperty("user.name");
@@ -51,11 +48,12 @@ public class PesquisarHistoricoBeneficiario {
 		VisualizarBeneficiario.visualizar(driver);
 
 		// Visualizar Histórico
-		visualizarHistorico();
+		VisualizarHistoricoBeneficiario.visualizar(driver);
 
 		
-		// Pesquisar (Exibir pesquisa e pesquisar)
-		pesquisar();
+		// Pesquisar no histórico
+		pesquisar(driver);
+		
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -71,43 +69,48 @@ public class PesquisarHistoricoBeneficiario {
 
 	}
 
-	public void visualizarHistorico() {
-		WebElement btnHistorico = driver.findElement(By.id("btnHistorico1"));
-		btnHistorico.click();
-	}
+	public void pesquisar(WebDriver driver) throws TesteAutomatizadoException {
+		WebElement exibirPesquisa = driver.findElement(By.xpath("//button[@class='btn btCollapseOpen']"));
+		exibirPesquisa.click();
+		
+		/*
+		 * O sinal de menos é colocado antes da data para a máscara do campo seja considerada.
+		 */
+		WebElement dataInicial = driver.findElement(By.id("dataInicialHistorico"));
+		dataInicial.sendKeys("-14012015");
+		dataInicial.sendKeys(Keys.TAB);
 
-	public void pesquisar() {
-		try {
-			Workbook wb = Workbook.getWorkbook(new File("./data/baseLegalPesquisa.xls"));
-			Sheet sheet = wb.getSheet(0);
-			String dataInicial = sheet.getCell(0, 2).getContents();
-			String dataFinal = sheet.getCell(1, 2).getContents();
-			String campoAlterado = sheet.getCell(2, 2).getContents();
-			//String modificadoPor = sheet.getCell(2, 2).getContents();
+		WebElement dataFinal = driver.findElement(By.id("dataFinalHistorico"));
+		dataFinal.sendKeys("-14012015");
+		dataFinal.sendKeys(Keys.TAB);
 
-			WebElement exibirPesquisa = driver.findElement(By.xpath("//button[@class='btn btCollapseOpen']"));
-			exibirPesquisa.click();
+		WebElement campoAlterado = driver.findElement(By.xpath("//div[@id='camposUsuario_chosen']/ul/li/input"));
+		campoAlterado.click();
+		campoAlterado.sendKeys("Nome do Responsável");
+		campoAlterado.sendKeys(Keys.ENTER);
 
-			WebElement pDataInicial = driver.findElement(By.id("dataInicialHistorico"));
-			pDataInicial.sendKeys(dataInicial);
+		/* 1º caso: se possui a mensagem "Resultado não encontrado" -> não preenche o campo 'Modificado por'
+		 * 2º caso: se não possui a mensagem preenche o campo 'Modificado por'
+		 * 3º caso: verifica se não possui a mensagem e não possui usuário -> erro na exibição
+		 */
+		// verifica se possui a mensagem "Resultado não encontrado"
+		if(!driver.findElement(By.xpath("/html/body/div[2]/div[5]/div[2]")).getText().contains("Resultado não encontrado.")){
+		
+			// verifica se possui usuários, se não possui a mensagem nem usuários -> erro
+			if(driver.findElements(By.cssSelector(".chosen-results li")).size() == 0){
+				throw new TesteAutomatizadoException(EnumMensagens.ERRO_HISTORICO, this.getClass());
+			}
 			
-			WebElement pDataFinal = driver.findElement(By.id("dataFinalHistorico"));
-			pDataFinal.sendKeys(dataFinal);
-
-			WebElement pCampoAlterado = driver.findElement(By.id("camposBeneficiario_chosen"));
-			pCampoAlterado.click();
-			pCampoAlterado.sendKeys(campoAlterado);
-			pCampoAlterado.sendKeys(Keys.TAB);
-			
-			// verificar
-			WebElement pModificadoPor = driver.findElement(By.id("usuariosAlteracao_chosen"));
-			pModificadoPor.click();
-			WebElement modificadoPorSeleciona = driver.findElement(By.xpath("//*[@id='usuariosAlteracao_chosen']/div/ul/li"));
-			modificadoPorSeleciona.click();
-
-		} catch (Exception e) {
-			e.printStackTrace();
+			driver.findElement(By.id("usuariosAlteracao_chosen")).click();
+			WebElement modificadoPor = driver.findElement(By.xpath("//div[@id='usuariosAlteracao_chosen']/div/div/input"));
+			modificadoPor.click();
+			modificadoPor.sendKeys("Usuário Marph");
+			modificadoPor.sendKeys(Keys.ENTER);
 		}
+
+		WebElement btnPesquisar = driver.findElement(By.id("btnPesquisar"));
+		btnPesquisar.click();
 	}
+
 
 }

@@ -2,6 +2,7 @@ package br.com.marph.selenium.beneficiario;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -45,13 +46,15 @@ public class LimparPesquisaBeneficiario {
 		limpar();
 		
 		// validar exclusão de dados dos campos
-		if((!driver.findElement(By.id("buscaNome")).getText().equals("")) || (!driver.findElement(By.id("unidadeRegional")).getText().equals(""))
-				|| (!driver.findElement(By.id("buscaCnpj")).getText().equals("")) || (!driver.findElement(By.id("buscaTipoBeneficiario")).getText().equals("")) 
-				|| (!driver.findElement(By.id("buscaMunicipio")).getText().equals(""))){
+		if(StringUtils.isNotBlank(driver.findElement(By.id("buscaNome")).getText()) || 
+				StringUtils.isNotBlank(driver.findElement(By.id("unidadeRegional")).getText()) ||
+				StringUtils.isNotBlank(driver.findElement(By.id("buscaCnpj")).getText()) || 
+				StringUtils.isNotBlank(driver.findElement(By.id("buscaTipoBeneficiario")).getText()) || 
+				StringUtils.isNotBlank(driver.findElement(By.id("buscaMunicipio")).getText())){
 			throw new TesteAutomatizadoException(EnumMensagens.CAMPO_PREENCHIDO, this.getClass());
 		}
 		
-		// se o campo estiver vazio o teste é finalizado com sucesso
+		// se todos os campo estiverem vazios o teste é finalizado com sucesso
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
@@ -70,8 +73,6 @@ public class LimparPesquisaBeneficiario {
 	public void limpar(){	
 		WebElement btnLimpar = driver.findElement(By.id("btnLimparPesquisa"));
 		btnLimpar.click();
-		WebElement btnPesquisa = driver.findElement(By.id("btnPesquisar"));
-		btnPesquisa.click();
 	}
 
 }
