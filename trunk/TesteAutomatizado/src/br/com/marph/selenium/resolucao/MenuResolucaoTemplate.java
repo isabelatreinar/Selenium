@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 public class MenuResolucaoTemplate {
 	private MenuResolucaoTemplate(){}
 	
-	public static void prepararAcessoBaseLegal(WebDriver driver) {
+	public static void prepararAcessoResolucao(WebDriver driver) {
 		WebElement fecharbtn = driver.findElement(By.id("closeModalHome"));
 		fecharbtn.click();
 		
