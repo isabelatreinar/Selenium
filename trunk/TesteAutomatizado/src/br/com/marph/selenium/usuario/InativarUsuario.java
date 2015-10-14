@@ -34,7 +34,7 @@ public class InativarUsuario {
 		
 		long timestart = System.currentTimeMillis();		
 		
-		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);
+		MenuUsuarioTemplate.prepararAcessoUsuario(driver);
 		
 		inativar();
 

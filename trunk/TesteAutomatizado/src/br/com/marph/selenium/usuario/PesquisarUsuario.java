@@ -41,9 +41,9 @@ public class PesquisarUsuario{
 		
 		long timestart = System.currentTimeMillis();
 		
-		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);
+		MenuUsuarioTemplate.prepararAcessoUsuario(driver);
 		
-		pesquisar();
+		pesquisar(driver);
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart );
 		float tempoSegundos = tempoGasto/1000;
@@ -63,18 +63,22 @@ public class PesquisarUsuario{
 		
 	}
 
-private void pesquisar() {
+public static void pesquisar(WebDriver driver) {
 	WebElement nome = driver.findElement(By.id("nome"));
 	nome.sendKeys("Isabela");
 	
 	WebElement cpf = driver.findElement(By.id("filtroUsuarioCpf"));
 	cpf.sendKeys("-08936836633");
-
+	/*
 	WebElement botaoExpandir = driver.findElement(By.id("btnExpandirPesquisaAvancada"));
 	botaoExpandir.click();
 	
-	/*Select papel = new Select(driver.findElement(By.id("perfil")));
-	papel.selectByValue("COMISSAO_AVALIACAO");*/
+	WebElement perfil = driver.findElement(By.id("perfil_chosen"));
+	perfil.click();
+	WebElement perfilSeleciona = driver.findElement(By.xpath("//*[@id='perfil_chosen']/div/div/input"));
+	perfilSeleciona.sendKeys("Comissão de avaliação");
+	perfilSeleciona.sendKeys(Keys.TAB);*/
+	
 	
 	
 	WebElement botaoPesquisar = driver.findElement(By.id("btnPesquisar"));

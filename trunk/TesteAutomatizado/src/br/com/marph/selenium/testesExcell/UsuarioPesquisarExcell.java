@@ -40,7 +40,7 @@ public class UsuarioPesquisarExcell {
 	public void teste() throws Exception {
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
-		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);
+		MenuUsuarioTemplate.prepararAcessoUsuario(driver);
 
 		pesquisaEdicao();
 

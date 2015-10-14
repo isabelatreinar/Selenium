@@ -42,7 +42,7 @@ public class CadastrarUsuarioMozilla {
 
 		long timestart = System.currentTimeMillis();
 
-		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);
+		MenuUsuarioTemplate.prepararAcessoUsuario(driver);
 
 		cadastro();
 

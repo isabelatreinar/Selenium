@@ -37,7 +37,7 @@ public class EditarUsuario {
 
 		long timestart = System.currentTimeMillis();
 
-		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);
+		MenuUsuarioTemplate.prepararAcessoUsuario(driver);
 
 		cadastrar();
 

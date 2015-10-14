@@ -37,7 +37,7 @@ public class CadastroUsuarioInvalido {
 
 		long timestart = System.currentTimeMillis();
 
-		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);
+		MenuUsuarioTemplate.prepararAcessoUsuario(driver);
 
 		WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
 		botaoCadastrar.click();
