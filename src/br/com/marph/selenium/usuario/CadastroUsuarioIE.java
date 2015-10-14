@@ -14,7 +14,7 @@ import br.com.marph.selenium.conexao.Conexao;
 
 
 public class CadastroUsuarioIE {
-	private final String LOG_NAME = "RAFAEL";
+	private final String LOG_NAME = System.getProperty("user.name");
 	private Logger log = LogManager.getLogger(LOG_NAME);
 	
 		

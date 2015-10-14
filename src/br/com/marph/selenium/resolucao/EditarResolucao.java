@@ -16,7 +16,7 @@ import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class EditarResolucao {
-	private final String LOG_NAME = "RAFAEL";
+	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 	
@@ -36,7 +36,7 @@ public class EditarResolucao {
 		
 		long timestart = System.currentTimeMillis();		
 		
-		MenuResolucaoTemplate.prepararAcessoBaseLegal(driver);
+		MenuResolucaoTemplate.prepararAcessoResolucao(driver);
 		
 		String idResolucao = "rowId334";
 		
