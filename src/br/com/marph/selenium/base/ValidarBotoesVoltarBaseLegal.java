@@ -15,7 +15,7 @@ import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class ValidarBotõesVoltarBaseLegal {
+public class ValidarBotoesVoltarBaseLegal {
 	/*
 	 * Esta classe valida o botão 'Voltar' da tela 'Visualizar Base Legal' e
 	 * 'Histórico de Base Legal'
@@ -65,7 +65,7 @@ public class ValidarBotõesVoltarBaseLegal {
 		 * botão só existe na tela de listagem.
 		 */
 		driver.findElement(By.id("btnVoltar1")).click();
-		if (!driver.findElement(By.id("btnNovoUsuario")).getText().equalsIgnoreCase("Cadastrar Nova Base Legal")) {
+		if (!driver.findElement(By.id("btnNovaBaseLegal")).getText().equalsIgnoreCase("Cadastrar Nova Base Legal")) {
 			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
 		}
 
@@ -81,19 +81,20 @@ public class ValidarBotõesVoltarBaseLegal {
 		 * Tela corrente: Histórico de Base Legal 
 		 * Tela futura: Visualizar Base Legal
 		 */
-		driver.findElement(By.id("btnVoltar")).click(); //AGUARDANDO ALTERACAO DO ID DO BOTAO
+		driver.findElement(By.id("botaoVoltarBottom")).click();
 		if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar base legal")) {
 			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
 		}
 
 		/*
-		 * Validar botão 'Voltar' Visualizar Base Legal Tela corrente:
-		 * Visualizar Base Legal Tela futura: Listagem de Base Legal A validação
+		 * Validar botão 'Voltar' Visualizar Base Legal 
+		 * Tela corrente: Visualizar Base Legal 
+		 * Tela futura: Listagem de Base Legal A validação
 		 * vefifica se existe um botão de cadastrar nova base legal, pois esse
 		 * botão só existe na tela de listagem.
 		 */
 		driver.findElement(By.id("btnVoltar")).click();
-		if (!driver.findElement(By.id("btnNovoUsuario")).getText().equalsIgnoreCase("Cadastrar Nova Base Legal")) {
+		if (!driver.findElement(By.id("btnNovaBaseLegal")).getText().equalsIgnoreCase("Cadastrar Nova Base Legal")) {
 			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
 		}
 

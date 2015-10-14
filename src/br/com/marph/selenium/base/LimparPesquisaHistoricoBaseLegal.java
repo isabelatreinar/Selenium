@@ -2,6 +2,7 @@ package br.com.marph.selenium.base;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -17,7 +18,7 @@ import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class PesquisarHistoricoBaseLegal {
+public class LimparPesquisaHistoricoBaseLegal {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -31,7 +32,7 @@ public class PesquisarHistoricoBaseLegal {
 	}
 
 	@Test
-	public void pesquisarBaseLegal() throws TesteAutomatizadoException {
+	public void limparPesquisaBaseLegal() throws TesteAutomatizadoException {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
@@ -50,7 +51,19 @@ public class PesquisarHistoricoBaseLegal {
 
 		// Acessa a pesquisa do histórico, se houver histórico
 		pesquisar();
-
+		
+		// Limpar os filtros
+		limpar();
+		
+		// validar exclusão de dados dos campos  AGUARDANDO ALTERACAO DO ID CAMPO MODIFICADO POR
+		if(StringUtils.isNotBlank(driver.findElement(By.id("dataInicialHistorico")).getText()) || 
+				StringUtils.isNotBlank(driver.findElement(By.id("dataFinalHistorico")).getText()) ||
+				StringUtils.isNotBlank(driver.findElement(By.id("campoUsuario_chosen")).getText()) || 
+				StringUtils.isNotBlank(driver.findElement(By.id("usuariosAlteracao_chosen")).getText())){
+			throw new TesteAutomatizadoException(EnumMensagens.CAMPO_PREENCHIDO, this.getClass());
+		}
+		
+		// Se todos os campos estiverem em branco o teste é finalizado com sucesso
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
@@ -64,12 +77,13 @@ public class PesquisarHistoricoBaseLegal {
 		}
 	}
 
-	private void pesquisar() throws TesteAutomatizadoException {
+	public void pesquisar(){
 		WebElement exibirPesquisa = driver.findElement(By.xpath("//button[@class='btn btCollapseOpen']"));
 		exibirPesquisa.click();
-		
+
 		/*
-		 * O sinal de menos é colocado antes da data para a máscara do campo seja considerada.
+		 * O sinal de menos é colocado antes da data para a máscara do campo
+		 * seja considerada.
 		 */
 		WebElement dataInicial = driver.findElement(By.id("dataInicialHistorico"));
 		dataInicial.sendKeys("-14012015");
@@ -84,28 +98,18 @@ public class PesquisarHistoricoBaseLegal {
 		campoAlterado.sendKeys("Arquivo Importado");
 		campoAlterado.sendKeys(Keys.ENTER);
 
-		/* 1º caso: se possui a mensagem "Resultado não encontrado" -> não preenche o campo 'Modificado por'
-		 * 2º caso: se não possui a mensagem preenche o campo 'Modificado por'
-		 * 3º caso: verifica se não possui a mensagem e não possui usuário -> erro na exibição
-		 */
-		// verifica se possui a mensagem "Resultado não encontrado"
-		if(!driver.findElement(By.xpath("/html/body/div[2]/div[5]/div[2]")).getText().contains("Resultado não encontrado.")){
-		
-			// verifica se possui usuários, se não possui a mensagem nem usuários -> erro
-			if(driver.findElements(By.cssSelector(".chosen-results li")).size() == 0){
-				throw new TesteAutomatizadoException(EnumMensagens.ERRO_HISTORICO, this.getClass());
-			}
-			
-			driver.findElement(By.id("usuariosAlteracao_chosen")).click();
-			WebElement modificadoPor = driver.findElement(By.xpath("//div[@id='usuariosAlteracao_chosen']/div/div/input"));
-			modificadoPor.click();
-			modificadoPor.sendKeys("Usuário Marph");
-			modificadoPor.sendKeys(Keys.ENTER);
-		}
+		driver.findElement(By.id("usuariosAlteracao_chosen")).click();
+		WebElement modificadoPor = driver.findElement(By.xpath("//div[@id='usuariosAlteracao_chosen']/div/div/input"));
+		modificadoPor.click();
+		modificadoPor.sendKeys("Usuário Marph");
+		modificadoPor.sendKeys(Keys.ENTER);
 
 		WebElement btnPesquisar = driver.findElement(By.id("btnPesquisar"));
 		btnPesquisar.click();
 	}
-
-
+	
+	private void limpar(){
+		WebElement btnLimpar = driver.findElement(By.id("btnLimparPesquisa"));
+		btnLimpar.click();
+	}
 }

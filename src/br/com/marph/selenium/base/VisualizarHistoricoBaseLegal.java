@@ -30,7 +30,7 @@ public class VisualizarHistoricoBaseLegal {
 	}
 
 	@Test
-	public void visualizarBaseLegal() throws TesteAutomatizadoException {
+	public void visualizarHistoricoBaseLegal() throws TesteAutomatizadoException {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();

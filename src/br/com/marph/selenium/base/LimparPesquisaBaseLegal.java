@@ -2,6 +2,7 @@ package br.com.marph.selenium.base;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -45,8 +46,10 @@ public class LimparPesquisaBaseLegal {
 		limpar();
 		
 		// validar exclusão de dados dos campos
-		if((!driver.findElement(By.id("tipoBaseLegal")).getText().equals("")) || (!driver.findElement(By.id("numero")).getText().equals(""))
-				|| (!driver.findElement(By.id("dataPublicacao")).getText().equals("")) || (!driver.findElement(By.id("dataVigencia")).getText().equals(""))){
+		if(StringUtils.isNotBlank(driver.findElement(By.id("tipoBaseLegal")).getText()) || 
+				StringUtils.isNotBlank(driver.findElement(By.id("numero")).getText()) ||
+				StringUtils.isNotBlank(driver.findElement(By.id("dataPublicacao")).getText()) || 
+				StringUtils.isNotBlank(driver.findElement(By.id("dataVigencia")).getText())){
 			throw new TesteAutomatizadoException(EnumMensagens.CAMPO_PREENCHIDO, this.getClass());
 		}
 		
