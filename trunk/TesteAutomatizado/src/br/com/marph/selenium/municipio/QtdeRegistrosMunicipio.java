@@ -42,7 +42,8 @@ public class QtdeRegistrosMunicipio {
 
 		// Validar quantidade selecionada --> 10
 		selecionarQuantidade(driver, "10");
-		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS); 
+		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+		System.out.println("10: " + contaRegistros(driver));
 		if (contaRegistros(driver) != 10) {
 			throw new TesteAutomatizadoException(EnumMensagens.QUANTIDADE_EXCEDIDA, this.getClass());
 		}
@@ -50,6 +51,7 @@ public class QtdeRegistrosMunicipio {
 		// validar quantidade selecionada --> 50
 		selecionarQuantidade(driver, "50");
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS); 
+		System.out.println("50: " + contaRegistros(driver));
 		if (contaRegistros(driver) != 50) {
 			throw new TesteAutomatizadoException(EnumMensagens.QUANTIDADE_EXCEDIDA, this.getClass());
 		}
@@ -57,6 +59,7 @@ public class QtdeRegistrosMunicipio {
 		// validar quantidade selecionada --> 100
 		selecionarQuantidade(driver, "100");
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS); 
+		System.out.println("100: " + contaRegistros(driver));
 		if (contaRegistros(driver) != 100) {
 			throw new TesteAutomatizadoException(EnumMensagens.QUANTIDADE_EXCEDIDA, this.getClass());
 		}
@@ -82,7 +85,7 @@ public class QtdeRegistrosMunicipio {
 	}
 
 	public int contaRegistros(WebDriver driver) {
-		List<WebElement> trColecao = driver.findElements(By.xpath("//*[@id='municipioDataTable']/tbody/tr"));
+		List<WebElement> trColecao = driver.findElements(By.cssSelector("tbody tr"));
 		return trColecao.size();
 	}
 }
