@@ -34,7 +34,7 @@ public class ExportarUsuarios {
 		
 		long timestart = System.currentTimeMillis();		
 		
-		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);	
+		MenuUsuarioTemplate.prepararAcessoUsuario(driver);	
 		
 		exportar();	
 		

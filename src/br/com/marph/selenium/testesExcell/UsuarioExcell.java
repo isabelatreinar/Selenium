@@ -43,7 +43,7 @@ public class UsuarioExcell {
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
-		MenuUsuarioTemplate.prepararAcessoBaseLegal(driver);
+		MenuUsuarioTemplate.prepararAcessoUsuario(driver);
 		WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
 		botaoCadastrar.click();
 
