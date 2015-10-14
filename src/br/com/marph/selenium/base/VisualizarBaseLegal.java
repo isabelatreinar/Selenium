@@ -44,7 +44,8 @@ public class VisualizarBaseLegal {
 
 		// visualizar base legal
 		visualizar(driver);
-
+		
+		
 		// valida se a tela acessada é a correta
 		if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar base legal")) {
 			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
@@ -74,5 +75,6 @@ public class VisualizarBaseLegal {
 		baseSelecionada = selecionar.getText();
 		selecionar.click();
 	}
+
 
 }
