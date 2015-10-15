@@ -11,8 +11,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.conexao.Conexao;
+import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -43,6 +43,10 @@ public class VisualizarHistoricoBeneficiario {
 		// Pesquisa um beneficiário na base de dados
 		PesquisarBeneficiarioMozilla.pesquisar(driver);
 		
+		// Visualizar beneficiário pesquisado
+		VisualizarBeneficiario.visualizar(driver);
+		
+		// Acessar tela de histórico
 		visualizar(driver);
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart);
@@ -59,10 +63,6 @@ public class VisualizarHistoricoBeneficiario {
 	}
 
 	public static void visualizar(WebDriver driver) {
-		WebElement beneficiario = driver.findElement(By.xpath("//td[@class='sorting_1']"));
-		beneficiarioSelecionado = beneficiario.getText();
-		beneficiario.click();
-		
 		WebElement btnHistorico = driver.findElement(By.id("btnHistorico1"));
 		btnHistorico.click();
 	}

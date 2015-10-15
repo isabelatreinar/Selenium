@@ -1,6 +1,6 @@
 package br.com.marph.selenium.exceptions;
 
-import br.com.maph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class TesteAutomatizadoException extends Exception {

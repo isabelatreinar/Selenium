@@ -1,4 +1,4 @@
-package br.com.maph.selenium.tipoBaseLegal;
+package br.com.marph.selenium.tipoBaseLegal;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
