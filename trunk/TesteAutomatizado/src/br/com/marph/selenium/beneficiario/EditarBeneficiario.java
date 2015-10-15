@@ -83,7 +83,7 @@ public class EditarBeneficiario {
 			driver.findElement(By.id("btnSalvar")).click();
 
 			// Botão Salvar superior
-			driver.findElement(By.id("btnSalvar1")).click();
+			//driver.findElement(By.id("btnSalvar1")).click();
 
 			// valida exibição do toast
 			if (driver.findElement(By.id("toast-conteiner")).isDisplayed()) {
