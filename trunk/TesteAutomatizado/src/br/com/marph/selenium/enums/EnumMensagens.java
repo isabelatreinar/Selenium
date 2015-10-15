@@ -1,4 +1,4 @@
-package br.com.maph.selenium.enums;
+package br.com.marph.selenium.enums;
 
 public enum EnumMensagens {
 	CPF_INVALIDO("CPF inválido - Obrigatório\n"),
@@ -31,6 +31,8 @@ public enum EnumMensagens {
 	BREADCRUMB_INCORRETO("Breadcrumb incorreto.\n"),
 	BASE_LEGAL_INCORRETA("Base legal incorreta !"),
 	ERRO_HISTORICO("Erro na pesquisa do histórico.\n"),
+	TOAST_DESABILITADO("Toast desabilitado.\n"),
+	MENSAGEM_INCORRETA("Mensagem incorreta.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;

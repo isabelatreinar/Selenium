@@ -3,8 +3,8 @@ package br.com.marph.selenium.utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import br.com.maph.selenium.enums.EnumMensagens;
-import br.com.maph.selenium.enums.TipoMensagem;
+import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.TipoMensagem;
 
 public class LogUtils {
 	public static void log(EnumMensagens mensagem, Class<?> clazz) {

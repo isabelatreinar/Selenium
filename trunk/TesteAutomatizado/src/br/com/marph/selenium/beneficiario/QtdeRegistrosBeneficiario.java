@@ -1,4 +1,4 @@
-package br.com.marph.selenium.base;
+package br.com.marph.selenium.beneficiario;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -18,7 +18,7 @@ import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class QtdeRegistrosBaseLegal {
+public class QtdeRegistrosBeneficiario {
 	/**
 	 * Esta classe valida a funcionalidade de seleção da quantidade de registros a serem
 	 * exibidas no grid. A validação é feita para as opções '10', '50' e '100'
@@ -42,7 +42,7 @@ public class QtdeRegistrosBaseLegal {
 		long timestart = System.currentTimeMillis();
 
 		// Acessar menu
-		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
+		MenuBeneficiarioTemplate.prepararAcessoBeneficiario(driver);
 
 		/**
 		 * validar quantidade selecionada --> 10
@@ -94,7 +94,7 @@ public class QtdeRegistrosBaseLegal {
 
 	public void selecionarQuantidade(WebDriver driver, String valor) {
 		Select selecionarValor = new Select(
-				driver.findElement(By.xpath("//div[@id='baseLegalDataTable_length']/label/select")));
+				driver.findElement(By.xpath("//div[@id='beneficiarioDataTable_length']/label/select")));
 		selecionarValor.selectByVisibleText(valor);
 	}
 

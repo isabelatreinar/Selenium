@@ -12,8 +12,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import br.com.maph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.conexao.Conexao;
+import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -39,8 +39,6 @@ public class PesquisarHistoricoBeneficiario {
 		// Acessar menu
 		MenuBeneficiarioTemplate.prepararAcessoBeneficiario(driver);
 
-		// Lê e armazena os dados do Excel
-
 		// Pesquisar Beneficiario
 		PesquisarBeneficiarioMozilla.pesquisar(driver);
 
@@ -50,7 +48,6 @@ public class PesquisarHistoricoBeneficiario {
 		// Visualizar Histórico
 		VisualizarHistoricoBeneficiario.visualizar(driver);
 
-		
 		// Pesquisar no histórico
 		pesquisar(driver);
 		
