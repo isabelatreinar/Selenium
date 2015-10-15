@@ -79,8 +79,11 @@ public class EditarBeneficiario {
 			WebElement justificativa = driver.findElement(By.id("justificativa"));
 			justificativa.sendKeys("Teste");
 
-			WebElement salvar = driver.findElement(By.id("btnSalvar"));
-			salvar.click();
+			// Botao salvar inferior
+			driver.findElement(By.id("btnSalvar")).click();
+
+			// Botão Salvar superior
+			driver.findElement(By.id("btnSalvar1")).click();
 
 			// valida exibição do toast
 			if (driver.findElement(By.id("toast-conteiner")).isDisplayed()) {
