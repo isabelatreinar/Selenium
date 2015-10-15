@@ -42,7 +42,7 @@ public class CadastrarBaseLegalMozilla {
 		cadastro();
 
 		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
-		
+
 		if (validar == true) {
 			LogUtils.log(EnumMensagens.BASE_LEGAL_VALIDADO, this.getClass());
 		} else {
@@ -65,7 +65,7 @@ public class CadastrarBaseLegalMozilla {
 
 	private void cadastro() {
 		// CADASTRO
-				
+
 		WebElement btnNovoUsu = driver.findElement(By.id("btnNovoUsuario"));
 		btnNovoUsu.click();
 
