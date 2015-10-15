@@ -64,12 +64,13 @@ public class PesquisarHistoricoBaseLegal {
 		}
 	}
 
-	private void pesquisar() throws TesteAutomatizadoException {
+	public void pesquisar() throws TesteAutomatizadoException {
 		WebElement exibirPesquisa = driver.findElement(By.xpath("//button[@class='btn btCollapseOpen']"));
 		exibirPesquisa.click();
-		
+
 		/*
-		 * O sinal de menos é colocado antes da data para a máscara do campo seja considerada.
+		 * O sinal de menos é colocado antes da data para a máscara do campo
+		 * seja considerada.
 		 */
 		WebElement dataInicial = driver.findElement(By.id("dataInicialHistorico"));
 		dataInicial.sendKeys("-14012015");
@@ -84,20 +85,25 @@ public class PesquisarHistoricoBaseLegal {
 		campoAlterado.sendKeys("Arquivo Importado");
 		campoAlterado.sendKeys(Keys.ENTER);
 
-		/* 1º caso: se possui a mensagem "Resultado não encontrado" -> não preenche o campo 'Modificado por'
-		 * 2º caso: se não possui a mensagem preenche o campo 'Modificado por'
-		 * 3º caso: verifica se não possui a mensagem e não possui usuário -> erro na exibição
+		/*
+		 * 1º caso: se possui a mensagem "Resultado não encontrado" -> não
+		 * preenche o campo 'Modificado por' 2º caso: se não possui a mensagem
+		 * preenche o campo 'Modificado por' 3º caso: verifica se não possui a
+		 * mensagem e não possui usuário -> erro na exibição
 		 */
 		// verifica se possui a mensagem "Resultado não encontrado"
-		if(!driver.findElement(By.xpath("/html/body/div[2]/div[5]/div[2]")).getText().contains("Resultado não encontrado.")){
-		
-			// verifica se possui usuários, se não possui a mensagem nem usuários -> erro
-			if(driver.findElements(By.cssSelector(".chosen-results li")).size() == 0){
+		if (!driver.findElement(By.xpath("/html/body/div[2]/div[5]/div[2]")).getText()
+				.contains("Resultado não encontrado.")) {
+			System.out.println(driver.findElements(By.cssSelector(".chosen-results li")).size());
+			// verifica se possui usuários, se não possui a mensagem nem
+			// usuários -> erro
+			if (driver.findElements(By.cssSelector(".chosen-results li")).size() == 0) {
 				throw new TesteAutomatizadoException(EnumMensagens.ERRO_HISTORICO, this.getClass());
 			}
-			
+
 			driver.findElement(By.id("usuariosAlteracao_chosen")).click();
-			WebElement modificadoPor = driver.findElement(By.xpath("//div[@id='usuariosAlteracao_chosen']/div/div/input"));
+			WebElement modificadoPor = driver
+					.findElement(By.xpath("//div[@id='usuariosAlteracao_chosen']/div/div/input"));
 			modificadoPor.click();
 			modificadoPor.sendKeys("Usuário Marph");
 			modificadoPor.sendKeys(Keys.ENTER);
@@ -106,6 +112,5 @@ public class PesquisarHistoricoBaseLegal {
 		WebElement btnPesquisar = driver.findElement(By.id("btnPesquisar"));
 		btnPesquisar.click();
 	}
-
 
 }

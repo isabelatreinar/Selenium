@@ -42,7 +42,7 @@ public class EditarBaseLegalMozilla {
 		edicaoCampos();
 
 		validacao();
-		
+
 		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
 
 		if (validar == true) {
@@ -50,7 +50,7 @@ public class EditarBaseLegalMozilla {
 		} else {
 			throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_NAO_VALIDADO, this.getClass());
 		}
-		
+
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
@@ -114,7 +114,7 @@ public class EditarBaseLegalMozilla {
 		WebElement TipoBase = driver.findElement(By.id("tipoBaseLegal_chosen"));
 		TipoBase.click();
 		WebElement procuraTipoBase = driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']"));
-		procuraTipoBase.sendKeys("Nota Técnica");//numero 2
+		procuraTipoBase.sendKeys("Nota Técnica");// numero 2
 		procuraTipoBase.sendKeys(Keys.TAB);
 
 		WebElement numero = driver.findElement(By.id("numero"));
@@ -123,12 +123,12 @@ public class EditarBaseLegalMozilla {
 
 		WebElement data = driver.findElement(By.id("dataPublicacao"));
 		data.sendKeys("-12082015");
-		data.sendKeys(Keys.TAB);				
+		data.sendKeys(Keys.TAB);
 
 		driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\\rafael.sad\\Documents\\TESTEEE.pdf");
-		
+
 		WebElement anoVigencia = driver.findElement(By.id("dataVigencia_chosen"));
-		anoVigencia.click();		
+		anoVigencia.click();
 		WebElement anoVigenciaSeleciona = driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input"));
 		anoVigenciaSeleciona.sendKeys("2015");
 		anoVigenciaSeleciona.sendKeys(Keys.TAB);
