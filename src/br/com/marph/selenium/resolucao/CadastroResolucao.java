@@ -49,7 +49,13 @@ public class CadastroResolucao {
 		avancar1.click();
 
 		indicadores();
-
+		
+		WebElement avancar2 = driver.findElement(By.id("btnProximo"));
+		avancar2.click();
+		
+		
+		
+		
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
@@ -115,8 +121,13 @@ public class CadastroResolucao {
 		// numero resolucao
 		WebElement numero = driver.findElement(By.id("baseLegal"));
 		numero.sendKeys("123");
-		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-2']"));
-		numeroSeleciona.click();
+		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-3']"));// ALTERAR
+		numeroSeleciona.click();														// NUMERO
+																						// PARA
+																						// PEGAR
+																						// OUTRA
+																						// RESOLUÇÃO
+		
 		// fim
 		// base legal
 		WebElement selecionarBase = driver.findElement(By.id("termosBaseLegal_chosen"));
