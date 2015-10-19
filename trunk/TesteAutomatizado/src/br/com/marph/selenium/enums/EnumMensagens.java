@@ -33,6 +33,8 @@ public enum EnumMensagens {
 	ERRO_HISTORICO("Erro na pesquisa do histórico.\n"),
 	TOAST_DESABILITADO("Toast desabilitado.\n"),
 	MENSAGEM_INCORRETA("Mensagem incorreta.\n"),
+	USUARIO_ERRADO("Nome do usuario não corresponde com o clicado\n"),
+	USUARIO_ERRADO_PERFIL("Nome do usuario não corresponde com o clicado em perfil\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;

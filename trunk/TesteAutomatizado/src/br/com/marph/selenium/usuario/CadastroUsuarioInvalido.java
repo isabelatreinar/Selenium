@@ -33,7 +33,7 @@ public class CadastroUsuarioInvalido {
 	@Test
 	public void realizaBusca() {
 
-		log.info("Inicio do teste - Cadastro usuarios invalidos");
+		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
 
