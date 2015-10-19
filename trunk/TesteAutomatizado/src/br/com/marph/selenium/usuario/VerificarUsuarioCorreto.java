@@ -31,7 +31,7 @@ public class VerificarUsuarioCorreto {
 	}
 
 	@Test
-	public void PesquisaUsuario() throws TesteAutomatizadoException {
+	public void VerificarUsuario() throws TesteAutomatizadoException {
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
@@ -40,6 +40,22 @@ public class VerificarUsuarioCorreto {
 
 		PesquisarUsuario.pesquisar(driver);
 
+		verifica(); 
+
+		float tempoGasto = (System.currentTimeMillis() - timestart);
+		float tempoSegundos = tempoGasto / 1000;
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
+
+		if (tempoSegundos > 5000) {
+			log.warn(sb.toString() + "\n");
+		} else {
+			log.info(sb.toString() + "\n");
+		}
+	}
+
+	public void verifica() throws TesteAutomatizadoException {
 		String nome = driver.findElement(By.xpath("//td[@class='sorting_1']")).getText();
 
 		WebElement selecionar = driver.findElement(By.xpath("//td[@class='sorting_1']"));
@@ -58,22 +74,7 @@ public class VerificarUsuarioCorreto {
 		
 		if (!nome.equals(nomeComparaPerfil)) {
 			throw new TesteAutomatizadoException(EnumMensagens.USUARIO_ERRADO_PERFIL, this.getClass());
-		} else {
-			System.out.println("Passou no teste");
 		}
-
-		float tempoGasto = (System.currentTimeMillis() - timestart);
-		float tempoSegundos = tempoGasto / 1000;
-
-		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
-
-		if (tempoSegundos > 5000) {
-			log.warn(sb.toString() + "\n");
-		} else {
-			log.info(sb.toString() + "\n");
-		}
-
 	}
 
 }

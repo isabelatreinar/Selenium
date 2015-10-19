@@ -7,16 +7,16 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class PesquisarResolucao {
+public class VerificarResolucaoCorreta {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -30,7 +30,7 @@ public class PesquisarResolucao {
 	}
 
 	@Test
-	public void pesquisarResolucao() {
+	public void pesquisarBaseLegal() throws TesteAutomatizadoException {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 
@@ -38,7 +38,27 @@ public class PesquisarResolucao {
 
 		MenuResolucaoTemplate.prepararAcessoResolucao(driver);
 
-		pesquisar(driver);
+		PesquisarResolucao.pesquisar(driver);
+		
+		String numero = driver.findElement(By.xpath("//td[@class='sorting_1']")).getText();
+
+		WebElement selecionar = driver.findElement(By.xpath("//td[@class='sorting_1']"));
+		selecionar.click();
+		
+		EditarResolucao.pegaAba(driver);
+		
+		String numeroCompara = driver.findElement(By.id("baseLegal")).getAttribute("value");
+
+		if (!numero.equals(numeroCompara)) {
+			throw new TesteAutomatizadoException(EnumMensagens.RESOLUCAO_ERRADA, this.getClass());
+		} else {
+			WebElement voltar = driver.findElement(By.id("btnIrParaListagem"));
+			voltar.click();
+			
+			WebElement sim = driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[4]/button[1]"));
+			sim.click();
+			
+		}
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -54,18 +74,5 @@ public class PesquisarResolucao {
 
 	}
 
-	public static void pesquisar(WebDriver driver) {
-
-		WebElement numero = driver.findElement(By.id("numero"));
-		numero.sendKeys("456");
-
-		WebElement programa = driver.findElement(By.id("programa_chosen"));
-		programa.click();		
-		WebElement programaSeleciona = driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input"));
-		programaSeleciona.sendKeys("Farmácia de minas");
-		programaSeleciona.sendKeys(Keys.TAB);		
-
-		WebElement btnPesquisa = driver.findElement(By.id("btnPesquisar"));
-		btnPesquisa.click();
-	}
+	
 }
