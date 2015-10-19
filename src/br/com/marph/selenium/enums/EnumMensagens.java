@@ -35,6 +35,7 @@ public enum EnumMensagens {
 	MENSAGEM_INCORRETA("Mensagem incorreta.\n"),
 	USUARIO_ERRADO("Nome do usuario não corresponde com o clicado\n"),
 	USUARIO_ERRADO_PERFIL("Nome do usuario não corresponde com o clicado em perfil\n"),
+	RESOLUCAO_ERRADA("Numero da resolução não corresponde com o clicado\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;
