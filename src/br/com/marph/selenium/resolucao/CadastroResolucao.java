@@ -49,13 +49,12 @@ public class CadastroResolucao {
 		avancar1.click();
 
 		indicadores();
-		
+
 		WebElement avancar2 = driver.findElement(By.id("btnProximo"));
 		avancar2.click();
-		
-		
-		
-		
+
+		periodo();
+
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
@@ -67,6 +66,25 @@ public class CadastroResolucao {
 		} else {
 			log.info(sb.toString() + "\n");
 		}
+	}
+
+	public void periodo() {
+		WebElement editar = driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[3]/a"));
+		editar.click();
+
+		WebElement adicionar = driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/ul/li/a"));
+		adicionar.click();
+
+		WebElement data = driver
+				.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div/div[3]/div[2]/div/div/div/input"));
+		data.sendKeys("-19102015");
+
+		WebElement dataFim = driver
+				.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div/div[3]/div[3]/div/div/div/input"));
+		dataFim.sendKeys("-22102015");
+
+		WebElement salvar = driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a"));
+		salvar.click();
 	}
 
 	protected void indicadores() {
@@ -120,14 +138,14 @@ public class CadastroResolucao {
 
 		// numero resolucao
 		WebElement numero = driver.findElement(By.id("baseLegal"));
-		numero.sendKeys("123");
-		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-3']"));// ALTERAR
-		numeroSeleciona.click();														// NUMERO
-																						// PARA
-																						// PEGAR
-																						// OUTRA
-																						// RESOLUÇÃO
-		
+		numero.sendKeys("555");
+		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-7']"));// ALTERAR
+		numeroSeleciona.click(); // NUMERO
+									// PARA
+									// PEGAR
+									// OUTRA
+									// RESOLUÇÃO
+
 		// fim
 		// base legal
 		WebElement selecionarBase = driver.findElement(By.id("termosBaseLegal_chosen"));
