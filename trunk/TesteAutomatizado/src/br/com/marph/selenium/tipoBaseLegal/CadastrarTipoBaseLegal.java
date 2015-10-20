@@ -16,7 +16,7 @@ import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class PesquisarTipoBaseLegal {
+public class CadastrarTipoBaseLegal {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -30,7 +30,7 @@ public class PesquisarTipoBaseLegal {
 	}
 
 	@Test
-	public void pesquisaTipoBaseLegal() {
+	public void cadastroTipoBaseLegal() {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 
@@ -38,8 +38,8 @@ public class PesquisarTipoBaseLegal {
 
 		MenuTipoBaseLegalTemplate.prepararAcessoTipoBaseLegal(driver);
 
-		pesquisar(driver);
-
+		cadastro();	
+		
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
@@ -53,35 +53,32 @@ public class PesquisarTipoBaseLegal {
 		}
 	}
 
-	public static void pesquisar(WebDriver driver) {
-		WebElement nome = driver.findElement(By.id("nome"));
-		nome.sendKeys("Teste");
-
-		WebElement pesqAvancada = driver.findElement(By.id("btnExpandirPesquisaAvancada"));
-		pesqAvancada.click();
-
-		WebElement transfRecursos = driver.findElement(By.id("transferenciaRecursosFinanceiros_chosen"));
-		transfRecursos.click();
-		WebElement transSeleciona = driver.findElement(By.xpath("//*[@id='transferenciaRecursosFinanceiros_chosen']/div/div/input"));
-		transSeleciona.sendKeys("Sim");
-		transSeleciona.sendKeys(Keys.TAB);
+	public void cadastro() {
+		WebElement cadastrar = driver.findElement(By.id("btnNovoTipoBaseLegal"));
+		cadastrar.click();
 		
-		WebElement prestacaoMetas = driver.findElement(By.id("prestacaoMetas_chosen"));
-		prestacaoMetas.click();
-		WebElement prestacaoMetasSeleciona = driver
-				.findElement(By.xpath("//*[@id='prestacaoMetas_chosen']/div/div/input"));
-		prestacaoMetasSeleciona.sendKeys("Sim");
-		prestacaoMetasSeleciona.sendKeys(Keys.TAB);
-
+		WebElement nome = driver.findElement(By.id("nomeTipoBaseLegal"));
+		nome.sendKeys("Testee");
+		
+		WebElement transferencia = driver.findElement(By.id("transferenciaRecursosFinanceiros_chosen"));
+		transferencia.click();		
+		WebElement transferenciaSeleciona = driver.findElement(By.xpath("//*[@id='transferenciaRecursosFinanceiros_chosen']/div/div/input"));
+		transferenciaSeleciona.sendKeys("Sim");
+		transferenciaSeleciona.sendKeys(Keys.TAB);
+		
+		WebElement prestacao = driver.findElement(By.id("prestacaoMetas_chosen"));
+		prestacao.click();		
+		WebElement prestacaoSeleciona = driver.findElement(By.xpath("//*[@id='prestacaoMetas_chosen']/div/div/input"));
+		prestacaoSeleciona.sendKeys("Sim");
+		prestacaoSeleciona.sendKeys(Keys.TAB);
+		
 		WebElement prestacaoContas = driver.findElement(By.id("prestacaoContas_chosen"));
-		prestacaoContas.click();
-		WebElement prestacaoContasSeleciona = driver
-				.findElement(By.xpath("//*[@id='prestacaoContas_chosen']/div/div/input"));
+		prestacaoContas.click();		
+		WebElement prestacaoContasSeleciona = driver.findElement(By.xpath("//*[@id='prestacaoContas_chosen']/div/div/input"));
 		prestacaoContasSeleciona.sendKeys("Sim");
 		prestacaoContasSeleciona.sendKeys(Keys.TAB);
-
-		WebElement btnPesquisar = driver.findElement(By.id("btnPesquisar"));
-		btnPesquisar.click();
-
+		
+		WebElement salvar = driver.findElement(By.id("btnSalvar"));
+		salvar.click();
 	}
 }
