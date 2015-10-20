@@ -73,7 +73,7 @@ public class EditarTipoBaseLegal {
 		
 		WebElement descricao = driver.findElement(By.id("descricao"));
 		descricao.clear();
-		descricao.sendKeys("Testeeeeeeeeeee");
+		descricao.sendKeys("Testeeeeeeeee");
 		
 		
 		WebElement salvar = driver.findElement(By.id("btnSalvar"));

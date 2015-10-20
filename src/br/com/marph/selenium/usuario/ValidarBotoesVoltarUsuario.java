@@ -1,4 +1,4 @@
-package br.com.marph.selenium.base;
+package br.com.marph.selenium.usuario;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,10 +15,10 @@ import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class ValidarBotoesVoltarBaseLegal {
+public class ValidarBotoesVoltarUsuario {
 	/**
-	 * Esta classe valida o botão 'Voltar' da tela 'Visualizar Base Legal' e
-	 * 'Histórico de Base Legal'
+	 * Esta classe valida o botão 'Voltar' da tela 'Visualizar Usuário' e
+	 * 'Histórico de Usuário'
 	 **/
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
@@ -39,63 +39,62 @@ public class ValidarBotoesVoltarBaseLegal {
 		long timestart = System.currentTimeMillis();
 
 		// Acessar menu
-		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
+		MenuUsuarioTemplate.prepararAcessoUsuario(driver);
 
 		// Validação dos botões SUPERIORES
-		// Acessar tela Visualizar Base Legal
-		VisualizarBaseLegal.visualizar(driver);
+		// Acessar tela Visualizar Usuário
+		VisualizarUsuario.visualizar(driver);
 
-		// Acessar tela de Histórico de Base Legal
-		VisualizarHistoricoBaseLegal.visualizar(driver);
+		// Acessar tela de Histórico de Usuário
+		VisualizarHistoricoUsuario.visualizar(driver);
 
 		/**
-		 * Validar botão 'Voltar' Histórico de Base Legal 
-		 * Tela corrente: Histórico de Base Legal 
-		 * Tela futura: Visualizar Base Legal
+		 * Validar botão 'Voltar' Histórico de Usuário 
+		 * Tela corrente: Histórico de Usuário 
+		 * Tela futura: Visualizar Usuário
 		 **/
 		driver.findElement(By.id("btnVoltar")).click();
-		if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar base legal")) {
+		if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar Usuário")) {
 			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
 		}
 
 		/**
-		 * Validar botão 'Voltar' Visualizar Base Legal 
-		 * Tela corrente: Visualizar Base Legal 
-		 * Tela futura: Listagem de Base Legal 
-		 * A validação vefifica se existe um botão de cadastrar nova base legal, pois esse
+		 * Validar botão 'Voltar' Visualizar Usuário 
+		 * Tela corrente: Visualizar Usuário 
+		 * Tela futura: Listagem de Usuário
+		 * A validação vefifica se existe um botão de cadastrar novo Usuário, pois esse
 		 * botão só existe na tela de listagem.
 		 **/
 		driver.findElement(By.id("btnVoltar1")).click();
-		if (!driver.findElement(By.id("btnNovaBaseLegal")).getText().equalsIgnoreCase("Cadastrar Nova Base Legal")) {
+		if (!driver.findElement(By.id("btnNovoUsuario")).getText().equalsIgnoreCase("Cadastrar novo usuário")) {
 			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
 		}
 
 		// Validação dos botões INFERIORES
-		// Acessar tela Visualizar Base Legal
-		VisualizarBaseLegal.visualizar(driver);
+		VisualizarUsuario.visualizar(driver);
 
-		// Acessar tela de Histórico de Base Legal
-		VisualizarHistoricoBaseLegal.visualizar(driver);
+		// Acessar tela de Histórico de Usuário
+		VisualizarHistoricoUsuario.visualizar(driver);
 
 		/**
-		 * Validar botão 'Voltar' Histórico de Base Legal 
-		 * Tela corrente: Histórico de Base Legal 
-		 * Tela futura: Visualizar Base Legal
+		 * Validar botão 'Voltar' Histórico de Usuário 
+		 * Tela corrente: Histórico de Usuário
+		 * Tela futura: Visualizar Usuário
 		 **/
 		driver.findElement(By.id("btnVoltar")).click();
-		if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar base legal")) {
+		if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar Usuário")) {
 			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
 		}
 
 		/**
-		 * Validar botão 'Voltar' Visualizar Base Legal 
-		 * Tela corrente: Visualizar Base Legal 
-		 * Tela futura: Listagem de Base Legal A validação
-		 * vefifica se existe um botão de cadastrar nova base legal, pois esse
+		 * Validar botão 'Voltar' Visualizar Usuário 
+		 * Tela corrente: Visualizar Usuário
+		 * Tela futura: Listagem de Usuário A validação
+		 * vefifica se existe um botão de cadastrar novo Usuário, pois esse
 		 * botão só existe na tela de listagem.
 		 **/
 		driver.findElement(By.id("btnVoltar")).click();
-		if (!driver.findElement(By.id("btnNovaBaseLegal")).getText().equalsIgnoreCase("Cadastrar Nova Base Legal")) {
+		if (!driver.findElement(By.id("btnNovoUsuario")).getText().equalsIgnoreCase("Cadastrar novo usuário")) {
 			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
 		}
 

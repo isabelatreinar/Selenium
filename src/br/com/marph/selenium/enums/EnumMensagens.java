@@ -36,6 +36,9 @@ public enum EnumMensagens {
 	USUARIO_ERRADO("Nome do usuario não corresponde com o clicado\n"),
 	USUARIO_ERRADO_PERFIL("Nome do usuario não corresponde com o clicado em perfil\n"),
 	RESOLUCAO_ERRADA("Numero da resolução não corresponde com o clicado\n"),
+	TIPO_BASE_NAO_PODE_SER_EXCLUIDA("O tipo de base legal não pode ser excluído pois"
+	+ " está vinculado a uma ou mais bases legais.\n"),
+	TIPO_BASE_LEGAL_ERRO("Tipo base não pode ser excluido,pois ocorreu algum erro\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;
