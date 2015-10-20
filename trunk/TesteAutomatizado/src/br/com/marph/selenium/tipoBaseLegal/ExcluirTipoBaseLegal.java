@@ -7,16 +7,16 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class CadastrarTipoBaseLegal {
+public class ExcluirTipoBaseLegal {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -30,7 +30,7 @@ public class CadastrarTipoBaseLegal {
 	}
 
 	@Test
-	public void cadastroTipoBaseLegal() {
+	public void excluirTipoBase() throws TesteAutomatizadoException {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 
@@ -38,8 +38,12 @@ public class CadastrarTipoBaseLegal {
 
 		MenuTipoBaseLegalTemplate.prepararAcessoTipoBaseLegal(driver);
 
-		cadastro();	
+		PesquisarTipoBaseLegal.pesquisar(driver);
 		
+		VisualizarTipoBaseLegal.visualizar(driver);
+
+		excluir(driver);
+
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
@@ -53,32 +57,18 @@ public class CadastrarTipoBaseLegal {
 		}
 	}
 
-	public void cadastro() {
-		WebElement cadastrar = driver.findElement(By.id("btnNovoTipoBaseLegal"));
-		cadastrar.click();
-		
-		WebElement nome = driver.findElement(By.id("nomeTipoBaseLegal"));
-		nome.sendKeys("Testei");
-		
-		WebElement transferencia = driver.findElement(By.id("transferenciaRecursosFinanceiros_chosen"));
-		transferencia.click();		
-		WebElement transferenciaSeleciona = driver.findElement(By.xpath("//*[@id='transferenciaRecursosFinanceiros_chosen']/div/div/input"));
-		transferenciaSeleciona.sendKeys("Sim");
-		transferenciaSeleciona.sendKeys(Keys.TAB);
-		
-		WebElement prestacao = driver.findElement(By.id("prestacaoMetas_chosen"));
-		prestacao.click();		
-		WebElement prestacaoSeleciona = driver.findElement(By.xpath("//*[@id='prestacaoMetas_chosen']/div/div/input"));
-		prestacaoSeleciona.sendKeys("Sim");
-		prestacaoSeleciona.sendKeys(Keys.TAB);
-		
-		WebElement prestacaoContas = driver.findElement(By.id("prestacaoContas_chosen"));
-		prestacaoContas.click();		
-		WebElement prestacaoContasSeleciona = driver.findElement(By.xpath("//*[@id='prestacaoContas_chosen']/div/div/input"));
-		prestacaoContasSeleciona.sendKeys("Sim");
-		prestacaoContasSeleciona.sendKeys(Keys.TAB);
-		
-		WebElement salvar = driver.findElement(By.id("btnSalvar"));
-		salvar.click();
+	public static void excluir(WebDriver driver) throws TesteAutomatizadoException {
+		WebElement excluir = driver.findElement(By.id("btnExcluir1"));
+		excluir.click();
+		if ("O tipo de base legal não pode ser excluído pois está vinculado a uma ou mais bases legais."
+				.equalsIgnoreCase(
+						driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[3]")).getText())) {
+			throw new TesteAutomatizadoException(EnumMensagens.TIPO_BASE_NAO_PODE_SER_EXCLUIDA,ExcluirTipoBaseLegal.class);
+			//WebElement ok = driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[4]/button"));
+			//ok.click();		
+		} else 	if (driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[4]/button[1]")).isDisplayed()) {
+			WebElement sim = driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[4]/button[1]"));
+			sim.click();		
+		}else throw new TesteAutomatizadoException(EnumMensagens.TIPO_BASE_LEGAL_ERRO,ExcluirTipoBaseLegal.class);
 	}
 }
