@@ -55,7 +55,7 @@ public class PesquisarTipoBaseLegal {
 
 	public static void pesquisar(WebDriver driver) {
 		WebElement nome = driver.findElement(By.id("nome"));
-		nome.sendKeys("testeeru");
+		nome.sendKeys("testemarph");
 
 		WebElement pesqAvancada = driver.findElement(By.id("btnExpandirPesquisaAvancada"));
 		pesqAvancada.click();
