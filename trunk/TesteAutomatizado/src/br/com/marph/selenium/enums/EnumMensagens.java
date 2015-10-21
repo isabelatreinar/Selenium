@@ -39,6 +39,11 @@ public enum EnumMensagens {
 	TIPO_BASE_NAO_PODE_SER_EXCLUIDA("O tipo de base legal não pode ser excluído pois"
 	+ " está vinculado a uma ou mais bases legais.\n"),
 	TIPO_BASE_LEGAL_ERRO("Tipo base não pode ser excluido,pois ocorreu algum erro\n"),
+	TRANSFERENCIA_DE_RECURSOS_EM_BRANCO("Transferencia de recusos está vazia.\n"),
+	PRESTACAO_DE_METAS_EM_BRANCO("Prestação de metas está vazia.\n"),
+	PRESTACAO_DE_CONTAS_EM_BRANCO("Prestação de contas está vazia.\n"),
+	TIPO_BASE_LEGAL_VALIDADO("**Tipo base legal validado**\n",TipoMensagem.VALIDACAO),
+	TIPO_BASE_LEGAL_NAO_VALIDO("**Tipo base não legal validada**\n",TipoMensagem.VALIDACAO),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;
