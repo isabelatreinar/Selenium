@@ -32,7 +32,7 @@ public class LimparPesquisaHistoricoBeneficiario {
 	}
 
 	@Test
-	public void limparPesquisaHistoricoBeneficiario() throws TesteAutomatizadoException {
+	public void limparPesquisaHistoricoBeneficiario() throws TesteAutomatizadoException, InterruptedException {
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
@@ -53,13 +53,12 @@ public class LimparPesquisaHistoricoBeneficiario {
 
 		// Limpar pesquisa
 		limpar();
-
-		// validar exclusão de dados dos campos AGUARDANDO ALTERACAO DO ID CAMPO
-		// MODIFICADO POR
+		
+		// validar exclusão de dados dos campos 
 		if (StringUtils.isNotBlank(driver.findElement(By.id("dataInicialHistorico")).getText())
 				|| StringUtils.isNotBlank(driver.findElement(By.id("dataFinalHistorico")).getText())
-				|| StringUtils.isNotBlank(driver.findElement(By.id("campoUsuario_chosen")).getText())
-				|| StringUtils.isNotBlank(driver.findElement(By.id("usuariosAlteracao_chosen")).getText())) {
+				|| StringUtils.isNotBlank(driver.findElement(By.id("camposBeneficiario_chosen")).getText())
+				|| !driver.findElement(By.id("usuariosAlteracao_chosen")).getText().equalsIgnoreCase("Modificado Por")) {
 			throw new TesteAutomatizadoException(EnumMensagens.CAMPO_PREENCHIDO, this.getClass());
 		}
 
@@ -92,12 +91,12 @@ public class LimparPesquisaHistoricoBeneficiario {
 		dataFinal.sendKeys("-14012015");
 		dataFinal.sendKeys(Keys.TAB);
 
-		WebElement campoAlterado = driver.findElement(By.xpath("//div[@id='camposUsuario_chosen']/ul/li/input"));
+		WebElement campoAlterado = driver.findElement(By.xpath("//*[@id='camposBeneficiario_chosen']/ul/li/input"));
 		campoAlterado.click();
 		campoAlterado.sendKeys("Nome do Responsável");
 		campoAlterado.sendKeys(Keys.ENTER);
 
-		/* 1º caso: se possui a mensagem "Resultado não encontrado" -> não preenche o campo 'Modificado por'
+		/** 1º caso: se possui a mensagem "Resultado não encontrado" -> não preenche o campo 'Modificado por'
 		 * 2º caso: se não possui a mensagem preenche o campo 'Modificado por'
 		 * 3º caso: verifica se não possui a mensagem e não possui usuário -> erro na exibição
 		 */

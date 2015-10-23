@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -19,6 +20,7 @@ import br.com.marph.selenium.utils.LogUtils;
 public class EditarBeneficiario {
 	/**
 	 * Esta classe valida a funcionalidade de seleção edição de beneficiario
+	 * Para realizar este teste o CNPJ editado deve estar cadastrado no CAGEC
 	 **/
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
@@ -33,7 +35,7 @@ public class EditarBeneficiario {
 	}
 
 	@Test
-	public void editarBeneficiario() throws TesteAutomatizadoException {
+	public void editarBeneficiario() throws TesteAutomatizadoException, InterruptedException {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
@@ -48,7 +50,7 @@ public class EditarBeneficiario {
 		VisualizarBeneficiario.visualizar(driver);
 
 		// Acessar tela de edição e editar beneficiario
-		driver.findElement(By.id("btnEditar1"));
+		driver.findElement(By.id("btnEditar1")).click();
 		editar();
 
 		// se o toast for exibido e a mensagem estiver correta o teste se encerra
@@ -74,7 +76,8 @@ public class EditarBeneficiario {
 		if (driver.findElement(By.id("modalVisualizarNome")).getText()
 				.equalsIgnoreCase(VisualizarBeneficiario.getBeneficiarioSelecionado())) {
 			WebElement cnpj = driver.findElement(By.id("cnpj"));
-			cnpj.sendKeys("-10954933000171");
+			cnpj.sendKeys("-72068028000171");
+			cnpj.sendKeys(Keys.ENTER);
 
 			WebElement justificativa = driver.findElement(By.id("justificativa"));
 			justificativa.sendKeys("Teste");

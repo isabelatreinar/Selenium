@@ -31,7 +31,7 @@ public class PesquisarHistoricoBeneficiario {
 	}
 
 	@Test
-	public void pesquisarHistoricoBeneficiario() throws TesteAutomatizadoException {
+	public void pesquisarHistoricoBeneficiario() throws TesteAutomatizadoException, InterruptedException {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();

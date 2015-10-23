@@ -42,8 +42,9 @@ public enum EnumMensagens {
 	TRANSFERENCIA_DE_RECURSOS_EM_BRANCO("Transferencia de recusos está vazia.\n"),
 	PRESTACAO_DE_METAS_EM_BRANCO("Prestação de metas está vazia.\n"),
 	PRESTACAO_DE_CONTAS_EM_BRANCO("Prestação de contas está vazia.\n"),
-	TIPO_BASE_LEGAL_VALIDADO("**Tipo base legal validado**",TipoMensagem.VALIDACAO),
+	TIPO_BASE_LEGAL_VALIDADO("**Tipo base legal validado**\n",TipoMensagem.VALIDACAO),
 	TIPO_BASE_LEGAL_NAO_VALIDO("**Tipo base não legal validada**\n",TipoMensagem.VALIDACAO),
+	CONFIRMACAO_DESABILITADA("Não exibe popup de confirmação.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;

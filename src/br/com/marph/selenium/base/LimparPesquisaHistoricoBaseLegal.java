@@ -55,11 +55,11 @@ public class LimparPesquisaHistoricoBaseLegal {
 		// Limpar os filtros
 		limpar();
 		
-		// validar exclusão de dados dos campos  AGUARDANDO ALTERACAO DO ID CAMPO MODIFICADO POR
+		// validar exclusão de dados dos campos  ALTERAR TEXTO DO CAMPO MODIFICADO POR PARA data-placeholder
 		if(StringUtils.isNotBlank(driver.findElement(By.id("dataInicialHistorico")).getText()) || 
 				StringUtils.isNotBlank(driver.findElement(By.id("dataFinalHistorico")).getText()) ||
-				StringUtils.isNotBlank(driver.findElement(By.id("campoUsuario_chosen")).getText()) || 
-				StringUtils.isNotBlank(driver.findElement(By.id("usuariosAlteracao_chosen")).getText())){
+				StringUtils.isNotBlank(driver.findElement(By.id("camposUsuario_chosen")).getText()) || 
+				!driver.findElement(By.id("usuariosAlteracao_chosen")).getText().equalsIgnoreCase("Modificado Por")){
 			throw new TesteAutomatizadoException(EnumMensagens.CAMPO_PREENCHIDO, this.getClass());
 		}
 		
