@@ -15,7 +15,7 @@ import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class VisualizarHistoricoMunicipio {
+public class VisualizarMunicipio {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);	
@@ -39,8 +39,6 @@ public void visualizar(){
 		
 		PesquisarMunicipio.pesquisar(driver);
 		
-		VisualizarMunicipio.visualizar(driver);
-		
 		visualizar(driver);		
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart );
@@ -57,8 +55,7 @@ public void visualizar(){
 	}
 
 	public static void visualizar(WebDriver driver) {
-		
-		WebElement historico = driver.findElement(By.id("btnHistorico1"));
-		historico.click();
+		WebElement entrar = driver.findElement(By.xpath("//td[@class='sorting_1']"));
+		entrar.click();
 	}
 }

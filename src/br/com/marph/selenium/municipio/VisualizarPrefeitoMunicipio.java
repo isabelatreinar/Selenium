@@ -39,12 +39,9 @@ public class VisualizarPrefeitoMunicipio {
 			
 		PesquisarMunicipio.pesquisar(driver);
 		
-		WebElement entrar = driver.findElement(By.xpath("//td[@class='sorting_1']"));
-		entrar.click();
-		
-		WebElement prefeito = driver.findElement(By.id("btnVisualizarPrefeito"));
-		prefeito.click();
-		 		
+		VisualizarMunicipio.visualizar(driver);
+			
+		visualizar(driver);		 		
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart );
 		float tempoSegundos = tempoGasto/1000;
@@ -57,6 +54,11 @@ public class VisualizarPrefeitoMunicipio {
 		}else{
 			log.info(sb.toString()+"\n");
 		}		
+	}
+
+	public static void visualizar(WebDriver driver) {
+		WebElement prefeito = driver.findElement(By.id("btnVisualizarPrefeito"));
+		prefeito.click();
 	}
 
 }
