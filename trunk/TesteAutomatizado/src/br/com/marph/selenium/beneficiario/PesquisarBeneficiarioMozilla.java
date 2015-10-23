@@ -30,7 +30,7 @@ public class PesquisarBeneficiarioMozilla {
 	}
 	
 	@Test
-	public void pesquisarBeneficiario(){
+	public void pesquisarBeneficiario() throws InterruptedException{
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();		
 		
@@ -59,10 +59,11 @@ public class PesquisarBeneficiarioMozilla {
 		nome.sendKeys("FUNDO MUNICIPAL DE SAÚDE DE BETIM");
 		
 		//Selecionar unidade regional
-//		driver.findElement(By.id("unidadeRegional_chosen")).click();
+		WebElement unidadeRegionalClick = driver.findElement(By.id("unidadeRegional_chosen"));
+		unidadeRegionalClick.click();
 		WebElement unidadeRegional = driver.findElement(By.xpath("//*[@id='unidadeRegional_chosen']/div/div/input"));
 		unidadeRegional.sendKeys("Belo Horizonte");
-		unidadeRegional.sendKeys(Keys.ENTER);
+		unidadeRegional.sendKeys(Keys.TAB);
 		
 		// Abrir pesquisa avançada
 		WebElement pesquisaAvancada = driver.findElement(By.id("btnPesquisaAvancada"));
@@ -71,17 +72,18 @@ public class PesquisarBeneficiarioMozilla {
 		//Preenche CNPJ - O sinal '-' é necessário para pegar a máscara do campo
 		WebElement cnpj = driver.findElement(By.id("buscaCnpj"));
 		cnpj.sendKeys("-13064113000100");
-		cnpj.sendKeys(Keys.ENTER);
 		
 		// Seleciona tipo de beneficiário
 		driver.findElement(By.id("buscaTipoBeneficiario_chosen")).click();
 		WebElement tipo = driver.findElement(By.xpath("//*[@id='buscaTipoBeneficiario_chosen']/div/div/input"));
-		tipo.sendKeys("Município");
-		tipo.sendKeys(Keys.ENTER);
+		tipo.sendKeys("Munic");
+		tipo.sendKeys(Keys.TAB);
 		
 		// Preenche o município
-		WebElement municipio = driver.findElement(By.id("buscaMunicipio_chosen"));
+		WebElement municipio = driver.findElement(By.xpath("//*[@id='buscaMunicipio_chosen']/ul/li"));
 		municipio.sendKeys("Betim");
+		WebElement numeroSeleciona = driver.findElement(By.xpath("//*[@id='buscaMunicipio_chosen']/ul/li[1]"));
+		numeroSeleciona.click();
 		
 		WebElement btnPesquisar = driver.findElement(By.id("btnPesquisar"));
 		btnPesquisar.click();
