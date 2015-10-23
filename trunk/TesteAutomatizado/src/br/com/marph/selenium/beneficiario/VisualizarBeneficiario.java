@@ -32,7 +32,7 @@ public class VisualizarBeneficiario {
 	}
 
 	@Test
-	public void visualizarBeneficiario() throws TesteAutomatizadoException {
+	public void visualizarBeneficiario() throws TesteAutomatizadoException, InterruptedException {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();

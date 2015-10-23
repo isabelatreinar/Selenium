@@ -2,14 +2,13 @@ package br.com.marph.selenium.beneficiario;
 
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
@@ -17,7 +16,10 @@ import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class LimparPesquisaBeneficiario {
+public class CancelarEdicaoBeneficiario {
+	/**
+	 * Esta classe valida a confirmação do cancelamento da edição
+	 */
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -31,48 +33,55 @@ public class LimparPesquisaBeneficiario {
 	}
 
 	@Test
-	public void limparPesquisaBeneficiario() throws TesteAutomatizadoException, InterruptedException {
+	public void cancelarEdicaoBeneficiario() throws TesteAutomatizadoException, InterruptedException {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
-		
-		// Acessar menu
+
+		// Acessa menu
 		MenuBeneficiarioTemplate.prepararAcessoBeneficiario(driver);
-		
-		// Preencher os filtros de pesquisa
+
+		// Pesquisa um beneficiário na base de dados
 		PesquisarBeneficiarioMozilla.pesquisar(driver);
+
+		// visualizar beneficiario
+		VisualizarBeneficiario.visualizar(driver);
 		
-		//Limpar os filtros
-		limpar();
+		// Acessa a tela de edição do beneficiario
+		driver.findElement(By.id("btnEditar1")).click();
+
+		// Cancela a edição através do botão cancelar superior
+		driver.findElement(By.id("btnCancelar1")).click();
 		
-		// validar exclusão de dados dos campos
-		if(StringUtils.isNotBlank(driver.findElement(By.id("buscaNome")).getText()) || 
-				StringUtils.isNotBlank(driver.findElement(By.id("unidadeRegional")).getText()) ||
-				StringUtils.isNotBlank(driver.findElement(By.id("buscaCnpj")).getText()) || 
-				StringUtils.isNotBlank(driver.findElement(By.id("buscaTipoBeneficiario")).getText()) || 
-				StringUtils.isNotBlank(driver.findElement(By.id("buscaMunicipio")).getText())){
-			throw new TesteAutomatizadoException(EnumMensagens.CAMPO_PREENCHIDO, this.getClass());
+		// Cancela a edição através do botão cancelar inferior
+		//driver.findElement(By.id("btnCancelar")).click();
+		
+		Alert confirmacao = driver.switchTo().alert(); 
+		// verifica se exibe o popup de confirmação
+		if(confirmacao == null){
+			throw new TesteAutomatizadoException(EnumMensagens.CONFIRMACAO_DESABILITADA, this.getClass());
 		}
-		
-		// se todos os campo estiverem vazios o teste é finalizado com sucesso
+		else{
+			// clicar no botão sim
+			confirmacao.accept();
+			
+			// verifica se o sistema redireciona para tela de visualizar beneficiario
+			if(!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar beneficiário")){
+				throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
+			}
+		}
+
+		// Se a tela e o beneficiario forem os corretos o teste se encerra
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos - FINALIZADO COM SUCESSO\n");
-		
 
 		if (tempoSegundos > 5000) {
 			log.warn(sb.toString() + "\n");
 		} else {
 			log.info(sb.toString() + "\n");
 		}
-		
 	}
-	
-	public void limpar(){	
-		WebElement btnLimpar = driver.findElement(By.id("btnLimparPesquisa"));
-		btnLimpar.click();
-	}
-
 }
