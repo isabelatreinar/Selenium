@@ -57,10 +57,10 @@ public class NaoCancelarEdicaoBeneficiario {
 		driver.findElement(By.id("btnCancelar")).click();
 		
 		// verifica se exibe o popup de confirmação
-		if(driver.findElement(By.className("jconfirm-box")).isDisplayed()){
+		/*if(driver.findElement(By.className("jconfirm-box")).isDisplayed()){
 			throw new TesteAutomatizadoException(EnumMensagens.CONFIRMACAO_DESABILITADA, this.getClass());
 		}
-		else{
+		else{*/
 			WebElement btnNao = driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[4]/button[2]"));
 			btnNao.click();
 			
@@ -68,7 +68,7 @@ public class NaoCancelarEdicaoBeneficiario {
 			if(!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Editar beneficiário")){
 				throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
 			}
-		}
+		//}
 
 		// Se a tela e o beneficiario forem os corretos o teste se encerra
 		float tempoGasto = (System.currentTimeMillis() - timestart);

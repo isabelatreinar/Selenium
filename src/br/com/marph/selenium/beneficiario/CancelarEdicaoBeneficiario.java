@@ -56,21 +56,13 @@ public class CancelarEdicaoBeneficiario {
 		// Cancela a edição através do botão cancelar inferior
 		//driver.findElement(By.id("btnCancelar")).click();
 		
-		Alert confirmacao = driver.switchTo().alert(); 
-		// verifica se exibe o popup de confirmação
-		if(confirmacao == null){
-			throw new TesteAutomatizadoException(EnumMensagens.CONFIRMACAO_DESABILITADA, this.getClass());
+		driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[4]/button[1]")).click();
+		
+		// verifica se o sistema redireciona para tela de visualizar beneficiario
+		if(!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar beneficiário")){
+			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
 		}
-		else{
-			// clicar no botão sim
-			confirmacao.accept();
-			
-			// verifica se o sistema redireciona para tela de visualizar beneficiario
-			if(!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar beneficiário")){
-				throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
-			}
-		}
-
+		
 		// Se a tela e o beneficiario forem os corretos o teste se encerra
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
