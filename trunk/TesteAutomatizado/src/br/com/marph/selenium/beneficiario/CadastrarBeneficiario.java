@@ -20,7 +20,7 @@ import br.com.marph.selenium.utils.LogUtils;
 public class CadastrarBeneficiario {
 	/**
 	 * Esta classe valida a funcionalidade de seleção edição de beneficiario
-	 **/
+	 */
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -65,7 +65,7 @@ public class CadastrarBeneficiario {
 
 		WebElement cadastrar = driver.findElement(By.id("btnNovoBeneficiario"));
 		cadastrar.click();
-		/*
+		/**
 		 * Verifica se a tela de edição acessada corresponde ao beneficiário
 		 * selecionado O sinal de - é colocado devido a máscara no componente
 		 */
@@ -78,7 +78,8 @@ public class CadastrarBeneficiario {
 		WebElement tipoSeleciona = driver.findElement(By.xpath("//*[@id='modalNovoTipo_chosen']/div/div/input"));
 		tipoSeleciona.sendKeys("");
 		tipoSeleciona.sendKeys(Keys.TAB);
-
+		
+		
 		// Botao salvar superior
 		driver.findElement(By.id("btnAvancar1")).click();
 

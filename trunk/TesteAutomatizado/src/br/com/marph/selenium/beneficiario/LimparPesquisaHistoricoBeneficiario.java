@@ -54,6 +54,8 @@ public class LimparPesquisaHistoricoBeneficiario {
 		// Limpar pesquisa
 		limpar();
 		
+		pesquisar(driver);
+		
 		// validar exclusão de dados dos campos 
 		if (StringUtils.isNotBlank(driver.findElement(By.id("dataInicialHistorico")).getText())
 				|| StringUtils.isNotBlank(driver.findElement(By.id("dataFinalHistorico")).getText())
