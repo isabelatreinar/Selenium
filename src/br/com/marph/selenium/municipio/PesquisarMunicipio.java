@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -60,9 +61,26 @@ public class PesquisarMunicipio {
 		//Selecionar unidade regional
 		WebElement unidadeRegional = driver.findElement(By.id("unidadeRegional_chosen"));
 		unidadeRegional.click();
-		WebElement procuraTipoRegional = driver.findElement(By.xpath("//li[@data-option-array-index='3']"));
-		procuraTipoRegional.click(); 
-		//fim
+		WebElement selecionaRegional = driver.findElement(By.xpath("//*[@id='unidadeRegional_chosen']/div/div/input"));
+		selecionaRegional.sendKeys("Belo Horizonte");
+		selecionaRegional.sendKeys(Keys.ENTER);
+		
+		// exibir pesquisa avançada
+		driver.findElement(By.id("btnExpandirPesquisaAvancada")).click();
+		
+		/* Selecionar Macro e micro
+		 * Esta parte da pesquisa está comentada, pois os filtros Unidade Regional, macro e micro são aninhados
+		 */
+		/*driver.findElement(By.id("macros_chosen")).click();
+		WebElement macro = driver.findElement(By.xpath("//*[@id='macros_chosen']/div/div/input"));
+		macro.sendKeys("Centro");
+		macro.sendKeys(Keys.ENTER);
+		
+		driver.findElement(By.id("micro_chosen")).click();
+		WebElement micro =  driver.findElement(By.xpath("//*[@id='micro_chosen']/div/div/input"));
+		micro.sendKeys("Belo Horizonte");
+		micro.sendKeys(Keys.ENTER);*/
+		
 		
 		WebElement btnPesquisar = driver.findElement(By.id("btnPesquisar"));
 		btnPesquisar.click();
