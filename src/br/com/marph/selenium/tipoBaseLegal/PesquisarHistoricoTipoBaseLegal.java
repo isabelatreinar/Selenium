@@ -2,23 +2,21 @@ package br.com.marph.selenium.tipoBaseLegal;
 
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
-import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
-import br.com.marph.selenium.municipio.LimparPesquisaHistoricoMunicipio;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class LimparPesquisaHistoricoTipoBaseLegal {
+public class PesquisarHistoricoTipoBaseLegal {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -32,27 +30,23 @@ public class LimparPesquisaHistoricoTipoBaseLegal {
 	}
 
 	@Test
-	public void limparPesquisaHistoricoTipoBaseLegal() throws TesteAutomatizadoException {
+	public void visualizarHistoricoTipoBaseLegal() {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
-		// Acessar Menu Cadastro > Tipo Base Legal
+		// Acessar menu Cadastro > Tipo Base Legal
 		MenuTipoBaseLegalTemplate.prepararAcessoTipoBaseLegal(driver);
-		
-		// Pesquisar Tipo Base Legal
+
+		// Pesquisar Tipo de Base Legal
 		PesquisarTipoBaseLegal.pesquisar(driver);
-		
+
 		// Visualizar Tipo de Base Legal
 		VisualizarTipoBaseLegal.visualizar(driver);
-		
-		// Visualizar histórico de tipo de base legal
+
+		// Visualizar tela de Histórico de base legal
 		VisualizarHistoricoTipoBaseLegal.visualizar(driver);
-		
-		PesquisarHistoricoTipoBaseLegal.pesquisar(driver);
-		
-		limpar(driver);
-		
+
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
@@ -65,17 +59,30 @@ public class LimparPesquisaHistoricoTipoBaseLegal {
 			log.info(sb.toString() + "\n");
 		}
 	}
-	
-	private void limpar(WebDriver driver) throws TesteAutomatizadoException{
-		WebElement btnLimpar = driver.findElement(By.id("btnLimparPesquisa"));
-		btnLimpar.click();
-		
-		// validar exclusão de dados dos campos 
-		if (StringUtils.isNotBlank(driver.findElement(By.id("dataInicialHistorico")).getText())
-				|| StringUtils.isNotBlank(driver.findElement(By.id("dataFinalHistorico")).getText())
-				|| StringUtils.isNotBlank(driver.findElement(By.id("camposTipoBaseLegal_chosen")).getText())
-				|| !driver.findElement(By.id("usuariosAlteracao_chosen")).getText().equalsIgnoreCase("Modificado Por:")) {
-			throw new TesteAutomatizadoException(EnumMensagens.CAMPO_PREENCHIDO, LimparPesquisaHistoricoMunicipio.class);
-		}
+
+	public static void pesquisar(WebDriver driver) {
+		WebElement pesquisa = driver.findElement(By.id("btnExpandirPesquisaAvancada"));
+		pesquisa.click();
+
+		WebElement dataInicial = driver.findElement(By.id("dataInicialHistorico"));
+		dataInicial.sendKeys("-20102015");
+
+		WebElement dataFinal = driver.findElement(By.id("dataInicialHistorico"));
+		dataFinal.sendKeys("-25102015");
+
+		WebElement campoAlterado = driver.findElement(By.xpath("//div[@id='camposTipoBaseLegal_chosen']/ul/li/input"));
+		campoAlterado.click();
+		campoAlterado.sendKeys("nome");
+		campoAlterado.sendKeys(Keys.ENTER);
+
+		driver.findElement(By.id("usuariosAlteracao_chosen")).click();
+		WebElement modificadoPor = driver.findElement(By.xpath("//div[@id='usuariosAlteracao_chosen']/div/div/input"));
+		modificadoPor.click();
+		modificadoPor.sendKeys("Usuário Marph");
+		modificadoPor.sendKeys(Keys.ENTER);
+
+		WebElement btnPesquisar = driver.findElement(By.id("btnPesquisar"));
+		btnPesquisar.click();
+
 	}
 }
