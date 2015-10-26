@@ -70,6 +70,9 @@ public class LimparPesquisaHistoricoTipoBaseLegal {
 		WebElement btnLimpar = driver.findElement(By.id("btnLimparPesquisa"));
 		btnLimpar.click();
 		
+		WebElement pesquisar = driver.findElement(By.id("btnPesquisar"));
+		pesquisar.click();
+		
 		// validar exclusão de dados dos campos 
 		if (StringUtils.isNotBlank(driver.findElement(By.id("dataInicialHistorico")).getText())
 				|| StringUtils.isNotBlank(driver.findElement(By.id("dataFinalHistorico")).getText())
