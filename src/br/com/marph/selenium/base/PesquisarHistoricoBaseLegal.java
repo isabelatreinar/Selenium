@@ -49,7 +49,7 @@ public class PesquisarHistoricoBaseLegal {
 		VisualizarHistoricoBaseLegal.visualizar(driver);
 
 		// Acessa a pesquisa do histórico, se houver histórico
-		pesquisar();
+		pesquisar(driver);
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -64,8 +64,8 @@ public class PesquisarHistoricoBaseLegal {
 		}
 	}
 
-	public void pesquisar() throws TesteAutomatizadoException {
-		WebElement exibirPesquisa = driver.findElement(By.xpath("//button[@class='btn btCollapseOpen']"));
+	public static void pesquisar(WebDriver driver) throws TesteAutomatizadoException {
+		WebElement exibirPesquisa = driver.findElement(By.id("btnExpandirPesquisaAvancada"));
 		exibirPesquisa.click();
 
 		/*
@@ -80,7 +80,7 @@ public class PesquisarHistoricoBaseLegal {
 		dataFinal.sendKeys("-14012015");
 		dataFinal.sendKeys(Keys.TAB);
 
-		WebElement campoAlterado = driver.findElement(By.xpath("//div[@id='camposUsuario_chosen']/ul/li/input"));
+		WebElement campoAlterado = driver.findElement(By.xpath("//div[@id='camposBaseLegal_chosen']/ul/li/input"));
 		campoAlterado.click();
 		campoAlterado.sendKeys("Arquivo Importado");
 		campoAlterado.sendKeys(Keys.ENTER);
@@ -98,7 +98,7 @@ public class PesquisarHistoricoBaseLegal {
 			// verifica se possui usuários, se não possui a mensagem nem
 			// usuários -> erro
 			if (driver.findElements(By.cssSelector(".chosen-results li")).size() == 0) {
-				throw new TesteAutomatizadoException(EnumMensagens.ERRO_HISTORICO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagens.ERRO_HISTORICO, PesquisarHistoricoBaseLegal.class);
 			}
 
 			driver.findElement(By.id("usuariosAlteracao_chosen")).click();

@@ -19,7 +19,7 @@ import br.com.marph.selenium.utils.LogUtils;
 
 public class PesquisarHistoricoMunicipio {
 	private final String LOG_NAME = System.getProperty("user.name");
-	private WebDriver driver;
+	private static WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);	
 	
 	@Before
@@ -64,8 +64,8 @@ public class PesquisarHistoricoMunicipio {
 		}		
 	}
 	
-	public void pesquisar(WebDriver Driver) throws TesteAutomatizadoException{
-		WebElement exibirPesquisa = driver.findElement(By.xpath("//button[@class='btn btCollapseOpen']"));
+	public static void pesquisar(WebDriver driver) throws TesteAutomatizadoException{
+		WebElement exibirPesquisa = driver.findElement(By.id("btnExpandirPesquisaAvancada"));
 		exibirPesquisa.click();
 		
 		/*
@@ -93,7 +93,7 @@ public class PesquisarHistoricoMunicipio {
 		
 			// verifica se possui usuários, se não possui a mensagem nem usuários -> erro
 			if(driver.findElements(By.cssSelector(".chosen-results li")).size() == 0){
-				throw new TesteAutomatizadoException(EnumMensagens.ERRO_HISTORICO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagens.ERRO_HISTORICO, PesquisarHistoricoMunicipio.class);
 			}
 			
 			driver.findElement(By.id("usuariosAlteracao_chosen")).click();
