@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -50,18 +49,11 @@ public class LimparPesquisaHistoricoBaseLegal {
 		VisualizarHistoricoBaseLegal.visualizar(driver);
 
 		// Acessa a pesquisa do histórico, se houver histórico
-		pesquisar();
+		PesquisarHistoricoBaseLegal.pesquisar(driver);
 		
 		// Limpar os filtros
 		limpar();
 		
-		// validar exclusão de dados dos campos  ALTERAR TEXTO DO CAMPO MODIFICADO POR PARA data-placeholder
-		if(StringUtils.isNotBlank(driver.findElement(By.id("dataInicialHistorico")).getText()) || 
-				StringUtils.isNotBlank(driver.findElement(By.id("dataFinalHistorico")).getText()) ||
-				StringUtils.isNotBlank(driver.findElement(By.id("camposUsuario_chosen")).getText()) || 
-				!driver.findElement(By.id("usuariosAlteracao_chosen")).getText().equalsIgnoreCase("Modificado Por")){
-			throw new TesteAutomatizadoException(EnumMensagens.CAMPO_PREENCHIDO, this.getClass());
-		}
 		
 		// Se todos os campos estiverem em branco o teste é finalizado com sucesso
 		float tempoGasto = (System.currentTimeMillis() - timestart);
@@ -77,39 +69,18 @@ public class LimparPesquisaHistoricoBaseLegal {
 		}
 	}
 
-	public void pesquisar(){
-		WebElement exibirPesquisa = driver.findElement(By.xpath("//button[@class='btn btCollapseOpen']"));
-		exibirPesquisa.click();
-
-		/*
-		 * O sinal de menos é colocado antes da data para a máscara do campo
-		 * seja considerada.
-		 */
-		WebElement dataInicial = driver.findElement(By.id("dataInicialHistorico"));
-		dataInicial.sendKeys("-14012015");
-		dataInicial.sendKeys(Keys.TAB);
-
-		WebElement dataFinal = driver.findElement(By.id("dataFinalHistorico"));
-		dataFinal.sendKeys("-14012015");
-		dataFinal.sendKeys(Keys.TAB);
-
-		WebElement campoAlterado = driver.findElement(By.xpath("//div[@id='camposUsuario_chosen']/ul/li/input"));
-		campoAlterado.click();
-		campoAlterado.sendKeys("Arquivo Importado");
-		campoAlterado.sendKeys(Keys.ENTER);
-
-		driver.findElement(By.id("usuariosAlteracao_chosen")).click();
-		WebElement modificadoPor = driver.findElement(By.xpath("//div[@id='usuariosAlteracao_chosen']/div/div/input"));
-		modificadoPor.click();
-		modificadoPor.sendKeys("Usuário Marph");
-		modificadoPor.sendKeys(Keys.ENTER);
-
-		WebElement btnPesquisar = driver.findElement(By.id("btnPesquisar"));
-		btnPesquisar.click();
-	}
 	
-	private void limpar(){
+	private void limpar() throws TesteAutomatizadoException{
 		WebElement btnLimpar = driver.findElement(By.id("btnLimparPesquisa"));
 		btnLimpar.click();
+		
+		// validar exclusão de dados dos campos  
+		if(StringUtils.isNotBlank(driver.findElement(By.id("dataInicialHistorico")).getText()) || 
+			StringUtils.isNotBlank(driver.findElement(By.id("dataFinalHistorico")).getText()) ||
+			StringUtils.isNotBlank(driver.findElement(By.id("camposBaseLegal_chosen")).getText()) || 
+			!driver.findElement(By.id("usuariosAlteracao_chosen")).getText().equalsIgnoreCase("Modificado Por:")){
+			throw new TesteAutomatizadoException(EnumMensagens.CAMPO_PREENCHIDO, this.getClass());
+		}
+				
 	}
 }
