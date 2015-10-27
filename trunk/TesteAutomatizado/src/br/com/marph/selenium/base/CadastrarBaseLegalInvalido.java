@@ -100,7 +100,7 @@ public class CadastrarBaseLegalInvalido {
 
 	private void cadastrar() {
 		// CADASTRO
-		WebElement btnNovoUsu = driver.findElement(By.id("btnNovoUsuario"));
+		WebElement btnNovoUsu = driver.findElement(By.id("btnNovaBaseLegal"));
 		btnNovoUsu.click();
 
 		WebElement tipoBase = driver.findElement(By.id("tipoBaseLegal_chosen"));
@@ -110,7 +110,7 @@ public class CadastrarBaseLegalInvalido {
 		procuraTipoBase.sendKeys(Keys.TAB);
 
 		WebElement numero = driver.findElement(By.id("numero"));
-		numero.sendKeys("633221");
+		numero.sendKeys("633541");
 
 		WebElement data = driver.findElement(By.id("dataPublicacao"));
 		data.sendKeys("-12082015");

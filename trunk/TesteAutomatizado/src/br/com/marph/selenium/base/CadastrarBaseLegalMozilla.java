@@ -66,7 +66,7 @@ public class CadastrarBaseLegalMozilla {
 	private void cadastro() {
 		// CADASTRO
 
-		WebElement btnNovoUsu = driver.findElement(By.id("btnNovoUsuario"));
+		WebElement btnNovoUsu = driver.findElement(By.id("btnNovaBaseLegal"));
 		btnNovoUsu.click();
 
 		WebElement tipoBase = driver.findElement(By.id("tipoBaseLegal_chosen"));
@@ -76,7 +76,7 @@ public class CadastrarBaseLegalMozilla {
 		procuraTipoBase.sendKeys(Keys.TAB);
 
 		WebElement numero = driver.findElement(By.id("numero"));
-		numero.sendKeys("615621");
+		numero.sendKeys("6176621");
 
 		WebElement data = driver.findElement(By.id("dataPublicacao"));
 		data.sendKeys("-12082015");
