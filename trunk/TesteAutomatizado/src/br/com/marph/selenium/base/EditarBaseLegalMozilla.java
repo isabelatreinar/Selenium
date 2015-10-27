@@ -38,6 +38,10 @@ public class EditarBaseLegalMozilla {
 		long timestart = System.currentTimeMillis();
 
 		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
+		
+		PesquisarBaseLegal.pesquisar(driver);
+		
+		VisualizarBaseLegal.visualizar(driver);
 
 		edicaoCampos();
 
@@ -64,65 +68,59 @@ public class EditarBaseLegalMozilla {
 		}
 	}
 
-	private void validacao() {
+	private void validacao() throws TesteAutomatizadoException {
 		if ("Obrigatório!"
 				.equals(driver.findElement(By.xpath("//*[@id='tipoBaseLegal_label']/label/span")).getText())) {
-			log.info("Campo tipo estava em branco - Obrigatório");
+			throw new TesteAutomatizadoException(EnumMensagens.TIPO_EM_BRANCO, this.getClass());
 		}
 
-		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='numero_label']/label/span")).getText())) {
-			log.info("Campo numero estava em branco - Obrigatório");
+		if ("Obrigatório!".equalsIgnoreCase(driver.findElement(By.xpath("//*[@id='numero_label']/label/span")).getText())) {
+			throw new TesteAutomatizadoException(EnumMensagens.NUMERO_EM_BRANCO, this.getClass());
 		}
 
-		if ("Existe uma Deliberação cadastrada com este número."
-				.equals(driver.findElement(By.xpath("//*[@id='numero_label']/label/span")).getText())) {
-			log.info("Existe uma Deliberação cadastrada com este número.");
-		}
-
-		if ("Obrigatório!"
-				.equals(driver.findElement(By.xpath("//*[@id='dataPublicacao_label']/label/span")).getText())) {
-			log.info("Campo data estava em branco - Obrigatório");
-		}
-
-		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='dataVigencia_label']/label/span")).getText())) {
-			log.info("Campo data estava em branco - Obrigatório");
+		if ("Existe tipo de base legal cadastrado com esse número"
+				.equalsIgnoreCase(driver.findElement(By.xpath("//*[@id='numero_label']/label/span")).getText())) {
+			throw new TesteAutomatizadoException(EnumMensagens.DELIBERACAO_CADASTRADO, this.getClass());
 		}
 
 		if ("Obrigatório!"
-				.equals(driver.findElement(By.xpath("//*[@id='textoPublicado_label']/label/span")).getText())) {
-			log.info("Campo PDF estava em branco - Obrigatório");
+				.equalsIgnoreCase(driver.findElement(By.xpath("//*[@id='dataPublicacao_label']/label/span")).getText())) {
+			throw new TesteAutomatizadoException(EnumMensagens.DATA_EM_BRANCO, this.getClass());
+		}
+
+		if ("Obrigatório!".equalsIgnoreCase(driver.findElement(By.xpath("//*[@id='dataVigencia_label']/label/span")).getText())) {
+			throw new TesteAutomatizadoException(EnumMensagens.DATA_EM_BRANCO, this.getClass());
+		}
+
+		if ("Obrigatório!"
+				.equalsIgnoreCase(driver.findElement(By.xpath("//*[@id='textoPublicado_label']/label/span")).getText())) {
+			throw new TesteAutomatizadoException(EnumMensagens.PDF_EM_BRANCO, this.getClass());
 		}
 
 		if ("Tamanho de arquivo não suportado. Selecione um arquivo com até 5 MB."
-				.equals(driver.findElement(By.xpath("//*[@id='textoPublicado_label']/label/span")).getText())) {
-			log.info("PDF maior que 5mb.");
+				.equalsIgnoreCase(driver.findElement(By.xpath("//*[@id='textoPublicado_label']/label/span")).getText())) {
+			throw new TesteAutomatizadoException(EnumMensagens.PDF_MAIOR, this.getClass());
 		}
 	}
 
 	private void edicaoCampos() {
-		String idBase = "rowId313";
-
-		WebElement selecionarBase = driver.findElement(By.id(idBase));
-		selecionarBase.click();
-
-		WebElement Base = driver.findElement(By.xpath("//*[@id='" + idBase + "']/td[2]"));
-		Base.click();
 
 		WebElement btnEditar = driver.findElement(By.id("btnEditar1"));
 		btnEditar.click();
 
 		WebElement TipoBase = driver.findElement(By.id("tipoBaseLegal_chosen"));
-		TipoBase.click();
-		WebElement procuraTipoBase = driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']"));
-		procuraTipoBase.sendKeys("Nota Técnica");// numero 2
+		TipoBase.click();		
+		WebElement procuraTipoBase = driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input"));
+		procuraTipoBase.sendKeys("Resolução");// numero 2
 		procuraTipoBase.sendKeys(Keys.TAB);
 
 		WebElement numero = driver.findElement(By.id("numero"));
 		numero.clear();
-		numero.sendKeys("654158");
+		numero.sendKeys("500");
 
 		WebElement data = driver.findElement(By.id("dataPublicacao"));
-		data.sendKeys("-12082015");
+		data.clear();
+		data.sendKeys("-22092015");
 		data.sendKeys(Keys.TAB);
 
 		driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\\rafael.sad\\Documents\\TESTEEE.pdf");
@@ -130,7 +128,7 @@ public class EditarBaseLegalMozilla {
 		WebElement anoVigencia = driver.findElement(By.id("dataVigencia_chosen"));
 		anoVigencia.click();
 		WebElement anoVigenciaSeleciona = driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input"));
-		anoVigenciaSeleciona.sendKeys("2015");
+		anoVigenciaSeleciona.sendKeys("2019");
 		anoVigenciaSeleciona.sendKeys(Keys.TAB);
 		WebElement salvar = driver.findElement(By.id("btnSalvar"));
 		salvar.click();
