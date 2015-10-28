@@ -29,19 +29,16 @@ public class TermoAditivo {
 		}	
 	
 	@Test
-	public void realizaBusca(){			
+	public void realizaBusca() throws InterruptedException{			
 		
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());		
 		long timestart = System.currentTimeMillis();		
 		
 		MenuAssinauraTemplate.prepararAcessoBaseLegal(driver);
 		
-		try {
-		    Thread.sleep(10000);           
-		} catch(InterruptedException ex) {
-		    Thread.currentThread().interrupt();
-		}
 		
+		Thread.sleep(10000);           
+	
 		WebElement programa = driver.findElement(By.id("programaFiltro_chosen"));
 		programa.click();		
 		WebElement programaSeleciona = driver.findElement(By.xpath("//li[@data-option-array-index='2']"));

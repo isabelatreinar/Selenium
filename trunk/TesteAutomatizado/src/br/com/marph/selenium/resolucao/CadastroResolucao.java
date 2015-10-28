@@ -30,7 +30,7 @@ public class CadastroResolucao {
 	}
 
 	@Test
-	public void realizaBusca() {
+	public void realizaBusca() throws InterruptedException {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 
@@ -68,25 +68,55 @@ public class CadastroResolucao {
 		}
 	}
 
-	public void periodo() {
-		WebElement editar = driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[3]/a"));
-		editar.click();
+	private void cadastrarResolucao() {
+		WebElement cadastrarResolucao = driver.findElement(By.id("btnNovaResolucao"));
+		cadastrarResolucao.click();
+		// Selecionar programa
+		WebElement programaSelecionar = driver.findElement(By.id("programa_chosen"));
+		programaSelecionar.click();
+		WebElement programa = driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input"));
+		programa.sendKeys("farmácia de minas");
+		programa.sendKeys(Keys.TAB);
+		// fim
 
-		WebElement adicionar = driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/ul/li/a"));
-		adicionar.click();
+		// numero resolucao
+		WebElement numero = driver.findElement(By.id("baseLegal"));
+		numero.sendKeys("5555");
+		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-5']"));// ALTERAR
+		numeroSeleciona.click(); // NUMERO
+									// PARA
+									// PEGAR
+									// OUTRA
+									// RESOLUÇÃO
 
-		WebElement data = driver
-				.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div/div[3]/div[2]/div/div/div/input"));
-		data.sendKeys("-19102015");
+		// fim
+		// base legal
+		WebElement selecionarBase = driver.findElement(By.id("termosBaseLegal_chosen"));
+		selecionarBase.click();
+		WebElement base = driver.findElement(By.xpath("//*[@id='termosBaseLegal_chosen']/div/ul/li[2]"));
+		base.click();
+		// fim
+		WebElement tempo = driver.findElement(By.id("tempoVigencia"));
+		tempo.sendKeys("25");
 
-		WebElement dataFim = driver
-				.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div/div[3]/div[3]/div/div/div/input"));
-		dataFim.sendKeys("-22102015");
+		WebElement descricao = driver.findElement(By.id("descricao"));
+		descricao.sendKeys("Teste TESTE");
 
-		WebElement salvar = driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a"));
+		WebElement salvar = driver.findElement(By.id("btnSalvar1"));
 		salvar.click();
 	}
+	
 
+	protected void beneficiarios() throws InterruptedException {
+		WebElement upload = driver.findElement(By.id("uploadBeneficiariosContemplados"));
+		upload.sendKeys("C:\\Users\\rafael.sad\\Documents\\import_base.xlsx");
+
+		WebElement importar = driver.findElement(By.id("buttonImportar"));
+		importar.click();
+		
+		Thread.sleep(5000);
+	}
+	
 	protected void indicadores() {
 
 		WebElement criar = driver.findElement(By.id("criar"));
@@ -117,49 +147,22 @@ public class CadastroResolucao {
 
 	}
 
-	protected void beneficiarios() {
-		WebElement upload = driver.findElement(By.id("uploadBeneficiariosContemplados"));
-		upload.sendKeys("C:\\Users\\rafael.sad\\Documents\\beneficiarioExport.xls");
+	public void periodo() {
+		WebElement editar = driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[3]/a"));
+		editar.click();
 
-		WebElement importar = driver.findElement(By.id("buttonImportar"));
-		importar.click();
-	}
+		WebElement adicionar = driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/ul/li/a"));
+		adicionar.click();
 
-	private void cadastrarResolucao() {
-		WebElement cadastrarResolucao = driver.findElement(By.id("btnNovaResolucao"));
-		cadastrarResolucao.click();
-		// Selecionar programa
-		WebElement programaSelecionar = driver.findElement(By.id("programa_chosen"));
-		programaSelecionar.click();
-		WebElement programa = driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input"));
-		programa.sendKeys("farmácia de minas");
-		programa.sendKeys(Keys.TAB);
-		// fim
+		WebElement data = driver
+				.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div/div[3]/div[2]/div/div/div/input"));
+		data.sendKeys("-19102015");
 
-		// numero resolucao
-		WebElement numero = driver.findElement(By.id("baseLegal"));
-		numero.sendKeys("555");
-		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-7']"));// ALTERAR
-		numeroSeleciona.click(); // NUMERO
-									// PARA
-									// PEGAR
-									// OUTRA
-									// RESOLUÇÃO
+		WebElement dataFim = driver
+				.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div/div[3]/div[3]/div/div/div/input"));
+		dataFim.sendKeys("-22102015");
 
-		// fim
-		// base legal
-		WebElement selecionarBase = driver.findElement(By.id("termosBaseLegal_chosen"));
-		selecionarBase.click();
-		WebElement base = driver.findElement(By.xpath("//*[@id='termosBaseLegal_chosen']/div/ul/li[2]"));
-		base.click();
-		// fim
-		WebElement tempo = driver.findElement(By.id("tempoVigencia"));
-		tempo.sendKeys("25");
-
-		WebElement descricao = driver.findElement(By.id("descricao"));
-		descricao.sendKeys("Teste TESTE");
-
-		WebElement salvar = driver.findElement(By.id("btnSalvar1"));
+		WebElement salvar = driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a"));
 		salvar.click();
 	}
 }
