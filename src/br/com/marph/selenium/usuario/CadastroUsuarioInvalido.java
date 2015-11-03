@@ -2,18 +2,21 @@ package br.com.marph.selenium.usuario;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class CadastroUsuarioInvalido {
@@ -31,7 +34,7 @@ public class CadastroUsuarioInvalido {
 	}
 
 	@Test
-	public void realizaBusca() {
+	public void realizaBusca() throws TesteAutomatizadoException {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 
@@ -41,10 +44,20 @@ public class CadastroUsuarioInvalido {
 
 		WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
 		botaoCadastrar.click();
-
+		
 		cadastro();
 
-		validacao();
+		if (driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
+				.equalsIgnoreCase("Você está em: Usuário > Novo Usuário")) {
+			validacaoToolTip();
+		}//Só valida se permanecer na página de novo usuário
+
+		perfilCadastra();
+
+		if (driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
+				.equalsIgnoreCase("Você está em: Usuário > Novo Usuário > Novo Perfil")) {
+			validacaoToolTipPerfil();
+		}//Só valida se permanecer na página de novo perfil
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -61,11 +74,12 @@ public class CadastroUsuarioInvalido {
 	}
 
 	protected void cadastro() {
+
 		WebElement nome = driver.findElement(By.id("usuarioNome"));
-		nome.sendKeys("TESTE");
+		nome.sendKeys("TESTEE");
 
 		WebElement cpf = driver.findElement(By.id("usuarioCpf"));
-		cpf.sendKeys("-46333558133");
+		cpf.sendKeys("-38555260876");
 
 		WebElement cargo = driver.findElement(By.id("cargo_chosen"));
 		cargo.click();
@@ -75,7 +89,60 @@ public class CadastroUsuarioInvalido {
 
 		WebElement btnAvancar = driver.findElement(By.id("btnSalvar"));
 		btnAvancar.click();
+	}
 
+	protected void validacaoToolTip() throws TesteAutomatizadoException {
+		if (StringUtils.isBlank(driver.findElement(By.id("usuarioNome")).getAttribute("value"))) {
+			WebElement input = driver.findElement(By.id("usuarioNome"));
+			input.click();
+			if (driver.findElement(By.xpath("//*[@id='usuarioNome_maindiv']/div")).isDisplayed()
+					&& driver.findElement(By.xpath("//*[@id='usuarioNome_maindiv']/div")).getText()
+							.equalsIgnoreCase("Obrigatório!")) {
+				throw new TesteAutomatizadoException(EnumMensagens.NOME_EM_BRANCO, this.getClass());
+			}
+		}
+
+		boolean present = true;
+		try {
+			WebElement cpf = driver.findElement(By.id("usuarioCpf"));
+			cpf.click();
+			driver.findElement(By.xpath("//*[@id='usuarioCpf_maindiv']/div")).isDisplayed();
+			present = true;
+		} catch (NoSuchElementException e) {
+			present = false;
+		}
+
+		if (present == true) {
+			WebElement cpf = driver.findElement(By.id("usuarioCpf"));
+			cpf.click();
+			if (driver.findElement(By.xpath("//*[@id='usuarioCpf_maindiv']/div")).getText()
+					.equalsIgnoreCase("Obrigatório!")) {
+				throw new TesteAutomatizadoException(EnumMensagens.CPF_EM_BRANCO, this.getClass());
+			}
+
+			if (driver.findElement(By.xpath("//*[@id='usuarioCpf_maindiv']/div")).getText()
+					.equalsIgnoreCase("CPF já cadastrado.")) {
+				throw new TesteAutomatizadoException(EnumMensagens.CPF_JA_CADASTRADO, this.getClass());
+			}
+
+			if (driver.findElement(By.xpath("//*[@id='usuarioCpf_maindiv']/div")).getText()
+					.equalsIgnoreCase("CPF inválido!")) {
+				throw new TesteAutomatizadoException(EnumMensagens.CPF_INVALIDO, this.getClass());
+			}
+		}
+
+		if (driver.findElement(By.id("cargo_maindiv")).isDisplayed()
+				&& driver.findElement(By.xpath("//*[@class='form-group has-error']")).isDisplayed()) {
+			WebElement cargo = driver.findElement(By.id("cargo_chosen"));
+			cargo.click();
+			if (driver.findElement(By.xpath("//*[@id='cargo_maindiv']/div[2]")).getText()
+					.equalsIgnoreCase("Obrigatório!")) {
+				throw new TesteAutomatizadoException(EnumMensagens.CARGO_EM_BRANCO, this.getClass());
+			}
+		}
+	}
+
+	public void perfilCadastra() {
 		WebElement perfil = driver.findElement(By.id("modalPerfil_chosen"));
 		perfil.click();
 		WebElement selecionarPerfil = driver.findElement(By.xpath("//*[@id='modalPerfil_chosen']/div/div/input"));
@@ -90,39 +157,20 @@ public class CadastroUsuarioInvalido {
 		WebElement salvar = driver.findElement(By.id("btnSalvar"));
 		salvar.click();
 
-		// WebElement voltar = driver.findElement(By.id("btnVoltar"));
-		// voltar.click();
 	}
 
-	protected void validacao() {
-		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='usuarioNome_label']/label/span")).getText())) {
-			LogUtils.log(EnumMensagens.NOME_EM_BRANCO, this.getClass());
+	protected void validacaoToolTipPerfil() throws TesteAutomatizadoException {
+		if (driver.findElement(By.id("modalPerfil_maindiv")).isDisplayed()
+				&& driver.findElement(By.xpath("//*[@class='form-group has-error']")).isDisplayed()) {
+			WebElement perfil = driver.findElement(By.id("modalPerfil_chosen"));
+			perfil.click();
+			if (driver.findElement(By.xpath("//*[@id='modalPerfil_maindiv']/div[2]")).getText()
+					.equalsIgnoreCase("Obrigatório!")) {
+				throw new TesteAutomatizadoException(EnumMensagens.PERFIL_EM_BRANCO, this.getClass());
+			}
 		}
 
-		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='usuarioCpf_label']/label/span")).getText())) {
-			LogUtils.log(EnumMensagens.CPF_EM_BRANCO, this.getClass());
-		}
-
-		if ("CPF inválido!".equals(driver.findElement(By.xpath("//*[@id='usuarioCpf_label']/label/span")).getText())) {
-			LogUtils.log(EnumMensagens.CPF_INVALIDO, this.getClass());
-		}
-
-		if ("CPF já cadastrado."
-				.equals(driver.findElement(By.xpath("//*[@id='usuarioCpf_label']/label/span")).getText())) {
-			LogUtils.log(EnumMensagens.CPF_JA_CADASTRADO, this.getClass());
-		}
-
-		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='cargo_label']/label/span")).getText())) {
-			LogUtils.log(EnumMensagens.CARGO_EM_BRANCO, this.getClass());
-		}
-
-		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='modalPerfil_label']/label/span")).getText())) {
-			LogUtils.log(EnumMensagens.PERFIL_EM_BRANCO, this.getClass());
-		}
-
-		if ("Obrigatório!"
-				.equals(driver.findElement(By.xpath("//*[@id='modalExtensaoPerfilId_label']/label/span")).getText())) {
-			LogUtils.log(EnumMensagens.EXTENSAO_EM_BRANCO, this.getClass());
-		}
+		// FAZER VALIDAÇÃO DE EXTENSÃO,POIS ESTÁ SENDO CORRIGIDO O ERRO.
 	}
+
 }

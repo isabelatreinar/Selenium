@@ -71,17 +71,47 @@ public class CadastrarBeneficiario {
 		 */
 
 		WebElement cnpj = driver.findElement(By.id("modalNovoCnpj"));
-		cnpj.sendKeys("-17082892000110");
+		cnpj.sendKeys("-17082892000113");
 
 		WebElement tipo = driver.findElement(By.id("modalNovoTipo_chosen"));
 		tipo.click();
 		WebElement tipoSeleciona = driver.findElement(By.xpath("//*[@id='modalNovoTipo_chosen']/div/div/input"));
-		tipoSeleciona.sendKeys("");
+		tipoSeleciona.sendKeys("Entidade");
 		tipoSeleciona.sendKeys(Keys.TAB);
 		
-		
-		// Botao salvar superior
-		driver.findElement(By.id("btnAvancar1")).click();
+		//VALIDAÇÃO EM DESENVOLVIMENTO.NÃO ESTÁ FUNCIONANDO CORRETAMENTE.
+
+		if (driver.findElement(By.id("modalNovoCnpj_maindiv")).isDisplayed()
+				&& driver.findElement(By.xpath("//*[@class='form-group  has-error']")).isDisplayed()) {
+			cnpj.click();
+			if (driver.findElement(By.xpath("//*[@id='modalNovoCnpj_maindiv']/div")).getText()
+					.equalsIgnoreCase("CNPJ inválido!")) {
+				throw new TesteAutomatizadoException(EnumMensagens.CNPJ_INVALIDO, getClass());
+			}
+		}
+
+		if (driver.findElement(By.id("modalNovoCnpj_maindiv")).isDisplayed()
+				&& driver.findElement(By.xpath("//*[@class='form-group  has-error']")).isDisplayed()) {
+			cnpj.click();
+			if (driver.findElement(By.xpath("//*[@id='modalNovoCnpj_maindiv']/div")).getText()
+					.equalsIgnoreCase("Não foi possível buscar as informações do CAGEC.[CNPJ-CPF não localizado]!")) {
+				System.err.println("UOLL");
+				throw new TesteAutomatizadoException(EnumMensagens.CNPJ_INVALIDO, getClass());
+			}
+		}
+
+		if (driver.findElement(By.id("modalNovoTipo_maindiv")).isDisplayed()
+				&& driver.findElement(By.xpath("//*[@class='form-group has-error']")).isDisplayed()) {
+			tipo.click();
+			if (driver.findElement(By.xpath("//*[@id='modalNovoTipo_maindiv']/div")).getText()
+					.equalsIgnoreCase("Obrigatório!")) {
+				throw new TesteAutomatizadoException(EnumMensagens.TIPO_EM_BRANCO, getClass());
+			}
+		} else {
+			// Botao salvar superior
+			WebElement salvar = driver.findElement(By.id("btnAvancar1"));
+			salvar.click();
+		}
 
 	}
 

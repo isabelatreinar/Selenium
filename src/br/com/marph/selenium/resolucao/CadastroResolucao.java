@@ -81,7 +81,7 @@ public class CadastroResolucao {
 
 		// numero resolucao
 		WebElement numero = driver.findElement(By.id("baseLegal"));
-		numero.sendKeys("5555");
+		numero.sendKeys("74174");
 		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-5']"));// ALTERAR
 		numeroSeleciona.click(); // NUMERO
 									// PARA
@@ -109,7 +109,7 @@ public class CadastroResolucao {
 
 	protected void beneficiarios() throws InterruptedException {
 		WebElement upload = driver.findElement(By.id("uploadBeneficiariosContemplados"));
-		upload.sendKeys("C:\\Users\\rafael.sad\\Documents\\import_base.xlsx");
+		upload.sendKeys("C:\\Users\\rafael.sad\\Documents\\Export.xlsx");
 
 		WebElement importar = driver.findElement(By.id("buttonImportar"));
 		importar.click();
@@ -125,11 +125,11 @@ public class CadastroResolucao {
 		WebElement nome = driver.findElement(By.id("nome"));
 		nome.sendKeys("Teste");
 
-		WebElement btnIndicador = driver.findElement(By.xpath("//*[@class='_cadastroIndicador']"));
+		WebElement btnIndicador = driver.findElement(By.xpath("//*[@id='collapseNovo']/div/ul/li[1]/a"));
 		btnIndicador.click();
 
 		WebElement indicador = driver.findElement(By.xpath("//*[@data-label-field='descricao']"));
-		indicador.sendKeys("Taxa");
+		indicador.sendKeys("uni");
 		WebElement indicador1 = driver.findElement(By.id("ui-id-2"));
 		indicador1.click();
 
