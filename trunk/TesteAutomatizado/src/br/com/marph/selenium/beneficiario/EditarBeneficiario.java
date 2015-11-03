@@ -53,7 +53,8 @@ public class EditarBeneficiario {
 		driver.findElement(By.id("btnEditar1")).click();
 		editar();
 
-		// se o toast for exibido e a mensagem estiver correta o teste se encerra
+		// se o toast for exibido e a mensagem estiver correta o teste se
+		// encerra
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
@@ -73,35 +74,40 @@ public class EditarBeneficiario {
 		 * Verifica se a tela de edição acessada corresponde ao beneficiário
 		 * selecionado O sinal de - é colocado devido a máscara no componente
 		 */
-		if (driver.findElement(By.id("modalVisualizarNome")).getText()
-				.equalsIgnoreCase(VisualizarBeneficiario.getBeneficiarioSelecionado())) {
-			WebElement cnpj = driver.findElement(By.id("cnpj"));
-			cnpj.sendKeys("-72068028000171");
-			cnpj.sendKeys(Keys.ENTER);
 
-			WebElement justificativa = driver.findElement(By.id("justificativa"));
-			justificativa.sendKeys("Teste");
+		WebElement cnpj = driver.findElement(By.id("cnpj"));
+		cnpj.clear();
+		cnpj.sendKeys("-13064113000101");
+		cnpj.sendKeys(Keys.TAB);
 
-			// Botao salvar inferior
-			driver.findElement(By.id("btnSalvar")).click();
+		WebElement justificativa = driver.findElement(By.id("justificativa"));
+		justificativa.sendKeys("Teste");
 
-			// Botão Salvar superior
-			//driver.findElement(By.id("btnSalvar1")).click();
-
-			// valida exibição do toast
-			if (driver.findElement(By.id("toast-conteiner")).isDisplayed()) {
-				throw new TesteAutomatizadoException(EnumMensagens.TOAST_DESABILITADO, this.getClass());
+		if (driver.findElement(By.id("cnpj_maindiv")).isDisplayed()
+				&& driver.findElement(By.xpath("//*[@class='form-group has-error']")).isDisplayed()) {
+			cnpj.click();
+			if (driver.findElement(By.xpath("//*[@id='cnpj_maindiv']/div")).getText()
+					.equalsIgnoreCase("CNPJ Inválido!")) {
+				throw new TesteAutomatizadoException(EnumMensagens.CNPJ_INVALIDO, getClass());
 			}
-			// valida mensagem exibida
-			else if (!driver.findElement(By.xpath("/div/div[2]")).getText()
-					.equalsIgnoreCase("Beneficiário salvo com sucesso.")) {
-				throw new TesteAutomatizadoException(EnumMensagens.MENSAGEM_INCORRETA, this.getClass());
-			}
+		} else {
+
+			WebElement salvar = driver.findElement(By.id("btnSalvar1"));
+			salvar.click();
 		}
-		// se o beneficiário não for o selecionado -> erro
-		else {
-			throw new TesteAutomatizadoException(EnumMensagens.BENEFICIARIO_INCORRETO, this.getClass());
+		/*
+		 * cnpj.click(); System.out.println(driver.findElement(By.xpath(
+		 * "//*[@id='cnpj_maindiv']/div")).getText());
+		 */
+
+		// valida exibição do toast
+		if (driver.findElement(By.id("toast-conteiner")).isDisplayed()) {
+			throw new TesteAutomatizadoException(EnumMensagens.TOAST_DESABILITADO, this.getClass());
+		}
+		// valida mensagem exibida
+		else if (!driver.findElement(By.xpath("/div/div[2]")).getText()
+				.equalsIgnoreCase("Beneficiário salvo com sucesso.")) {
+			throw new TesteAutomatizadoException(EnumMensagens.MENSAGEM_INCORRETA, this.getClass());
 		}
 	}
-
 }
