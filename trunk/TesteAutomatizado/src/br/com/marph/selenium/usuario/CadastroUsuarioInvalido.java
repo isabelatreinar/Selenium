@@ -44,20 +44,20 @@ public class CadastroUsuarioInvalido {
 
 		WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
 		botaoCadastrar.click();
-		
+
 		cadastro();
 
 		if (driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
 				.equalsIgnoreCase("Você está em: Usuário > Novo Usuário")) {
 			validacaoToolTip();
-		}//Só valida se permanecer na página de novo usuário
+		} // Só valida se permanecer na página de novo usuário
 
 		perfilCadastra();
 
 		if (driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
 				.equalsIgnoreCase("Você está em: Usuário > Novo Usuário > Novo Perfil")) {
 			validacaoToolTipPerfil();
-		}//Só valida se permanecer na página de novo perfil
+		} // Só valida se permanecer na página de novo perfil
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -97,7 +97,7 @@ public class CadastroUsuarioInvalido {
 			input.click();
 			if (driver.findElement(By.xpath("//*[@id='usuarioNome_maindiv']/div")).isDisplayed()
 					&& driver.findElement(By.xpath("//*[@id='usuarioNome_maindiv']/div")).getText()
-							.equalsIgnoreCase("Obrigatório!")) {
+							.equalsIgnoreCase("Preenchimento obrigatório!")) {
 				throw new TesteAutomatizadoException(EnumMensagens.NOME_EM_BRANCO, this.getClass());
 			}
 		}
@@ -116,7 +116,7 @@ public class CadastroUsuarioInvalido {
 			WebElement cpf = driver.findElement(By.id("usuarioCpf"));
 			cpf.click();
 			if (driver.findElement(By.xpath("//*[@id='usuarioCpf_maindiv']/div")).getText()
-					.equalsIgnoreCase("Obrigatório!")) {
+					.equalsIgnoreCase("Preenchimento obrigatório!")) {
 				throw new TesteAutomatizadoException(EnumMensagens.CPF_EM_BRANCO, this.getClass());
 			}
 
@@ -136,7 +136,7 @@ public class CadastroUsuarioInvalido {
 			WebElement cargo = driver.findElement(By.id("cargo_chosen"));
 			cargo.click();
 			if (driver.findElement(By.xpath("//*[@id='cargo_maindiv']/div[2]")).getText()
-					.equalsIgnoreCase("Obrigatório!")) {
+					.equalsIgnoreCase("Preenchimento obrigatório!")) {
 				throw new TesteAutomatizadoException(EnumMensagens.CARGO_EM_BRANCO, this.getClass());
 			}
 		}

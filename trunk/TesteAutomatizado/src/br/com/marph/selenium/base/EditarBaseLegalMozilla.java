@@ -44,7 +44,7 @@ public class EditarBaseLegalMozilla {
 		VisualizarBaseLegal.visualizar(driver);
 
 		edicaoCampos();
-
+		
 		validacao();
 
 		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();

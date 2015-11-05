@@ -2,6 +2,7 @@ package br.com.marph.selenium.usuario;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -39,9 +40,16 @@ public class EditarUsuario {
 
 		MenuUsuarioTemplate.prepararAcessoUsuario(driver);
 
+		PesquisarUsuario.pesquisar(driver);
+
+		VisualizarUsuario.visualizar(driver);
+
 		cadastrar();
 
-		validacao();
+		if(driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
+				.equalsIgnoreCase("Você está em: Usuário > Visualizar Usuário > Editar Usuário")){
+			validacao();
+		}
 
 		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
 
@@ -65,31 +73,36 @@ public class EditarUsuario {
 
 	}
 
-	private void validacao() {
-		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='usuarioNome_label']/label/span")).getText())) {
-			LogUtils.log(EnumMensagens.NOME_EM_BRANCO, this.getClass());
+	private void validacao() throws TesteAutomatizadoException {
+		if (StringUtils.isBlank(driver.findElement(By.id("usuarioNome")).getAttribute("value"))) {
+			WebElement input = driver.findElement(By.id("usuarioNome"));
+			input.click();
+			if (driver.findElement(By.xpath("//*[@id='usuarioNome_maindiv']/div")).isDisplayed()
+					&& driver.findElement(By.xpath("//*[@id='usuarioNome_maindiv']/div")).getText()
+							.equalsIgnoreCase("Preenchimento obrigatório!")) {
+				throw new TesteAutomatizadoException(EnumMensagens.NOME_EM_BRANCO, this.getClass());
+			}
 		}
 
-		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='cargo_label']/label/span")).getText())) {
-			LogUtils.log(EnumMensagens.CARGO_EM_BRANCO, this.getClass());
+		if (driver.findElement(By.id("cargo_maindiv")).isDisplayed()
+				&& driver.findElement(By.xpath("//*[@class='form-group has-error']")).isDisplayed()) {
+			WebElement cargo = driver.findElement(By.id("cargo_chosen"));
+			cargo.click();
+			if (driver.findElement(By.xpath("//*[@id='cargo_maindiv']/div[2]")).getText()
+					.equalsIgnoreCase("Preenchimento obrigatório!")) {
+				throw new TesteAutomatizadoException(EnumMensagens.CARGO_EM_BRANCO, this.getClass());
+			}
 		}
 	}
 
 	private void cadastrar() {
-		String idUsuario = "rowId2159";
-
-		WebElement selecionarUsuario = driver.findElement(By.id(idUsuario));
-		selecionarUsuario.click();
-
-		WebElement usuario = driver.findElement(By.xpath("//*[@id='" + idUsuario + "']/td[2]"));
-		usuario.click();
 
 		WebElement btnEditar = driver.findElement(By.id("btnEditar1"));
 		btnEditar.click();
 
 		WebElement nome = driver.findElement(By.id("usuarioNome"));
 		nome.clear();
-		nome.sendKeys("TESTE");
+		//nome.sendKeys("Isabela");
 
 		WebElement cargo = driver.findElement(By.id("cargo_chosen"));
 		cargo.click();
