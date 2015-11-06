@@ -73,7 +73,7 @@ public class CadastrarBaseLegalInvalido {
 		procuraTipoBase.sendKeys(Keys.TAB);
 
 		WebElement numero = driver.findElement(By.id("numero"));
-		numero.sendKeys("123411856");
+		numero.sendKeys("123711856");
 
 		WebElement data = driver.findElement(By.id("dataPublicacao"));
 		data.sendKeys("-12082015");
@@ -81,8 +81,8 @@ public class CadastrarBaseLegalInvalido {
 
 		boolean present = true;
 		try {
-			WebElement cpf = driver.findElement(By.id("numero"));
-			cpf.click();
+			WebElement numero1 = driver.findElement(By.id("numero"));
+			numero1.click();
 			driver.findElement(By.xpath("//*[@id='numero_maindiv']/div")).isDisplayed();
 			present = true;
 		} catch (NoSuchElementException e) {
@@ -103,8 +103,8 @@ public class CadastrarBaseLegalInvalido {
 
 		boolean present1 = true;
 		try {
-			WebElement cpf = driver.findElement(By.id("dataVigencia_chosen"));
-			cpf.click();
+			WebElement data1 = driver.findElement(By.id("dataVigencia_chosen"));
+			data1.click();
 			driver.findElement(By.xpath("//*[@role='tooltip']")).isDisplayed();
 			present1 = true;
 		} catch (NoSuchElementException e) {
@@ -128,7 +128,7 @@ public class CadastrarBaseLegalInvalido {
 	private void validarToolTip() throws TesteAutomatizadoException {
 
 		if (driver.findElement(By.id("tipoBaseLegal_chosen")).isDisplayed()
-				&& driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/a/span")).getText().equals("Tipo")) {
+				&& driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/a/span")).getText().equalsIgnoreCase("Tipo")) {
 			WebElement tipo = driver.findElement(By.id("tipoBaseLegal_chosen"));
 			tipo.click();
 			if (driver.findElement(By.xpath("//*[@id='tipoBaseLegal_maindiv']/div[2]")).getText()
@@ -149,7 +149,8 @@ public class CadastrarBaseLegalInvalido {
 		}
 
 		if (driver.findElement(By.id("dataVigencia_chosen")).isDisplayed()
-				&& driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/a/span")).getText().equals("Ano do início da vigência")) {
+				&& driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/a/span")).getText()
+				.equalsIgnoreCase("Ano do início da vigência")) {
 			WebElement tipo = driver.findElement(By.id("dataVigencia_chosen"));
 			tipo.click();
 			if (driver.findElement(By.xpath("//*[@id='dataVigencia_maindiv']/div[2]")).getText()

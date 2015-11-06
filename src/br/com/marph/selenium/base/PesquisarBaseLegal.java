@@ -63,7 +63,7 @@ public class PesquisarBaseLegal {
 		procuraTipoBase.sendKeys(Keys.TAB);
 
 		WebElement numero = driver.findElement(By.id("numero"));
-		numero.sendKeys("500");
+		numero.sendKeys("5005");
 
 		WebElement data = driver.findElement(By.id("dataPublicacao"));
 		data.sendKeys("-22092015");		

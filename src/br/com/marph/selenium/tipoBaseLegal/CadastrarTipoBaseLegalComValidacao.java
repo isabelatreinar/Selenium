@@ -18,7 +18,7 @@ import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class EditarTipoBaseLegal {
+public class CadastrarTipoBaseLegalComValidacao {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -39,16 +39,14 @@ public class EditarTipoBaseLegal {
 		long timestart = System.currentTimeMillis();
 
 		MenuTipoBaseLegalTemplate.prepararAcessoTipoBaseLegal(driver);
-		
-		PesquisarTipoBaseLegal.pesquisar(driver);
-		
-		editar();
-		
+
+		cadastro();
+
 		if (driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
-				.equalsIgnoreCase("Você está em: Tipo de Base Legal > Visualizar Tipo de Base Legal > Editar Tipo de Base Legal")) {
+				.equalsIgnoreCase("Você está em: Tipo de Base Legal > Novo Tipo de Base Legal")) {
 			validarToolTip();
 		}
-		
+
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
@@ -62,48 +60,38 @@ public class EditarTipoBaseLegal {
 		}
 	}
 
-	public void editar() {
-		WebElement selecionar = driver.findElement(By.xpath("//td[@class='sorting_1']"));
-		selecionar.click();
-		
-		WebElement editar = driver.findElement(By.id("btnEditar1"));
-		editar.click();
-		
+	public void cadastro() throws TesteAutomatizadoException {
+		WebElement cadastrar = driver.findElement(By.id("btnNovoTipoBaseLegal"));
+		cadastrar.click();
+
 		WebElement nome = driver.findElement(By.id("nomeTipoBaseLegal"));
-		nome.clear();
-		nome.sendKeys("Testee");
-		
+		nome.sendKeys("TesteiMA");
+
 		WebElement transferencia = driver.findElement(By.id("transferenciaRecursosFinanceiros_chosen"));
-		transferencia.click();		
-		WebElement transferenciaSeleciona = driver.findElement(By.xpath("//*[@id='transferenciaRecursosFinanceiros_chosen']/div/div/input"));
-		transferenciaSeleciona.clear();
+		transferencia.click();
+		WebElement transferenciaSeleciona = driver
+				.findElement(By.xpath("//*[@id='transferenciaRecursosFinanceiros_chosen']/div/div/input"));
 		transferenciaSeleciona.sendKeys("Sim");
 		transferenciaSeleciona.sendKeys(Keys.TAB);
-		
+
 		WebElement prestacao = driver.findElement(By.id("prestacaoMetas_chosen"));
-		prestacao.click();		
+		prestacao.click();
 		WebElement prestacaoSeleciona = driver.findElement(By.xpath("//*[@id='prestacaoMetas_chosen']/div/div/input"));
-		prestacaoSeleciona.clear();
 		prestacaoSeleciona.sendKeys("Sim");
 		prestacaoSeleciona.sendKeys(Keys.TAB);
-		
+
 		WebElement prestacaoContas = driver.findElement(By.id("prestacaoContas_chosen"));
-		prestacaoContas.click();		
-		WebElement prestacaoContasSeleciona = driver.findElement(By.xpath("//*[@id='prestacaoContas_chosen']/div/div/input"));
-		prestacaoContasSeleciona.clear();
+		prestacaoContas.click();
+		WebElement prestacaoContasSeleciona = driver
+				.findElement(By.xpath("//*[@id='prestacaoContas_chosen']/div/div/input"));
 		prestacaoContasSeleciona.sendKeys("Sim");
 		prestacaoContasSeleciona.sendKeys(Keys.TAB);
-		
-		WebElement descricao = driver.findElement(By.id("descricao"));
-		descricao.clear();
-		descricao.sendKeys("Testeeeeeeeee");
-		
-		
+
 		WebElement salvar = driver.findElement(By.id("btnSalvar"));
 		salvar.click();
 	}
-	
-	protected void validarToolTip() throws TesteAutomatizadoException {
+
+	private void validarToolTip() throws TesteAutomatizadoException {
 
 		boolean present = true;
 		try {
