@@ -3,18 +3,21 @@ package br.com.marph.selenium.base;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class CadastrarBaseLegalInvalido {
@@ -40,14 +43,11 @@ public class CadastrarBaseLegalInvalido {
 		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
 
 		cadastrar();
-
-		validar();
 		
-		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
-
-		if (validar == true) {
-			LogUtils.log(EnumMensagens.BASE_LEGAL_VALIDADO, this.getClass());
-		} 
+		if (driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
+				.equalsIgnoreCase("Você está em: Base Legal > Nova Base Legal")) {
+			validarToolTip();
+		}		
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -61,44 +61,7 @@ public class CadastrarBaseLegalInvalido {
 		}
 	}
 
-	private void validar() {
-		
-		if ("Obrigatório!"
-				.equals(driver.findElement(By.xpath("//*[@id='tipoBaseLegal_label']/label/span")).getText())) {
-			LogUtils.log(EnumMensagens.TIPO_EM_BRANCO, this.getClass());
-		}
-
-		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='numero_label']/label/span")).getText())) {
-			LogUtils.log(EnumMensagens.NUMERO_EM_BRANCO, this.getClass());
-		}
-
-		if ("Existe uma Deliberação cadastrada com este número."
-				.equals(driver.findElement(By.xpath("//*[@id='numero_label']/label/span")).getText())) {
-			LogUtils.log(EnumMensagens.DELIBERACAO_CADASTRADO, this.getClass());
-		}
-
-		if ("Obrigatório!"
-				.equals(driver.findElement(By.xpath("//*[@id='dataPublicacao_label']/label/span")).getText())) {
-			LogUtils.log(EnumMensagens.DATA_PUBLICACAO_EM_BRANCO, this.getClass());
-		}
-
-		if ("Obrigatório!".equals(driver.findElement(By.xpath("//*[@id='dataVigencia_label']/label/span")).getText())) {
-			LogUtils.log(EnumMensagens.DATA_VIGENCIA_EM_BRANCO, this.getClass());
-		}
-
-		if ("Obrigatório!"
-				.equals(driver.findElement(By.xpath("//*[@id='textoPublicado_label']/label/span")).getText())) {
-			LogUtils.log(EnumMensagens.PDF_EM_BRANCO, this.getClass());
-		}
-
-		if ("Tamanho de arquivo não suportado. Selecione um arquivo com até 5 MB."
-				.equals(driver.findElement(By.xpath("//*[@id='textoPublicado_label']/label/span")).getText())) {
-			LogUtils.log(EnumMensagens.PDF_MAIOR, this.getClass());
-		}		
-		
-	}
-
-	private void cadastrar() {
+	private void cadastrar() throws TesteAutomatizadoException {
 		// CADASTRO
 		WebElement btnNovoUsu = driver.findElement(By.id("btnNovaBaseLegal"));
 		btnNovoUsu.click();
@@ -110,13 +73,47 @@ public class CadastrarBaseLegalInvalido {
 		procuraTipoBase.sendKeys(Keys.TAB);
 
 		WebElement numero = driver.findElement(By.id("numero"));
-		numero.sendKeys("633541");
+		numero.sendKeys("123411856");
 
 		WebElement data = driver.findElement(By.id("dataPublicacao"));
 		data.sendKeys("-12082015");
 		data.sendKeys(Keys.TAB);
 
+		boolean present = true;
+		try {
+			WebElement cpf = driver.findElement(By.id("numero"));
+			cpf.click();
+			driver.findElement(By.xpath("//*[@id='numero_maindiv']/div")).isDisplayed();
+			present = true;
+		} catch (NoSuchElementException e) {
+			present = false;
+		}
+
+		if (present == true) {
+			WebElement input = driver.findElement(By.id("numero"));
+			input.click();
+			if (driver.findElement(By.xpath("//*[@id='numero_maindiv']/div")).isDisplayed()
+					&& driver.findElement(By.xpath("//*[@id='numero_maindiv']/div")).getText()
+							.equalsIgnoreCase("Existe tipo de base legal cadastrado com esse número")) {
+				throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_JA_CADASTRADA, this.getClass());
+			}
+		}
+
 		driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\\rafael.sad\\Documents\\TESTEEE.pdf");
+
+		boolean present1 = true;
+		try {
+			WebElement cpf = driver.findElement(By.id("dataVigencia_chosen"));
+			cpf.click();
+			driver.findElement(By.xpath("//*[@role='tooltip']")).isDisplayed();
+			present1 = true;
+		} catch (NoSuchElementException e) {
+			present1 = false;
+		}
+
+		if (present1 == true) {
+			throw new TesteAutomatizadoException(EnumMensagens.DATA_PUBLICACAO_EM_BRANCO, this.getClass());
+		}
 
 		WebElement anoVigencia = driver.findElement(By.id("dataVigencia_chosen"));
 		anoVigencia.click();
@@ -126,5 +123,49 @@ public class CadastrarBaseLegalInvalido {
 
 		WebElement salvar = driver.findElement(By.id("btnSalvar"));
 		salvar.click();
+	}
+
+	private void validarToolTip() throws TesteAutomatizadoException {
+
+		if (driver.findElement(By.id("tipoBaseLegal_chosen")).isDisplayed()
+				&& driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/a/span")).getText().equals("Tipo")) {
+			WebElement tipo = driver.findElement(By.id("tipoBaseLegal_chosen"));
+			tipo.click();
+			if (driver.findElement(By.xpath("//*[@id='tipoBaseLegal_maindiv']/div[2]")).getText()
+					.equalsIgnoreCase("Preenchimento obrigatório!")) {
+				throw new TesteAutomatizadoException(EnumMensagens.TIPO_EM_BRANCO, this.getClass());
+			}
+		}
+
+		if (StringUtils.isBlank(driver.findElement(By.id("numero")).getAttribute("value"))) {
+			WebElement numero = driver.findElement(By.id("numero"));
+			numero.click();
+			if (driver.findElement(By.xpath("//*[@id='numero_maindiv']/div")).isDisplayed()
+					&& driver.findElement(By.xpath("//*[@id='numero_maindiv']/div")).getText()
+							.equalsIgnoreCase("Preenchimento obrigatório!")) {
+				throw new TesteAutomatizadoException(EnumMensagens.NUMERO_EM_BRANCO, this.getClass());
+			}
+
+		}
+
+		if (driver.findElement(By.id("dataVigencia_chosen")).isDisplayed()
+				&& driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/a/span")).getText().equals("Ano do início da vigência")) {
+			WebElement tipo = driver.findElement(By.id("dataVigencia_chosen"));
+			tipo.click();
+			if (driver.findElement(By.xpath("//*[@id='dataVigencia_maindiv']/div[2]")).getText()
+					.equalsIgnoreCase("Preenchimento obrigatório!")) {
+				throw new TesteAutomatizadoException(EnumMensagens.ANO_EM_BRANCO, this.getClass());
+			}
+		}
+		
+		if (StringUtils.isBlank(driver.findElement(By.id("textoPublicado_hide")).getAttribute("value"))) {
+			WebElement numero = driver.findElement(By.id("textoPublicado-txt"));
+			numero.click();
+			if (driver.findElement(By.xpath("//*[@class='col-md-6 uploadFile']/div")).isDisplayed()
+					&& driver.findElement(By.xpath("//*[@class='col-md-6 uploadFile']/div")).getText()
+							.equalsIgnoreCase("Preenchimento obrigatório!")) {
+				throw new TesteAutomatizadoException(EnumMensagens.NUMERO_EM_BRANCO, this.getClass());
+			}
+		}
 	}
 }
