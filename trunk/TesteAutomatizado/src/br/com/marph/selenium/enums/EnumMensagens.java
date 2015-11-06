@@ -46,6 +46,7 @@ public enum EnumMensagens {
 	TIPO_BASE_LEGAL_NAO_VALIDO("**Tipo base não legal validada**\n",TipoMensagem.VALIDACAO),
 	CONFIRMACAO_DESABILITADA("Não exibe popup de confirmação.\n"),
 	BASE_LEGAL_JA_CADASTRADA("Já existe base legal cadastrada com esse numero.\n"),
+	TIPO_DE_BASE_LEGAL_JA_CADASTRADA("Tipo de base legal já cadastrado.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;
