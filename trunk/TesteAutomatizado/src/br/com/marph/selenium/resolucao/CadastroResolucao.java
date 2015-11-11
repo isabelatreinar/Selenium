@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -23,6 +24,7 @@ public class CadastroResolucao {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
+	JavascriptExecutor js;
 
 	@Before
 	public void startBrowser() {
@@ -30,6 +32,7 @@ public class CadastroResolucao {
 		Conexao.ip(driver);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		js =(JavascriptExecutor) driver;
 	}
 
 	@Test
@@ -42,6 +45,7 @@ public class CadastroResolucao {
 		MenuResolucaoTemplate.prepararAcessoResolucao(driver);
 
 		cadastrarResolucao();
+		
 
 		if (driver.findElement(By.xpath("//*[@id='RESOLUCAO']")).getAttribute("class").equalsIgnoreCase("current")) {
 			validarResolucao();
@@ -95,8 +99,8 @@ public class CadastroResolucao {
 		// fim
 		// numero resolucao
 		WebElement numero = driver.findElement(By.id("baseLegal"));
-		numero.sendKeys("403");
-		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-6']"));// ALTERAR
+		numero.sendKeys("405");
+		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-4']"));// ALTERAR
 		numeroSeleciona.click(); // NUMERO
 									// PARA
 									// PEGAR
@@ -134,12 +138,8 @@ public class CadastroResolucao {
 
 		WebElement descricao = driver.findElement(By.id("descricao"));
 		descricao.sendKeys("Teste TESTE");
-		/*
-		 * JavascriptExecutor js = (JavascriptExecutor) driver;
-		 * js.executeScript("$('#descricao').val()").toString();
-		 */
-
-		// fazer validação de descrição aqui ou na validação.
+		
+		
 		WebElement salvar = driver.findElement(By.id("btnSalvar1"));
 		salvar.click();
 
@@ -163,19 +163,29 @@ public class CadastroResolucao {
 		if (StringUtils.isBlank(driver.findElement(By.id("tempoVigencia")).getAttribute("value"))) {
 			throw new TesteAutomatizadoException(EnumMensagens.TEMPO_EM_BRANCO, this.getClass());
 		}
+		
+		if(StringUtils.isBlank((String)js.executeScript("return document.getElementById('descricao').value"))){
+			throw new TesteAutomatizadoException(EnumMensagens.DESCRICAO_EM_BRANCO, this.getClass());
+		}
 	}
 
 	protected void beneficiarios() throws InterruptedException, TesteAutomatizadoException {
 		
 		  WebElement upload =
 		  driver.findElement(By.id("uploadBeneficiariosContemplados"));
-		  upload.sendKeys("C:\\Users\\rafael.sad\\Documents\\Export.xlsx");
+		  upload.sendKeys("C:\\Users\\rafael.sad\\Documents\\6mb.pdf");//Export.xlsx
 		 
 
 		WebElement importar = driver.findElement(By.id("buttonImportar"));
 		importar.click();
 
 		 Thread.sleep(1000);
+		 
+/*		 String verifica = (String) js.executeScript("document.getElementById('uploadBeneficiariosContemplados-txt').value");
+		 
+		 if(StringUtils.isBlank(verifica)){
+				throw new TesteAutomatizadoException(EnumMensagens.ARQUIVO_EM_BRANCO, this.getClass());
+			}*/
 
 		WebElement avancar1 = driver.findElement(By.id("btnProximo"));
 		avancar1.click();
@@ -231,8 +241,16 @@ public class CadastroResolucao {
 
 	}
 
-	protected void validarToolTipIndicadores() {
+	protected void validarToolTipIndicadores() throws TesteAutomatizadoException {
+		if(StringUtils.isBlank((String) js.executeScript("document.getElementById('nome').value"))){
+			throw new TesteAutomatizadoException(EnumMensagens.NOME_EM_BRANCO,this.getClass());
+		}
 		
+		if(StringUtils.isBlank(driver.findElement(By.xpath("//*[@class='col-lg-4 _campoIndicador']input[3]"))
+				.getAttribute("value"))){
+			throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_EM_BRANCO, this.getClass());
+			
+		}
 	}
 	
 	public void periodo() {

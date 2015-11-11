@@ -52,6 +52,9 @@ public enum EnumMensagens {
 	BASE_LEGAL_EM_BRANCO("Base legal em branco!\n"),
 	TEMPO_EM_BRANCO("Tempo em branco.\n"),
 	PDF_ERRO_DE_LOG("PDF apresentou log.\n"),
+	DESCRICAO_EM_BRANCO("Descrição em branco.\n"),
+	ARQUIVO_EM_BRANCO("Arquivo em branco.\n"),
+	INDICADOR_EM_BRANCO("indicador em branco.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;
