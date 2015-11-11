@@ -47,6 +47,11 @@ public enum EnumMensagens {
 	CONFIRMACAO_DESABILITADA("Não exibe popup de confirmação.\n"),
 	BASE_LEGAL_JA_CADASTRADA("Já existe base legal cadastrada com esse numero.\n"),
 	TIPO_DE_BASE_LEGAL_JA_CADASTRADA("Tipo de base legal já cadastrado.\n"),
+	PROGRAMA_EM_BRANCO("Programa em branco.\n"),
+	RESOLUCAO_JA_CADASTRADA("Ja existe uma resolução cadastrada com esse número\n"),
+	BASE_LEGAL_EM_BRANCO("Base legal em branco!\n"),
+	TEMPO_EM_BRANCO("Tempo em branco.\n"),
+	PDF_ERRO_DE_LOG("PDF apresentou log.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;
