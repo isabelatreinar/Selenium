@@ -58,7 +58,7 @@ public class CadastrarTipoBaseLegal {
 		cadastrar.click();
 		
 		WebElement nome = driver.findElement(By.id("nomeTipoBaseLegal"));
-		nome.sendKeys("Testei");
+		nome.sendKeys("Testeiw");
 		
 		WebElement transferencia = driver.findElement(By.id("transferenciaRecursosFinanceiros_chosen"));
 		transferencia.click();		
