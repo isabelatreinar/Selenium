@@ -2,6 +2,7 @@ package br.com.marph.selenium.indicador;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -62,15 +63,19 @@ public class CadastrarIndicadorComValidacao {
 	public void cadastro() {
 		driver.findElement(By.id("btnNovoIndicador")).click();
 
-		/*// tipo de indicador
+		// tipo de indicador
 		driver.findElement(By.id("tipoIndicador_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/div/div/input")).sendKeys("Finalístico");
-		driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/div/div/input")).sendKeys(Keys.TAB);*/
+		driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
-		// tipo de fonte
-		driver.findElement(By.id("tipoFonte_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='tipoFonte_chosen']/div/div/input")).sendKeys("Oficial");
-		driver.findElement(By.xpath("//*[@id='tipoFonte_chosen']/div/div/input")).sendKeys(Keys.TAB);
+		
+		  // tipo de fonte
+		  driver.findElement(By.id("tipoFonte_chosen")).click();
+		  driver.findElement(By.xpath(
+		  "//*[@id='tipoFonte_chosen']/div/div/input")).sendKeys("Oficial");
+		  driver.findElement(By.xpath(
+		  "//*[@id='tipoFonte_chosen']/div/div/input")).sendKeys(Keys.TAB);
+		 
 
 		// polaridade
 		driver.findElement(By.id("polaridade_chosen")).click();
@@ -102,9 +107,29 @@ public class CadastrarIndicadorComValidacao {
 	}
 
 	private void validar() throws TesteAutomatizadoException {
-		if (driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']a/span")).getText()
+		if (driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/a/span")).getText()
 				.equalsIgnoreCase("Tipo de Indicador")) {
 			throw new TesteAutomatizadoException(EnumMensagens.TIPO_INDICADOR_EM_BRANCO, this.getClass());
+		} else if (driver.findElement(By.xpath("//*[@id='tipoFonte_chosen']/a/span")).getText()
+				.equalsIgnoreCase("Tipo de Fonte")) {
+			throw new TesteAutomatizadoException(EnumMensagens.TIPO_FONTE_EM_BRANCO, this.getClass());
+		} else if (driver.findElement(By.xpath("//*[@id='polaridade_chosen']/a/span")).getText()
+				.equalsIgnoreCase("Polaridade")) {
+			throw new TesteAutomatizadoException(EnumMensagens.POLARIDADE_EM_BRANCO, this.getClass());
+		}else if (StringUtils.isBlank(driver.findElement(By.id("mesesDaMediaMovel")).getAttribute("value"))) {
+			throw new TesteAutomatizadoException(EnumMensagens.MEDIA_MOVEL_EM_BRANCO, this.getClass());
+		}else if (StringUtils.isBlank(driver.findElement(By.id("mesesDeDefasagem")).getAttribute("value"))) {
+			throw new TesteAutomatizadoException(EnumMensagens.MESES_DE_DEFASAGEM_EM_BRANCO, this.getClass());
+		}else if (StringUtils.isBlank(driver.findElement(By.id("nomeIndicador")).getAttribute("value"))) {
+			throw new TesteAutomatizadoException(EnumMensagens.NOME_INDICADOR_EM_BRANCO, this.getClass());
+		}else if (StringUtils.isBlank(driver.findElement(By.id("nomeFonte")).getAttribute("value"))) {
+			throw new TesteAutomatizadoException(EnumMensagens.NOME_DA_FONTE_EM_BRANCO, this.getClass());
+		}else if (driver.findElement(By.xpath("//*[@id='programa_chosen']/a/span")).getText()
+				.equalsIgnoreCase("Programa")) {
+			throw new TesteAutomatizadoException(EnumMensagens.PROGRAMA_EM_BRANCO, this.getClass());
+		}else{
+			throw new TesteAutomatizadoException(EnumMensagens.DESCRICAO_EM_BRANCO, this.getClass());
 		}
+
 	}
 }
