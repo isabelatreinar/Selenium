@@ -55,6 +55,13 @@ public enum EnumMensagens {
 	DESCRICAO_EM_BRANCO("Descrição em branco.\n"),
 	ARQUIVO_EM_BRANCO("Arquivo em branco.\n"),
 	INDICADOR_EM_BRANCO("indicador em branco.\n"),
+	TIPO_INDICADOR_EM_BRANCO("Tipo indicador em branco\n"),
+	TIPO_FONTE_EM_BRANCO("Tipo fonte em branco\n"),
+	MEDIA_MOVEL_EM_BRANCO("Meses da média movel em branco\n"),
+	MESES_DE_DEFASAGEM_EM_BRANCO("Meses de defasagem em branco\n"),
+	POLARIDADE_EM_BRANCO("Polaridade em branco\n"),
+	NOME_INDICADOR_EM_BRANCO("Nome indicador em branco.\n"),
+	NOME_DA_FONTE_EM_BRANCO("Nome da fonte em branco.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;
