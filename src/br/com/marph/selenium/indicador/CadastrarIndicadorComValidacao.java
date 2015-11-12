@@ -16,7 +16,7 @@ import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class EditarIndicador {
+public class CadastrarIndicadorComValidacao {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -37,12 +37,14 @@ public class EditarIndicador {
 		long timestart = System.currentTimeMillis();
 
 		MenuIndicadorTemplate.prepararAcessoIndicador(driver);
-		
-		PesquisarIndicador.pesquisar(driver);
-		
-		VisualizarIndicador.visualizar(driver);
 
-		editar();
+		cadastro();
+
+		if (driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
+				.equalsIgnoreCase("Você está em: indicador > Novo Indicador")) {
+			validar();
+
+		}
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -57,14 +59,13 @@ public class EditarIndicador {
 		}
 	}
 
-	public void editar() {
-		// acessa botao de editar
-		driver.findElement(By.id("btnEditar1")).click();
+	public void cadastro() {
+		driver.findElement(By.id("btnNovoIndicador")).click();
 
-		// tipo de indicador
+		/*// tipo de indicador
 		driver.findElement(By.id("tipoIndicador_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/div/div/input")).sendKeys("Finalístico");
-		driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/div/div/input")).sendKeys(Keys.TAB);
+		driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/div/div/input")).sendKeys(Keys.TAB);*/
 
 		// tipo de fonte
 		driver.findElement(By.id("tipoFonte_chosen")).click();
@@ -77,20 +78,16 @@ public class EditarIndicador {
 		driver.findElement(By.xpath("//*[@id='polaridade_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
 		// media movel
-		driver.findElement(By.id("mesesDaMediaMovel")).clear();
-		driver.findElement(By.id("mesesDaMediaMovel")).sendKeys("4");
+		driver.findElement(By.id("mesesDaMediaMovel")).sendKeys("12");
 
 		// meses de defasagem
-		driver.findElement(By.id("mesesDeDefasagem")).clear();
-		driver.findElement(By.id("mesesDeDefasagem")).sendKeys("0");
+		driver.findElement(By.id("mesesDeDefasagem")).sendKeys("21");
 
 		// nome do indicador
-		driver.findElement(By.id("nomeIndicador")).clear();
-		driver.findElement(By.id("nomeIndicador")).sendKeys("Excluir1");
+		driver.findElement(By.id("nomeIndicador")).sendKeys("Testeew");
 
 		// nome da fonte
-		driver.findElement(By.id("nomeFonte")).clear();
-		driver.findElement(By.id("nomeFonte")).sendKeys("SIGAF");
+		driver.findElement(By.id("nomeFonte")).sendKeys("marph");
 
 		// programa
 		driver.findElement(By.id("programa_chosen")).click();
@@ -98,11 +95,16 @@ public class EditarIndicador {
 		driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
 		// descrição
-		driver.findElement(By.id("descricao")).clear();
-		driver.findElement(By.id("descricao"))
-				.sendKeys("Este indicador expressa o percentual de itens da relação"
-						+ " de plantas medicinais, fitoterápicos e homeopáticos, "
-						+ "dispensados na unidade do componente verde da Rede Farmácia de Minas. "
-						+ "O Indicador será obtido através do SIGAF");
+		driver.findElement(By.id("descricao")).sendKeys("TESTEEE");
+
+		// avançar
+		driver.findElement(By.id("btnSalvar")).click();
+	}
+
+	private void validar() throws TesteAutomatizadoException {
+		if (driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']a/span")).getText()
+				.equalsIgnoreCase("Tipo de Indicador")) {
+			throw new TesteAutomatizadoException(EnumMensagens.TIPO_INDICADOR_EM_BRANCO, this.getClass());
+		}
 	}
 }
