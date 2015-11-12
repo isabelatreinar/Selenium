@@ -16,7 +16,7 @@ import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class CadastrarIndicador {
+public class PesquisarIndicador {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -38,7 +38,7 @@ public class CadastrarIndicador {
 
 		MenuIndicadorTemplate.prepararAcessoIndicador(driver);
 		
-		cadastro();
+		pesquisar(driver);
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -53,46 +53,29 @@ public class CadastrarIndicador {
 		}
 	}
 
-	public void cadastro() {
-		driver.findElement(By.id("btnNovoIndicador")).click();
-		
+	public static void pesquisar(WebDriver driver) {
 		//tipo de indicador
 		driver.findElement(By.id("tipoIndicador_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/div/div/input")).sendKeys("Finalístico");
 		driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/div/div/input")).sendKeys(Keys.TAB);
 		
-		//tipo de fonte
-		driver.findElement(By.id("tipoFonte_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='tipoFonte_chosen']/div/div/input")).sendKeys("Oficial");
-		driver.findElement(By.xpath("//*[@id='tipoFonte_chosen']/div/div/input")).sendKeys(Keys.TAB);
-		
-		//polaridade
-		driver.findElement(By.id("polaridade_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='polaridade_chosen']/div/div/input")).sendKeys("Quanto maior, melhor");
-		driver.findElement(By.xpath("//*[@id='polaridade_chosen']/div/div/input")).sendKeys(Keys.TAB);
-		
-		//media movel
-		driver.findElement(By.id("mesesDaMediaMovel")).sendKeys("12");		
-		
-		//meses de defasagem
-		driver.findElement(By.id("mesesDeDefasagem")).sendKeys("21");
-		
 		//nome do indicador
-		driver.findElement(By.id("nomeIndicador")).sendKeys("Testeew");
-		
-		//nome da fonte
-		driver.findElement(By.id("nomeFonte")).sendKeys("marph");
+		driver.findElement(By.id("nomeIndicador")).sendKeys("Acabamento e Pintura");
+				
+		//expandir pesquisa
+		driver.findElement(By.id("btnExpandirPesquisaAvancada")).click();
 		
 		//programa
 		driver.findElement(By.id("programa_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input")).sendKeys("Farmácia de minas");
 		driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input")).sendKeys(Keys.TAB);
 		
-		//descrição
-		driver.findElement(By.id("descricao")).sendKeys("TESTEEE");
+		//polaridade
+		driver.findElement(By.id("polaridadeIndicador_chosen")).click();
+		driver.findElement(By.xpath("//*[@id='polaridadeIndicador_chosen']/div/div/input")).sendKeys("Quanto maior, melhor");
+		driver.findElement(By.xpath("//*[@id='polaridadeIndicador_chosen']/div/div/input")).sendKeys(Keys.TAB);
 		
-		//avançar
-		driver.findElement(By.id("btnSalvar")).click();
-		
+		//clica no botao pesquisar.
+		driver.findElement(By.id("btnPesquisar")).click();
 	}
 }
