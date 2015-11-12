@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -16,7 +15,7 @@ import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class PesquisarIndicador {
+public class VisualizarHistoricoIndicador {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -38,7 +37,11 @@ public class PesquisarIndicador {
 
 		MenuIndicadorTemplate.prepararAcessoIndicador(driver);
 		
-		pesquisar(driver);
+		PesquisarIndicador.pesquisar(driver);
+		
+		VisualizarIndicador.visualizar(driver);
+		
+		historico(driver);
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -53,29 +56,7 @@ public class PesquisarIndicador {
 		}
 	}
 
-	public static void pesquisar(WebDriver driver) {
-		//tipo de indicador
-		driver.findElement(By.id("tipoIndicador_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/div/div/input")).sendKeys("Finalístico");
-		driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/div/div/input")).sendKeys(Keys.TAB);
-		
-		//nome do indicador
-		driver.findElement(By.id("nomeIndicador")).sendKeys("Excluir1");
-				
-		//expandir pesquisa
-		driver.findElement(By.id("btnExpandirPesquisaAvancada")).click();
-		
-		//programa
-		driver.findElement(By.id("programa_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input")).sendKeys("Farmácia de minas");
-		driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input")).sendKeys(Keys.TAB);
-		
-		//polaridade
-		driver.findElement(By.id("polaridadeIndicador_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='polaridadeIndicador_chosen']/div/div/input")).sendKeys("Quanto maior, melhor");
-		driver.findElement(By.xpath("//*[@id='polaridadeIndicador_chosen']/div/div/input")).sendKeys(Keys.TAB);
-		
-		//clica no botao pesquisar.
-		driver.findElement(By.id("btnPesquisar")).click();
+	public static void historico (WebDriver driver) {
+		driver.findElement(By.id("btnHistorico1")).click();
 	}
 }
