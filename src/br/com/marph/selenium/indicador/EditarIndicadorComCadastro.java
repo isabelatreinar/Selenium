@@ -153,8 +153,3 @@ public class EditarIndicadorComCadastro {
 		}
 	}
 }
-
-/*else if (StringUtils.isNotBlank(driver.findElement(By.id("nomeIndicador")).getAttribute("value"))
-		&& driver.findElement(By.xpath("//div[@class='form-group has-error']")).isDisplayed()) {
-	throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_JA_CADASRADO, this.getClass());
-} */
