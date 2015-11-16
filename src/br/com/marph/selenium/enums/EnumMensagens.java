@@ -63,6 +63,8 @@ public enum EnumMensagens {
 	NOME_INDICADOR_EM_BRANCO("Nome indicador em branco.\n"),
 	NOME_DA_FONTE_EM_BRANCO("Nome da fonte em branco.\n"),
 	INDICADOR_JA_CADASRADO("Indicador já cadastrado.\n"),
+	FORMATO_DE_ARQUIVO_INVALIDO("Formato de arquivo inválido.\n"),
+	TAMANHO_NAO_SUPORTADO("Tamanho de arquivo não suportado. Selecione um arquivo com até 5MB.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;
