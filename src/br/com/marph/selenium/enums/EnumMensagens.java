@@ -65,6 +65,9 @@ public enum EnumMensagens {
 	INDICADOR_JA_CADASRADO("Indicador já cadastrado.\n"),
 	FORMATO_DE_ARQUIVO_INVALIDO("Formato de arquivo inválido.\n"),
 	TAMANHO_NAO_SUPORTADO("Tamanho de arquivo não suportado. Selecione um arquivo com até 5MB.\n"),
+	NOME_DO_MODELO_EM_BRANCO("O nome do modelo não pode ser vazio.\n"),
+	INICIO_DO_PERIODO_EM_BRANCO("O início do período de monitoramento não pode ser vazio.\n"),
+	FIM_DO_PERIODO_EM_BRANCO("O fim do período de monitoramento não pode ser vazio."),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;

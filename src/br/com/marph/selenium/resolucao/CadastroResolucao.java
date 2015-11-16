@@ -106,8 +106,8 @@ public class CadastroResolucao {
 		// fim
 		// numero resolucao
 		WebElement numero = driver.findElement(By.id("baseLegal"));
-		numero.sendKeys("406");
-		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-11']"));// ALTERAR
+		numero.sendKeys("408");
+		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-5']"));// ALTERAR
 		numeroSeleciona.click(); // NUMERO
 									// PARA
 									// PEGAR
@@ -242,36 +242,23 @@ public class CadastroResolucao {
 		salvar.click();
 		
 		try {
-			if (StringUtils.isBlank((String) js.executeScript("document.getElementById('nome').value"))) {
-				throw new TesteAutomatizadoException(EnumMensagens.NOME_EM_BRANCO, this.getClass());
-			}
+			if(driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed() &&
+					driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText().equalsIgnoreCase("O nome do modelo não pode ser vazio.")){
+				throw new TesteAutomatizadoException(EnumMensagens.NOME_DO_MODELO_EM_BRANCO, this.getClass());				
+			}else if(driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed() &&
+					driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText().equalsIgnoreCase("O preenchimento do campo indicador é obrigatório.")){
+				throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_EM_BRANCO, this.getClass());				
+			}else if(driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed() &&
+					driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText().equalsIgnoreCase("O peso do indicador finalístico não pode ser menor que 0.")){
+				throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_EM_BRANCO, this.getClass());				
+			}			
 			
-			if (StringUtils.isBlank(
-					driver.findElement(By.xpath("//*[@class='col-lg-4 _campoIndicador']input[3]")).getAttribute("value"))) {
-				throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_EM_BRANCO, this.getClass());
-			}
-			
-			if(driver.findElement(By.xpath("//*[@class='toast-container']/div/div")).isDisplayed() &&
-					driver.findElement(By.xpath("//*[@class='toast-container']/div/div")).getText().equalsIgnoreCase("O preenchimento o campo indicador é obrigatório.")){
-				 System.out.println(driver.findElement(By.xpath("//*[@class='toast-container']/div/div")).getText());
-				
-			}
 		} catch (NoSuchElementException e) {
 			
-		}
-		
+		}		
 	}
 
-/*	protected void validarToolTipIndicadores() throws TesteAutomatizadoException {
-		if(driver.findElement(By.xpath("//*[@class='toast-container']/div/div")).isDisplayed() &&
-				driver.findElement(By.xpath("//*[@class='toast-container']/div/div")).getText().equalsIgnoreCase("O nome do modelo não pode ser vazio.")){
-			 System.out.println(driver.findElement(By.xpath("//*[@class='toast-container']/div/div")).getText());
-			
-		}
-		
-	}*/
-
-	public void periodo() {
+	public void periodo() throws TesteAutomatizadoException {
 		WebElement editar = driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[3]/a"));
 		editar.click();
 
@@ -288,5 +275,18 @@ public class CadastroResolucao {
 
 		WebElement salvar = driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a"));
 		salvar.click();
+		
+		try {
+			if(driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed() &&
+					driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText().equalsIgnoreCase("O início do período de monitoramento não pode ser vazio.")){
+				throw new TesteAutomatizadoException(EnumMensagens.INICIO_DO_PERIODO_EM_BRANCO, this.getClass());				
+			}else if(driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed() &&
+					driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText().equalsIgnoreCase("O fim do período de monitoramento não pode ser vazio.")){
+				throw new TesteAutomatizadoException(EnumMensagens.FIM_DO_PERIODO_EM_BRANCO, this.getClass());				
+			}	
+			
+		} catch (NoSuchElementException e) {
+			
+		}		
 	}
 }
