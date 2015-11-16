@@ -32,7 +32,7 @@ public class CadastroResolucao {
 		Conexao.ip(driver);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		js =(JavascriptExecutor) driver;
+		js = (JavascriptExecutor) driver;
 	}
 
 	@Test
@@ -44,25 +44,32 @@ public class CadastroResolucao {
 
 		MenuResolucaoTemplate.prepararAcessoResolucao(driver);
 
+		// cadastra resolucao
 		cadastrarResolucao();
-		
 
+		// valida se ainda está na pagina de resolucao para validar e achar o
+		// erro.
 		if (driver.findElement(By.xpath("//*[@id='RESOLUCAO']")).getAttribute("class").equalsIgnoreCase("current")) {
 			validarResolucao();
 		}
 
+		// cadastro de beneficiario
 		beneficiarios();
 
+		// valida se ainda esta na pagina de beneficiario e valida para achar o
+		// erro.
 		if (driver.findElement(By.xpath("//*[@id='BENEFICIARIOS_CONTEMPLADOS']")).getAttribute("class")
 				.equalsIgnoreCase("current")) {
 			validarBeneficiarios();
 		}
 
+		// cadastro de indicadores.
 		indicadores();
 
 		WebElement avancar2 = driver.findElement(By.id("btnProximo"));
 		avancar2.click();
 
+		// cadastro de periodo.
 		periodo();
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
@@ -99,8 +106,8 @@ public class CadastroResolucao {
 		// fim
 		// numero resolucao
 		WebElement numero = driver.findElement(By.id("baseLegal"));
-		numero.sendKeys("405");
-		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-4']"));// ALTERAR
+		numero.sendKeys("406");
+		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-11']"));// ALTERAR
 		numeroSeleciona.click(); // NUMERO
 									// PARA
 									// PEGAR
@@ -138,8 +145,7 @@ public class CadastroResolucao {
 
 		WebElement descricao = driver.findElement(By.id("descricao"));
 		descricao.sendKeys("Teste TESTE");
-		
-		
+
 		WebElement salvar = driver.findElement(By.id("btnSalvar1"));
 		salvar.click();
 
@@ -147,11 +153,6 @@ public class CadastroResolucao {
 		avancar.click();
 	}
 
-	/**
-	 * Validar resolução
-	 * 
-	 * @throws TesteAutomatizadoException
-	 */
 	protected void validarResolucao() throws TesteAutomatizadoException {
 
 		try {
@@ -162,30 +163,36 @@ public class CadastroResolucao {
 
 		if (StringUtils.isBlank(driver.findElement(By.id("tempoVigencia")).getAttribute("value"))) {
 			throw new TesteAutomatizadoException(EnumMensagens.TEMPO_EM_BRANCO, this.getClass());
-		}
-		
-		if(StringUtils.isBlank((String)js.executeScript("return document.getElementById('descricao').value"))){
+		} else if (StringUtils
+				.isBlank((String) js.executeScript("return document.getElementById('descricao').value"))) {
+			throw new TesteAutomatizadoException(EnumMensagens.DESCRICAO_EM_BRANCO, this.getClass());
+		} else {
 			throw new TesteAutomatizadoException(EnumMensagens.DESCRICAO_EM_BRANCO, this.getClass());
 		}
 	}
 
 	protected void beneficiarios() throws InterruptedException, TesteAutomatizadoException {
-		
-		  WebElement upload =
-		  driver.findElement(By.id("uploadBeneficiariosContemplados"));
-		  upload.sendKeys("C:\\Users\\rafael.sad\\Documents\\6mb.pdf");//Export.xlsx
-		 
+
+		WebElement upload = driver.findElement(By.id("uploadBeneficiariosContemplados"));
+		upload.sendKeys("C:\\Users\\rafael.sad\\Documents\\Export.xlsx");// Export.xlsx
 
 		WebElement importar = driver.findElement(By.id("buttonImportar"));
 		importar.click();
 
-		 Thread.sleep(1000);
-		 
-/*		 String verifica = (String) js.executeScript("document.getElementById('uploadBeneficiariosContemplados-txt').value");
-		 
-		 if(StringUtils.isBlank(verifica)){
-				throw new TesteAutomatizadoException(EnumMensagens.ARQUIVO_EM_BRANCO, this.getClass());
-			}*/
+		// Thread.sleep(1000);
+
+		try {
+			if (driver.findElement(By.xpath("//*[@class='tooltip tooltip-error fade top in']")).getText()
+					.equalsIgnoreCase(
+							"Formato de arquivo inválido. Por favor selecione um arquivo no formato XLS ou XLSX.")) {
+				throw new TesteAutomatizadoException(EnumMensagens.FORMATO_DE_ARQUIVO_INVALIDO, this.getClass());
+			} else if (driver.findElement(By.xpath("//*[@class='tooltip tooltip-error fade top in']")).getText()
+					.equalsIgnoreCase("Tamanho de arquivo não suportado. Selecione um arquivo com até 5 MB.")) {
+				throw new TesteAutomatizadoException(EnumMensagens.TAMANHO_NAO_SUPORTADO, this.getClass());
+			}
+		} catch (NoSuchElementException e) {
+
+		}
 
 		WebElement avancar1 = driver.findElement(By.id("btnProximo"));
 		avancar1.click();
@@ -194,11 +201,6 @@ public class CadastroResolucao {
 	protected void validarBeneficiarios() throws TesteAutomatizadoException {
 
 		driver.findElement(By.id("uploadBeneficiariosContemplados-txt")).click();
-
-		if (driver.findElement(By.xpath("//*[@class='col-md-12 uploadFile']/div")).getText()
-				.equalsIgnoreCase("Tamanho de arquivo não suportado. Selecione um arquivo com até 5 MB.")) {
-			throw new TesteAutomatizadoException(EnumMensagens.PDF_MAIOR, this.getClass());
-		}
 
 		try {
 			if (driver.findElement(By.id("downloadTxt")).isDisplayed()) {
@@ -211,7 +213,7 @@ public class CadastroResolucao {
 
 	}
 
-	protected void indicadores() {
+	protected void indicadores() throws TesteAutomatizadoException {
 
 		WebElement criar = driver.findElement(By.id("criar"));
 		criar.click();
@@ -238,21 +240,37 @@ public class CadastroResolucao {
 
 		WebElement salvar = driver.findElement(By.xpath("//*[@id='headingNovo']/ul/li[1]/a"));
 		salvar.click();
-
-	}
-
-	protected void validarToolTipIndicadores() throws TesteAutomatizadoException {
-		if(StringUtils.isBlank((String) js.executeScript("document.getElementById('nome').value"))){
-			throw new TesteAutomatizadoException(EnumMensagens.NOME_EM_BRANCO,this.getClass());
-		}
 		
-		if(StringUtils.isBlank(driver.findElement(By.xpath("//*[@class='col-lg-4 _campoIndicador']input[3]"))
-				.getAttribute("value"))){
-			throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_EM_BRANCO, this.getClass());
+		try {
+			if (StringUtils.isBlank((String) js.executeScript("document.getElementById('nome').value"))) {
+				throw new TesteAutomatizadoException(EnumMensagens.NOME_EM_BRANCO, this.getClass());
+			}
+			
+			if (StringUtils.isBlank(
+					driver.findElement(By.xpath("//*[@class='col-lg-4 _campoIndicador']input[3]")).getAttribute("value"))) {
+				throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_EM_BRANCO, this.getClass());
+			}
+			
+			if(driver.findElement(By.xpath("//*[@class='toast-container']/div/div")).isDisplayed() &&
+					driver.findElement(By.xpath("//*[@class='toast-container']/div/div")).getText().equalsIgnoreCase("O preenchimento o campo indicador é obrigatório.")){
+				 System.out.println(driver.findElement(By.xpath("//*[@class='toast-container']/div/div")).getText());
+				
+			}
+		} catch (NoSuchElementException e) {
 			
 		}
+		
 	}
-	
+
+/*	protected void validarToolTipIndicadores() throws TesteAutomatizadoException {
+		if(driver.findElement(By.xpath("//*[@class='toast-container']/div/div")).isDisplayed() &&
+				driver.findElement(By.xpath("//*[@class='toast-container']/div/div")).getText().equalsIgnoreCase("O nome do modelo não pode ser vazio.")){
+			 System.out.println(driver.findElement(By.xpath("//*[@class='toast-container']/div/div")).getText());
+			
+		}
+		
+	}*/
+
 	public void periodo() {
 		WebElement editar = driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[3]/a"));
 		editar.click();
