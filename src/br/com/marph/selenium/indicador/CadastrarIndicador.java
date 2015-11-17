@@ -40,6 +40,10 @@ public class CadastrarIndicador {
 		
 		cadastro();
 		
+		variavel();
+		
+		formula();
+		
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
@@ -78,7 +82,7 @@ public class CadastrarIndicador {
 		driver.findElement(By.id("mesesDeDefasagem")).sendKeys("21");
 		
 		//nome do indicador
-		driver.findElement(By.id("nomeIndicador")).sendKeys("Testeew");
+		driver.findElement(By.id("nomeIndicador")).sendKeys("Testinhu");
 		
 		//nome da fonte
 		driver.findElement(By.id("nomeFonte")).sendKeys("marph");
@@ -92,6 +96,32 @@ public class CadastrarIndicador {
 		driver.findElement(By.id("descricao")).sendKeys("TESTEEE");
 		
 		//avançar
+		driver.findElement(By.id("btnSalvar")).click();
+	}
+	
+	public void variavel() {
+		//clica no botão criar
+		driver.findElement(By.id("criar")).click();
+		
+		//clica no botão criar
+		driver.findElement(By.xpath("//*[@class='panel-heading']/span/input")).sendKeys("testa");
+		
+		//Preenche o campo descrição
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[2]/div/p/textarea")).sendKeys("huahauhau");
+		
+		//clica em salvar
+		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a")).click();
+		
+		//avança
+		driver.findElement(By.id("btnSalvar")).click();
+		
+	}
+	
+	public void formula(){
+		//clica para adicionar
+		driver.findElement(By.xpath("//*[@id='heading0']/ul/li/a")).click();
+		
+		//clica para salvar
 		driver.findElement(By.id("btnSalvar")).click();
 		
 	}
