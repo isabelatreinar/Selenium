@@ -2,6 +2,7 @@ package br.com.marph.selenium.blocoDeFinanciamento;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -43,6 +44,11 @@ public class EditarBloco {
 		
 		editar();
 		
+		if (driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
+				.equalsIgnoreCase("Você está em: Bloco de financiamento > Visualizar Bloco de Financiamento > Editar Bloco de Financiamento")) {
+			validar();
+		}
+		
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
@@ -71,5 +77,15 @@ public class EditarBloco {
 		driver.findElement(By.id("btnSalvar")).click();		
 	}
 	
-	
+	private void validar() throws TesteAutomatizadoException {
+		driver.findElement(By.id("nome")).click();
+		
+		if(driver.findElement(By.xpath("//*[@id='nome_maindiv']/div")).getText().equalsIgnoreCase("Bloco de financiamento já cadastrado.")){
+			throw new TesteAutomatizadoException(EnumMensagens.BLOCO_JA_CADASTRADO, this.getClass());
+		}else if(driver.findElement(By.xpath("//*[@id='nome_maindiv']/div")).getText().equalsIgnoreCase("Preenchimento obrigatório!")) {
+			throw new TesteAutomatizadoException(EnumMensagens.NOME_EM_BRANCO, this.getClass());
+		}else if(StringUtils.isBlank(driver.findElement(By.id("descricao")).getAttribute("value"))){
+			throw new TesteAutomatizadoException(EnumMensagens.DESCRICAO_EM_BRANCO, this.getClass());
+		}
+	}
 }
