@@ -46,6 +46,10 @@ public class CadastrarIndicadorComValidacao {
 			validar();
 
 		}
+		
+		variavel();
+		
+		
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -130,6 +134,34 @@ public class CadastrarIndicadorComValidacao {
 		}else{
 			throw new TesteAutomatizadoException(EnumMensagens.DESCRICAO_EM_BRANCO, this.getClass());
 		}
-
+	}
+	
+	public void variavel() {
+		//clica no botão criar
+		driver.findElement(By.id("criar")).click();
+		
+		//clica no botão criar
+		driver.findElement(By.xpath("//*[@class='panel-heading']/span/input")).sendKeys("testa");
+		
+		//Preenche o campo descrição
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[2]/div/p/textarea")).sendKeys("huahauhau");
+		
+		//clica em salvar
+		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a")).click();
+		
+		//avança
+		driver.findElement(By.id("btnSalvar")).click();		
+	}
+	
+	public void validarVariavel(){
+		
+	}
+	
+	public void formula(){
+		//clica para adicionar
+		driver.findElement(By.xpath("//*[@id='heading0']/ul/li/a")).click();
+		
+		//clica para salvar
+		driver.findElement(By.id("btnSalvar")).click();		
 	}
 }

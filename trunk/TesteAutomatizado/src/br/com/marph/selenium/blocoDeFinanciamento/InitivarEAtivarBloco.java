@@ -41,7 +41,7 @@ public class InitivarEAtivarBloco {
 		
 		VisualizarBloco.visualizar(driver);
 		
-		inativar();
+		inativarEAtivar();
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -56,7 +56,7 @@ public class InitivarEAtivarBloco {
 		}
 	}
 
-	private void inativar() {
+	private void inativarEAtivar() {
 		driver.findElement(By.id("btnAtivarInativar")).click();	
 		
 		if(driver.findElement(By.id("btnAtivarInativar")).getText().equalsIgnoreCase("Inativar Bloco")){
