@@ -67,7 +67,11 @@ public enum EnumMensagens {
 	TAMANHO_NAO_SUPORTADO("Tamanho de arquivo não suportado. Selecione um arquivo com até 5MB.\n"),
 	NOME_DO_MODELO_EM_BRANCO("O nome do modelo não pode ser vazio.\n"),
 	INICIO_DO_PERIODO_EM_BRANCO("O início do período de monitoramento não pode ser vazio.\n"),
-	FIM_DO_PERIODO_EM_BRANCO("O fim do período de monitoramento não pode ser vazio."),
+	FIM_DO_PERIODO_EM_BRANCO("O fim do período de monitoramento não pode ser vazio.\n"),
+	BLOCO_ATIVADO("Bloco ativado.\n",TipoMensagem.INFO),
+	BLOCO_INATIVADO("Bloco inativado.\n",TipoMensagem.INFO),
+	BLOCO_NAO_ENCONTRADO("Bloco de financiamento não encontrado.\n"),
+	BLOCO_JA_CADASTRADO("Bloco de financiamento já cadastrado.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;
