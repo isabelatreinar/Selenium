@@ -181,7 +181,7 @@ public class CadastrarIndicadorComValidacao {
 	public void validarFormula() throws TesteAutomatizadoException {
 		if(StringUtils.isBlank(driver.findElement(By.id("formula")).getAttribute("value"))){
 			throw new TesteAutomatizadoException(EnumMensagens.FORMULA_INVALIDA, this.getClass());
-		}//testar
+		}
 		
 	}
 }
