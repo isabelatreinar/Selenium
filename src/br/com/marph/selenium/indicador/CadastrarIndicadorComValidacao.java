@@ -44,12 +44,21 @@ public class CadastrarIndicadorComValidacao {
 		if (driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
 				.equalsIgnoreCase("Você está em: indicador > Novo Indicador")) {
 			validar();
-
 		}
-		
+
 		variavel();
-		
-		
+
+		if (driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
+				.equalsIgnoreCase("Você está em: Indicador > Novo Indicador > Nova Variável")) {
+			validarVariavel();
+		}
+
+		formula();
+
+		if (driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
+				.equalsIgnoreCase("Você está em: Indicador > Novo Indicador > Nova Variável > Nova Fórmula")) {
+			validarFormula();
+		}
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -72,14 +81,10 @@ public class CadastrarIndicadorComValidacao {
 		driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/div/div/input")).sendKeys("Finalístico");
 		driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
-		
-		  // tipo de fonte
-		  driver.findElement(By.id("tipoFonte_chosen")).click();
-		  driver.findElement(By.xpath(
-		  "//*[@id='tipoFonte_chosen']/div/div/input")).sendKeys("Oficial");
-		  driver.findElement(By.xpath(
-		  "//*[@id='tipoFonte_chosen']/div/div/input")).sendKeys(Keys.TAB);
-		 
+		// tipo de fonte
+		driver.findElement(By.id("tipoFonte_chosen")).click();
+		driver.findElement(By.xpath("//*[@id='tipoFonte_chosen']/div/div/input")).sendKeys("Oficial");
+		driver.findElement(By.xpath("//*[@id='tipoFonte_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
 		// polaridade
 		driver.findElement(By.id("polaridade_chosen")).click();
@@ -93,7 +98,7 @@ public class CadastrarIndicadorComValidacao {
 		driver.findElement(By.id("mesesDeDefasagem")).sendKeys("21");
 
 		// nome do indicador
-		driver.findElement(By.id("nomeIndicador")).sendKeys("Testeew");
+		driver.findElement(By.id("nomeIndicador")).sendKeys("Testando");
 
 		// nome da fonte
 		driver.findElement(By.id("nomeFonte")).sendKeys("marph");
@@ -120,48 +125,63 @@ public class CadastrarIndicadorComValidacao {
 		} else if (driver.findElement(By.xpath("//*[@id='polaridade_chosen']/a/span")).getText()
 				.equalsIgnoreCase("Polaridade")) {
 			throw new TesteAutomatizadoException(EnumMensagens.POLARIDADE_EM_BRANCO, this.getClass());
-		}else if (StringUtils.isBlank(driver.findElement(By.id("mesesDaMediaMovel")).getAttribute("value"))) {
+		} else if (StringUtils.isBlank(driver.findElement(By.id("mesesDaMediaMovel")).getAttribute("value"))) {
 			throw new TesteAutomatizadoException(EnumMensagens.MEDIA_MOVEL_EM_BRANCO, this.getClass());
-		}else if (StringUtils.isBlank(driver.findElement(By.id("mesesDeDefasagem")).getAttribute("value"))) {
+		} else if (StringUtils.isBlank(driver.findElement(By.id("mesesDeDefasagem")).getAttribute("value"))) {
 			throw new TesteAutomatizadoException(EnumMensagens.MESES_DE_DEFASAGEM_EM_BRANCO, this.getClass());
-		}else if (StringUtils.isBlank(driver.findElement(By.id("nomeIndicador")).getAttribute("value"))) {
+		} else if (StringUtils.isBlank(driver.findElement(By.id("nomeIndicador")).getAttribute("value"))) {
 			throw new TesteAutomatizadoException(EnumMensagens.NOME_INDICADOR_EM_BRANCO, this.getClass());
-		}else if (StringUtils.isBlank(driver.findElement(By.id("nomeFonte")).getAttribute("value"))) {
+		} else if (StringUtils.isBlank(driver.findElement(By.id("nomeFonte")).getAttribute("value"))) {
 			throw new TesteAutomatizadoException(EnumMensagens.NOME_DA_FONTE_EM_BRANCO, this.getClass());
-		}else if (driver.findElement(By.xpath("//*[@id='programa_chosen']/a/span")).getText()
+		} else if (driver.findElement(By.xpath("//*[@id='programa_chosen']/a/span")).getText()
 				.equalsIgnoreCase("Programa")) {
 			throw new TesteAutomatizadoException(EnumMensagens.PROGRAMA_EM_BRANCO, this.getClass());
-		}else{
+		} else {
 			throw new TesteAutomatizadoException(EnumMensagens.DESCRICAO_EM_BRANCO, this.getClass());
 		}
 	}
-	
+
 	public void variavel() {
-		//clica no botão criar
+		// clica no botão criar
 		driver.findElement(By.id("criar")).click();
-		
-		//clica no botão criar
+
+		// Insere o nome
 		driver.findElement(By.xpath("//*[@class='panel-heading']/span/input")).sendKeys("testa");
-		
-		//Preenche o campo descrição
-		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[2]/div/p/textarea")).sendKeys("huahauhau");
-		
-		//clica em salvar
+
+		// Preenche o campo descrição
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[2]/div/p/textarea"))
+				.sendKeys("huahauhau");
+
+		// clica em salvar
 		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a")).click();
-		
-		//avança
-		driver.findElement(By.id("btnSalvar")).click();		
+
+		// avança
+		driver.findElement(By.id("btnSalvar")).click();
 	}
-	
-	public void validarVariavel(){
-		
+
+	public void validarVariavel() throws TesteAutomatizadoException {
+		if (StringUtils.isBlank(
+				driver.findElement(By.xpath("//*[@class='panel-heading']/span/input")).getAttribute("value"))) {
+			throw new TesteAutomatizadoException(EnumMensagens.NOME_EM_BRANCO, this.getClass());
+		} else if (StringUtils.isBlank(
+				driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[2]/div/p/textarea"))
+						.getAttribute("value"))) {
+			throw new TesteAutomatizadoException(EnumMensagens.DESCRICAO_EM_BRANCO, this.getClass());
+		}
 	}
-	
-	public void formula(){
-		//clica para adicionar
+
+	public void formula() {
+		// clica para adicionar
 		driver.findElement(By.xpath("//*[@id='heading0']/ul/li/a")).click();
+
+		// clica para salvar
+		driver.findElement(By.id("btnSalvar")).click();
+	}
+
+	public void validarFormula() throws TesteAutomatizadoException {
+		if(StringUtils.isBlank(driver.findElement(By.id("formula")).getAttribute("value"))){
+			throw new TesteAutomatizadoException(EnumMensagens.FORMULA_INVALIDA, this.getClass());
+		}//testar
 		
-		//clica para salvar
-		driver.findElement(By.id("btnSalvar")).click();		
 	}
 }

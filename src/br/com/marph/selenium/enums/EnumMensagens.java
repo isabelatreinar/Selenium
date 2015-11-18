@@ -72,6 +72,7 @@ public enum EnumMensagens {
 	BLOCO_INATIVADO("Bloco inativado.\n",TipoMensagem.INFO),
 	BLOCO_NAO_ENCONTRADO("Bloco de financiamento não encontrado.\n"),
 	BLOCO_JA_CADASTRADO("Bloco de financiamento já cadastrado.\n"),
+	FORMULA_INVALIDA("Formula inválida.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;
