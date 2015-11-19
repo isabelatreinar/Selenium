@@ -7,20 +7,20 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
+import br.com.marph.selenium.tipoBaseLegal.ExcluirTipoBaseLegal;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class PesquisarIndicador {
+public class ExcluirIndicador {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
-	
+
 	@Before
 	public void startBrowser() {
 		driver = new FirefoxDriver();
@@ -28,7 +28,7 @@ public class PesquisarIndicador {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
-	
+
 	@Test
 	public void realizaBusca() throws InterruptedException, TesteAutomatizadoException {
 
@@ -37,9 +37,13 @@ public class PesquisarIndicador {
 		long timestart = System.currentTimeMillis();
 
 		MenuIndicadorTemplate.prepararAcessoIndicador(driver);
-		
-		pesquisar(driver);
-		
+
+		PesquisarIndicador.pesquisar(driver);
+
+		VisualizarIndicador.visualizar(driver);
+
+		excluir();
+
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
@@ -53,29 +57,17 @@ public class PesquisarIndicador {
 		}
 	}
 
-	public static void pesquisar(WebDriver driver) {
-		//tipo de indicador
-		driver.findElement(By.id("tipoIndicador_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/div/div/input")).sendKeys("Finalístico");
-		driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/div/div/input")).sendKeys(Keys.TAB);
-		
-		//nome do indicador
-		driver.findElement(By.id("nomeIndicador")).sendKeys("Testando");
-				
-		//expandir pesquisa
-		driver.findElement(By.id("btnExpandirPesquisaAvancada")).click();
-		
-		//programa
-		driver.findElement(By.id("programa_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input")).sendKeys("Farmácia de minas");
-		driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input")).sendKeys(Keys.TAB);
-		
-		//polaridade
-		driver.findElement(By.id("polaridadeIndicador_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='polaridadeIndicador_chosen']/div/div/input")).sendKeys("Quanto maior, melhor");
-		driver.findElement(By.xpath("//*[@id='polaridadeIndicador_chosen']/div/div/input")).sendKeys(Keys.TAB);
-		
-		//clica no botao pesquisar.
-		driver.findElement(By.id("btnPesquisar")).click();
+	protected void excluir() throws TesteAutomatizadoException {
+		driver.findElement(By.id("btnExcluir1")).click();
+
+		if ("O indicador não pode ser excluído pois está vinculado a um ou mais registros de: Resolução"
+				.equalsIgnoreCase(
+						driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[3]")).getText())) {
+			throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_NAO_PODE_SER_EXCLUIDO,
+					ExcluirTipoBaseLegal.class);
+		} else if (driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[4]/button[1]"))
+				.isDisplayed()) {
+			driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[4]/button[1]")).click();
+		}
 	}
 }
