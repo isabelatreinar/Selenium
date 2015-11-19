@@ -57,7 +57,7 @@ public class PesquisarResolucao {
 	public static void pesquisar(WebDriver driver) {
 
 		WebElement numero = driver.findElement(By.id("numero"));
-		numero.sendKeys("456");
+		numero.sendKeys("200");
 
 		WebElement programa = driver.findElement(By.id("programa_chosen"));
 		programa.click();		
