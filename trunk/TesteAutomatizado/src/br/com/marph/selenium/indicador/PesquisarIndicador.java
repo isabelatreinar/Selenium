@@ -60,7 +60,7 @@ public class PesquisarIndicador {
 		driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/div/div/input")).sendKeys(Keys.TAB);
 		
 		//nome do indicador
-		driver.findElement(By.id("nomeIndicador")).sendKeys("Testando");
+		driver.findElement(By.id("nomeIndicador")).sendKeys("Excluir phala");
 				
 		//expandir pesquisa
 		driver.findElement(By.id("btnExpandirPesquisaAvancada")).click();

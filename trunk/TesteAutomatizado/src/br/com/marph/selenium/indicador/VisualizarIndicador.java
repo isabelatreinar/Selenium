@@ -54,7 +54,14 @@ public class VisualizarIndicador {
 		}
 	}
 
-	public static void visualizar (WebDriver driver) {
-		driver.findElement(By.xpath("//td[@class='sorting_1']")).click();
+	public static void visualizar (WebDriver driver) throws TesteAutomatizadoException {
+		
+		
+			if(driver.findElement(By.xpath("//*[@id='indicadoresDataTable']/tbody/tr/td")).getText().equalsIgnoreCase("Resultado não encontrado.")){
+				throw new TesteAutomatizadoException(EnumMensagens.RESULTADO_NAO_ENCONTRADO, VisualizarIndicador.class);
+			}else		
+			driver.findElement(By.xpath("//td[@class='sorting_1']")).click();
+		
+		
 	}
 }

@@ -18,7 +18,7 @@ import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class EditarIndicadorComCadastro {
+public class EditarIndicadorComValidacao {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -93,7 +93,7 @@ public class EditarIndicadorComCadastro {
 
 		// nome do indicador
 		driver.findElement(By.id("nomeIndicador")).clear();
-		driver.findElement(By.id("nomeIndicador")).sendKeys("Excluirr");
+		driver.findElement(By.id("nomeIndicador")).sendKeys("phala");
 
 		// nome da fonte
 		driver.findElement(By.id("nomeFonte")).clear();
