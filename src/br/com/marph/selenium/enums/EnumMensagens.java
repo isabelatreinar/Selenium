@@ -74,6 +74,7 @@ public enum EnumMensagens {
 	BLOCO_JA_CADASTRADO("Bloco de financiamento já cadastrado.\n"),
 	FORMULA_INVALIDA("Formula inválida.\n"),
 	INDICADOR_NAO_PODE_SER_EXCLUIDO("O indicador não pode ser editado pois está vinculado a um ou mais registros de: Resolução \n"),
+	RESULTADO_NAO_ENCONTRADO("Resultado não encontrado.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;
