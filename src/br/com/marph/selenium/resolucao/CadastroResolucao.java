@@ -85,7 +85,7 @@ public class CadastroResolucao {
 		}
 	}
 
-	private void cadastrarResolucao() throws TesteAutomatizadoException {
+	protected void cadastrarResolucao() throws TesteAutomatizadoException {
 		WebElement cadastrarResolucao = driver.findElement(By.id("btnNovaResolucao"));
 		cadastrarResolucao.click();
 		// Selecionar programa
@@ -258,7 +258,7 @@ public class CadastroResolucao {
 		}		
 	}
 
-	public void periodo() throws TesteAutomatizadoException {
+	protected void periodo() throws TesteAutomatizadoException {
 		WebElement editar = driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[3]/a"));
 		editar.click();
 
