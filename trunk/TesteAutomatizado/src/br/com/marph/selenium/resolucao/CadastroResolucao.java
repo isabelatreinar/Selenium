@@ -66,11 +66,11 @@ public class CadastroResolucao {
 		// cadastro de indicadores.
 		indicadores();
 
-		WebElement avancar2 = driver.findElement(By.id("btnProximo"));
-		avancar2.click();
-
 		// cadastro de periodo.
 		periodo();
+
+		// cadastro de cronograma
+		cronograma();
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -92,7 +92,7 @@ public class CadastroResolucao {
 		WebElement programaSelecionar = driver.findElement(By.id("programa_chosen"));
 		programaSelecionar.click();
 		WebElement programa = driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input"));
-		programa.sendKeys("farmácia de minas");
+		programa.sendKeys("ProHosp");
 		programa.sendKeys(Keys.TAB);
 		// fim
 
@@ -106,8 +106,8 @@ public class CadastroResolucao {
 		// fim
 		// numero resolucao
 		WebElement numero = driver.findElement(By.id("baseLegal"));
-		numero.sendKeys("408");
-		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-5']"));// ALTERAR
+		numero.sendKeys("402");
+		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-6']"));// ALTERAR
 		numeroSeleciona.click(); // NUMERO
 									// PARA
 									// PEGAR
@@ -225,7 +225,7 @@ public class CadastroResolucao {
 		btnIndicador.click();
 
 		WebElement indicador = driver.findElement(By.xpath("//*[@data-label-field='nomeIndicador']"));
-		indicador.sendKeys("uni");
+		indicador.sendKeys("taxa");
 		WebElement indicador1 = driver.findElement(By.id("ui-id-2"));
 		indicador1.click();
 
@@ -240,53 +240,113 @@ public class CadastroResolucao {
 
 		WebElement salvar = driver.findElement(By.xpath("//*[@id='headingNovo']/ul/li[1]/a"));
 		salvar.click();
-		
+
 		try {
-			if(driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed() &&
-					driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText().equalsIgnoreCase("O nome do modelo não pode ser vazio.")){
-				throw new TesteAutomatizadoException(EnumMensagens.NOME_DO_MODELO_EM_BRANCO, this.getClass());				
-			}else if(driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed() &&
-					driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText().equalsIgnoreCase("O preenchimento do campo indicador é obrigatório.")){
-				throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_EM_BRANCO, this.getClass());				
-			}else if(driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed() &&
-					driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText().equalsIgnoreCase("O peso do indicador finalístico não pode ser menor que 0.")){
-				throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_EM_BRANCO, this.getClass());				
-			}			
-			
+			if (driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
+					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText()
+							.equalsIgnoreCase("O nome do modelo não pode ser vazio.")) {
+				throw new TesteAutomatizadoException(EnumMensagens.NOME_DO_MODELO_EM_BRANCO, this.getClass());
+			} else if (driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
+					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText()
+							.equalsIgnoreCase("O preenchimento do campo indicador é obrigatório.")) {
+				throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_EM_BRANCO, this.getClass());
+			} else if (driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
+					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText()
+							.equalsIgnoreCase("O peso do indicador finalístico não pode ser menor que 0.")) {
+				throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_EM_BRANCO, this.getClass());
+			}
+
 		} catch (NoSuchElementException e) {
-			
-		}		
+		}
+
+		driver.findElement(By.id("btnProximo")).click();
 	}
 
 	protected void periodo() throws TesteAutomatizadoException {
-		WebElement editar = driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[3]/a"));
-		editar.click();
 
-		WebElement adicionar = driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/ul/li/a"));
-		adicionar.click();
+		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[3]/a")).click();
 
-		WebElement data = driver.findElement(
-				By.xpath("//*[@class='panel-collapse collapse in']/div/div/div[3]/div[2]/div/div/div/input"));
-		data.sendKeys("-19102015");
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/ul/input")).sendKeys("1");
 
-		WebElement dataFim = driver.findElement(
-				By.xpath("//*[@class='panel-collapse collapse in']/div/div/div[3]/div[3]/div/div/div/input"));
-		dataFim.sendKeys("-22102015");
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/ul/a")).click();
 
-		WebElement salvar = driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a"));
-		salvar.click();
-		
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div/div[3]/div[2]/div/div/div/input"))
+				.sendKeys("-19102015");
+
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div/div[3]/div[3]/div/div/div/input"))
+				.sendKeys("-22102015");
+
+		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a")).click();
+
 		try {
-			if(driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed() &&
-					driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText().equalsIgnoreCase("O início do período de monitoramento não pode ser vazio.")){
-				throw new TesteAutomatizadoException(EnumMensagens.INICIO_DO_PERIODO_EM_BRANCO, this.getClass());				
-			}else if(driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed() &&
-					driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText().equalsIgnoreCase("O fim do período de monitoramento não pode ser vazio.")){
-				throw new TesteAutomatizadoException(EnumMensagens.FIM_DO_PERIODO_EM_BRANCO, this.getClass());				
-			}	
-			
+			if (driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
+					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText()
+							.equalsIgnoreCase("O início do período de monitoramento não pode ser vazio.")) {
+				throw new TesteAutomatizadoException(EnumMensagens.INICIO_DO_PERIODO_EM_BRANCO, this.getClass());
+			} else if (driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
+					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText()
+							.equalsIgnoreCase("O fim do período de monitoramento não pode ser vazio.")) {
+				throw new TesteAutomatizadoException(EnumMensagens.FIM_DO_PERIODO_EM_BRANCO, this.getClass());
+			}
+
 		} catch (NoSuchElementException e) {
-			
-		}		
+		}
+		driver.findElement(By.id("btnProximo")).click();
+	}
+
+	protected void cronograma() throws TesteAutomatizadoException {
+		// clica em criar
+		driver.findElement(By.id("criarCronograma")).click();
+
+		// coloca o nome
+		driver.findElement(By.xpath("//*[@id='accordion']/div/div[1]/span/input")).sendKeys("Teste");
+
+		// defini numero de parcelas
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[2]/input")).sendKeys("1");
+
+		// clica em atualizar
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[2]/a")).click();
+
+		// colocar data
+		driver.findElement(
+				By.xpath("//*[@class='panel-collapse collapse in']/div/div[3]/div[2]/div[2]/div/div/div/input"))
+				.sendKeys("-20112018");
+
+		// valor padrão
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[3]/div[2]/div[3]/input"))
+				.sendKeys("200000");
+
+		// percentual fixo
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[3]/div[2]/div[4]/input"))
+				.sendKeys("1000");
+
+		// percentual de custeio
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[3]/div[2]/div[5]/input"))
+				.sendKeys("500");
+
+		// formula de calculo para parcelar
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/ul/li[1]/a")).click();
+
+		// adicionar
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']"
+				+ "/div/div[1]/div/div[2]/div[2]/div/div[2]/div/div/div[1]/div[1]/div[2]/a")).click();
+
+		// concluir
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[1]/div/div[1]/ul/li[1]/a"))
+				.click();
+
+		// usar formula de calculo para bonus
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/ul/li[2]/a")).click();
+		
+		// adicionar
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']"
+				+ "/div/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div/div[1]/div/div[2]/a")).click();
+
+		// concluir
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[1]/div[2]/div[1]/ul/li[1]/a"))
+				.click();
+
+		// salvar
+		driver.findElement(By.xpath("//*[@id='accordion']/div/div[1]/ul/li[1]/a")).click();
 	}
 }
