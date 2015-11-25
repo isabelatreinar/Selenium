@@ -106,8 +106,8 @@ public class CadastroResolucao {
 		// fim
 		// numero resolucao
 		WebElement numero = driver.findElement(By.id("baseLegal"));
-		numero.sendKeys("404");
-		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-4']"));// ALTERAR
+		numero.sendKeys("405");
+		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-2']"));// ALTERAR
 		numeroSeleciona.click(); // NUMERO
 									// PARA
 									// PEGAR
