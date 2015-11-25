@@ -106,8 +106,8 @@ public class CadastroResolucao {
 		// fim
 		// numero resolucao
 		WebElement numero = driver.findElement(By.id("baseLegal"));
-		numero.sendKeys("402");
-		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-6']"));// ALTERAR
+		numero.sendKeys("404");
+		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-4']"));// ALTERAR
 		numeroSeleciona.click(); // NUMERO
 									// PARA
 									// PEGAR
@@ -343,10 +343,34 @@ public class CadastroResolucao {
 				+ "/div/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div/div[1]/div/div[2]/a")).click();
 
 		// concluir
-		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[1]/div[2]/div[1]/ul/li[1]/a"))
-				.click();
+		/*driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[1]/div[2]/div[1]/ul/li[1]/a"))
+				.click();*/
 
 		// salvar
 		driver.findElement(By.xpath("//*[@id='accordion']/div/div[1]/ul/li[1]/a")).click();
+		
+		try {
+			if(driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
+					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText()
+					.equalsIgnoreCase("Deve existir pelo menos uma parcela cadastrada para o modelo de pagamento.")){
+				throw new TesteAutomatizadoException(EnumMensagens.DEVE_EXISTIR_PARCELA_CADASTRADA, this.getClass());
+			}else if(driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
+					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText()
+					.equalsIgnoreCase("O nome do modelo não pode ser vazio.")){
+				throw new TesteAutomatizadoException(EnumMensagens.NOME_EM_BRANCO, this.getClass());
+			}else if(driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
+					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText()
+					.equalsIgnoreCase("Existe fórmula em edição.")){
+				throw new TesteAutomatizadoException(EnumMensagens.EXISTE_FORMULA_EM_EDICAO, this.getClass());
+			}
+			
+		} catch (NoSuchElementException e) {
+				
+		}
+		
+	}
+
+	protected void validarCronograma() throws TesteAutomatizadoException{
+		
 	}
 }

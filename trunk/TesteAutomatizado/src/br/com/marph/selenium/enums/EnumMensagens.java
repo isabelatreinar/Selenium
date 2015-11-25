@@ -75,6 +75,8 @@ public enum EnumMensagens {
 	FORMULA_INVALIDA("Formula inválida.\n"),
 	INDICADOR_NAO_PODE_SER_EXCLUIDO("O indicador não pode ser editado pois está vinculado a um ou mais registros de: Resolução \n"),
 	RESULTADO_NAO_ENCONTRADO("Resultado não encontrado.\n"),
+	DEVE_EXISTIR_PARCELA_CADASTRADA("Deve existir pelo menos uma parcela cadastrada\n"),
+	EXISTE_FORMULA_EM_EDICAO("Existe fórmula em edição\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;
