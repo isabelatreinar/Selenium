@@ -12,7 +12,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
@@ -86,14 +85,13 @@ public class CadastroResolucao {
 	}
 
 	protected void cadastrarResolucao() throws TesteAutomatizadoException {
-		WebElement cadastrarResolucao = driver.findElement(By.id("btnNovaResolucao"));
-		cadastrarResolucao.click();
+		// clica no botão
+		driver.findElement(By.id("btnNovaResolucao")).click();
+
 		// Selecionar programa
-		WebElement programaSelecionar = driver.findElement(By.id("programa_chosen"));
-		programaSelecionar.click();
-		WebElement programa = driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input"));
-		programa.sendKeys("ProHosp");
-		programa.sendKeys(Keys.TAB);
+		driver.findElement(By.id("programa_chosen")).click();
+		driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input")).sendKeys("ProHosp");
+		driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input")).sendKeys(Keys.TAB);
 		// fim
 
 		// valida programa
@@ -105,15 +103,10 @@ public class CadastroResolucao {
 
 		// fim
 		// numero resolucao
-		WebElement numero = driver.findElement(By.id("baseLegal"));
-		numero.sendKeys("405");
-		WebElement numeroSeleciona = driver.findElement(By.xpath("//li[@id='ui-id-2']"));// ALTERAR
-		numeroSeleciona.click(); // NUMERO
-									// PARA
-									// PEGAR
-									// OUTRA
-									// RESOLUÇÃO
-		// fim
+		driver.findElement(By.id("baseLegal")).sendKeys("405");
+		driver.findElement(By.xpath("//li[@id='ui-id-2']"))
+				.click(); /* NUMERO PARA PEGAR UTRA RESOLUÇÃO NA LISTAGEM */
+
 		if (StringUtils.isBlank(driver.findElement(By.id("baseLegal-label")).getAttribute("value"))) {
 			throw new TesteAutomatizadoException(EnumMensagens.NUMERO_EM_BRANCO, this.getClass());
 		}
@@ -121,8 +114,8 @@ public class CadastroResolucao {
 		if (StringUtils.isNotBlank(driver.findElement(By.id("baseLegal-label")).getAttribute("value"))) {
 			boolean present1 = true;
 			try {
-				WebElement data1 = driver.findElement(By.id("baseLegal"));
-				data1.click();
+				// data
+				driver.findElement(By.id("baseLegal")).click();
 				driver.findElement(By.xpath("//*[@id='baseLegal_maindiv']/div")).isDisplayed();
 				present1 = true;
 			} catch (NoSuchElementException e) {
@@ -135,22 +128,21 @@ public class CadastroResolucao {
 
 		}
 
-		WebElement selecionarBase = driver.findElement(By.id("termosBaseLegal_chosen"));
-		selecionarBase.click();
-		WebElement base = driver.findElement(By.xpath("//*[@id='termosBaseLegal_chosen']/div/ul/li[2]"));
-		base.click();
+		// seleciona base
+		driver.findElement(By.id("termosBaseLegal_chosen")).click();
+		driver.findElement(By.xpath("//*[@id='termosBaseLegal_chosen']/div/ul/li[2]")).click();
 
-		WebElement tempo = driver.findElement(By.id("tempoVigencia"));
-		tempo.sendKeys("25");
+		// tempo
+		driver.findElement(By.id("tempoVigencia")).sendKeys("25");
 
-		WebElement descricao = driver.findElement(By.id("descricao"));
-		descricao.sendKeys("Teste TESTE");
+		// tempo
+		driver.findElement(By.id("descricao")).sendKeys("Teste TESTE");
 
-		WebElement salvar = driver.findElement(By.id("btnSalvar1"));
-		salvar.click();
+		// salvar
+		driver.findElement(By.id("btnSalvar1")).click();
 
-		WebElement avancar = driver.findElement(By.id("btnProximo"));
-		avancar.click();
+		// avanca
+		driver.findElement(By.id("btnProximo")).click();
 	}
 
 	protected void validarResolucao() throws TesteAutomatizadoException {
@@ -173,11 +165,12 @@ public class CadastroResolucao {
 
 	protected void beneficiarios() throws InterruptedException, TesteAutomatizadoException {
 
-		WebElement upload = driver.findElement(By.id("uploadBeneficiariosContemplados"));
-		upload.sendKeys("C:\\Users\\rafael.sad\\Documents\\Export.xlsx");// Export.xlsx
+		// arquivo
+		driver.findElement(By.id("uploadBeneficiariosContemplados"))
+				.sendKeys("C:\\Users\\rafael.sad\\Documents\\Export.xlsx");// Export.xlsx
 
-		WebElement importar = driver.findElement(By.id("buttonImportar"));
-		importar.click();
+		// importa
+		driver.findElement(By.id("buttonImportar")).click();
 
 		// Thread.sleep(1000);
 
@@ -194,8 +187,8 @@ public class CadastroResolucao {
 
 		}
 
-		WebElement avancar1 = driver.findElement(By.id("btnProximo"));
-		avancar1.click();
+		// avancar
+		driver.findElement(By.id("btnProximo")).click();
 	}
 
 	protected void validarBeneficiarios() throws TesteAutomatizadoException {
@@ -215,31 +208,28 @@ public class CadastroResolucao {
 
 	protected void indicadores() throws TesteAutomatizadoException {
 
-		WebElement criar = driver.findElement(By.id("criar"));
-		criar.click();
+		// criar
+		driver.findElement(By.id("criar")).click();
 
-		WebElement nome = driver.findElement(By.id("nome"));
-		nome.sendKeys("Teste");
+		// nome
+		driver.findElement(By.id("nome")).sendKeys("Teste");
 
-		WebElement btnIndicador = driver.findElement(By.xpath("//*[@id='collapseNovo']/div/ul/li[1]/a"));
-		btnIndicador.click();
+		// INDICADOR
+		driver.findElement(By.xpath("//*[@id='collapseNovo']/div/ul/li[1]/a")).click();
+		driver.findElement(By.xpath("//*[@data-label-field='nomeIndicador']")).sendKeys("taxa");
+		driver.findElement(By.id("ui-id-2")).click();
 
-		WebElement indicador = driver.findElement(By.xpath("//*[@data-label-field='nomeIndicador']"));
-		indicador.sendKeys("taxa");
-		WebElement indicador1 = driver.findElement(By.id("ui-id-2"));
-		indicador1.click();
+		// ponto
+		driver.findElement(By.xpath("//*[@id='tabelaIndicadoresNovo']/div[2]/div[3]/input")).sendKeys("5000");
 
-		WebElement ponto = driver.findElement(By.xpath("//*[@id='tabelaIndicadoresNovo']/div[2]/div[3]/input"));
-		ponto.sendKeys("5000");
+		// peso
+		driver.findElement(By.xpath("//*[@id='tabelaIndicadoresNovo']/div[2]/div[4]/input")).sendKeys("10000");
 
-		WebElement peso = driver.findElement(By.xpath("//*[@id='tabelaIndicadoresNovo']/div[2]/div[4]/input"));
-		peso.sendKeys("10000");
+		// PreRequisito
+		driver.findElement(By.xpath("//*[@id='tabelaIndicadoresNovo']/div[2]/div[5]/a")).click();
 
-		WebElement preRequisito = driver.findElement(By.xpath("//*[@id='tabelaIndicadoresNovo']/div[2]/div[5]/a"));
-		preRequisito.click();
-
-		WebElement salvar = driver.findElement(By.xpath("//*[@id='headingNovo']/ul/li[1]/a"));
-		salvar.click();
+		// salvar
+		driver.findElement(By.xpath("//*[@id='headingNovo']/ul/li[1]/a")).click();
 
 		try {
 			if (driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
@@ -337,40 +327,40 @@ public class CadastroResolucao {
 
 		// usar formula de calculo para bonus
 		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/ul/li[2]/a")).click();
-		
+
 		// adicionar
 		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']"
 				+ "/div/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div/div[1]/div/div[2]/a")).click();
 
 		// concluir
-		/*driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[1]/div[2]/div[1]/ul/li[1]/a"))
-				.click();*/
+		/*
+		 * driver.findElement(By.xpath(
+		 * "//*[@class='panel-collapse collapse in']/div/div[1]/div[2]/div[1]/ul/li[1]/a"
+		 * )) .click();
+		 */
 
 		// salvar
 		driver.findElement(By.xpath("//*[@id='accordion']/div/div[1]/ul/li[1]/a")).click();
-		
+
 		try {
-			if(driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
-					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText()
-					.equalsIgnoreCase("Deve existir pelo menos uma parcela cadastrada para o modelo de pagamento.")){
+			if (driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
+					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText().equalsIgnoreCase(
+							"Deve existir pelo menos uma parcela cadastrada para o modelo de pagamento.")) {
 				throw new TesteAutomatizadoException(EnumMensagens.DEVE_EXISTIR_PARCELA_CADASTRADA, this.getClass());
-			}else if(driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
+			} else if (driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
 					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText()
-					.equalsIgnoreCase("O nome do modelo não pode ser vazio.")){
+							.equalsIgnoreCase("O nome do modelo não pode ser vazio.")) {
 				throw new TesteAutomatizadoException(EnumMensagens.NOME_EM_BRANCO, this.getClass());
-			}else if(driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
+			} else if (driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
 					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText()
-					.equalsIgnoreCase("Existe fórmula em edição.")){
+							.equalsIgnoreCase("Existe fórmula em edição.")) {
 				throw new TesteAutomatizadoException(EnumMensagens.EXISTE_FORMULA_EM_EDICAO, this.getClass());
 			}
-			
+
 		} catch (NoSuchElementException e) {
-				
+
 		}
-		
+
 	}
 
-	protected void validarCronograma() throws TesteAutomatizadoException{
-		
-	}
 }
