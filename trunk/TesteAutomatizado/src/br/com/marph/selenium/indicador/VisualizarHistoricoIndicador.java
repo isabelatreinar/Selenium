@@ -47,7 +47,7 @@ public class VisualizarHistoricoIndicador {
 		float tempoSegundos = tempoGasto / 1000;
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos - FINALIZADO COM SUCESSO\n");
 
 		if (tempoSegundos > 5000) {
 			log.warn(sb.toString() + "\n");
