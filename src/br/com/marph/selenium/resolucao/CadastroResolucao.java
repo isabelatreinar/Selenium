@@ -75,7 +75,7 @@ public class CadastroResolucao {
 		float tempoSegundos = tempoGasto / 1000;
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos");
+		sb.append("Entrada no sistema - ").append(tempoSegundos).append(" segundos - FINALIZADO COM SUCESSO\n");
 
 		if (tempoSegundos > 5000) {
 			log.warn(sb.toString() + "\n");
@@ -104,7 +104,7 @@ public class CadastroResolucao {
 		// fim
 		// numero resolucao
 		driver.findElement(By.id("baseLegal")).sendKeys("405");
-		driver.findElement(By.xpath("//li[@id='ui-id-2']"))
+		driver.findElement(By.xpath("//li[@id='ui-id-6']"))
 				.click(); /* NUMERO PARA PEGAR UTRA RESOLUÇÃO NA LISTAGEM */
 
 		if (StringUtils.isBlank(driver.findElement(By.id("baseLegal-label")).getAttribute("value"))) {
@@ -333,11 +333,9 @@ public class CadastroResolucao {
 				+ "/div/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div/div[1]/div/div[2]/a")).click();
 
 		// concluir
-		/*
-		 * driver.findElement(By.xpath(
-		 * "//*[@class='panel-collapse collapse in']/div/div[1]/div[2]/div[1]/ul/li[1]/a"
-		 * )) .click();
-		 */
+
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[1]/div[2]/div[1]/ul/li[1]/a"))
+				.click();
 
 		// salvar
 		driver.findElement(By.xpath("//*[@id='accordion']/div/div[1]/ul/li[1]/a")).click();
