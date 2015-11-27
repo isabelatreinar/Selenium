@@ -59,11 +59,9 @@ public class PesquisarMunicipio {
 		nome.sendKeys("BELO VALE");
 		
 		//Selecionar unidade regional
-		WebElement unidadeRegional = driver.findElement(By.id("unidadeRegional_chosen"));
-		unidadeRegional.click();
-		WebElement selecionaRegional = driver.findElement(By.xpath("//*[@id='unidadeRegional_chosen']/div/div/input"));
-		selecionaRegional.sendKeys("Belo Horizonte");
-		selecionaRegional.sendKeys(Keys.ENTER);
+		driver.findElement(By.id("unidadeRegional_chosen")).click();
+		driver.findElement(By.xpath("//*[@id='unidadeRegional_chosen']/div/div/input")).sendKeys("Belo Horizonte");
+		driver.findElement(By.xpath("//*[@id='unidadeRegional_chosen']/div/div/input")).sendKeys(Keys.ENTER);
 		
 		// exibir pesquisa avançada
 		driver.findElement(By.id("btnExpandirPesquisaAvancada")).click();

@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
@@ -55,7 +54,6 @@ public void visualizar(){
 	}
 
 	public static void visualizar(WebDriver driver) {
-		WebElement entrar = driver.findElement(By.xpath("//td[@class='sorting_1']"));
-		entrar.click();
+		driver.findElement(By.xpath("//td[@class='sorting_1']")).click();
 	}
 }

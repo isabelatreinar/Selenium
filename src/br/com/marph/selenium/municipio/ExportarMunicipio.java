@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
@@ -33,8 +32,8 @@ public class ExportarMunicipio {
 		
 		long timestart = System.currentTimeMillis();
 		
-		WebElement btnPerfil = driver.findElement(By.xpath("//button[@data-id-datatable='municipioDataTable']"));
-		btnPerfil.click();		
+		//btn exportar
+		driver.findElement(By.xpath("//button[@data-id-datatable='municipioDataTable']")).click();		
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart );
 		float tempoSegundos = tempoGasto/1000;
