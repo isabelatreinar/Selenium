@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
@@ -54,7 +53,6 @@ public class ExportarBaseLegal {
 	}
 
 	private void exportar() {
-		WebElement btnPerfil = driver.findElement(By.xpath("//button[@data-id-datatable='baseLegalDataTable']"));
-		btnPerfil.click();
+		driver.findElement(By.xpath("//button[@data-id-datatable='baseLegalDataTable']")).click();
 	}
 }

@@ -20,7 +20,7 @@ import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class CadastrarBaseLegalInvalido {
+public class CadastrarBaseLegalComValidacao {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -63,26 +63,24 @@ public class CadastrarBaseLegalInvalido {
 
 	private void cadastrar() throws TesteAutomatizadoException {
 		// CADASTRO
-		WebElement btnNovoUsu = driver.findElement(By.id("btnNovaBaseLegal"));
-		btnNovoUsu.click();
+		driver.findElement(By.id("btnNovaBaseLegal")).click();
 
-		WebElement tipoBase = driver.findElement(By.id("tipoBaseLegal_chosen"));
-		tipoBase.click();
-		WebElement procuraTipoBase = driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input"));
-		procuraTipoBase.sendKeys("Deliberação");
-		procuraTipoBase.sendKeys(Keys.TAB);
+		//tipo de base legal
+		driver.findElement(By.id("tipoBaseLegal_chosen")).click();		
+		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys("Deliberação");
+		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);
+		
+		//numero
+		driver.findElement(By.id("numero")).sendKeys("12391856");
 
-		WebElement numero = driver.findElement(By.id("numero"));
-		numero.sendKeys("123711856");
-
-		WebElement data = driver.findElement(By.id("dataPublicacao"));
-		data.sendKeys("-12082015");
-		data.sendKeys(Keys.TAB);
+		//data
+		driver.findElement(By.id("dataPublicacao")).sendKeys("-12082015");
+		driver.findElement(By.id("dataPublicacao")).sendKeys(Keys.TAB);
 
 		boolean present = true;
 		try {
-			WebElement numero1 = driver.findElement(By.id("numero"));
-			numero1.click();
+			//numero  validar
+			driver.findElement(By.id("numero")).click();
 			driver.findElement(By.xpath("//*[@id='numero_maindiv']/div")).isDisplayed();
 			present = true;
 		} catch (NoSuchElementException e) {
@@ -103,8 +101,8 @@ public class CadastrarBaseLegalInvalido {
 
 		boolean present1 = true;
 		try {
-			WebElement data1 = driver.findElement(By.id("dataVigencia_chosen"));
-			data1.click();
+			//data valida
+			driver.findElement(By.id("dataVigencia_chosen")).click();
 			driver.findElement(By.xpath("//*[@role='tooltip']")).isDisplayed();
 			present1 = true;
 		} catch (NoSuchElementException e) {
@@ -115,14 +113,13 @@ public class CadastrarBaseLegalInvalido {
 			throw new TesteAutomatizadoException(EnumMensagens.DATA_PUBLICACAO_EM_BRANCO, this.getClass());
 		}
 
-		WebElement anoVigencia = driver.findElement(By.id("dataVigencia_chosen"));
-		anoVigencia.click();
-		WebElement anoVigenciaSeleciona = driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input"));
-		anoVigenciaSeleciona.sendKeys("2015");
-		anoVigenciaSeleciona.sendKeys(Keys.TAB);
+		//ano vigengia
+		driver.findElement(By.id("dataVigencia_chosen")).click();
+		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys("2015");
+		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
-		WebElement salvar = driver.findElement(By.id("btnSalvar"));
-		salvar.click();
+		//salvar
+		driver.findElement(By.id("btnSalvar")).click();
 	}
 
 	private void validarToolTip() throws TesteAutomatizadoException {

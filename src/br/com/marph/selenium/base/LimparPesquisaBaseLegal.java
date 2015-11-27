@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
@@ -45,13 +44,7 @@ public class LimparPesquisaBaseLegal {
 		//Limpar os filtros
 		limpar();
 		
-		// validar exclusão de dados dos campos
-		if(StringUtils.isNotBlank(driver.findElement(By.id("tipoBaseLegal")).getText()) || 
-				StringUtils.isNotBlank(driver.findElement(By.id("numero")).getText()) ||
-				StringUtils.isNotBlank(driver.findElement(By.id("dataPublicacao")).getText()) || 
-				StringUtils.isNotBlank(driver.findElement(By.id("dataVigencia")).getText())){
-			throw new TesteAutomatizadoException(EnumMensagens.CAMPO_PREENCHIDO, this.getClass());
-		}
+		validar();
 		
 		// se o campo estiver vazio o teste é finalizado com sucesso
 		float tempoGasto = (System.currentTimeMillis() - timestart);
@@ -68,10 +61,19 @@ public class LimparPesquisaBaseLegal {
 		}
 		
 	}
+
+	private void validar() throws TesteAutomatizadoException {
+		// validar exclusão de dados dos campos
+		if(StringUtils.isNotBlank(driver.findElement(By.id("tipoBaseLegal")).getText()) || 
+				StringUtils.isNotBlank(driver.findElement(By.id("numero")).getText()) ||
+				StringUtils.isNotBlank(driver.findElement(By.id("dataPublicacao")).getText()) || 
+				StringUtils.isNotBlank(driver.findElement(By.id("dataVigencia")).getText())){
+			throw new TesteAutomatizadoException(EnumMensagens.CAMPO_PREENCHIDO, this.getClass());
+		}
+	}
 	
 	public void limpar(){	
-		WebElement btnLimpar = driver.findElement(By.id("btnLimparPesquisa"));
-		btnLimpar.click();
+		driver.findElement(By.id("btnLimparPesquisa")).click();
 	}
 
 }

@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
@@ -71,8 +70,7 @@ public class LimparPesquisaHistoricoBaseLegal {
 
 	
 	private void limpar() throws TesteAutomatizadoException{
-		WebElement btnLimpar = driver.findElement(By.id("btnLimparPesquisa"));
-		btnLimpar.click();
+		driver.findElement(By.id("btnLimparPesquisa")).click();
 		
 		// validar exclusão de dados dos campos  
 		if(StringUtils.isNotBlank(driver.findElement(By.id("dataInicialHistorico")).getText()) || 
