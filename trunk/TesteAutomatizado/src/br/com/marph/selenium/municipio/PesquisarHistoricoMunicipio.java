@@ -71,18 +71,18 @@ public class PesquisarHistoricoMunicipio {
 		/*
 		 * O sinal de menos é colocado antes da data para a máscara do campo seja considerada.
 		 */
-		WebElement dataInicial = driver.findElement(By.id("dataInicialHistorico"));
-		dataInicial.sendKeys("-14012015");
-		dataInicial.sendKeys(Keys.TAB);
-
-		WebElement dataFinal = driver.findElement(By.id("dataFinalHistorico"));
-		dataFinal.sendKeys("-14012015");
-		dataFinal.sendKeys(Keys.TAB);
-
-		WebElement campoAlterado = driver.findElement(By.xpath("//div[@id='camposMunicipio_chosen']/ul/li/input"));
-		campoAlterado.click();
-		campoAlterado.sendKeys("Nome Prefeito");
-		campoAlterado.sendKeys(Keys.ENTER);
+		//data inicial
+		driver.findElement(By.id("dataInicialHistorico")).sendKeys("-14012015");
+		driver.findElement(By.id("dataInicialHistorico")).sendKeys(Keys.TAB);
+		
+		//data final
+		driver.findElement(By.id("dataFinalHistorico")).sendKeys("-14012015");
+		driver.findElement(By.id("dataFinalHistorico")).sendKeys(Keys.TAB);
+		
+		//municipio
+		driver.findElement(By.xpath("//div[@id='camposMunicipio_chosen']/ul/li/input")).click();
+		driver.findElement(By.xpath("//div[@id='camposMunicipio_chosen']/ul/li/input")).sendKeys("Nome Prefeito");
+		driver.findElement(By.xpath("//div[@id='camposMunicipio_chosen']/ul/li/input")).sendKeys(Keys.ENTER);
 
 		/* 1º caso: se possui a mensagem "Resultado não encontrado" -> não preenche o campo 'Modificado por'
 		 * 2º caso: se não possui a mensagem preenche o campo 'Modificado por'
@@ -97,13 +97,13 @@ public class PesquisarHistoricoMunicipio {
 			}
 			
 			driver.findElement(By.id("usuariosAlteracao_chosen")).click();
-			WebElement modificadoPor = driver.findElement(By.xpath("//div[@id='usuariosAlteracao_chosen']/div/div/input"));
-			modificadoPor.click();
-			modificadoPor.sendKeys("Usuário Marph");
-			modificadoPor.sendKeys(Keys.ENTER);
+			//modificado por
+			driver.findElement(By.xpath("//div[@id='usuariosAlteracao_chosen']/div/div/input")).click();
+			driver.findElement(By.xpath("//div[@id='usuariosAlteracao_chosen']/div/div/input")).sendKeys("Usuário Marph");
+			driver.findElement(By.xpath("//div[@id='usuariosAlteracao_chosen']/div/div/input")).sendKeys(Keys.ENTER);
 		}
-
-		WebElement btnPesquisar = driver.findElement(By.id("btnPesquisar"));
-		btnPesquisar.click();
+		
+		//pesquisar
+		driver.findElement(By.id("btnPesquisar")).click();
 	}
 }

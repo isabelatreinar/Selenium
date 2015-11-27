@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
@@ -58,7 +57,6 @@ public void visualizar(){
 
 	public static void visualizar(WebDriver driver) {
 		
-		WebElement historico = driver.findElement(By.id("btnHistorico1"));
-		historico.click();
+		driver.findElement(By.id("btnHistorico1")).click();
 	}
 }

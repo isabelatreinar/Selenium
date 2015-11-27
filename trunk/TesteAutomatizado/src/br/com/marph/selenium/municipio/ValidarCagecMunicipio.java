@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
@@ -41,11 +40,11 @@ public class ValidarCagecMunicipio {
 				
 			PesquisarMunicipio.pesquisar(driver);
 			
-			WebElement entrar = driver.findElement(By.xpath("//td[@class='sorting_1']"));
-			entrar.click();
+			//entrar
+			driver.findElement(By.xpath("//td[@class='sorting_1']")).click();
 			
-			WebElement prefeito = driver.findElement(By.id("atualizarCagec"));
-			prefeito.click();			
+			//prefeiro
+			driver.findElement(By.id("atualizarCagec")).click();			
 			
 				boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
 
