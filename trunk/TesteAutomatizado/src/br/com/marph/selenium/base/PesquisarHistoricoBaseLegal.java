@@ -72,18 +72,18 @@ public class PesquisarHistoricoBaseLegal {
 		 * O sinal de menos é colocado antes da data para a máscara do campo
 		 * seja considerada.
 		 */
-		WebElement dataInicial = driver.findElement(By.id("dataInicialHistorico"));
-		dataInicial.sendKeys("-14012015");
-		dataInicial.sendKeys(Keys.TAB);
+		//data inicial
+		driver.findElement(By.id("dataInicialHistorico")).sendKeys("-14012015");
+		driver.findElement(By.id("dataInicialHistorico")).sendKeys(Keys.TAB);
 
-		WebElement dataFinal = driver.findElement(By.id("dataFinalHistorico"));
-		dataFinal.sendKeys("-14012015");
-		dataFinal.sendKeys(Keys.TAB);
+		//data final
+		driver.findElement(By.id("dataFinalHistorico")).sendKeys("-14012015");
+		driver.findElement(By.id("dataFinalHistorico")).sendKeys(Keys.TAB);
 
-		WebElement campoAlterado = driver.findElement(By.xpath("//div[@id='camposBaseLegal_chosen']/ul/li/input"));
-		campoAlterado.click();
-		campoAlterado.sendKeys("Arquivo Importado");
-		campoAlterado.sendKeys(Keys.ENTER);
+		//campo Alterado
+		driver.findElement(By.xpath("//div[@id='camposBaseLegal_chosen']/ul/li/input")).click();
+		driver.findElement(By.xpath("//div[@id='camposBaseLegal_chosen']/ul/li/input")).sendKeys("Arquivo Importado");
+		driver.findElement(By.xpath("//div[@id='camposBaseLegal_chosen']/ul/li/input")).sendKeys(Keys.ENTER);
 
 		/*
 		 * 1º caso: se possui a mensagem "Resultado não encontrado" -> não

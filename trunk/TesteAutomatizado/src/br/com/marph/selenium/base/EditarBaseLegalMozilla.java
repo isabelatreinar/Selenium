@@ -11,7 +11,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
@@ -75,28 +74,27 @@ public class EditarBaseLegalMozilla {
 
 	private void edicaoCampos() throws TesteAutomatizadoException {
 
-		WebElement btnEditar = driver.findElement(By.id("btnEditar1"));
-		btnEditar.click();
+		//editar
+		driver.findElement(By.id("btnEditar1")).click();
 
-		WebElement TipoBase = driver.findElement(By.id("tipoBaseLegal_chosen"));
-		TipoBase.click();		
-		WebElement procuraTipoBase = driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input"));
-		procuraTipoBase.sendKeys("Resolução");
-		procuraTipoBase.sendKeys(Keys.TAB);
+		//tipoBase
+		driver.findElement(By.id("tipoBaseLegal_chosen")).click();		
+		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys("Resolução");
+		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);
 		
-		WebElement numero = driver.findElement(By.id("numero"));
-		numero.clear();
-		numero.sendKeys("5005");
+		//numero
+		driver.findElement(By.id("numero")).clear();
+		driver.findElement(By.id("numero")).sendKeys("5005");
 
-		WebElement data = driver.findElement(By.id("dataPublicacao"));
-		data.clear();
-		data.sendKeys("-22092015");
-		data.sendKeys(Keys.TAB);
+		//data
+		driver.findElement(By.id("dataPublicacao")).clear();
+		driver.findElement(By.id("dataPublicacao")).sendKeys("-22092015");
+		driver.findElement(By.id("dataPublicacao")).sendKeys(Keys.TAB);
 		
 		boolean present = true;
 		try {
-			WebElement numero1 = driver.findElement(By.id("numero"));
-			numero1.click();
+			//numero valida
+			driver.findElement(By.id("numero")).click();
 			driver.findElement(By.xpath("//*[@id='numero_maindiv']/div")).isDisplayed();
 			present = true;
 		} catch (NoSuchElementException e) {
@@ -104,21 +102,21 @@ public class EditarBaseLegalMozilla {
 		}
 
 		if (present == true) {
-			WebElement input = driver.findElement(By.id("numero"));
-			input.click();
+			driver.findElement(By.id("numero")).click();
 			if (driver.findElement(By.xpath("//*[@id='numero_maindiv']/div")).isDisplayed()
 					&& driver.findElement(By.xpath("//*[@id='numero_maindiv']/div")).getText()
 							.equalsIgnoreCase("Existe tipo de base legal cadastrado com esse número")) {
 				throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_JA_CADASTRADA, this.getClass());
 			}
 		}
-
+		
+		//pdf
 		driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\\rafael.sad\\Documents\\TESTEEE.pdf");
 		
 		boolean present1 = true;
 		try {
-			WebElement data1 = driver.findElement(By.id("dataVigencia_chosen"));
-			data1.click();
+			//data
+			driver.findElement(By.id("dataVigencia_chosen")).click();
 			driver.findElement(By.xpath("//*[@role='tooltip']")).isDisplayed();
 			present1 = true;
 		} catch (NoSuchElementException e) {
@@ -129,20 +127,20 @@ public class EditarBaseLegalMozilla {
 			throw new TesteAutomatizadoException(EnumMensagens.DATA_PUBLICACAO_EM_BRANCO, this.getClass());
 		}
 
-		WebElement anoVigencia = driver.findElement(By.id("dataVigencia_chosen"));
-		anoVigencia.click();
-		WebElement anoVigenciaSeleciona = driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input"));
-		anoVigenciaSeleciona.sendKeys("2019");
-		anoVigenciaSeleciona.sendKeys(Keys.TAB);
-		WebElement salvar = driver.findElement(By.id("btnSalvar"));
-		salvar.click();
+		//ano vigencia
+		driver.findElement(By.id("dataVigencia_chosen")).click();
+		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys("2019");
+		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys(Keys.TAB);
+		
+		//salvar
+		driver.findElement(By.id("btnSalvar")).click();
 	}
 	
 	private void validarToolTip() throws TesteAutomatizadoException {
 		if (driver.findElement(By.id("tipoBaseLegal_chosen")).isDisplayed()
 				&& driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/a/span")).getText().equals("Tipo")) {
-			WebElement tipo = driver.findElement(By.id("tipoBaseLegal_chosen"));
-			tipo.click();
+			//valida tipo
+			driver.findElement(By.id("tipoBaseLegal_chosen")).click();
 			if (driver.findElement(By.xpath("//*[@id='tipoBaseLegal_maindiv']/div[2]")).getText()
 					.equalsIgnoreCase("Preenchimento obrigatório!")) {
 				throw new TesteAutomatizadoException(EnumMensagens.TIPO_EM_BRANCO, this.getClass());
@@ -150,8 +148,8 @@ public class EditarBaseLegalMozilla {
 		}
 
 		if (StringUtils.isBlank(driver.findElement(By.id("numero")).getAttribute("value"))) {
-			WebElement numero = driver.findElement(By.id("numero"));
-			numero.click();
+			//valida numero
+			driver.findElement(By.id("numero")).click();
 			if (driver.findElement(By.xpath("//*[@id='numero_maindiv']/div")).isDisplayed()
 					&& driver.findElement(By.xpath("//*[@id='numero_maindiv']/div")).getText()
 							.equalsIgnoreCase("Preenchimento obrigatório!")) {
@@ -162,8 +160,8 @@ public class EditarBaseLegalMozilla {
 
 		if (driver.findElement(By.id("dataVigencia_chosen")).isDisplayed()
 				&& driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/a/span")).getText().equals("Ano do início da vigência")) {
-			WebElement tipo = driver.findElement(By.id("dataVigencia_chosen"));
-			tipo.click();
+			//valida vigencia
+			driver.findElement(By.id("dataVigencia_chosen")).click();
 			if (driver.findElement(By.xpath("//*[@id='dataVigencia_maindiv']/div[2]")).getText()
 					.equalsIgnoreCase("Preenchimento obrigatório!")) {
 				throw new TesteAutomatizadoException(EnumMensagens.ANO_EM_BRANCO, this.getClass());
@@ -171,8 +169,8 @@ public class EditarBaseLegalMozilla {
 		}
 		
 		if (StringUtils.isBlank(driver.findElement(By.id("textoPublicado_hide")).getAttribute("value"))) {
-			WebElement numero = driver.findElement(By.id("textoPublicado-txt"));
-			numero.click();
+			//valida texto
+			driver.findElement(By.id("textoPublicado-txt")).click();
 			if (driver.findElement(By.xpath("//*[@class='col-md-6 uploadFile']/div")).isDisplayed()
 					&& driver.findElement(By.xpath("//*[@class='col-md-6 uploadFile']/div")).getText()
 							.equalsIgnoreCase("Preenchimento obrigatório!")) {

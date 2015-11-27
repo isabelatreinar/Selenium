@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
@@ -66,34 +65,32 @@ public class CadastrarBaseLegalMozilla {
 	private void cadastro() {
 		// CADASTRO
 
-		WebElement btnNovoUsu = driver.findElement(By.id("btnNovaBaseLegal"));
-		btnNovoUsu.click();
+		// btn novo
+		driver.findElement(By.id("btnNovaBaseLegal")).click();
 
-		WebElement tipoBase = driver.findElement(By.id("tipoBaseLegal_chosen"));
-		tipoBase.click();
-		WebElement procuraTipoBase = driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input"));
-		procuraTipoBase.sendKeys("Deliberação");
-		procuraTipoBase.sendKeys(Keys.TAB);
+		// tipoBase
+		driver.findElement(By.id("tipoBaseLegal_chosen")).click();
+		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys("Deliberação");
+		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
-		WebElement numero = driver.findElement(By.id("numero"));
-		numero.sendKeys("6176621");
+		// numero
+		driver.findElement(By.id("numero")).sendKeys("619876621");
 
-		WebElement data = driver.findElement(By.id("dataPublicacao"));
-		data.sendKeys("-12082015");
-		data.sendKeys(Keys.TAB);
+		// data
+		driver.findElement(By.id("dataPublicacao")).sendKeys("-12082015");
+		driver.findElement(By.id("dataPublicacao")).sendKeys(Keys.TAB);
 
+		// pdf
 		driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\\rafael.sad\\Documents\\TESTEEE.pdf");
 
-		WebElement anoVigencia = driver.findElement(By.id("dataVigencia_chosen"));
-		anoVigencia.click();
-		WebElement anoVigenciaSeleciona = driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input"));
-		anoVigenciaSeleciona.sendKeys("2015");
-		anoVigenciaSeleciona.sendKeys(Keys.TAB);
+		// ano vigencia
+		driver.findElement(By.id("dataVigencia_chosen")).click();
+		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys("2015");
+		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
-		WebElement salvar = driver.findElement(By.id("btnSalvar"));
-		salvar.click();
+		// salvar
+		driver.findElement(By.id("btnSalvar")).click();
 		// FIM CADASTRO
 	}
-	// toast-container
 
 }

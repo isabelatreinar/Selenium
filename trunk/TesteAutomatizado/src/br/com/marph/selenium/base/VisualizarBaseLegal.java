@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
@@ -71,9 +70,9 @@ public class VisualizarBaseLegal {
 	}
 
 	public static void visualizar(WebDriver driver) {
-		WebElement selecionar = driver.findElement(By.xpath("//td[@class='sorting_1']"));
-		baseSelecionada = selecionar.getText();
-		selecionar.click();
+		driver.findElement(By.xpath("//td[@class='sorting_1']"));
+		baseSelecionada = driver.findElement(By.xpath("//td[@class='sorting_1']")).getText();
+		driver.findElement(By.xpath("//td[@class='sorting_1']")).click();
 	}
 
 
