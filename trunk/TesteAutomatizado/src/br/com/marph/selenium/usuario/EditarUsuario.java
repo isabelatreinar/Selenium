@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
@@ -75,8 +74,8 @@ public class EditarUsuario {
 
 	private void validacao() throws TesteAutomatizadoException {
 		if (StringUtils.isBlank(driver.findElement(By.id("usuarioNome")).getAttribute("value"))) {
-			WebElement input = driver.findElement(By.id("usuarioNome"));
-			input.click();
+			//usuario
+			driver.findElement(By.id("usuarioNome")).click();
 			if (driver.findElement(By.xpath("//*[@id='usuarioNome_maindiv']/div")).isDisplayed()
 					&& driver.findElement(By.xpath("//*[@id='usuarioNome_maindiv']/div")).getText()
 							.equalsIgnoreCase("Preenchimento obrigatório!")) {
@@ -86,8 +85,8 @@ public class EditarUsuario {
 
 		if (driver.findElement(By.id("cargo_maindiv")).isDisplayed()
 				&& driver.findElement(By.xpath("//*[@class='form-group has-error']")).isDisplayed()) {
-			WebElement cargo = driver.findElement(By.id("cargo_chosen"));
-			cargo.click();
+			//cargo
+			driver.findElement(By.id("cargo_chosen")).click();
 			if (driver.findElement(By.xpath("//*[@id='cargo_maindiv']/div[2]")).getText()
 					.equalsIgnoreCase("Preenchimento obrigatório!")) {
 				throw new TesteAutomatizadoException(EnumMensagens.CARGO_EM_BRANCO, this.getClass());
@@ -97,20 +96,19 @@ public class EditarUsuario {
 
 	private void cadastrar() {
 
-		WebElement btnEditar = driver.findElement(By.id("btnEditar1"));
-		btnEditar.click();
+		//btn editar
+		driver.findElement(By.id("btnEditar1")).click();
 
-		WebElement nome = driver.findElement(By.id("usuarioNome"));
-		nome.clear();
+		//nome
+		driver.findElement(By.id("usuarioNome")).clear();
 		//nome.sendKeys("Isabela");
 
-		WebElement cargo = driver.findElement(By.id("cargo_chosen"));
-		cargo.click();
-		WebElement selecionarCargo = driver.findElement(By.xpath("//*[@id='cargo_chosen']/div/div/input"));
-		selecionarCargo.sendKeys("Prefeito");
-		selecionarCargo.sendKeys(Keys.TAB);
+		//cargo
+		driver.findElement(By.id("cargo_chosen")).click();
+		driver.findElement(By.xpath("//*[@id='cargo_chosen']/div/div/input")).sendKeys("Prefeito");
+		driver.findElement(By.xpath("//*[@id='cargo_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
-		WebElement salvar = driver.findElement(By.id("btnSalvar"));
-		salvar.click();
+		//salvar
+		driver.findElement(By.id("btnSalvar")).click();
 	}
 }
