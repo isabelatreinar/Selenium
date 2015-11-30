@@ -41,9 +41,9 @@ public class VerificarResolucaoCorreta {
 		PesquisarResolucao.pesquisar(driver);
 		
 		String numero = driver.findElement(By.xpath("//td[@class='sorting_1']")).getText();
-
-		WebElement selecionar = driver.findElement(By.xpath("//td[@class='sorting_1']"));
-		selecionar.click();
+		
+		//seleciona
+		driver.findElement(By.xpath("//td[@class='sorting_1']")).click();
 		
 		EditarResolucao.pegaAba(driver);
 		
