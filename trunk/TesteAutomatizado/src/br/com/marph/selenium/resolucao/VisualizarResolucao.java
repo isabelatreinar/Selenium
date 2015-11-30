@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
@@ -57,8 +56,7 @@ public class VisualizarResolucao {
 	}
 
 	public static void visualiza(WebDriver driver) {
-		WebElement selecionar = driver.findElement(By.xpath("//td[@class='sorting_1']"));
-		selecionar.click();
+		driver.findElement(By.xpath("//td[@class='sorting_1']")).click();
 	}
 
 }

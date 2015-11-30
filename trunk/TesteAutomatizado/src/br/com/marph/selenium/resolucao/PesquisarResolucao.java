@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
@@ -55,17 +54,16 @@ public class PesquisarResolucao {
 	}
 
 	public static void pesquisar(WebDriver driver) {
+		
+		//numero
+		driver.findElement(By.id("numero")).sendKeys("200");
 
-		WebElement numero = driver.findElement(By.id("numero"));
-		numero.sendKeys("200");
+		//programa
+		driver.findElement(By.id("programa_chosen")).click();		
+		driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input")).sendKeys("Farmácia de minas");
+		driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input")).sendKeys(Keys.TAB);		
 
-		WebElement programa = driver.findElement(By.id("programa_chosen"));
-		programa.click();		
-		WebElement programaSeleciona = driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input"));
-		programaSeleciona.sendKeys("Farmácia de minas");
-		programaSeleciona.sendKeys(Keys.TAB);		
-
-		WebElement btnPesquisa = driver.findElement(By.id("btnPesquisar"));
-		btnPesquisa.click();
+		//pesquisa
+		driver.findElement(By.id("btnPesquisar")).click();
 	}
 }

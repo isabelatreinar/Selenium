@@ -72,63 +72,58 @@ public class EditarResolucao {
 		/**
 		 * Edita Aba de periodo de monitoramento
 		 */
-		WebElement editar = driver.findElement(By.xpath("//*[@id='heading222']/ul/li[3]/a"));
-		editar.click();
+		//btn Editar
+		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[3]/a")).click();
 
-		WebElement data1 = driver
-				.findElement(By.xpath("//*[@id='collapse222']/div/div/div[2]/div[3]/div/div/div/input"));
-		data1.clear();
-		data1.sendKeys("-25102015");
+		//data
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div/div[2]/div[2]/div/div/div/input")).clear();
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div/div[2]/div[2]/div/div/div/input")).sendKeys("-25102015");
 
-		WebElement data2 = driver
-				.findElement(By.xpath("//*[@id='collapse222']/div/div/div[2]/div[3]/div/div/div/input"));
-		data2.clear();
-		data2.sendKeys("-31102015");
-
-		WebElement salvar = driver.findElement(By.xpath("//*[@id='heading222']/ul/li[1]/a"));
-		salvar.click();
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div/div[2]/div[3]/div/div/div/input")).clear();
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div/div[2]/div[3]/div/div/div/input")).sendKeys("-31102015");
+		
+		//salvar
+		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a")).click();
 	}
 
 	public static void editarIndicadores(WebDriver driver) {
 		/**
 		 * Edita aba de Indicadores
 		 */
-		driver.findElement(By.xpath("//*[@class='panel-heading']/button")).click();
 		
-		WebElement editar = driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[3]/a"));
-		editar.click();
+		
+		//editar
+		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[3]/a")).click();
+		
+		//ponto
+		driver.findElement(By.xpath("//*[@class='tabelaIndicadores]/div[2]/div[3]/input")).clear();
+		driver.findElement(By.xpath("//*[@class='tabelaIndicadores]/div[2]/div[3]/input")).sendKeys("6000");
+		
+		//peso
+		driver.findElement(By.xpath("//*[@class='tabelaIndicadores]/div[2]/div[3]/input")).clear();
+		driver.findElement(By.xpath("//*[@class='tabelaIndicadores]/div[2]/div[3]/input")).sendKeys("10000");
 
-		WebElement ponto = driver.findElement(By.xpath("//*[@class='tabelaIndicadores]/div[2]/div[3]/input"));
-		ponto.clear();
-		ponto.sendKeys("6000");
+		//pre requisito  
+		driver.findElement(By.xpath("//*[@class='tabelaIndicadores']/div[2]/div[5]/a")).click();
 
-		WebElement peso = driver.findElement(By.xpath("//*[@class='tabelaIndicadores]/div[2]/div[4]/input"));
-		peso.clear();
-		peso.sendKeys("10000");
-
-		WebElement preRequisito = driver.findElement(By.xpath("//*[@class='tabelaIndicadores']/div[2]/div[5]/a"));
-		preRequisito.click();
-
-		WebElement salvar = driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a"));
-		salvar.click();
-
-		WebElement proximo = driver.findElement(By.id("btnProximo"));
-		proximo.click(); 
- 
+		//salvar
+		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a")).click();
+		//proximo
+		driver.findElement(By.id("btnProximo")).click();  
 	} 
 
 	public static void editarBeneficiario(WebDriver driver) {
 		/**
 		 * Importa planilha na aba de beneficiario fazendo edição
 		 */
-		WebElement upload = driver.findElement(By.id("uploadBeneficiariosContemplados"));
-		upload.sendKeys("C:\\Users\\rafael.sad\\Documents\\Export.xlsx");
+		//upload
+		driver.findElement(By.id("uploadBeneficiariosContemplados")).sendKeys("C:\\Users\\rafael.sad\\Documents\\Export.xlsx");
+		
+		//importar
+		driver.findElement(By.id("buttonImportar")).click();
 
-		WebElement importar = driver.findElement(By.id("buttonImportar"));
-		importar.click();
-
-		WebElement proximo = driver.findElement(By.id("btnProximo"));
-		proximo.click();
+		//btn proximo
+		driver.findElement(By.id("btnProximo")).click();
 
 	}
 
@@ -136,24 +131,23 @@ public class EditarResolucao {
 		/**
 		 * Edita aba de resolução
 		 */
-		WebElement selecionarBase = driver.findElement(By.id("termosBaseLegal_chosen"));
-		selecionarBase.click();
-		WebElement base = driver.findElement(By.xpath("//*[@id='termosBaseLegal_chosen']/div/ul/li[5]"));
-		base.click();
+		//seleciona base
+		driver.findElement(By.id("termosBaseLegal_chosen")).click();
+		driver.findElement(By.xpath("//*[@id='termosBaseLegal_chosen']/div/ul/li[5]")).click();
 
-		WebElement tempo = driver.findElement(By.id("tempoVigencia"));
-		tempo.clear();
-		tempo.sendKeys("10");
+		//tempo
+		driver.findElement(By.id("tempoVigencia")).clear();
+		driver.findElement(By.id("tempoVigencia")).sendKeys("10");
+		
+		//descrição
+		driver.findElement(By.id("descricao")).clear();
+		driver.findElement(By.id("descricao")).sendKeys("Teste ");
 
-		WebElement descricao = driver.findElement(By.id("descricao"));
-		descricao.clear();
-		descricao.sendKeys("Teste ");
+		//salvar
+		driver.findElement(By.id("btnSalvar1")).click();
 
-		WebElement salvar = driver.findElement(By.id("btnSalvar1"));
-		salvar.click();
-
-		WebElement proximo = driver.findElement(By.id("btnProximo"));
-		proximo.click();
+		//proximo
+		driver.findElement(By.id("btnProximo")).click();
 
 	}
 
