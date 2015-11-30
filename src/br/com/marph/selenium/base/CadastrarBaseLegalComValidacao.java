@@ -71,7 +71,7 @@ public class CadastrarBaseLegalComValidacao {
 		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);
 		
 		//numero
-		driver.findElement(By.id("numero")).sendKeys("12391856");
+		driver.findElement(By.id("numero")).sendKeys("127591856");
 
 		//data
 		driver.findElement(By.id("dataPublicacao")).sendKeys("-12082015");

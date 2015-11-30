@@ -80,35 +80,33 @@ public class CadastrarUsuarioMozilla {
 		WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
 		botaoCadastrar.click();
 
-		WebElement nome = driver.findElement(By.id("usuarioNome"));
-		nome.sendKeys("Ana Maria Oliveira");
+		//nome
+		driver.findElement(By.id("usuarioNome")).sendKeys("Jóse hau");
 
-		WebElement email = driver.findElement(By.id("usuarioEmail"));
-		email.sendKeys("ana@gmail.com");
+		//email
+		driver.findElement(By.id("usuarioEmail")).sendKeys("hua@gmail.com");
 
-		WebElement cpf = driver.findElement(By.id("usuarioCpf"));
-		cpf.sendKeys("-63812631130");	//- E NECESSARIO PARA INSERIR O CPF CORRETAMENTE
+		//cpf
+		driver.findElement(By.id("usuarioCpf")).sendKeys("-78662617760");	//- E NECESSARIO PARA INSERIR O CPF CORRETAMENTE
 
-		WebElement cargo = driver.findElement(By.id("cargo_chosen"));
-		cargo.click();
-		WebElement selecionarCargo = driver.findElement(By.xpath("//*[@id='cargo_chosen']/div/div/input"));
-		selecionarCargo.sendKeys("Prefeito");
-		selecionarCargo.sendKeys(Keys.TAB);
+		//cargo
+		driver.findElement(By.id("cargo_chosen")).click();
+		driver.findElement(By.xpath("//*[@id='cargo_chosen']/div/div/input")).sendKeys("Prefeito");
+		driver.findElement(By.xpath("//*[@id='cargo_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
-		WebElement btnAvancar = driver.findElement(By.id("btnSalvar"));
-		btnAvancar.click();
+		//avançar
+		driver.findElement(By.id("btnSalvar")).click();
 
-		WebElement perfil = driver.findElement(By.id("modalPerfil_chosen"));
-		perfil.click();
-		WebElement selecionarPerfil = driver.findElement(By.xpath("//*[@id='modalPerfil_chosen']/div/div/input"));
-		selecionarPerfil.sendKeys("Gestor do Beneficiário");
-		selecionarPerfil.sendKeys(Keys.TAB);
+		//perfil
+		driver.findElement(By.id("modalPerfil_chosen")).click();
+		driver.findElement(By.xpath("//*[@id='modalPerfil_chosen']/div/div/input")).sendKeys("Gestor do Beneficiário");
+		driver.findElement(By.xpath("//*[@id='modalPerfil_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
-		WebElement extensao = driver.findElement(By.id("modalExtensaoPerfilId"));
-		extensao.sendKeys("FUNDO MUNICIPAL DE SAÚDE DE ABAETÉ");
-		extensao.sendKeys(Keys.TAB);
+		//extensão
+		driver.findElement(By.id("modalExtensaoPerfilId")).sendKeys("FUNDO MUNICIPAL DE SAÚDE DE ABAETÉ");
+		driver.findElement(By.id("ui-id-2")).click();
 		
-		WebElement salvar = driver.findElement(By.id("btnSalvar"));
-		salvar.click();
+		//salvar
+		driver.findElement(By.id("btnSalvar")).click();
 	}
 }

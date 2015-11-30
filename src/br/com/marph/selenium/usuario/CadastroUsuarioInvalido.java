@@ -75,26 +75,24 @@ public class CadastroUsuarioInvalido {
 
 	protected void cadastro() {
 
-		WebElement nome = driver.findElement(By.id("usuarioNome"));
-		nome.sendKeys("TESTEE");
+		//nome
+		driver.findElement(By.id("usuarioNome")).sendKeys("TESTEE");
 
-		WebElement cpf = driver.findElement(By.id("usuarioCpf"));
-		cpf.sendKeys("-38555260876");
+		//cpf
+		driver.findElement(By.id("usuarioCpf")).sendKeys("-38555260876");
 
-		WebElement cargo = driver.findElement(By.id("cargo_chosen"));
-		cargo.click();
-		WebElement selecionarCargo = driver.findElement(By.xpath("//*[@id='cargo_chosen']/div/div/input"));
-		selecionarCargo.sendKeys("Prefeito");
-		selecionarCargo.sendKeys(Keys.TAB);
+		//cargo
+		driver.findElement(By.id("cargo_chosen")).click();
+		driver.findElement(By.xpath("//*[@id='cargo_chosen']/div/div/input")).sendKeys("Prefeito");
+		driver.findElement(By.xpath("//*[@id='cargo_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
-		WebElement btnAvancar = driver.findElement(By.id("btnSalvar"));
-		btnAvancar.click();
+		//avançar
+		driver.findElement(By.id("btnSalvar")).click();
 	}
 
 	protected void validacaoToolTip() throws TesteAutomatizadoException {
 		if (StringUtils.isBlank(driver.findElement(By.id("usuarioNome")).getAttribute("value"))) {
-			WebElement input = driver.findElement(By.id("usuarioNome"));
-			input.click();
+			driver.findElement(By.id("usuarioNome")).click();
 			if (driver.findElement(By.xpath("//*[@id='usuarioNome_maindiv']/div")).isDisplayed()
 					&& driver.findElement(By.xpath("//*[@id='usuarioNome_maindiv']/div")).getText()
 							.equalsIgnoreCase("Preenchimento obrigatório!")) {
@@ -104,8 +102,8 @@ public class CadastroUsuarioInvalido {
 
 		boolean present = true;
 		try {
-			WebElement cpf = driver.findElement(By.id("usuarioCpf"));
-			cpf.click();
+			//cpf
+			driver.findElement(By.id("usuarioCpf")).click();
 			driver.findElement(By.xpath("//*[@id='usuarioCpf_maindiv']/div")).isDisplayed();
 			present = true;
 		} catch (NoSuchElementException e) {
@@ -113,8 +111,8 @@ public class CadastroUsuarioInvalido {
 		}
 
 		if (present == true) {
-			WebElement cpf = driver.findElement(By.id("usuarioCpf"));
-			cpf.click();
+			//cpf
+			driver.findElement(By.id("usuarioCpf")).click();
 			if (driver.findElement(By.xpath("//*[@id='usuarioCpf_maindiv']/div")).getText()
 					.equalsIgnoreCase("Preenchimento obrigatório!")) {
 				throw new TesteAutomatizadoException(EnumMensagens.CPF_EM_BRANCO, this.getClass());
@@ -133,8 +131,8 @@ public class CadastroUsuarioInvalido {
 
 		if (driver.findElement(By.id("cargo_maindiv")).isDisplayed()
 				&& driver.findElement(By.xpath("//*[@class='form-group has-error']")).isDisplayed()) {
-			WebElement cargo = driver.findElement(By.id("cargo_chosen"));
-			cargo.click();
+			//cargo
+			driver.findElement(By.id("cargo_chosen")).click();
 			if (driver.findElement(By.xpath("//*[@id='cargo_maindiv']/div[2]")).getText()
 					.equalsIgnoreCase("Preenchimento obrigatório!")) {
 				throw new TesteAutomatizadoException(EnumMensagens.CARGO_EM_BRANCO, this.getClass());
@@ -143,19 +141,17 @@ public class CadastroUsuarioInvalido {
 	}
 
 	public void perfilCadastra() {
-		WebElement perfil = driver.findElement(By.id("modalPerfil_chosen"));
-		perfil.click();
-		WebElement selecionarPerfil = driver.findElement(By.xpath("//*[@id='modalPerfil_chosen']/div/div/input"));
-		selecionarPerfil.sendKeys("Gestor do Beneficiário");
-		selecionarPerfil.sendKeys(Keys.TAB);
+		//perfil
+		driver.findElement(By.id("modalPerfil_chosen")).click();
+		driver.findElement(By.xpath("//*[@id='modalPerfil_chosen']/div/div/input")).sendKeys("Gestor do Beneficiário");
+		driver.findElement(By.xpath("//*[@id='modalPerfil_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
-		WebElement extensao = driver.findElement(By.id("modalExtensaoPerfilId"));
-		extensao.sendKeys("uni");
-		WebElement extensaoSeleciona = driver.findElement(By.id("ui-id-2"));
-		extensaoSeleciona.click();
+		//extensão
+		driver.findElement(By.id("modalExtensaoPerfilId")).sendKeys("uni");
+		driver.findElement(By.id("ui-id-2")).click();
 
-		WebElement salvar = driver.findElement(By.id("btnSalvar"));
-		salvar.click();
+		//salvar
+		driver.findElement(By.id("btnSalvar")).click();
 
 	}
 
