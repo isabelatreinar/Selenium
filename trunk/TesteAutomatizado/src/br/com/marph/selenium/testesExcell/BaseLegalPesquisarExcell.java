@@ -1,6 +1,7 @@
 package br.com.marph.selenium.testesExcell;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
@@ -11,7 +12,6 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.base.MenuBaseLegalTemplate;
@@ -19,9 +19,11 @@ import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
+import br.com.marph.selenium.validacao.ValidaToast;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
+import jxl.read.biff.BiffException;
 
 public class BaseLegalPesquisarExcell {
 	private final String LOG_NAME = "RAFAEL";
@@ -43,8 +45,11 @@ public class BaseLegalPesquisarExcell {
 		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
 
 		pesquisaEdicao();
-
-		validar();
+		
+		if (! driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
+				.equalsIgnoreCase("Você está em: Base Legal > Visualizar Base Legal > Editar Base Legal")) {
+			ValidaToast.valida(driver);
+		}
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -58,21 +63,17 @@ public class BaseLegalPesquisarExcell {
 		}
 	}
 
-	protected void validar() throws TesteAutomatizadoException {
-		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
-
-		if (validar == true) {
-			LogUtils.log(EnumMensagens.BASE_LEGAL_VALIDADO, this.getClass());
-		} else {
-			throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_NAO_VALIDADO, this.getClass());
-		}
-	}
-
-	protected void pesquisaEdicao() {
-		try {
+	protected void pesquisaEdicao() throws TesteAutomatizadoException {
+		
 			WorkbookSettings workbookSettings = new WorkbookSettings();
 			workbookSettings.setEncoding("ISO-8859-1");
-			Workbook wb = Workbook.getWorkbook(new File("./data/baseLegalPesquisa.xls"), workbookSettings);
+			Workbook wb = null;
+			try {
+				wb = Workbook.getWorkbook(new File("./data/baseLegalPesquisa.xls"), workbookSettings);
+			} catch (BiffException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Sheet sheet = wb.getSheet(0);
 			String tipo = sheet.getCell(0, 2).getContents();
 			String numero = sheet.getCell(1, 2).getContents();
@@ -85,89 +86,63 @@ public class BaseLegalPesquisarExcell {
 			String pdf = sheet.getCell(9, 2).getContents();
 
 			if (StringUtils.isNotBlank(tipo)) {
-				WebElement tipo1 = driver.findElement(By.id("tipoBaseLegal_chosen"));
-				tipo1.click();
-				WebElement procuraTipoBase = driver
-						.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input"));
-				procuraTipoBase.sendKeys(tipo);
-				procuraTipoBase.sendKeys(Keys.TAB);
+				driver.findElement(By.id("tipoBaseLegal_chosen")).click();
+				driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(tipo);
+				driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);
 			}
 
 			if (StringUtils.isNotBlank(numero)) {
-				WebElement numero1 = driver.findElement(By.id("numero"));
-				numero1.sendKeys(numero);
+				driver.findElement(By.id("numero")).sendKeys(numero);
 			}
-			
+
 			if (StringUtils.isNotBlank(data)) {
-				WebElement data1 = driver.findElement(By.id("dataPublicacao"));
-				data1.sendKeys(data);
+				driver.findElement(By.id("dataPublicacao")).sendKeys(data);
 			}
-			
+
 			if (StringUtils.isNotBlank(ano)) {
-			WebElement anoVigencia = driver.findElement(By.id("dataVigencia_chosen"));
-			anoVigencia.click();
-			WebElement anoVigenciaSeleciona = driver
-					.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input"));
-			anoVigenciaSeleciona.sendKeys(ano);
-			anoVigenciaSeleciona.sendKeys(Keys.TAB);
+				driver.findElement(By.id("dataVigencia_chosen")).click();
+				driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys(ano);
+				driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys(Keys.TAB);
 			}
-			
-			WebElement pesquisar = driver.findElement(By.id("btnPesquisar"));
-			pesquisar.click();
 
-			WebElement usuario = driver.findElement(By.xpath("//td[@class='sorting_1']"));
-			usuario.click();
-
-			WebElement botaoEditar = driver.findElement(By.id("btnEditar1"));
-			botaoEditar.click();
+			driver.findElement(By.id("btnPesquisar")).click();
 			
+			if(driver.findElement(By.xpath("//*[@id='baseLegalDataTable']/tbody/tr/td")).getText().equalsIgnoreCase("Resultado não encontrado.")){
+				throw new TesteAutomatizadoException(EnumMensagens.RESULTADO_NAO_ENCONTRADO, this.getClass());
+			}else{
+				driver.findElement(By.xpath("//td[@class='sorting_1']")).click();
+			}			
+			
+			//editar
+			driver.findElement(By.id("btnEditar1")).click();
+
 			if (StringUtils.isNotBlank(tipoEditar)) {
-			WebElement tipo2 = driver.findElement(By.id("tipoBaseLegal_chosen"));
-			tipo2.click();
-			WebElement procuraTipoBase1 = driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input"));
-			procuraTipoBase1.sendKeys(tipoEditar);
+				driver.findElement(By.id("tipoBaseLegal_chosen")).click();
+				driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(tipoEditar);
 			}
-			
+
 			if (StringUtils.isNotBlank(numeroEditar)) {
-			WebElement numero2 = driver.findElement(By.id("numero"));
-			numero2.clear();
-			numero2.sendKeys(numeroEditar);
+				driver.findElement(By.id("numero")).clear();
+				driver.findElement(By.id("numero")).sendKeys(numeroEditar);
 			}
-			
+
 			if (StringUtils.isNotBlank(dataEditar)) {
-			WebElement data2 = driver.findElement(By.id("dataPublicacao"));
-			data2.clear();
-			data2.sendKeys(dataEditar);
+				driver.findElement(By.id("dataPublicacao")).clear();
+				driver.findElement(By.id("dataPublicacao")).sendKeys(dataEditar);
 			}
-			
+
 			if (StringUtils.isNotBlank(pdf)) {
 				driver.findElement(By.id("textoPublicado")).sendKeys(pdf);
-				}else LogUtils.log(EnumMensagens.PDF_EM_BRANCO, this.getClass());
-			
-			if (StringUtils.isNotBlank(anoEditar)) {
-			WebElement anoVigencia1 = driver.findElement(By.id("dataVigencia_chosen"));
-			anoVigencia1.click();
-			WebElement anoVigenciaSeleciona1 = driver
-					.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input"));
-			anoVigenciaSeleciona1.sendKeys(anoEditar);
-			anoVigenciaSeleciona1.sendKeys(Keys.TAB);
-			}		
-			
-			if ("Existe uma Deliberação cadastrada com este número."
-					.equals(driver.findElement(By.xpath("//*[@id='numero_label']/label/span")).getText())) {
-				LogUtils.log(EnumMensagens.DELIBERACAO_CADASTRADO, this.getClass());
-			}
-			
-			if ("Tamanho de arquivo não suportado. Selecione um arquivo com até 5 MB."
-					.equals(driver.findElement(By.xpath("//*[@id='textoPublicado_label']/label/span")).getText())) {
-				LogUtils.log(EnumMensagens.PDF_MAIOR, this.getClass());
-			}
-			
-			WebElement salvar = driver.findElement(By.id("btnSalvar"));
-			salvar.click();
+			} else
+				LogUtils.log(EnumMensagens.PDF_EM_BRANCO, this.getClass());
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			if (StringUtils.isNotBlank(anoEditar)) {
+				driver.findElement(By.id("dataVigencia_chosen")).click();
+				driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys(anoEditar);
+				driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys(Keys.TAB);
+			}
+
+			driver.findElement(By.id("btnSalvar")).click();
+		
 	}
 }
