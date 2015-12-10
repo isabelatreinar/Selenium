@@ -109,8 +109,7 @@ public class PesquisarHistoricoBaseLegal {
 			modificadoPor.sendKeys(Keys.ENTER);
 		}
 
-		WebElement btnPesquisar = driver.findElement(By.id("btnPesquisar"));
-		btnPesquisar.click();
+		driver.findElement(By.id("btnPesquisar")).click();
 	}
 
 }

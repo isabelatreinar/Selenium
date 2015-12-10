@@ -2,33 +2,25 @@ package br.com.marph.selenium.assinatura;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class MenuAssinauraTemplate {
-	private MenuAssinauraTemplate(){}
 	
 	public static void prepararAcessoBaseLegal(WebDriver driver) {
 		
-	WebElement fecharbtn = driver.findElement(By.id("closeModalHome"));
-	fecharbtn.click();
 	
-	WebElement btnEntrar = driver.findElement(By.id("btnEntradaSistemaID"));
-	btnEntrar.click();
+	driver.findElement(By.id("closeModalHome")).click();
 	
-	WebElement btnAcessar = driver.findElement(By.id("btnAcessar"));
-	btnAcessar.click();
+	driver.findElement(By.id("btnEntradaSistemaID")).click();
 	
-	WebElement btnConfirmar = driver.findElement(By.id("confirmarDados"));
-	btnConfirmar.click();
+	driver.findElement(By.id("btnAcessar")).click();
 	
-	WebElement btnAcessarSist = driver.findElement(By.id("acessarSistema"));
-	btnAcessarSist.click();			
+	driver.findElement(By.id("confirmarDados")).click();
 	
-	WebElement menuCadastrar = driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,0)']"));
-	menuCadastrar.click(); 
+	driver.findElement(By.id("acessarSistema")).click();			
 	
-	WebElement menuUsuario = driver.findElement(By.xpath("//*[@id='']"));
-	menuUsuario.click();
+	driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,0)']")).click(); 
+	
+	driver.findElement(By.xpath("//*[@id='']")).click();
 		
 	}
 }

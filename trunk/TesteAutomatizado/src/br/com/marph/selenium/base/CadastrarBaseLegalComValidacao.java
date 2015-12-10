@@ -71,7 +71,7 @@ public class CadastrarBaseLegalComValidacao {
 		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);
 		
 		//numero
-		driver.findElement(By.id("numero")).sendKeys("127591856");
+		driver.findElement(By.id("numero")).sendKeys("1291856");
 
 		//data
 		driver.findElement(By.id("dataPublicacao")).sendKeys("-12082015");
@@ -88,8 +88,7 @@ public class CadastrarBaseLegalComValidacao {
 		}
 
 		if (present == true) {
-			WebElement input = driver.findElement(By.id("numero"));
-			input.click();
+			driver.findElement(By.id("numero")).click();
 			if (driver.findElement(By.xpath("//*[@id='numero_maindiv']/div")).isDisplayed()
 					&& driver.findElement(By.xpath("//*[@id='numero_maindiv']/div")).getText()
 							.equalsIgnoreCase("Existe tipo de base legal cadastrado com esse número")) {
@@ -126,8 +125,7 @@ public class CadastrarBaseLegalComValidacao {
 
 		if (driver.findElement(By.id("tipoBaseLegal_chosen")).isDisplayed()
 				&& driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/a/span")).getText().equalsIgnoreCase("Tipo")) {
-			WebElement tipo = driver.findElement(By.id("tipoBaseLegal_chosen"));
-			tipo.click();
+			driver.findElement(By.id("tipoBaseLegal_chosen")).click();
 			if (driver.findElement(By.xpath("//*[@id='tipoBaseLegal_maindiv']/div[2]")).getText()
 					.equalsIgnoreCase("Preenchimento obrigatório!")) {
 				throw new TesteAutomatizadoException(EnumMensagens.TIPO_EM_BRANCO, this.getClass());
@@ -135,8 +133,7 @@ public class CadastrarBaseLegalComValidacao {
 		}
 
 		if (StringUtils.isBlank(driver.findElement(By.id("numero")).getAttribute("value"))) {
-			WebElement numero = driver.findElement(By.id("numero"));
-			numero.click();
+			driver.findElement(By.id("numero")).click();
 			if (driver.findElement(By.xpath("//*[@id='numero_maindiv']/div")).isDisplayed()
 					&& driver.findElement(By.xpath("//*[@id='numero_maindiv']/div")).getText()
 							.equalsIgnoreCase("Preenchimento obrigatório!")) {
@@ -157,8 +154,7 @@ public class CadastrarBaseLegalComValidacao {
 		}
 		
 		if (StringUtils.isBlank(driver.findElement(By.id("textoPublicado_hide")).getAttribute("value"))) {
-			WebElement numero = driver.findElement(By.id("textoPublicado-txt"));
-			numero.click();
+			driver.findElement(By.id("textoPublicado-txt")).click();
 			if (driver.findElement(By.xpath("//*[@class='col-md-6 uploadFile']/div")).isDisplayed()
 					&& driver.findElement(By.xpath("//*[@class='col-md-6 uploadFile']/div")).getText()
 							.equalsIgnoreCase("Preenchimento obrigatório!")) {
