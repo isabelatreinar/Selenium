@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
@@ -39,18 +38,15 @@ public class TestarAcessibilidade {
 		// Acessar menu
 		MenuUsuarioTemplate.prepararAcessoUsuario(driver);
 
-		WebElement aumentar = driver.findElement(By.xpath("/html/body/div[2]/div[1]/div/ul/li[4]/a"));
 		for (int i = 0; i <= 8; i++) {
-			aumentar.click();
+			driver.findElement(By.xpath("/html/body/div[2]/div[1]/div/ul/li[4]/a")).click();
 		}
 		
-		WebElement diminuir = driver.findElement(By.xpath("/html/body/div[2]/div[1]/div/ul/li[2]/a"));
 		for (int i = 0; i <= 3; i++) {
-			diminuir.click();
+			driver.findElement(By.xpath("/html/body/div[2]/div[1]/div/ul/li[2]/a")).click();
 		}
 		
-		WebElement original = driver.findElement(By.xpath("/html/body/div[2]/div[1]/div/ul/li[3]/a"));
-		original.click();
+		driver.findElement(By.xpath("/html/body/div[2]/div[1]/div/ul/li[3]/a")).click();
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;

@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
@@ -39,18 +38,14 @@ public class TermoAditivo {
 		
 		Thread.sleep(10000);           
 	
-		WebElement programa = driver.findElement(By.id("programaFiltro_chosen"));
-		programa.click();		
-		WebElement programaSeleciona = driver.findElement(By.xpath("//li[@data-option-array-index='2']"));
-		programaSeleciona.click();
+		// Seleciona programa
+		driver.findElement(By.id("programaFiltro_chosen")).click();		
+		driver.findElement(By.xpath("//li[@data-option-array-index='2']")).click();
 		
-		WebElement exibicao = driver.findElement(By.id("statusFiltro_chosen"));
-		exibicao.click();		
-		WebElement exibicaoSeleciona = driver.findElement(By.xpath("//*[@id='statusFiltro_chosen']/div/ul/li[1]"));
-		exibicaoSeleciona.click();
+		driver.findElement(By.id("statusFiltro_chosen")).click();		
+		driver.findElement(By.xpath("//*[@id='statusFiltro_chosen']/div/ul/li[1]")).click();
 		
-		WebElement pesquisar = driver.findElement(By.id("btnPesquisar"));
-		pesquisar.click();
+		driver.findElement(By.id("btnPesquisar")).click();
 
 		float tempoGasto = (System.currentTimeMillis() - timestart );
 		float tempoSegundos = tempoGasto/1000;

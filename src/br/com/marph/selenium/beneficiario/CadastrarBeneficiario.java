@@ -63,15 +63,14 @@ public class CadastrarBeneficiario {
 
 	private void cadastrar() throws TesteAutomatizadoException {
 
-		WebElement cadastrar = driver.findElement(By.id("btnNovoBeneficiario"));
-		cadastrar.click();
+		driver.findElement(By.id("btnNovoBeneficiario")).click();
 		/**
 		 * Verifica se a tela de edição acessada corresponde ao beneficiário
 		 * selecionado O sinal de - é colocado devido a máscara no componente
 		 */
 
 		WebElement cnpj = driver.findElement(By.id("modalNovoCnpj"));
-		cnpj.sendKeys("-17082892000113");
+		cnpj.sendKeys("-16968547000115");
 
 		WebElement tipo = driver.findElement(By.id("modalNovoTipo_chosen"));
 		tipo.click();
@@ -81,8 +80,9 @@ public class CadastrarBeneficiario {
 		
 		//VALIDAÇÃO EM DESENVOLVIMENTO.NÃO ESTÁ FUNCIONANDO CORRETAMENTE.
 
-		if (driver.findElement(By.id("modalNovoCnpj_maindiv")).isDisplayed()
-				&& driver.findElement(By.xpath("//*[@class='form-group  has-error']")).isDisplayed()) {
+		/*if (driver.findElement(By.id("modalNovoCnpj_maindiv")).isDisplayed()
+				&& driver.findElement(By.xpath("//*[@class='form-group  has-error']")).isDisplayed()) {*/
+		if (driver.findElement(By.xpath("//*[@class='form-group  has-error']")).isDisplayed()) {
 			cnpj.click();
 			if (driver.findElement(By.xpath("//*[@id='modalNovoCnpj_maindiv']/div")).getText()
 					.equalsIgnoreCase("CNPJ inválido!")) {
@@ -108,9 +108,8 @@ public class CadastrarBeneficiario {
 				throw new TesteAutomatizadoException(EnumMensagens.TIPO_EM_BRANCO, getClass());
 			}
 		} else {
-			// Botao salvar superior
-			WebElement salvar = driver.findElement(By.id("btnAvancar1"));
-			salvar.click();
+			// Botão salvar superior
+			driver.findElement(By.id("btnAvancar1")).click();
 		}
 
 	}
