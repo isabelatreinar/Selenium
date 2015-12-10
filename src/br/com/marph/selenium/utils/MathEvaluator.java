@@ -545,7 +545,7 @@ public class MathEvaluator {
 		 * displays the tree of the expression
 		 */
 		public void trace() {
-			String op = getOperator() == null ? " " : getOperator().getOperator();
+	//		String op = getOperator() == null ? " " : getOperator().getOperator();
 			if (this.hasChild()) {
 				if (hasLeft())
 					getLeft().trace();
