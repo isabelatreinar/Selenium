@@ -79,7 +79,7 @@ public class CadastroUsuarioInvalido {
 		driver.findElement(By.id("usuarioNome")).sendKeys("TESTEE");
 
 		//cpf
-		driver.findElement(By.id("usuarioCpf")).sendKeys("-38555260876");
+		driver.findElement(By.id("usuarioCpf")).sendKeys("-86168321225");
 
 		//cargo
 		driver.findElement(By.id("cargo_chosen")).click();
