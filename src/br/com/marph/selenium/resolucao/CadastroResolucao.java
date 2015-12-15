@@ -92,6 +92,7 @@ public class CadastroResolucao {
 		driver.findElement(By.id("programa_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input")).sendKeys("ProHosp");
 		driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input")).sendKeys(Keys.TAB);
+		
 		// fim
 
 		// valida programa
@@ -104,7 +105,7 @@ public class CadastroResolucao {
 		// fim
 		// numero resolucao
 		driver.findElement(By.id("baseLegal")).sendKeys("405");
-		driver.findElement(By.xpath("//li[@id='ui-id-6']"))
+		driver.findElement(By.xpath("//li[@id='ui-id-7']"))
 				.click(); /* NUMERO PARA PEGAR UTRA RESOLUÇÃO NA LISTAGEM */
 
 		if (StringUtils.isBlank(driver.findElement(By.id("baseLegal-label")).getAttribute("value"))) {
