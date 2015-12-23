@@ -105,7 +105,7 @@ public class CadastroResolucao {
 		// fim
 		// numero resolucao
 		driver.findElement(By.id("baseLegal")).sendKeys("405");
-		driver.findElement(By.xpath("//li[@id='ui-id-7']"))
+		driver.findElement(By.xpath("//li[@id='ui-id-8']"))
 				.click(); /* NUMERO PARA PEGAR UTRA RESOLUÇÃO NA LISTAGEM */
 
 		if (StringUtils.isBlank(driver.findElement(By.id("baseLegal-label")).getAttribute("value"))) {
@@ -166,6 +166,8 @@ public class CadastroResolucao {
 
 	protected void beneficiarios() throws InterruptedException, TesteAutomatizadoException {
 
+		driver.findElement(By.id("buttonImportarPlanilha")).click();
+		
 		// arquivo
 		driver.findElement(By.id("uploadBeneficiariosContemplados"))
 				.sendKeys("C:\\Users\\rafael.sad\\Documents\\Export.xlsx");// Export.xlsx

@@ -71,7 +71,7 @@ public class BaseLegalPesquisarExcell {
 			try {
 				wb = Workbook.getWorkbook(new File("./data/baseLegalPesquisa.xls"), workbookSettings);
 			} catch (BiffException | IOException e) {
-				// TODO Auto-generated catch block
+				// 
 				e.printStackTrace();
 			}
 			Sheet sheet = wb.getSheet(0);
