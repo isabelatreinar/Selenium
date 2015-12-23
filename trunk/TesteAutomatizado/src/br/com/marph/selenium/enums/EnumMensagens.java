@@ -51,7 +51,7 @@ public enum EnumMensagens {
 	RESOLUCAO_JA_CADASTRADA("Ja existe uma resolução cadastrada com esse número\n"),
 	BASE_LEGAL_EM_BRANCO("Base legal em branco!\n"),
 	TEMPO_EM_BRANCO("Tempo em branco.\n"),
-	PDF_ERRO_DE_LOG("PDF apresentou log.\n"),
+	ARQUIVO_COM_ERRO_DE_LOG("PDF apresentou log.\n"),
 	DESCRICAO_EM_BRANCO("Descrição em branco.\n"),
 	ARQUIVO_EM_BRANCO("Arquivo em branco.\n"),
 	INDICADOR_EM_BRANCO("indicador em branco.\n"),

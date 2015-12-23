@@ -104,8 +104,8 @@ public class CadastroResolucao {
 
 		// fim
 		// numero resolucao
-		driver.findElement(By.id("baseLegal")).sendKeys("405");
-		driver.findElement(By.xpath("//li[@id='ui-id-8']"))
+		driver.findElement(By.id("baseLegal")).sendKeys("409");
+		driver.findElement(By.xpath("//li[@id='ui-id-2']"))
 				.click(); /* NUMERO PARA PEGAR UTRA RESOLUÇÃO NA LISTAGEM */
 
 		if (StringUtils.isBlank(driver.findElement(By.id("baseLegal-label")).getAttribute("value"))) {
@@ -176,37 +176,31 @@ public class CadastroResolucao {
 		driver.findElement(By.id("buttonImportar")).click();
 
 		// Thread.sleep(1000);
-
-		try {
-			if (driver.findElement(By.xpath("//*[@class='tooltip tooltip-error fade top in']")).getText()
+			
+		if (driver.findElement(By.id("toast-container")).getText().equalsIgnoreCase("Existem erros no formulário.")) {
+			driver.findElement(By.id("uploadBeneficiariosContemplados")).click();
+			if (driver.findElement(By.xpath("//*[@id='divImportarPlanilha']/div/div/div[2]/div/div")).getText()
 					.equalsIgnoreCase(
 							"Formato de arquivo inválido. Por favor selecione um arquivo no formato XLS ou XLSX.")) {
 				throw new TesteAutomatizadoException(EnumMensagens.FORMATO_DE_ARQUIVO_INVALIDO, this.getClass());
-			} else if (driver.findElement(By.xpath("//*[@class='tooltip tooltip-error fade top in']")).getText()
+			} else if (driver.findElement(By.xpath("//*[@id='divImportarPlanilha']/div/div/div[2]/div/div")).getText()
 					.equalsIgnoreCase("Tamanho de arquivo não suportado. Selecione um arquivo com até 5 MB.")) {
 				throw new TesteAutomatizadoException(EnumMensagens.TAMANHO_NAO_SUPORTADO, this.getClass());
-			}
-		} catch (NoSuchElementException e) {
-
-		}
-
-		// avancar
-		driver.findElement(By.id("btnProximo")).click();
+			}else
+				throw new TesteAutomatizadoException(EnumMensagens.ARQUIVO_EM_BRANCO, this.getClass());
+		} else {
+			// avancar
+			driver.findElement(By.id("btnProximo")).click();
+		}	
 	}
 
-	protected void validarBeneficiarios() throws TesteAutomatizadoException {
+ 	protected void validarBeneficiarios() throws TesteAutomatizadoException {
 
-		driver.findElement(By.id("uploadBeneficiariosContemplados-txt")).click();
-
-		try {
-			if (driver.findElement(By.id("downloadTxt")).isDisplayed()) {
-				throw new TesteAutomatizadoException(EnumMensagens.PDF_ERRO_DE_LOG, this.getClass());
+ 		if (driver.findElement(By.xpath("//*[@class='toast-message']")).getText().equalsIgnoreCase("Corrija os erros do log e importe o arquivo novamente para prosseguir.")) {
+			if (driver.findElement(By.id("buttonDownloadLogErros")).isDisplayed()) {
+				throw new TesteAutomatizadoException(EnumMensagens.ARQUIVO_COM_ERRO_DE_LOG, this.getClass());
 			}
-
-		} catch (NoSuchElementException e) {
-
-		}
-
+ 		}
 	}
 
 	protected void indicadores() throws TesteAutomatizadoException {
@@ -332,8 +326,7 @@ public class CadastroResolucao {
 		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/ul/li[2]/a")).click();
 
 		// adicionar
-		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']"
-				+ "/div/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div/div[1]/div/div[2]/a")).click();
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div/div[1]/div/div[2]/a")).click();
 
 		// concluir
 
