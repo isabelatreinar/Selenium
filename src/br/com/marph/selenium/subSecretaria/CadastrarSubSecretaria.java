@@ -7,12 +7,14 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
+import br.com.marph.selenium.utils.LogOut;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class CadastrarSubSecretaria {
@@ -42,6 +44,8 @@ public class CadastrarSubSecretaria {
 				.equalsIgnoreCase("Você está em: Subsecretaria > Nova Subsecretaria")) {
 			validar();
 		}
+		
+		LogOut.logOut(driver);
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -59,30 +63,28 @@ public class CadastrarSubSecretaria {
 	private void cadastrar() {
 		driver.findElement(By.id("liSalvar")).click();
 
-		driver.findElement(By.id("nome")).sendKeys("Teeste");
+		driver.findElement(By.id("nome")).sendKeys("Marphh");
 
-		driver.findElement(By.id("sigla")).sendKeys("te");
-		
-		//situação
-		//driver.findElement(By.id("situacaoSubsecretaria")).click();
+		driver.findElement(By.id("sigla")).sendKeys("Mph");
+
+		// situação
+		// driver.findElement(By.id("situacaoSubsecretaria")).click();
 
 		driver.findElement(By.id("btnSalvar")).click();
 	}
 
 	private void validar() throws TesteAutomatizadoException {
 
-		driver.findElement(By.id("nome")).click();
-		if (driver.findElement(By.xpath("//*[@id='nome_maindiv']/div")).getText()
-				.equalsIgnoreCase("Preenchimento obrigatório!")) {
-			throw new TesteAutomatizadoException(EnumMensagens.NOME_EM_BRANCO, this.getClass());
-		} else if (driver.findElement(By.xpath("//*[@id='nome_maindiv']/div")).getText()
-				.equalsIgnoreCase("Subsecretaria já cadastrada.")) {
-			throw new TesteAutomatizadoException(EnumMensagens.SUBSECRETARIA_JA_CADASTRADA, this.getClass());
-		} else
-			driver.findElement(By.id("sigla")).click();
-
-		if (driver.findElement(By.xpath("//*[@id='sigla_maindiv']/div")).getText()
-				.equalsIgnoreCase("Preenchimento obrigatório!")) {
+		try {
+			driver.findElement(By.id("nome")).click();
+			if (driver.findElement(By.xpath("//*[@id='nome_maindiv']/div")).getText()
+					.equalsIgnoreCase("Preenchimento obrigatório!")) {
+				throw new TesteAutomatizadoException(EnumMensagens.NOME_EM_BRANCO, this.getClass());
+			} else if (driver.findElement(By.xpath("//*[@id='nome_maindiv']/div")).getText()
+					.equalsIgnoreCase("Subsecretaria já cadastrada.")) {
+				throw new TesteAutomatizadoException(EnumMensagens.SUBSECRETARIA_JA_CADASTRADA, this.getClass());
+			}
+		} catch (NoSuchElementException e) {
 			throw new TesteAutomatizadoException(EnumMensagens.SIGLA_EM_BRANCO, this.getClass());
 		}
 	}
