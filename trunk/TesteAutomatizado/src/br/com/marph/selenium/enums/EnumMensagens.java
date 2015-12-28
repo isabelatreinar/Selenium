@@ -68,8 +68,8 @@ public enum EnumMensagens {
 	NOME_DO_MODELO_EM_BRANCO("O nome do modelo não pode ser vazio.\n"),
 	INICIO_DO_PERIODO_EM_BRANCO("O início do período de monitoramento não pode ser vazio.\n"),
 	FIM_DO_PERIODO_EM_BRANCO("O fim do período de monitoramento não pode ser vazio.\n"),
-	BLOCO_ATIVADO("Bloco ativado.\n",TipoMensagem.INFO),
-	BLOCO_INATIVADO("Bloco inativado.\n",TipoMensagem.INFO),
+	BLOCO_ATIVADO("Bloco ativado.",TipoMensagem.INFO),
+	BLOCO_INATIVADO("Bloco inativado.",TipoMensagem.INFO),
 	BLOCO_NAO_ENCONTRADO("Bloco de financiamento não encontrado.\n"),
 	BLOCO_JA_CADASTRADO("Bloco de financiamento já cadastrado.\n"),
 	FORMULA_INVALIDA("Formula inválida.\n"),
@@ -77,6 +77,10 @@ public enum EnumMensagens {
 	RESULTADO_NAO_ENCONTRADO("Resultado não encontrado.\n"),
 	DEVE_EXISTIR_PARCELA_CADASTRADA("Deve existir pelo menos uma parcela cadastrada\n"),
 	EXISTE_FORMULA_EM_EDICAO("Existe fórmula em edição\n"),
+	SUBSECRETARIA_JA_CADASTRADA("Subsecretaria já cadastrada."),
+	SIGLA_EM_BRANCO("Sigla em branco."),
+	SUBSECRETARIA_ATIVADA("Subsecretaria Ativada.",TipoMensagem.INFO),
+	SUBSECRETARIA_INATIVADA("Subsecretaria Inativada.",TipoMensagem.INFO),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;
