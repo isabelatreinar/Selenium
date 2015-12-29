@@ -65,14 +65,14 @@ public class CadastroPrograma {
 	private void cadastrar() {
 		driver.findElement(By.id("btnNovoPrograma")).click();
 
-		driver.findElement(By.id("nome")).sendKeys("Testex");
+		driver.findElement(By.id("nome")).sendKeys("Testexe");
 
 		driver.findElement(By.id("blocoFinanciamento_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='blocoFinanciamento_chosen']/div/div/input")).sendKeys("Atenção Básica");
-		driver.findElement(By.xpath("//*[@id='blocoFinanciamento_chosen']/div/div/input")).sendKeys(Keys.TAB);
-
+		driver.findElement(By.xpath("//*[@id='blocoFinanciamento_chosen']/div/div/input")).sendKeys(Keys.TAB);		
+		
 		driver.findElement(By.id("subsecretaria_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='subsecretaria_chosen']/div/div/input")).sendKeys("Barbacena");
+		driver.findElement(By.xpath("//*[@id='subsecretaria_chosen']/div/div/input")).sendKeys("Subsecretaria de BH");
 		driver.findElement(By.xpath("//*[@id='subsecretaria_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
 		driver.findElement(By.id("descricao")).sendKeys("TESTE TESTE TESTE ");
@@ -91,25 +91,27 @@ public class CadastroPrograma {
 				throw new TesteAutomatizadoException(EnumMensagens.PROGRAMA_JA_CADASTRADO, this.getClass());
 			}
 		} catch (NoSuchElementException e) {
-			driver.findElement(By.id("blocoFinanciamento_chosen")).click();
+			
 		}
 
 		try {
-			if (driver.findElement(By.xpath("//*[@id='blocoFinanciamento_maindiv']/div/div[2]")).getText()
-					.equalsIgnoreCase("Preenchimento obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.BLOCO_EM_BRANCO, this.getClass());
-			}
-		} catch (NoSuchElementException e) {
 			driver.findElement(By.id("subsecretaria_chosen")).click();
-		}
-
-		try {
 			if (driver.findElement(By.xpath("//*[@id='subsecretaria_maindiv']/div/div[2]")).getText()
 					.equalsIgnoreCase("Preenchimento obrigatório!")) {
 				throw new TesteAutomatizadoException(EnumMensagens.SUBSECRETARIA_EM_BRANCO, this.getClass());
 			}
 		} catch (NoSuchElementException e) {
 			throw new TesteAutomatizadoException(EnumMensagens.DESCRICAO_EM_BRANCO, this.getClass());
+		}
+		
+		try {
+			driver.findElement(By.id("blocoFinanciamento_chosen")).click();
+			if (driver.findElement(By.xpath("//*[@id='blocoFinanciamento_maindiv']/div/div[2]")).getText()
+					.equalsIgnoreCase("Preenchimento obrigatório!")) {
+				throw new TesteAutomatizadoException(EnumMensagens.BLOCO_EM_BRANCO, this.getClass());
+			}
+		} catch (NoSuchElementException e) {
+			
 		}
 	}
 }
