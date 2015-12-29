@@ -69,18 +69,18 @@ public class EditarPrograma {
 		driver.findElement(By.id("btnEditar1")).click();
 
 		driver.findElement(By.id("nome")).clear();
-		driver.findElement(By.id("nome")).sendKeys("Testee");
+		driver.findElement(By.id("nome")).sendKeys("Texxtee");
 
 		driver.findElement(By.id("blocoFinanciamento_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='blocoFinanciamento_chosen']/div/div/input")).sendKeys("Atenção Básica");
 		driver.findElement(By.xpath("//*[@id='blocoFinanciamento_chosen']/div/div/input")).sendKeys(Keys.TAB);
 		
 		driver.findElement(By.id("subsecretaria_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='subsecretaria_chosen']/div/div/input")).sendKeys("Barbacena");
+		driver.findElement(By.xpath("//*[@id='subsecretaria_chosen']/div/div/input")).sendKeys("Subsecretaria de BH");
 		driver.findElement(By.xpath("//*[@id='subsecretaria_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
 		driver.findElement(By.id("descricao")).clear();
-		/*driver.findElement(By.id("descricao")).sendKeys("TESTE TESTE TESTE ");*/
+		driver.findElement(By.id("descricao")).sendKeys("TESTE TESTE TESTE ");
 
 		driver.findElement(By.id("btnSalvar")).click();
 	}
