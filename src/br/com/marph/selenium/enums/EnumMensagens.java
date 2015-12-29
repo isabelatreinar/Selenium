@@ -81,6 +81,9 @@ public enum EnumMensagens {
 	SIGLA_EM_BRANCO("Sigla em branco."),
 	SUBSECRETARIA_ATIVADA("Subsecretaria Ativada.",TipoMensagem.INFO),
 	SUBSECRETARIA_INATIVADA("Subsecretaria Inativada.",TipoMensagem.INFO),
+	SUBSECRETARIA_EM_BRANCO("Subsecretaria em branco"),
+	PROGRAMA_JA_CADASTRADO("Programa já cadastrado.\n"),
+	BLOCO_EM_BRANCO("Bloco de financiamento em branco.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;
