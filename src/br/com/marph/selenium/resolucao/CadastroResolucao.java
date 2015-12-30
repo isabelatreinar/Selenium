@@ -13,7 +13,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
@@ -24,7 +23,8 @@ public class CadastroResolucao {
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 	JavascriptExecutor js;
-
+	String nomeIndicador = "teste";
+	
 	@Before
 	public void startBrowser() {
 		driver = new FirefoxDriver();
@@ -70,6 +70,8 @@ public class CadastroResolucao {
 
 		// cadastro de cronograma
 		cronograma();
+		
+		indicadoresXxronograma();
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -104,8 +106,8 @@ public class CadastroResolucao {
 
 		// fim
 		// numero resolucao
-		driver.findElement(By.id("baseLegal")).sendKeys("409");
-		driver.findElement(By.xpath("//li[@id='ui-id-2']"))
+		driver.findElement(By.id("baseLegal")).sendKeys("402");
+		driver.findElement(By.xpath("//li[@id='ui-id-8']"))
 				.click(); /* NUMERO PARA PEGAR UTRA RESOLUÇÃO NA LISTAGEM */
 
 		if (StringUtils.isBlank(driver.findElement(By.id("baseLegal-label")).getAttribute("value"))) {
@@ -209,7 +211,7 @@ public class CadastroResolucao {
 		driver.findElement(By.id("criar")).click();
 
 		// nome
-		driver.findElement(By.id("nome")).sendKeys("Teste");
+		driver.findElement(By.id("nome")).sendKeys(nomeIndicador);
 
 		// INDICADOR
 		driver.findElement(By.xpath("//*[@id='collapseNovo']/div/ul/li[1]/a")).click();
@@ -265,7 +267,7 @@ public class CadastroResolucao {
 
 		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a")).click();
 
-		try {
+		/*try {
 			if (driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
 					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText()
 							.equalsIgnoreCase("O início do período de monitoramento não pode ser vazio.")) {
@@ -277,11 +279,11 @@ public class CadastroResolucao {
 			}
 
 		} catch (NoSuchElementException e) {
-		}
+		}*/
 		driver.findElement(By.id("btnProximo")).click();
-	}
+	} 
 
-	protected void cronograma() throws TesteAutomatizadoException {
+	protected void cronograma() throws TesteAutomatizadoException, InterruptedException {
 		// clica em criar
 		driver.findElement(By.id("criarCronograma")).click();
 
@@ -297,7 +299,7 @@ public class CadastroResolucao {
 		// colocar data
 		driver.findElement(
 				By.xpath("//*[@class='panel-collapse collapse in']/div/div[3]/div[2]/div[2]/div/div/div/input"))
-				.sendKeys("-20112018");
+				.sendKeys("-29112018");
 
 		// valor padrão
 		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[3]/div[2]/div[3]/input"))
@@ -317,26 +319,32 @@ public class CadastroResolucao {
 		// adicionar
 		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']"
 				+ "/div/div[1]/div/div[2]/div[2]/div/div[2]/div/div/div[1]/div[1]/div[2]/a")).click();
-
+				
 		// concluir
 		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[1]/div/div[1]/ul/li[1]/a"))
 				.click();
 
 		// usar formula de calculo para bonus
 		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/ul/li[2]/a")).click();
-
+		
+		Thread.sleep(1000);
+		
 		// adicionar
 		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div/div[1]/div/div[2]/a")).click();
-
+		
+		Thread.sleep(1000);
+		
 		// concluir
 
 		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[1]/div[2]/div[1]/ul/li[1]/a"))
 				.click();
-
+		
+		//TODO falha na execução de vez em quando.
+		
 		// salvar
 		driver.findElement(By.xpath("//*[@id='accordion']/div/div[1]/ul/li[1]/a")).click();
 
-		try {
+		/*try {
 			if (driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
 					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText().equalsIgnoreCase(
 							"Deve existir pelo menos uma parcela cadastrada para o modelo de pagamento.")) {
@@ -353,8 +361,22 @@ public class CadastroResolucao {
 
 		} catch (NoSuchElementException e) {
 
-		}
-
+		}*/
+		
+		driver.findElement(By.id("btnProximo")).click();
 	}
 
+	protected void indicadoresXxronograma(){
+		
+		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[3]/a")).click();
+		
+		driver.findElement(By.xpath("//*[@class='chosen-container chosen-container-single']")).click();
+		driver.findElement(By.xpath("//*[@class='chosen-container chosen-container-single']/div/div/input")).sendKeys(nomeIndicador);
+		driver.findElement(By.xpath("//*[@class='chosen-container chosen-container-single']/div/div/input")).sendKeys(Keys.TAB);
+		
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[2]/ul/li/a")).click();
+		
+		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a")).click();
+		
+	}
 }
