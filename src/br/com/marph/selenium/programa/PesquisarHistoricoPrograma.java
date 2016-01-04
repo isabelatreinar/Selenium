@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -16,7 +15,7 @@ import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class PesquisarPrograma {
+public class PesquisarHistoricoPrograma {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -36,8 +35,14 @@ public class PesquisarPrograma {
 		long timestart = System.currentTimeMillis();
 
 		MenuProgramaTemplate.prepararAcessoPrograma(driver);
+		
+		PesquisarPrograma.pesquisar(driver);		
 
-		pesquisar(driver);
+		VisualizarPrograma.visualizar(driver);
+		
+		VisualizarHistoricoPrograma.visualizarHistorico(driver);
+		
+		PesquisarHistorico(driver);
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -51,18 +56,15 @@ public class PesquisarPrograma {
 			log.info(sb.toString() + "\n");
 		}
 	}
-	
-	public static void pesquisar(WebDriver driver) {
-		driver.findElement(By.id("nome")).sendKeys("Testee");
-		
-		driver.findElement(By.id("blocoFinanciamento_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='blocoFinanciamento_chosen']/div/div/input")).sendKeys("Atenção Básica");
-		driver.findElement(By.xpath("//*[@id='blocoFinanciamento_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
-		driver.findElement(By.id("subsecretaria_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='subsecretaria_chosen']/div/div/input")).sendKeys("Subsecretaria de BH");
-		driver.findElement(By.xpath("//*[@id='subsecretaria_chosen']/div/div/input")).sendKeys(Keys.TAB);
+	public static void PesquisarHistorico(WebDriver driver) {
+		driver.findElement(By.id("btnExpandirPesquisaAvancada")).click();
+		
+		driver.findElement(By.id("dataInicialHistorico")).sendKeys("-20122015");
+		
+		driver.findElement(By.id("dataFinalHistorico")).sendKeys("-05012016");
 		
 		driver.findElement(By.id("btnPesquisar")).click();
+		
 	}
 }
