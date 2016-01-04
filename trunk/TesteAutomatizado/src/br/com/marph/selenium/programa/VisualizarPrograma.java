@@ -54,6 +54,6 @@ public class VisualizarPrograma {
 	}
 
 	public static void visualizar(WebDriver driver) {
-		driver.findElement(By.xpath("//td[@class='sorting_1']")).click();
+		driver.findElement(By.xpath("//*[@class='odd']/td[1]")).click();
 	}
 }

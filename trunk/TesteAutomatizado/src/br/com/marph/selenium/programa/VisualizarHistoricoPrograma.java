@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -16,7 +15,7 @@ import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class PesquisarPrograma {
+public class VisualizarHistoricoPrograma {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -36,8 +35,12 @@ public class PesquisarPrograma {
 		long timestart = System.currentTimeMillis();
 
 		MenuProgramaTemplate.prepararAcessoPrograma(driver);
+		
+		PesquisarPrograma.pesquisar(driver);		
 
-		pesquisar(driver);
+		VisualizarPrograma.visualizar(driver);
+		
+		visualizarHistorico(driver);
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -51,18 +54,8 @@ public class PesquisarPrograma {
 			log.info(sb.toString() + "\n");
 		}
 	}
-	
-	public static void pesquisar(WebDriver driver) {
-		driver.findElement(By.id("nome")).sendKeys("Testee");
-		
-		driver.findElement(By.id("blocoFinanciamento_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='blocoFinanciamento_chosen']/div/div/input")).sendKeys("Atenção Básica");
-		driver.findElement(By.xpath("//*[@id='blocoFinanciamento_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
-		driver.findElement(By.id("subsecretaria_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='subsecretaria_chosen']/div/div/input")).sendKeys("Subsecretaria de BH");
-		driver.findElement(By.xpath("//*[@id='subsecretaria_chosen']/div/div/input")).sendKeys(Keys.TAB);
-		
-		driver.findElement(By.id("btnPesquisar")).click();
+	public static void visualizarHistorico(WebDriver driver) {
+		driver.findElement(By.id("btnHistorico1")).click();
 	}
 }
