@@ -3,22 +3,21 @@ package br.com.marph.selenium.programa;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import br.com.marph.selenium.enums.EnumAcesso;
+import br.com.marph.selenium.utils.AcessoUtils;
+
 public class MenuProgramaTemplate {
 	private MenuProgramaTemplate(){}
 	
 	public static void prepararAcessoPrograma(WebDriver driver) {
-		driver.findElement(By.id("closeModalHome")).click();
+		AcessoUtils.acessaId(driver, "closeModalHome", "btnEntradaSistemaID","btnAcessar","confirmarDados",EnumAcesso.ADMINISTRADOR.getId(),"acessarSistema");
 		
-		driver.findElement(By.id("btnEntradaSistemaID")).click();
+		AcessoUtils.acessaXpath(driver, "//td[@onmouseup='cmItemMouseUp (this,2)']");
 		
-		driver.findElement(By.id("btnAcessar")).click();
-		
-		driver.findElement(By.id("confirmarDados")).click();
-		
-		driver.findElement(By.id("acessarSistema")).click();			
-		
-		driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,2)']")).click(); 
-		
+		programa(driver);
+	}
+
+	private static void programa(WebDriver driver) {
 		driver.findElement(By.xpath("//*[@id='programaMenu']")).click();
 	}
 }

@@ -65,7 +65,7 @@ public class CadastroPrograma {
 	private void cadastrar() {
 		driver.findElement(By.id("btnNovoPrograma")).click();
 
-		driver.findElement(By.id("nome")).sendKeys("Testexe");
+		driver.findElement(By.id("nome")).sendKeys("TesteD");
 
 		driver.findElement(By.id("blocoFinanciamento_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='blocoFinanciamento_chosen']/div/div/input")).sendKeys("Atenção Básica");
