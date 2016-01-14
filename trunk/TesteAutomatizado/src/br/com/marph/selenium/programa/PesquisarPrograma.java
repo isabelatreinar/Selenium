@@ -60,7 +60,7 @@ public class PesquisarPrograma {
 		driver.findElement(By.xpath("//*[@id='blocoFinanciamento_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
 		driver.findElement(By.id("subsecretaria_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='subsecretaria_chosen']/div/div/input")).sendKeys("Subsecretaria de BH");
+		driver.findElement(By.xpath("//*[@id='subsecretaria_chosen']/div/div/input")).sendKeys("Subsecretaria Vinculo Usuario - ativar inativar");
 		driver.findElement(By.xpath("//*[@id='subsecretaria_chosen']/div/div/input")).sendKeys(Keys.TAB);
 		
 		driver.findElement(By.id("btnPesquisar")).click();

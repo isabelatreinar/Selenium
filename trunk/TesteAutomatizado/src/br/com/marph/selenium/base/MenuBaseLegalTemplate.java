@@ -3,24 +3,23 @@ package br.com.marph.selenium.base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import br.com.marph.selenium.enums.EnumAcesso;
+import br.com.marph.selenium.utils.AcessoUtils;
+
 public class MenuBaseLegalTemplate {
 	private MenuBaseLegalTemplate() {
 	}
 
 	public static void prepararAcessoBaseLegal(WebDriver driver) {
-		// ENTRADA
-		driver.findElement(By.id("closeModalHome")).click();
+		
+		AcessoUtils.acessaId(driver, "closeModalHome", "btnEntradaSistemaID","btnAcessar","confirmarDados",EnumAcesso.ADMINISTRADOR.getId(),"acessarSistema");
+		
+		AcessoUtils.acessaXpath(driver, "//td[@onmouseup='cmItemMouseUp (this,2)']");
+		
+		baseLegal(driver);
+	}
 
-		driver.findElement(By.id("btnEntradaSistemaID")).click();
-
-		driver.findElement(By.id("btnAcessar")).click();
-
-		driver.findElement(By.id("confirmarDados")).click();
-
-		driver.findElement(By.id("acessarSistema")).click();
-
-		driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,2)']")).click();
-
+	private static void baseLegal(WebDriver driver) {
 		driver.findElement(By.xpath("//*[@id='baseLegalMenu']")).click();
 	}
 

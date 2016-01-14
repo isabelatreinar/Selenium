@@ -82,7 +82,7 @@ public class CadastrarIndicador {
 		driver.findElement(By.id("mesesDeDefasagem")).sendKeys("21");
 		
 		//nome do indicador
-		driver.findElement(By.id("nomeIndicador")).sendKeys("Testinhu");
+		driver.findElement(By.id("nomeIndicador")).sendKeys("Testii");
 		
 		//nome da fonte
 		driver.findElement(By.id("nomeFonte")).sendKeys("marph");

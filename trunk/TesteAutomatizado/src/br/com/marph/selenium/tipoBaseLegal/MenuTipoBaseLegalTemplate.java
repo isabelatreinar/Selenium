@@ -2,32 +2,24 @@ package br.com.marph.selenium.tipoBaseLegal;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+
+import br.com.marph.selenium.enums.EnumAcesso;
+import br.com.marph.selenium.utils.AcessoUtils;
 
 public class MenuTipoBaseLegalTemplate {
 	// private MenuTipoBaseLegalTemplate(){}
 
 	public static void prepararAcessoTipoBaseLegal(WebDriver driver) {
-		WebElement btnFecharModal = driver.findElement(By.id("closeModalHome"));
-		btnFecharModal.click();
+		AcessoUtils.acessaId(driver, "closeModalHome", "btnEntradaSistemaID", "btnAcessar", "confirmarDados",
+				EnumAcesso.ADMINISTRADOR.getId(), "acessarSistema");
 
-		WebElement btnEntrar = driver.findElement(By.id("btnEntradaSistemaID"));
-		btnEntrar.click();
+		AcessoUtils.acessaXpath(driver, "//td[@onmouseup='cmItemMouseUp (this,2)']");
 
-		WebElement btnAcessar = driver.findElement(By.id("btnAcessar"));
-		btnAcessar.click();
+		tipoBase(driver);
 
-		WebElement btnConfirmar = driver.findElement(By.id("confirmarDados"));
-		btnConfirmar.click();
+	}
 
-		WebElement btnAcessarSist = driver.findElement(By.id("acessarSistema"));
-		btnAcessarSist.click();
-
-		WebElement menuCadastrar = driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,2)']"));
-		menuCadastrar.click();
-
-		WebElement menuTipoBaseLegal = driver.findElement(By.xpath("//*[@id='tipoBaseLegalMenu']"));
-		menuTipoBaseLegal.click();
-
+	private static void tipoBase(WebDriver driver) {
+		driver.findElement(By.xpath("//*[@id='tipoBaseLegalMenu']")).click();
 	}
 }
