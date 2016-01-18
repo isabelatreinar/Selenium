@@ -2,6 +2,7 @@ package br.com.marph.selenium.indicador;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -20,7 +21,7 @@ public class CadastrarIndicador {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
-	
+
 	@Before
 	public void startBrowser() {
 		driver = new FirefoxDriver();
@@ -28,7 +29,7 @@ public class CadastrarIndicador {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
-	
+
 	@Test
 	public void realizaBusca() throws InterruptedException, TesteAutomatizadoException {
 
@@ -37,13 +38,23 @@ public class CadastrarIndicador {
 		long timestart = System.currentTimeMillis();
 
 		MenuIndicadorTemplate.prepararAcessoIndicador(driver);
-		
+
 		cadastro();
-		
+
+		if (driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
+				.equalsIgnoreCase("Você está em: Indicador > Novo Indicador")) {
+			validarCadastro();
+		}
+
 		variavel();
 		
+		if (driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
+				.equalsIgnoreCase("Você está em: Indicador > Novo Indicador > Nova Variável")) {
+			validarVariavel();
+		}
+
 		formula();
-		
+
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
@@ -57,72 +68,115 @@ public class CadastrarIndicador {
 		}
 	}
 
+
 	public void cadastro() {
+
 		driver.findElement(By.id("btnNovoIndicador")).click();
-		
-		//tipo de indicador
+
+		// tipo de indicador
 		driver.findElement(By.id("tipoIndicador_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/div/div/input")).sendKeys("Finalístico");
 		driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/div/div/input")).sendKeys(Keys.TAB);
-		
-		//tipo de fonte
+
+		// tipo de fonte
 		driver.findElement(By.id("tipoFonte_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='tipoFonte_chosen']/div/div/input")).sendKeys("Oficial");
 		driver.findElement(By.xpath("//*[@id='tipoFonte_chosen']/div/div/input")).sendKeys(Keys.TAB);
-		
-		//polaridade
+
+		// polaridade
 		driver.findElement(By.id("polaridade_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='polaridade_chosen']/div/div/input")).sendKeys("Quanto maior, melhor");
 		driver.findElement(By.xpath("//*[@id='polaridade_chosen']/div/div/input")).sendKeys(Keys.TAB);
-		
-		//media movel
-		driver.findElement(By.id("mesesDaMediaMovel")).sendKeys("12");		
-		
-		//meses de defasagem
+
+		// media movel
+		driver.findElement(By.id("mesesDaMediaMovel")).sendKeys("12");
+
+		// meses de defasagem
 		driver.findElement(By.id("mesesDeDefasagem")).sendKeys("21");
-		
-		//nome do indicador
-		driver.findElement(By.id("nomeIndicador")).sendKeys("Testii");
-		
-		//nome da fonte
+
+		// nome do indicador
+		driver.findElement(By.id("nomeIndicador")).sendKeys("Indicador3");
+
+		// nome da fonte
 		driver.findElement(By.id("nomeFonte")).sendKeys("marph");
-		
-		//programa
+
+		// programa
 		driver.findElement(By.id("programa_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input")).sendKeys("Farmácia de minas");
 		driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input")).sendKeys(Keys.TAB);
-		
-		//descrição
+
+		// descrição
 		driver.findElement(By.id("descricao")).sendKeys("TESTEEE");
-		
-		//avançar
+
+		// avançar
 		driver.findElement(By.id("btnSalvar")).click();
 	}
 	
+	private void validarCadastro() throws TesteAutomatizadoException {
+		
+			if (driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/a/span")).getText()
+					.equalsIgnoreCase("Tipo de Indicador")) {
+				throw new TesteAutomatizadoException(EnumMensagens.TIPO_INDICADOR_EM_BRANCO, this.getClass());
+			} else if (driver.findElement(By.xpath("//*[@id='tipoFonte_chosen']/a/span")).getText()
+					.equalsIgnoreCase("Tipo de Fonte")) {
+				throw new TesteAutomatizadoException(EnumMensagens.TIPO_DE_FONTE_EM_BRANCO, this.getClass());
+			} else if (driver.findElement(By.xpath("//*[@id='polaridade_chosen']/a/span")).getText()
+					.equalsIgnoreCase("Polaridade")) {
+				throw new TesteAutomatizadoException(EnumMensagens.POLARIDADE_EM_BRANCO, this.getClass());
+			} else if (StringUtils.isBlank(driver.findElement(By.id("mesesDaMediaMovel")).getAttribute("value"))) {
+				throw new TesteAutomatizadoException(EnumMensagens.MESES_DA_MEDIA_MOVEL_EM_BRANCO, this.getClass());
+			} else if (StringUtils.isBlank(driver.findElement(By.id("mesesDaMediaMovel")).getAttribute("value"))) {
+				throw new TesteAutomatizadoException(EnumMensagens.MESES_DE_DEFASAGEM_EM_BRANCO, this.getClass());
+			} else if (StringUtils.isBlank(driver.findElement(By.id("nomeIndicador")).getAttribute("value"))) {
+				throw new TesteAutomatizadoException(EnumMensagens.NOME_INDICADOR_EM_BRANCO, this.getClass());
+			} else if (StringUtils.isBlank(driver.findElement(By.id("nomeFonte")).getAttribute("value"))) {
+				throw new TesteAutomatizadoException(EnumMensagens.NOME_DA_FONTE_EM_BRANCO, this.getClass());
+			} else if (driver.findElement(By.xpath("//*[@id='programa_chosen']/a/span")).getText()
+					.equalsIgnoreCase("Programa")) {
+				throw new TesteAutomatizadoException(EnumMensagens.PROGRAMA_EM_BRANCO, this.getClass());
+			}else if (StringUtils.isBlank(driver.findElement(By.id("descricao")).getAttribute("value"))) {
+				throw new TesteAutomatizadoException(EnumMensagens.DESCRICAO_EM_BRANCO, this.getClass());
+			}else throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_JA_CADASTRADO, this.getClass());
+	}
+
 	public void variavel() {
-		//clica no botão criar
+		// clica no botão criar
 		driver.findElement(By.id("criar")).click();
+
 		
-		//clica no botão criar
 		driver.findElement(By.xpath("//*[@class='panel-heading']/span/input")).sendKeys("testa");
-		
-		//Preenche o campo descrição
+
+		// Preenche o campo descrição
 		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[2]/div/p/textarea")).sendKeys("huahauhau");
-		
-		//clica em salvar
+
+		// clica em salvar
 		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a")).click();
-		
-		//avança
+
+		// avança
 		driver.findElement(By.id("btnSalvar")).click();
-		
+
 	}
 	
-	public void formula(){
-		//clica para adicionar
-		driver.findElement(By.xpath("//*[@id='heading0']/ul/li/a")).click();
-		
-		//clica para salvar
-		driver.findElement(By.id("btnSalvar")).click();
-		
+	public void validarVariavel() throws TesteAutomatizadoException {
+		if(StringUtils.isBlank(driver.findElement(By.xpath("//*[@class='panel-heading']/span/input")).getAttribute("value"))){
+			throw new TesteAutomatizadoException(EnumMensagens.NOME_DO_MODELO_EM_BRANCO, this.getClass());
+		}else if(StringUtils.isBlank(driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[2]/div/p/textarea")).getAttribute("value"))){
+			throw new TesteAutomatizadoException(EnumMensagens.DESCRICAO_EM_BRANCO, this.getClass());
+		}
 	}
+
+	public void formula() {
+		// clica para adicionar
+		driver.findElement(By.xpath("//*[@id='heading0']/div[3]/ul/li/a")).click();
+
+		driver.findElement(By.id("formula")).sendKeys("+");
+
+		driver.findElement(By.xpath("//*[@id='headingBeneficiario0']/div[3]/ul/li/a")).click();
+
+		// clica para salvar
+		driver.findElement(By.id("btnSalvar")).click();
+
+	}
+	
+	//TODO: ver se precisa validar formula
 }

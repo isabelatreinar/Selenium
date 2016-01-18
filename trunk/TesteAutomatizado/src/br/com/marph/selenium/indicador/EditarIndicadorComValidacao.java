@@ -121,7 +121,7 @@ public class EditarIndicadorComValidacao {
 		try {
 			if (StringUtils.isNotBlank(driver.findElement(By.id("nomeIndicador")).getAttribute("value"))
 					&& driver.findElement(By.xpath("//div[@class='form-group has-error']")).isDisplayed()) {
-				throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_JA_CADASRADO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_JA_CADASTRADO, this.getClass());
 			}
 		} catch (NoSuchElementException e) {
 			
