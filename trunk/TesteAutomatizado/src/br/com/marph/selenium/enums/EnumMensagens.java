@@ -85,6 +85,7 @@ public enum EnumMensagens {
 	PROGRAMA_JA_CADASTRADO("Programa já cadastrado.\n"),
 	BLOCO_EM_BRANCO("Bloco de financiamento em branco.\n"),
 	TIPO_DE_FONTE_EM_BRANCO("Tipo de fonte em branco.\n"),
+	INDICADOR_FIM("Não é necessário inserir informações nesta aba.\n FINALIZADO",TipoMensagem.INFO),
 	MESES_DA_MEDIA_MOVEL_EM_BRANCO("Meses da media movel em branco.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	

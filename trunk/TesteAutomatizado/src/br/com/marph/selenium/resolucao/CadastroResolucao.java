@@ -13,6 +13,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
@@ -102,7 +103,7 @@ public class CadastroResolucao {
 
 		// fim
 		// numero resolucao
-		driver.findElement(By.id("baseLegal")).sendKeys("402");
+		driver.findElement(By.id("baseLegal")).sendKeys("403");
 		driver.findElement(By.xpath("//li[@id='ui-id-6']"))
 				.click(); /* NUMERO PARA PEGAR UTRA RESOLUÇÃO NA LISTAGEM */
 
@@ -197,6 +198,14 @@ public class CadastroResolucao {
 	}
 
 	protected void indicadores() throws TesteAutomatizadoException {
+		
+		try {
+			if(driver.findElement(By.id("mensagemNaoPrestacaoMetas")).getText().equalsIgnoreCase("Não é necessário inserir informações nesta aba.")){
+				throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_FIM, this.getClass());
+			}
+		} catch (NoSuchElementException e) {
+			
+		}
 		
 		// criar
 		driver.findElement(By.id("criar")).click();
@@ -305,9 +314,6 @@ public class CadastroResolucao {
 		AcessoUtils.xpathClick(driver, "//*[@class='panel-collapse collapse in']/div/ul/li[1]/a","//*[@class='panel-collapse collapse in']"
 				+ "/div/div[1]/div/div[2]/div[2]/div/div[2]/div/div/div[1]/div[1]/div[2]/a",
 				"//*[@class='panel-collapse collapse in']/div/div[1]/div/div[1]/ul/li[1]/a",
-				"//*[@class='panel-collapse collapse in']/div/ul/li[2]/a",
-				"//*[@class='panel-collapse collapse in']/div/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div/div[1]/div/div[2]/a",
-				"//*[@class='panel-collapse collapse in']/div/div[1]/div[2]/div[1]/ul/li[1]/a",
 				"//*[@id='accordion']/div/div[1]/ul/li[1]/a");
 		
 
@@ -337,9 +343,9 @@ public class CadastroResolucao {
 		
 		AcessoUtils.xpathClick(driver, "//*[@class='panel-heading']/ul/li[3]/a","//*[@class='chosen-container chosen-container-single']");
 		
-		AcessoUtils.xpathChoosenSend(driver, "//*[@class='chosen-container chosen-container-single']/div/div/input", "nomeIndicador",Keys.TAB);
+		AcessoUtils.xpathChoosenSend(driver, "//*[@class='chosen-container chosen-container-single']/div/div/input","teste",Keys.TAB);
 		
-		AcessoUtils.xpathClick(driver, "//*[@class='panel-collapse collapse in']/div/div[2]/ul/li/a","//*[@class='panel-heading']/ul/li[1]/a");
+		AcessoUtils.xpathClick(driver, "//*[@class='panel-collapse collapse in']/div/div[2]/ul/li/a","//*[@class='panel-heading']/ul/li[1]/a");		
 		
 	}
 }
