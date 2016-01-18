@@ -62,7 +62,7 @@ public enum EnumMensagens {
 	POLARIDADE_EM_BRANCO("Polaridade em branco\n"),
 	NOME_INDICADOR_EM_BRANCO("Nome indicador em branco.\n"),
 	NOME_DA_FONTE_EM_BRANCO("Nome da fonte em branco.\n"),
-	INDICADOR_JA_CADASRADO("Indicador já cadastrado.\n"),
+	INDICADOR_JA_CADASTRADO("Indicador já cadastrado.\n"),
 	FORMATO_DE_ARQUIVO_INVALIDO("Formato de arquivo inválido.\n"),
 	TAMANHO_NAO_SUPORTADO("Tamanho de arquivo não suportado. Selecione um arquivo com até 5MB.\n"),
 	NOME_DO_MODELO_EM_BRANCO("O nome do modelo não pode ser vazio.\n"),
@@ -84,6 +84,8 @@ public enum EnumMensagens {
 	SUBSECRETARIA_EM_BRANCO("Subsecretaria em branco\n"),
 	PROGRAMA_JA_CADASTRADO("Programa já cadastrado.\n"),
 	BLOCO_EM_BRANCO("Bloco de financiamento em branco.\n"),
+	TIPO_DE_FONTE_EM_BRANCO("Tipo de fonte em branco.\n"),
+	MESES_DA_MEDIA_MOVEL_EM_BRANCO("Meses da media movel em branco.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;

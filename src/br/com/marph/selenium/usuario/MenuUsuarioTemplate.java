@@ -11,10 +11,10 @@ public class MenuUsuarioTemplate {
 	}
 
 	public static void prepararAcessoUsuario(WebDriver driver) {
-		AcessoUtils.acessaId(driver, "closeModalHome", "btnEntradaSistemaID", "btnAcessar", "confirmarDados",
+		AcessoUtils.idClick(driver, "closeModalHome", "btnEntradaSistemaID", "btnAcessar", "confirmarDados",
 				EnumAcesso.ADMINISTRADOR.getId(), "acessarSistema");
 
-		AcessoUtils.acessaXpath(driver, "//td[@onmouseup='cmItemMouseUp (this,2)']");
+		AcessoUtils.xpathClick(driver, "//td[@onmouseup='cmItemMouseUp (this,2)']");
 		
 		usuario(driver);
 	}

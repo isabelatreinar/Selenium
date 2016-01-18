@@ -10,9 +10,9 @@ public class MenuResolucaoTemplate {
 	private MenuResolucaoTemplate(){}
 	
 	public static void prepararAcessoResolucao(WebDriver driver) {
-		AcessoUtils.acessaId(driver, "closeModalHome", "btnEntradaSistemaID","btnAcessar","confirmarDados",EnumAcesso.ADMINISTRADOR.getId(),"acessarSistema");
+		AcessoUtils.idClick(driver, "closeModalHome", "btnEntradaSistemaID","btnAcessar","confirmarDados",EnumAcesso.ADMINISTRADOR.getId(),"acessarSistema");
 		
-		AcessoUtils.acessaXpath(driver, "//td[@onmouseup='cmItemMouseUp (this,2)']");
+		AcessoUtils.xpathClick(driver, "//td[@onmouseup='cmItemMouseUp (this,2)']");
 		
 		resolucao(driver);
 	}
