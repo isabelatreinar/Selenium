@@ -1,5 +1,6 @@
 package br.com.marph.selenium.resolucao;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
@@ -37,7 +38,7 @@ public class CadastroResolucao {
 	}
 
 	@Test
-	public void realizaBusca() throws InterruptedException, TesteAutomatizadoException {
+	public void realizaBusca() throws InterruptedException, TesteAutomatizadoException, IOException {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 
@@ -74,6 +75,12 @@ public class CadastroResolucao {
 		cronograma();
 		
 		indicadoresXCronograma();
+		
+		modelosXBeneficiarios();
+		
+		importacaoDeMetas();
+		
+		importacaoDeParcelas();
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -103,8 +110,8 @@ public class CadastroResolucao {
 
 		// fim
 		// numero resolucao
-		driver.findElement(By.id("baseLegal")).sendKeys("403");
-		driver.findElement(By.xpath("//li[@id='ui-id-6']"))
+		driver.findElement(By.id("baseLegal")).sendKeys("407");
+		driver.findElement(By.xpath("//li[@id='ui-id-3']"))
 				.click(); /* NUMERO PARA PEGAR UTRA RESOLUÇÃO NA LISTAGEM */
 
 		if (StringUtils.isBlank(driver.findElement(By.id("baseLegal-label")).getAttribute("value"))) {
@@ -164,12 +171,12 @@ public class CadastroResolucao {
 		
 		// arquivo
 		driver.findElement(By.id("uploadBeneficiariosContemplados"))
-				.sendKeys("C:\\Users\\rafael.sad\\Documents\\Export.xlsx");// Export.xlsx
+				.sendKeys("C:\\Users\\rafael.sad\\Downloads\\Geicom\\Export.xlsx");// Export.xlsx
 
 		// importa
 		driver.findElement(By.id("buttonImportar")).click();
 
-		// Thread.sleep(1000);
+		 Thread.sleep(5000);
 			
 		if (driver.findElement(By.id("toast-container")).getText().equalsIgnoreCase("Existem erros no formulário.")) {
 			driver.findElement(By.id("uploadBeneficiariosContemplados")).click();
@@ -278,6 +285,7 @@ public class CadastroResolucao {
 
 		} catch (NoSuchElementException e) {
 		}*/
+		
 		driver.findElement(By.id("btnProximo")).click();
 	} 
 
@@ -341,11 +349,88 @@ public class CadastroResolucao {
 
 	protected void indicadoresXCronograma(){
 		
-		AcessoUtils.xpathClick(driver, "//*[@class='panel-heading']/ul/li[3]/a","//*[@class='chosen-container chosen-container-single']");
+		AcessoUtils.xpathClick(driver, "//*[@class='panel-heading']/ul/li[3]/a","//*[@class='chosen-container chosen-container-single']/a/div/b");
 		
-		AcessoUtils.xpathChoosenSend(driver, "//*[@class='chosen-container chosen-container-single']/div/div/input","teste",Keys.TAB);
+		AcessoUtils.xpathChoosenSend(driver, "//*[@class='chosen-container chosen-container-single chosen-with-drop chosen-container-active']/div/div/input", "teste",Keys.TAB);
 		
-		AcessoUtils.xpathClick(driver, "//*[@class='panel-collapse collapse in']/div/div[2]/ul/li/a","//*[@class='panel-heading']/ul/li[1]/a");		
+		AcessoUtils.xpathClick(driver, "//*[@class='panel-collapse collapse in']/div/div[2]/ul/li/a","//*[@class='panel-heading']/ul/li[1]/a");
+		
+		driver.findElement(By.id("btnProximo")).click();
+	}
+	
+	protected void modelosXBeneficiarios() throws InterruptedException{
+		
+		driver.findElement(By.id("buttonImportarPlanilha")).click();
+		
+		driver.findElement(By.id("modeloIndicadorImportar_chosen")).click();
+		
+		AcessoUtils.xpathChoosenSend(driver, "//*[@id='modeloIndicadorImportar_chosen']/div/div/input", "teste",Keys.TAB);
+		
+		driver.findElement(By.id("uploadBeneficiariosContemplados")).sendKeys("C:\\Users\\rafael.sad\\Downloads\\Geicom\\modeloBeneficiarioExport.xlsx");
+		
+		driver.findElement(By.id("buttonImportar")).click();
+		
+		Thread.sleep(8000);
+		
+		driver.findElement(By.id("btnProximoBottom")).click();
+		
+	}	
+		
+	public void importacaoDeMetas() throws IOException, InterruptedException{		
+		
+		driver.findElement(By.id("buttonImportarPlanilha")).click();
+		
+		driver.findElement(By.id("uploadMetasPactuadas")).sendKeys("C:\\Users\\rafael.sad\\Downloads\\Geicom\\importacaoMetasExport.xlsx");
+		
+		driver.findElement(By.id("buttonImportar")).click();
+		
+		Thread.sleep(20000);
+		
+		driver.findElement(By.id("btnProximo")).click();
+		
+		
+/*		XSSFWorkbook workbook = null;		
+		File arquivo = new File("C:\\Users\\rafael.sad\\Downloads\\importacaoMetasExport.xlsx");		
+		FileOutputStream outPut = null;		
+		
+		try {			
+			workbook = new XSSFWorkbook(arquivo);			
+			XSSFSheet planilha = workbook.getSheetAt(0);			
+			outPut = new FileOutputStream(arquivo);						
+//			XSSFRow cabecalho = planilha.getRow(0);
+			Random gerador = new Random();			
+			for (int i = 1; i < planilha.getLastRowNum() ; i++) {
+				XSSFRow linha = planilha.getRow(i);
+				Cell celula = linha.createCell(3);
+				celula.setCellValue( String.valueOf(gerador.nextInt(100)));
+			}
+			workbook.write(outPut);			
+		} catch (InvalidFormatException e) {			
+			e.printStackTrace();
+		} catch (IOException e) {			
+			e.printStackTrace();
+		}		
+		finally {
+			if(outPut != null){
+				outPut.close();
+			}
+			if(workbook != null){
+				workbook.close();
+			}						
+		}*/		
+	}	
+	
+	protected void importacaoDeParcelas() throws InterruptedException{
+		
+		driver.findElement(By.id("buttonImportarPlanilha")).click();
+		
+		driver.findElement(By.id("uploadValorParcelas")).sendKeys("C:\\Users\\rafael.sad\\Downloads\\Geicom\\importacaoParcelasExport.xlsx");
+		
+		driver.findElement(By.id("buttonImportar")).click();
+		
+		Thread.sleep(8000);
+		
+		driver.findElement(By.id("btnFinalizar")).click();
 		
 	}
 }
