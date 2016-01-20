@@ -111,7 +111,7 @@ public class CadastroResolucao {
 		// fim
 		// numero resolucao
 		driver.findElement(By.id("baseLegal")).sendKeys("407");
-		driver.findElement(By.xpath("//li[@id='ui-id-3']"))
+		driver.findElement(By.xpath("//li[@id='ui-id-9']"))
 				.click(); /* NUMERO PARA PEGAR UTRA RESOLUÇÃO NA LISTAGEM */
 
 		if (StringUtils.isBlank(driver.findElement(By.id("baseLegal-label")).getAttribute("value"))) {
@@ -428,9 +428,10 @@ public class CadastroResolucao {
 		
 		driver.findElement(By.id("buttonImportar")).click();
 		
-		Thread.sleep(8000);
+		Thread.sleep(15000);
 		
 		driver.findElement(By.id("btnFinalizar")).click();
 		
+		driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[4]/button[1]")).click();		
 	}
 }
