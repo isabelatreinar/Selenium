@@ -65,7 +65,11 @@ public class CadastroPrograma {
 	private void cadastrar() {
 		driver.findElement(By.id("btnNovoPrograma")).click();
 
-		driver.findElement(By.id("nome")).sendKeys("TesteD");
+		driver.findElement(By.id("nome")).sendKeys("TesteDq");
+		
+		driver.findElement(By.id("pertenceBlocoFinanciamento_chosen")).click();
+		driver.findElement(By.xpath("//*[@id='pertenceBlocoFinanciamento_chosen']/div/div/input")).sendKeys("sim");
+		driver.findElement(By.xpath("//*[@id='pertenceBlocoFinanciamento_chosen']/div/div/input")).sendKeys(Keys.TAB);		
 
 		driver.findElement(By.id("blocoFinanciamento_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='blocoFinanciamento_chosen']/div/div/input")).sendKeys("Atenção Básica");
@@ -101,7 +105,7 @@ public class CadastroPrograma {
 				throw new TesteAutomatizadoException(EnumMensagens.SUBSECRETARIA_EM_BRANCO, this.getClass());
 			}
 		} catch (NoSuchElementException e) {
-			throw new TesteAutomatizadoException(EnumMensagens.DESCRICAO_EM_BRANCO, this.getClass());
+			
 		}
 		
 		try {
@@ -111,7 +115,7 @@ public class CadastroPrograma {
 				throw new TesteAutomatizadoException(EnumMensagens.BLOCO_EM_BRANCO, this.getClass());
 			}
 		} catch (NoSuchElementException e) {
-			
+			throw new TesteAutomatizadoException(EnumMensagens.DESCRICAO_EM_BRANCO, this.getClass());
 		}
 	}
 }
