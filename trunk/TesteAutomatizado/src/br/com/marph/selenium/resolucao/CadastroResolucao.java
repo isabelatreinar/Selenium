@@ -1,5 +1,6 @@
 package br.com.marph.selenium.resolucao;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -110,8 +111,8 @@ public class CadastroResolucao {
 
 		// fim
 		// numero resolucao
-		driver.findElement(By.id("baseLegal")).sendKeys("407");
-		driver.findElement(By.xpath("//li[@id='ui-id-9']"))
+		driver.findElement(By.id("baseLegal")).sendKeys("408");
+		driver.findElement(By.xpath("//li[@id='ui-id-4']"))
 				.click(); /* NUMERO PARA PEGAR UTRA RESOLUÇÃO NA LISTAGEM */
 
 		if (StringUtils.isBlank(driver.findElement(By.id("baseLegal-label")).getAttribute("value"))) {
@@ -169,9 +170,11 @@ public class CadastroResolucao {
 
 		driver.findElement(By.id("buttonImportarPlanilha")).click();
 		
+		File arquivo = new File("./data/Geicom/Export.xlsx");
+		
 		// arquivo
 		driver.findElement(By.id("uploadBeneficiariosContemplados"))
-				.sendKeys("C:\\Users\\rafael.sad\\Downloads\\Geicom\\Export.xlsx");// Export.xlsx
+				.sendKeys(arquivo.getAbsolutePath());// Export.xlsx
 
 		// importa
 		driver.findElement(By.id("buttonImportar")).click();
@@ -366,11 +369,13 @@ public class CadastroResolucao {
 		
 		AcessoUtils.xpathChoosenSend(driver, "//*[@id='modeloIndicadorImportar_chosen']/div/div/input", "teste",Keys.TAB);
 		
-		driver.findElement(By.id("uploadBeneficiariosContemplados")).sendKeys("C:\\Users\\rafael.sad\\Downloads\\Geicom\\modeloBeneficiarioExport.xlsx");
+		File arquivo = new File("./data/Geicom/modeloBeneficiarioExport.xlsx");
+		
+		driver.findElement(By.id("uploadBeneficiariosContemplados")).sendKeys(arquivo.getAbsolutePath());
 		
 		driver.findElement(By.id("buttonImportar")).click();
 		
-		Thread.sleep(8000);
+		Thread.sleep(10000);
 		
 		driver.findElement(By.id("btnProximoBottom")).click();
 		
@@ -380,11 +385,13 @@ public class CadastroResolucao {
 		
 		driver.findElement(By.id("buttonImportarPlanilha")).click();
 		
-		driver.findElement(By.id("uploadMetasPactuadas")).sendKeys("C:\\Users\\rafael.sad\\Downloads\\Geicom\\importacaoMetasExport.xlsx");
+		File arquivo = new File("./data/Geicom/importacaoMetasExport.xlsx");
+		
+		driver.findElement(By.id("uploadMetasPactuadas")).sendKeys(arquivo.getAbsolutePath());
 		
 		driver.findElement(By.id("buttonImportar")).click();
 		
-		Thread.sleep(20000);
+		Thread.sleep(30000);
 		
 		driver.findElement(By.id("btnProximo")).click();
 		
@@ -424,11 +431,13 @@ public class CadastroResolucao {
 		
 		driver.findElement(By.id("buttonImportarPlanilha")).click();
 		
-		driver.findElement(By.id("uploadValorParcelas")).sendKeys("C:\\Users\\rafael.sad\\Downloads\\Geicom\\importacaoParcelasExport.xlsx");
+		File arquivo = new File("./data/Geicom/importacaoParcelasExport.xlsx");
+		
+		driver.findElement(By.id("uploadValorParcelas")).sendKeys(arquivo.getAbsolutePath());
 		
 		driver.findElement(By.id("buttonImportar")).click();
 		
-		Thread.sleep(15000);
+		Thread.sleep(20000);
 		
 		driver.findElement(By.id("btnFinalizar")).click();
 		
