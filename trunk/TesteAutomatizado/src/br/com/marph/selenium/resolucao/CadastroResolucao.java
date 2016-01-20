@@ -112,7 +112,7 @@ public class CadastroResolucao {
 		// fim
 		// numero resolucao
 		driver.findElement(By.id("baseLegal")).sendKeys("408");
-		driver.findElement(By.xpath("//li[@id='ui-id-4']"))
+		driver.findElement(By.xpath("//li[@id='ui-id-6']"))
 				.click(); /* NUMERO PARA PEGAR UTRA RESOLUÇÃO NA LISTAGEM */
 
 		if (StringUtils.isBlank(driver.findElement(By.id("baseLegal-label")).getAttribute("value"))) {
@@ -391,7 +391,7 @@ public class CadastroResolucao {
 		
 		driver.findElement(By.id("buttonImportar")).click();
 		
-		Thread.sleep(30000);
+		Thread.sleep(20000);
 		
 		driver.findElement(By.id("btnProximo")).click();
 		
@@ -437,7 +437,7 @@ public class CadastroResolucao {
 		
 		driver.findElement(By.id("buttonImportar")).click();
 		
-		Thread.sleep(20000);
+		Thread.sleep(15000);
 		
 		driver.findElement(By.id("btnFinalizar")).click();
 		
