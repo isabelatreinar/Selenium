@@ -13,7 +13,7 @@ public class MenuTipoBaseLegalTemplate {
 		AcessoUtils.idClick(driver, "closeModalHome", "btnEntradaSistemaID", "btnAcessar", "confirmarDados",
 				EnumAcesso.ADMINISTRADOR.getId(), "acessarSistema");
 
-		AcessoUtils.xpathClick(driver, "//td[@onmouseup='cmItemMouseUp (this,2)']");
+		AcessoUtils.xpathClick(driver, "//td[@onmouseup='cmItemMouseUp (this,3)']");
 
 		tipoBase(driver);
 
