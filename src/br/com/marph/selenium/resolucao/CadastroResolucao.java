@@ -111,8 +111,8 @@ public class CadastroResolucao {
 
 		// fim
 		// numero resolucao
-		driver.findElement(By.id("baseLegal")).sendKeys("408");
-		driver.findElement(By.xpath("//li[@id='ui-id-6']"))
+		driver.findElement(By.id("baseLegal")).sendKeys("789");
+		driver.findElement(By.xpath("//li[@id='ui-id-5']"))
 				.click(); /* NUMERO PARA PEGAR UTRA RESOLUÇÃO NA LISTAGEM */
 
 		if (StringUtils.isBlank(driver.findElement(By.id("baseLegal-label")).getAttribute("value"))) {
@@ -358,7 +358,7 @@ public class CadastroResolucao {
 		
 		AcessoUtils.xpathClick(driver, "//*[@class='panel-collapse collapse in']/div/div[2]/ul/li/a","//*[@class='panel-heading']/ul/li[1]/a");
 		
-		driver.findElement(By.id("btnProximo")).click();
+		driver.findElement(By.id("btnProximoBottom")).click();
 	}
 	
 	protected void modelosXBeneficiarios() throws InterruptedException{
@@ -375,7 +375,7 @@ public class CadastroResolucao {
 		
 		driver.findElement(By.id("buttonImportar")).click();
 		
-		Thread.sleep(10000);
+		Thread.sleep(25000);
 		
 		driver.findElement(By.id("btnProximoBottom")).click();
 		
@@ -391,7 +391,7 @@ public class CadastroResolucao {
 		
 		driver.findElement(By.id("buttonImportar")).click();
 		
-		Thread.sleep(20000);
+		Thread.sleep(42000);
 		
 		driver.findElement(By.id("btnProximo")).click();
 		
@@ -437,7 +437,7 @@ public class CadastroResolucao {
 		
 		driver.findElement(By.id("buttonImportar")).click();
 		
-		Thread.sleep(15000);
+		Thread.sleep(20000);
 		
 		driver.findElement(By.id("btnFinalizar")).click();
 		
