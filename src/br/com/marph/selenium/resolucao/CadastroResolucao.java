@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -50,21 +49,8 @@ public class CadastroResolucao {
 		// cadastra resolucao
 		cadastrarResolucao();
 
-		// valida se ainda está na pagina de resolucao para validar e achar o
-		// erro.
-		if (driver.findElement(By.xpath("//*[@id='RESOLUCAO']")).getAttribute("class").equalsIgnoreCase("current")) {
-			validarResolucao();
-		}
-
 		// cadastro de beneficiario
 		beneficiarios();
-
-		// valida se ainda esta na pagina de beneficiario e valida para achar o
-		// erro.
-		if (driver.findElement(By.xpath("//*[@id='BENEFICIARIOS_CONTEMPLADOS']")).getAttribute("class")
-				.equalsIgnoreCase("current")) {
-			validarBeneficiarios();
-		}
 
 		// cadastro de indicadores.
 		indicadores();
@@ -102,40 +88,11 @@ public class CadastroResolucao {
 		
 		AcessoUtils.xpathChoosenSend(driver, "//*[@id='programa_chosen']/div/div/input", "Dell",Keys.TAB);
 		
-		// valida programa
-
-		if (driver.findElement(By.id("programa_chosen")).isDisplayed() && driver
-				.findElement(By.xpath("//*[@id='programa_chosen']/a/span")).getText().equalsIgnoreCase("Programa")) {
-			throw new TesteAutomatizadoException(EnumMensagens.PROGRAMA_EM_BRANCO, this.getClass());
-		}
-
-		// fim
 		// numero resolucao
 		driver.findElement(By.id("baseLegal")).sendKeys("789");
-		driver.findElement(By.xpath("//li[@id='ui-id-5']"))
+		driver.findElement(By.xpath("//li[@id='ui-id-6']"))
 				.click(); /* NUMERO PARA PEGAR UTRA RESOLUÇÃO NA LISTAGEM */
 
-		if (StringUtils.isBlank(driver.findElement(By.id("baseLegal-label")).getAttribute("value"))) {
-			throw new TesteAutomatizadoException(EnumMensagens.NUMERO_EM_BRANCO, this.getClass());
-		}
-
-		if (StringUtils.isNotBlank(driver.findElement(By.id("baseLegal-label")).getAttribute("value"))) {
-			boolean present1 = true;
-			try {
-				// data
-				driver.findElement(By.id("baseLegal")).click();
-				driver.findElement(By.xpath("//*[@id='baseLegal_maindiv']/div")).isDisplayed();
-				present1 = true;
-			} catch (NoSuchElementException e) {
-				present1 = false;
-			}
-
-			if (present1 == true) {
-				throw new TesteAutomatizadoException(EnumMensagens.RESOLUCAO_JA_CADASTRADA, this.getClass());
-			}
-
-		}
-		
 		AcessoUtils.xpathClick(driver, "//*[@id='termosBaseLegal_chosen']","//*[@id='termosBaseLegal_chosen']/div/ul/li[2]");
 
 		// tempo
@@ -148,23 +105,6 @@ public class CadastroResolucao {
 		
 	}
 
-	protected void validarResolucao() throws TesteAutomatizadoException {
-
-		try {
-			driver.findElement(By.xpath("//*[@class='search-choice']")).isDisplayed();
-		} catch (NoSuchElementException e) {
-			throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_EM_BRANCO, this.getClass());
-		}
-
-		if (StringUtils.isBlank(driver.findElement(By.id("tempoVigencia")).getAttribute("value"))) {
-			throw new TesteAutomatizadoException(EnumMensagens.TEMPO_EM_BRANCO, this.getClass());
-		} else if (StringUtils
-				.isBlank((String) js.executeScript("return document.getElementById('descricao').value"))) {
-			throw new TesteAutomatizadoException(EnumMensagens.DESCRICAO_EM_BRANCO, this.getClass());
-		} else {
-			throw new TesteAutomatizadoException(EnumMensagens.DESCRICAO_EM_BRANCO, this.getClass());
-		}
-	}
 
 	protected void beneficiarios() throws InterruptedException, TesteAutomatizadoException {
 
@@ -179,32 +119,10 @@ public class CadastroResolucao {
 		// importa
 		driver.findElement(By.id("buttonImportar")).click();
 
-		 Thread.sleep(5000);
+		 Thread.sleep(5000);			
+		
+		driver.findElement(By.id("btnProximo")).click();
 			
-		if (driver.findElement(By.id("toast-container")).getText().equalsIgnoreCase("Existem erros no formulário.")) {
-			driver.findElement(By.id("uploadBeneficiariosContemplados")).click();
-			if (driver.findElement(By.xpath("//*[@id='divImportarPlanilha']/div/div/div[2]/div/div")).getText()
-					.equalsIgnoreCase(
-							"Formato de arquivo inválido. Por favor selecione um arquivo no formato XLS ou XLSX.")) {
-				throw new TesteAutomatizadoException(EnumMensagens.FORMATO_DE_ARQUIVO_INVALIDO, this.getClass());
-			} else if (driver.findElement(By.xpath("//*[@id='divImportarPlanilha']/div/div/div[2]/div/div")).getText()
-					.equalsIgnoreCase("Tamanho de arquivo não suportado. Selecione um arquivo com até 5 MB.")) {
-				throw new TesteAutomatizadoException(EnumMensagens.TAMANHO_NAO_SUPORTADO, this.getClass());
-			}else
-				throw new TesteAutomatizadoException(EnumMensagens.ARQUIVO_EM_BRANCO, this.getClass());
-		} else {
-			// avancar
-			driver.findElement(By.id("btnProximo")).click();
-		}	
-	}
-
- 	protected void validarBeneficiarios() throws TesteAutomatizadoException {
-
- 		if (driver.findElement(By.xpath("//*[@class='toast-message']")).getText().equalsIgnoreCase("Corrija os erros do log e importe o arquivo novamente para prosseguir.")) {
-			if (driver.findElement(By.id("buttonDownloadLogErros")).isDisplayed()) {
-				throw new TesteAutomatizadoException(EnumMensagens.ARQUIVO_COM_ERRO_DE_LOG, this.getClass());
-			}
- 		}
 	}
 
 	protected void indicadores() throws TesteAutomatizadoException {
@@ -237,25 +155,6 @@ public class CadastroResolucao {
 		
 		AcessoUtils.xpathClick(driver, "//*[@id='tabelaIndicadoresNovo']/div[2]/div[5]/a","//*[@id='headingNovo']/ul/li[1]/a");
 
-
-		try {
-			if (driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
-					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText()
-							.equalsIgnoreCase("O nome do modelo não pode ser vazio.")) {
-				throw new TesteAutomatizadoException(EnumMensagens.NOME_DO_MODELO_EM_BRANCO, this.getClass());
-			} else if (driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
-					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText()
-							.equalsIgnoreCase("O preenchimento do campo indicador é obrigatório.")) {
-				throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_EM_BRANCO, this.getClass());
-			} else if (driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
-					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText()
-							.equalsIgnoreCase("O peso do indicador finalístico não pode ser menor que 0.")) {
-				throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_EM_BRANCO, this.getClass());
-			}
-
-		} catch (NoSuchElementException e) {
-		}
-
 		driver.findElement(By.id("btnProximo")).click();
 	}
 
@@ -275,20 +174,6 @@ public class CadastroResolucao {
 
 		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a")).click();
 
-		/*try {
-			if (driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
-					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText()
-							.equalsIgnoreCase("O início do período de monitoramento não pode ser vazio.")) {
-				throw new TesteAutomatizadoException(EnumMensagens.INICIO_DO_PERIODO_EM_BRANCO, this.getClass());
-			} else if (driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
-					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText()
-							.equalsIgnoreCase("O fim do período de monitoramento não pode ser vazio.")) {
-				throw new TesteAutomatizadoException(EnumMensagens.FIM_DO_PERIODO_EM_BRANCO, this.getClass());
-			}
-
-		} catch (NoSuchElementException e) {
-		}*/
-		
 		driver.findElement(By.id("btnProximo")).click();
 	} 
 
@@ -326,27 +211,7 @@ public class CadastroResolucao {
 				+ "/div/div[1]/div/div[2]/div[2]/div/div[2]/div/div/div[1]/div[1]/div[2]/a",
 				"//*[@class='panel-collapse collapse in']/div/div[1]/div/div[1]/ul/li[1]/a",
 				"//*[@id='accordion']/div/div[1]/ul/li[1]/a");
-		
-
-		/*try {
-			if (driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
-					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText().equalsIgnoreCase(
-							"Deve existir pelo menos uma parcela cadastrada para o modelo de pagamento.")) {
-				throw new TesteAutomatizadoException(EnumMensagens.DEVE_EXISTIR_PARCELA_CADASTRADA, this.getClass());
-			} else if (driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
-					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText()
-							.equalsIgnoreCase("O nome do modelo não pode ser vazio.")) {
-				throw new TesteAutomatizadoException(EnumMensagens.NOME_EM_BRANCO, this.getClass());
-			} else if (driver.findElement(By.xpath("//*[@id='toast-container']")).isDisplayed()
-					&& driver.findElement(By.xpath("//*[@id='toast-container']/div/div[2]")).getText()
-							.equalsIgnoreCase("Existe fórmula em edição.")) {
-				throw new TesteAutomatizadoException(EnumMensagens.EXISTE_FORMULA_EM_EDICAO, this.getClass());
-			}
-
-		} catch (NoSuchElementException e) {
-
-		}*/
-		
+				
 		driver.findElement(By.id("btnProximo")).click();
 	}
 
