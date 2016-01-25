@@ -41,7 +41,7 @@ public class CadastrarBaseLegal {
 		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
 
 		cadastro();
-		
+
 		if (driver.findElement(By.xpath("//ol[@class='breadcrumb']")).getText()
 				.equalsIgnoreCase("Você está em: Base Legal > Nova Base Legal")) {
 			validar();
@@ -61,7 +61,6 @@ public class CadastrarBaseLegal {
 
 	}
 
-
 	private void cadastro() throws TesteAutomatizadoException {
 		// CADASTRO
 
@@ -71,17 +70,17 @@ public class CadastrarBaseLegal {
 		// tipoBase
 		driver.findElement(By.id("tipoBaseLegal_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys("Deliberação");
-		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);		
-		
+		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);
+
 		// numero
-		driver.findElement(By.id("numero")).sendKeys("69756621");		
+		driver.findElement(By.id("numero")).sendKeys("69756621");
 
 		// data
 		driver.findElement(By.id("dataPublicacao")).sendKeys("-22012016");
 		driver.findElement(By.id("dataPublicacao")).sendKeys(Keys.TAB);
-		
+
 		File arquivo = new File("./data/TESTEEE.pdf");
-		
+
 		// pdf
 		driver.findElement(By.id("textoPublicado")).sendKeys(arquivo.getAbsolutePath());
 
@@ -93,20 +92,22 @@ public class CadastrarBaseLegal {
 		// salvar
 		driver.findElement(By.id("btnSalvar")).click();
 		// FIM CADASTRO
-	}	
+	}
 
 	private void validar() throws TesteAutomatizadoException {
-		
-		if(driver.findElement(By.id("tipoBaseLegal_chosen")).getText().equalsIgnoreCase("Tipo")){
+
+		if (driver.findElement(By.id("tipoBaseLegal_chosen")).getText().equalsIgnoreCase("Tipo")) {
 			throw new TesteAutomatizadoException(EnumMensagens.TIPO_EM_BRANCO, this.getClass());
-		} else if(StringUtils.isBlank(driver.findElement(By.id("numero")).getAttribute("value"))){
+		} else if (StringUtils.isBlank(driver.findElement(By.id("numero")).getAttribute("value"))) {
 			throw new TesteAutomatizadoException(EnumMensagens.NUMERO_EM_BRANCO, this.getClass());
-		} else if(StringUtils.isBlank(driver.findElement(By.id("dataPublicacao")).getAttribute("value"))){
+		} else if (StringUtils.isBlank(driver.findElement(By.id("dataPublicacao")).getAttribute("value"))) {
 			throw new TesteAutomatizadoException(EnumMensagens.DATA_EM_BRANCO, this.getClass());
-		} else if(StringUtils.isBlank(driver.findElement(By.id("textoPublicado")).getAttribute("value"))){
+		} else if (StringUtils.isBlank(driver.findElement(By.id("textoPublicado")).getAttribute("value"))) {
 			throw new TesteAutomatizadoException(EnumMensagens.PDF_EM_BRANCO, this.getClass());
-		} if(driver.findElement(By.id("dataVigencia_chosen")).getText().equalsIgnoreCase("Ano do início da vigência")){
+		}
+		if (driver.findElement(By.id("dataVigencia_chosen")).getText().equalsIgnoreCase("Ano do início da vigência")) {
 			throw new TesteAutomatizadoException(EnumMensagens.DATA_VIGENCIA_EM_BRANCO, this.getClass());
-		} else throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_JA_CADASTRADA, this.getClass());
+		} else
+			throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_JA_CADASTRADA, this.getClass());
 	}
 }
