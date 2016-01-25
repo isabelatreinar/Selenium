@@ -1,7 +1,9 @@
 package br.com.marph.selenium.base;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -16,7 +18,7 @@ import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class CadastrarBaseLegalMozilla {
+public class CadastrarBaseLegal {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -39,13 +41,10 @@ public class CadastrarBaseLegalMozilla {
 		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
 
 		cadastro();
-
-		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
-
-		if (validar == true) {
-			LogUtils.log(EnumMensagens.BASE_LEGAL_VALIDADO, this.getClass());
-		} else {
-			throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_NAO_VALIDADO, this.getClass());
+		
+		if (driver.findElement(By.xpath("//ol[@class='breadcrumb']")).getText()
+				.equalsIgnoreCase("Você está em: Base Legal > Nova Base Legal")) {
+			validar();
 		}
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
@@ -62,7 +61,8 @@ public class CadastrarBaseLegalMozilla {
 
 	}
 
-	private void cadastro() {
+
+	private void cadastro() throws TesteAutomatizadoException {
 		// CADASTRO
 
 		// btn novo
@@ -71,26 +71,42 @@ public class CadastrarBaseLegalMozilla {
 		// tipoBase
 		driver.findElement(By.id("tipoBaseLegal_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys("Deliberação");
-		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);
-
+		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);		
+		
 		// numero
-		driver.findElement(By.id("numero")).sendKeys("619876621");
+		driver.findElement(By.id("numero")).sendKeys("69756621");		
 
 		// data
-		driver.findElement(By.id("dataPublicacao")).sendKeys("-12082015");
+		driver.findElement(By.id("dataPublicacao")).sendKeys("-22012016");
 		driver.findElement(By.id("dataPublicacao")).sendKeys(Keys.TAB);
-
+		
+		File arquivo = new File("./data/TESTEEE.pdf");
+		
 		// pdf
-		driver.findElement(By.id("textoPublicado")).sendKeys("C:\\Users\\rafael.sad\\Documents\\TESTEEE.pdf");
+		driver.findElement(By.id("textoPublicado")).sendKeys(arquivo.getAbsolutePath());
 
 		// ano vigencia
 		driver.findElement(By.id("dataVigencia_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys("2015");
+		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys("2017");
 		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
 		// salvar
 		driver.findElement(By.id("btnSalvar")).click();
 		// FIM CADASTRO
-	}
+	}	
 
+	private void validar() throws TesteAutomatizadoException {
+		
+		if(driver.findElement(By.id("tipoBaseLegal_chosen")).getText().equalsIgnoreCase("Tipo")){
+			throw new TesteAutomatizadoException(EnumMensagens.TIPO_EM_BRANCO, this.getClass());
+		} else if(StringUtils.isBlank(driver.findElement(By.id("numero")).getAttribute("value"))){
+			throw new TesteAutomatizadoException(EnumMensagens.NUMERO_EM_BRANCO, this.getClass());
+		} else if(StringUtils.isBlank(driver.findElement(By.id("dataPublicacao")).getAttribute("value"))){
+			throw new TesteAutomatizadoException(EnumMensagens.DATA_EM_BRANCO, this.getClass());
+		} else if(StringUtils.isBlank(driver.findElement(By.id("textoPublicado")).getAttribute("value"))){
+			throw new TesteAutomatizadoException(EnumMensagens.PDF_EM_BRANCO, this.getClass());
+		} if(driver.findElement(By.id("dataVigencia_chosen")).getText().equalsIgnoreCase("Ano do início da vigência")){
+			throw new TesteAutomatizadoException(EnumMensagens.DATA_VIGENCIA_EM_BRANCO, this.getClass());
+		} else throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_JA_CADASTRADA, this.getClass());
+	}
 }

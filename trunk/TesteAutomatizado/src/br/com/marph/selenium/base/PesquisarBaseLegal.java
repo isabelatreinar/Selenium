@@ -57,18 +57,18 @@ public class PesquisarBaseLegal {
 	public static void pesquisar(WebDriver driver) {
 		//tipo
 		driver.findElement(By.id("tipoBaseLegal_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys("Resolu");
+		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys("Deliberação");
 		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);
 		
 		//numero
-		driver.findElement(By.id("numero")).sendKeys("5005");
+		driver.findElement(By.id("numero")).sendKeys("69756621");
 
 		//data
-		driver.findElement(By.id("dataPublicacao")).sendKeys("-22092015");		
+		driver.findElement(By.id("dataPublicacao")).sendKeys("-22012016");		
 
 		//anoVigencia
 		driver.findElement(By.id("dataVigencia_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys("2019");
+		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys("2017");
 		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys(Keys.TAB);
 		
 		//salvar
