@@ -44,11 +44,11 @@ public class EditarSubSecretaria {
 
 		editar();
 
-		if (driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
+		if (driver.findElement(By.xpath("//ol[@class='breadcrumb']")).getText()
 				.equalsIgnoreCase("Você está em: Subsecretaria > Visualizar Subsecretaria > Editar Subsecretaria")) {
 			validar();
 		}
-		
+
 		LogOut.logOut(driver);
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
