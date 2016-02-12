@@ -61,10 +61,10 @@ public class PesquisarBaseLegal {
 		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);
 		
 		//numero
-		driver.findElement(By.id("numero")).sendKeys("69756621");
+		driver.findElement(By.id("numero")).sendKeys("789789");
 
 		//data
-		driver.findElement(By.id("dataPublicacao")).sendKeys("-22012016");		
+		driver.findElement(By.id("dataPublicacao")).sendKeys("-12022016");		
 
 		//anoVigencia
 		driver.findElement(By.id("dataVigencia_chosen")).click();

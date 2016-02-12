@@ -75,11 +75,12 @@ public class EditarBaseLegalMozilla {
 		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
 		// numero
-		driver.findElement(By.id("numero")).sendKeys("401704");
+		driver.findElement(By.id("numero")).clear();
+		driver.findElement(By.id("numero")).sendKeys("789789");
 
 		// data
-		driver.findElement(By.id("dataPublicacao")).sendKeys("-22012016");
-		driver.findElement(By.id("dataPublicacao")).sendKeys(Keys.TAB);
+		driver.findElement(By.id("dataPublicacao")).clear();
+		driver.findElement(By.id("dataPublicacao")).sendKeys("-12022016");
 
 		File arquivo = new File("./data/TESTEEE.pdf");
 
