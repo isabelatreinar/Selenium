@@ -40,7 +40,7 @@ public class CadastrarSubSecretaria {
 
 		cadastrar();
 
-		if (driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
+		if (driver.findElement(By.xpath("//ol[@class='breadcrumb']")).getText()
 				.equalsIgnoreCase("Você está em: Subsecretaria > Nova Subsecretaria")) {
 			validar();
 		}
@@ -63,9 +63,9 @@ public class CadastrarSubSecretaria {
 	private void cadastrar() {
 		driver.findElement(By.id("liSalvar")).click();
 
-		driver.findElement(By.id("nome")).sendKeys("Marphh");
+		driver.findElement(By.id("nome")).sendKeys("MarphSD");
 
-		driver.findElement(By.id("sigla")).sendKeys("Mph");
+		driver.findElement(By.id("sigla")).sendKeys("MphS");
 
 		// situação
 		// driver.findElement(By.id("situacaoSubsecretaria")).click();
