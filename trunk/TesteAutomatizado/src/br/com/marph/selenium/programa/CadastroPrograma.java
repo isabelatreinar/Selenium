@@ -65,7 +65,7 @@ public class CadastroPrograma {
 	private void cadastrar() throws TesteAutomatizadoException {
 		driver.findElement(By.id("btnNovoPrograma")).click();
 
-		driver.findElement(By.id("nome")).sendKeys("TesteDK");
+		driver.findElement(By.id("nome")).sendKeys("TesteSD");
 		
 		driver.findElement(By.id("pertenceBlocoFinanciamento_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='pertenceBlocoFinanciamento_chosen']/div/div/input")).sendKeys("sim");
