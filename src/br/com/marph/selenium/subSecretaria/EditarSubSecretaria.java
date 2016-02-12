@@ -48,7 +48,7 @@ public class EditarSubSecretaria {
 				.equalsIgnoreCase("Você está em: Subsecretaria > Visualizar Subsecretaria > Editar Subsecretaria")) {
 			validar();
 		}
-
+		
 		LogOut.logOut(driver);
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
