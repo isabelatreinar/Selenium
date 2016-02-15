@@ -88,6 +88,7 @@ public enum EnumMensagens {
 	INDICADOR_FIM("Não é necessário inserir informações nesta aba.\n FINALIZADO",TipoMensagem.INFO),
 	MESES_DA_MEDIA_MOVEL_EM_BRANCO("Meses da media movel em branco.\n"),
 	PERTENCE_A_UM_BLOCO_EM_BRANCO("Pertence a um Bloco de Financiamento em branco\n"),
+	SUBSECRETARIA_NAO_PODE_SER_INATIVADA("A subsecretaria não pode ser inativada pois está vinculada a um ou mais programas.\n"),
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
 	
 	private String mensagem;
