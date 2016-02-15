@@ -2,12 +2,12 @@ package br.com.marph.selenium.subSecretaria;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -48,7 +48,7 @@ public class EditarSubSecretaria {
 				.equalsIgnoreCase("Você está em: Subsecretaria > Visualizar Subsecretaria > Editar Subsecretaria")) {
 			validar();
 		}
-		
+
 		LogOut.logOut(driver);
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
@@ -79,15 +79,11 @@ public class EditarSubSecretaria {
 	}
 
 	private void validar() throws TesteAutomatizadoException {
-
-		try {
-			driver.findElement(By.id("nome")).click();
-			if (driver.findElement(By.xpath("//*[@id='nome_maindiv']/div")).getText()
-					.equalsIgnoreCase("Preenchimento obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.NOME_EM_BRANCO, this.getClass());
-			}
-		} catch (NoSuchElementException e) {
+		if(StringUtils.isBlank(driver.findElement(By.id("nome")).getAttribute("value"))){
+			throw new TesteAutomatizadoException(EnumMensagens.NOME_EM_BRANCO, this.getClass());
+		}else if(StringUtils.isBlank(driver.findElement(By.id("sigla")).getAttribute("value"))){
 			throw new TesteAutomatizadoException(EnumMensagens.SIGLA_EM_BRANCO, this.getClass());
-		}
+		}else throw new TesteAutomatizadoException(EnumMensagens.SUBSECRETARIA_NAO_PODE_SER_INATIVADA, this.getClass());
+		
 	}
 }

@@ -38,8 +38,8 @@ public class CadastrarTipoBaseLegal {
 
 		MenuTipoBaseLegalTemplate.prepararAcessoTipoBaseLegal(driver);
 
-		cadastro();	
-		
+		cadastro();
+
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
@@ -56,28 +56,30 @@ public class CadastrarTipoBaseLegal {
 	public void cadastro() {
 		WebElement cadastrar = driver.findElement(By.id("btnNovoTipoBaseLegal"));
 		cadastrar.click();
-		
+
 		WebElement nome = driver.findElement(By.id("nomeTipoBaseLegal"));
 		nome.sendKeys("Testeiw");
-		
+
 		WebElement transferencia = driver.findElement(By.id("transferenciaRecursosFinanceiros_chosen"));
-		transferencia.click();		
-		WebElement transferenciaSeleciona = driver.findElement(By.xpath("//*[@id='transferenciaRecursosFinanceiros_chosen']/div/div/input"));
+		transferencia.click();
+		WebElement transferenciaSeleciona = driver
+				.findElement(By.xpath("//*[@id='transferenciaRecursosFinanceiros_chosen']/div/div/input"));
 		transferenciaSeleciona.sendKeys("Sim");
 		transferenciaSeleciona.sendKeys(Keys.TAB);
-		
+
 		WebElement prestacao = driver.findElement(By.id("prestacaoMetas_chosen"));
-		prestacao.click();		
+		prestacao.click();
 		WebElement prestacaoSeleciona = driver.findElement(By.xpath("//*[@id='prestacaoMetas_chosen']/div/div/input"));
 		prestacaoSeleciona.sendKeys("Sim");
 		prestacaoSeleciona.sendKeys(Keys.TAB);
-		
+
 		WebElement prestacaoContas = driver.findElement(By.id("prestacaoContas_chosen"));
-		prestacaoContas.click();		
-		WebElement prestacaoContasSeleciona = driver.findElement(By.xpath("//*[@id='prestacaoContas_chosen']/div/div/input"));
+		prestacaoContas.click();
+		WebElement prestacaoContasSeleciona = driver
+				.findElement(By.xpath("//*[@id='prestacaoContas_chosen']/div/div/input"));
 		prestacaoContasSeleciona.sendKeys("Sim");
 		prestacaoContasSeleciona.sendKeys(Keys.TAB);
-		
+
 		WebElement salvar = driver.findElement(By.id("btnSalvar"));
 		salvar.click();
 	}
