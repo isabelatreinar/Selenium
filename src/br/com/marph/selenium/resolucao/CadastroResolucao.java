@@ -27,6 +27,9 @@ public class CadastroResolucao {
 	private Logger log = LogManager.getLogger(LOG_NAME);
 	JavascriptExecutor js;
 	String nomeIndicador = "teste";
+	String baseLegal = "7891";
+	int linhaBaseLegal = 6;
+	
 	
 	@Before
 	public void startBrowser() {
@@ -86,11 +89,11 @@ public class CadastroResolucao {
 		
 		AcessoUtils.idClick(driver, "btnNovaResolucao","programa_chosen");
 		
-		AcessoUtils.xpathChoosenSend(driver, "//*[@id='programa_chosen']/div/div/input", "Dell",Keys.TAB);
+		AcessoUtils.xpathChoosenSend(driver, "//*[@id='programa_chosen']/div/div/input", "Farmácia de Minas",Keys.TAB);
 		
 		// numero resolucao
-		driver.findElement(By.id("baseLegal")).sendKeys("789");
-		driver.findElement(By.xpath("//li[@id='ui-id-6']"))
+		driver.findElement(By.id("baseLegal")).sendKeys(baseLegal);
+		driver.findElement(By.xpath("//li[@id='ui-id-"+linhaBaseLegal+"']"))
 				.click(); /* NUMERO PARA PEGAR UTRA RESOLUÇÃO NA LISTAGEM */
 
 		AcessoUtils.xpathClick(driver, "//*[@id='termosBaseLegal_chosen']","//*[@id='termosBaseLegal_chosen']/div/ul/li[2]");
@@ -117,11 +120,11 @@ public class CadastroResolucao {
 				.sendKeys(arquivo.getAbsolutePath());// Export.xlsx
 
 		// importa
-		driver.findElement(By.id("buttonImportar")).click();
-
-		 Thread.sleep(5000);			
+		driver.findElement(By.id("buttonImportar")).click();		
 		
-		driver.findElement(By.id("btnProximo")).click();
+		 Thread.sleep(10000);			
+		
+		driver.findElement(By.id("btnProximoBottom")).click();
 			
 	}
 
@@ -140,10 +143,10 @@ public class CadastroResolucao {
 
 		// nome
 		driver.findElement(By.id("nome")).sendKeys(nomeIndicador);
-
+ 
 		// INDICADOR
 		driver.findElement(By.xpath("//*[@id='collapseNovo']/div/ul/li[1]/a")).click();
-		driver.findElement(By.xpath("//*[@data-label-field='nomeIndicador']")).sendKeys("teste");
+		driver.findElement(By.xpath("//*[@data-label-field='nomeIndicador']")).sendKeys("tes");
 		driver.findElement(By.id("ui-id-2")).click();
 
 		// ponto
@@ -158,22 +161,22 @@ public class CadastroResolucao {
 		driver.findElement(By.id("btnProximo")).click();
 	}
 
-	protected void periodo() throws TesteAutomatizadoException {
+	protected void periodo() throws TesteAutomatizadoException, InterruptedException {
 
 		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[3]/a")).click();
-
-		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/ul/input")).sendKeys("1");
-
-		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/ul/a")).click();
-
-		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div/div[3]/div[2]/div/div/div/input"))
-				.sendKeys("-19102015");
-
-		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div/div[3]/div[3]/div/div/div/input"))
-				.sendKeys("-22102015");
+		
+		driver.findElement(By.id("numeroPeriodoMonitoramento")).sendKeys("1");
+		
+		driver.findElement(By.id("periodicidade")).sendKeys("1");
+		
+		driver.findElement(By.name("dataInicial")).sendKeys("-19102015");
+		
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[1]/div[4]/a")).click();
+		
+		Thread.sleep(2500);
 
 		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a")).click();
-
+		
 		driver.findElement(By.id("btnProximo")).click();
 	} 
 
@@ -185,15 +188,18 @@ public class CadastroResolucao {
 		driver.findElement(By.xpath("//*[@id='accordion']/div/div[1]/span/input")).sendKeys("Teste");
 
 		// defini numero de parcelas
-		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[2]/input")).sendKeys("1");
-
+		driver.findElement(By.id("numeroParcelas")).sendKeys("1");
+		
+		//Periodicidade(Meses)
+		driver.findElement(By.id("periodicidade")).sendKeys("1");
+		
+		//data inicial
+		driver.findElement(By.xpath("//*[@id='dataInicial_maindiv']/div/input")).sendKeys("-29112018");		
+		
+		Thread.sleep(2000);
+		
 		// clica em atualizar
-		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[2]/a")).click();
-
-		// colocar data
-		driver.findElement(
-				By.xpath("//*[@class='panel-collapse collapse in']/div/div[3]/div[2]/div[2]/div/div/div/input"))
-				.sendKeys("-29112018");
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[2]/div[4]/a")).click();
 
 		// valor padrão
 		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[3]/div[2]/div[3]/input"))
@@ -207,16 +213,16 @@ public class CadastroResolucao {
 		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[3]/div[2]/div[5]/input"))
 				.sendKeys("500");
 		
-		AcessoUtils.xpathClick(driver, "//*[@class='panel-collapse collapse in']/div/ul/li[1]/a","//*[@class='panel-collapse collapse in']"
-				+ "/div/div[1]/div/div[2]/div[2]/div/div[2]/div/div/div[1]/div[1]/div[2]/a",
-				"//*[@class='panel-collapse collapse in']/div/div[1]/div/div[1]/ul/li[1]/a",
-				"//*[@id='accordion']/div/div[1]/ul/li[1]/a");
+		//salva
+		driver.findElement(By.xpath("//*[@id='accordion']/div/div[1]/ul/li[1]/a")).click();
+		
+		Thread.sleep(2000);
 				
 		driver.findElement(By.id("btnProximo")).click();
 	}
 
-	protected void indicadoresXCronograma(){
-		
+	protected void indicadoresXCronograma(){//*[@id="modeloIndicadorVinculo205_chosen"]/a/span
+		//*[@id="heading205"]/ul/li[3]/a
 		AcessoUtils.xpathClick(driver, "//*[@class='panel-heading']/ul/li[3]/a","//*[@class='chosen-container chosen-container-single']/a/div/b");
 		
 		AcessoUtils.xpathChoosenSend(driver, "//*[@class='chosen-container chosen-container-single chosen-with-drop chosen-container-active']/div/div/input", "teste",Keys.TAB);
@@ -240,7 +246,7 @@ public class CadastroResolucao {
 		
 		driver.findElement(By.id("buttonImportar")).click();
 		
-		Thread.sleep(25000);
+		Thread.sleep(10000);
 		
 		driver.findElement(By.id("btnProximoBottom")).click();
 		
@@ -256,7 +262,7 @@ public class CadastroResolucao {
 		
 		driver.findElement(By.id("buttonImportar")).click();
 		
-		Thread.sleep(42000);
+		Thread.sleep(20000);
 		
 		driver.findElement(By.id("btnProximo")).click();
 		
@@ -296,13 +302,19 @@ public class CadastroResolucao {
 		
 		driver.findElement(By.id("buttonImportarPlanilha")).click();
 		
+		driver.findElement(By.id("modeloPagamentoImportarPlanilha_chosen")).click();
+		driver.findElement(By.xpath("//*[@id='modeloPagamentoImportarPlanilha_chosen']/div/div/input")).sendKeys("Tes");
+		driver.findElement(By.xpath("//*[@id='modeloPagamentoImportarPlanilha_chosen']/div/div/input")).sendKeys(Keys.TAB);
+		
 		File arquivo = new File("./data/Geicom/importacaoParcelasExport.xlsx");
 		
 		driver.findElement(By.id("uploadValorParcelas")).sendKeys(arquivo.getAbsolutePath());
 		
 		driver.findElement(By.id("buttonImportar")).click();
 		
-		Thread.sleep(20000);
+		driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[4]/button[1]")).click();
+		
+		Thread.sleep(10000);
 		
 		driver.findElement(By.id("btnFinalizar")).click();
 		
