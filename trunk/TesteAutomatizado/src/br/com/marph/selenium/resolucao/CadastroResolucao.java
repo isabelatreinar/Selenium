@@ -27,8 +27,8 @@ public class CadastroResolucao {
 	private Logger log = LogManager.getLogger(LOG_NAME);
 	JavascriptExecutor js;
 	String nomeIndicador = "teste";
-	String baseLegal = "1015";
-	int linhaBaseLegal = 2;
+	String baseLegal = "1016";
+	
 	
 	
 	@Before
@@ -92,9 +92,9 @@ public class CadastroResolucao {
 		AcessoUtils.xpathChoosenSend(driver, "//*[@id='programa_chosen']/div/div/input", "Farmácia de Minas",Keys.TAB);
 		
 		// numero resolucao
-		driver.findElement(By.id("baseLegal")).sendKeys(baseLegal);
-		driver.findElement(By.xpath("//li[@id='ui-id-"+linhaBaseLegal+"']"))
-				.click(); /* NUMERO PARA PEGAR UTRA RESOLUÇÃO NA LISTAGEM */
+		driver.findElement(By.id("baseLegal_chosen")).click();
+		driver.findElement(By.xpath("//*[@id='baseLegal_chosen']/div/div/input")).sendKeys(baseLegal);
+		driver.findElement(By.xpath("//*[@id='baseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
 		//seleciona base legal
 		driver.findElement(By.xpath("//*[@class='chosen-container chosen-container-multi']")).click();
@@ -128,7 +128,7 @@ public class CadastroResolucao {
 		 Thread.sleep(6000);			
 		
 		//proximo 
-		driver.findElement(By.id("btnProximoBottom")).click();
+		driver.findElement(By.id("btnProximo")).click();
 			
 	}
 
@@ -168,7 +168,7 @@ public class CadastroResolucao {
 		
 		Thread.sleep(500);
 
-		driver.findElement(By.id("btnProximoBottom")).click();
+		driver.findElement(By.id("btnProximo")).click();
 	}
 
 	protected void periodo() throws TesteAutomatizadoException, InterruptedException {
@@ -188,7 +188,7 @@ public class CadastroResolucao {
 		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a")).click();
 		Thread.sleep(1000);
 		
-		driver.findElement(By.id("btnProximoBottom")).click();
+		driver.findElement(By.id("btnProximo")).click();
 	} 
 
 	protected void cronograma() throws TesteAutomatizadoException, InterruptedException {
@@ -230,7 +230,7 @@ public class CadastroResolucao {
 		Thread.sleep(2000);
 		
 		//proximo
-		driver.findElement(By.id("btnProximoBottom")).click();
+		driver.findElement(By.id("btnProximo")).click();
 	}
 
 	protected void indicadoresXCronograma() throws InterruptedException{
@@ -247,10 +247,12 @@ public class CadastroResolucao {
 		
 		Thread.sleep(1000);
 		
-		driver.findElement(By.id("btnProximoBottom")).click();
+		driver.findElement(By.id("btnProximo")).click();
 	}
 	
 	protected void modelosXBeneficiarios() throws InterruptedException{
+		
+		driver.findElement(By.xpath("//*[@id='toast-container']/button")).click();
 		
 		driver.findElement(By.id("buttonImportarPlanilha")).click();
 		
@@ -266,7 +268,7 @@ public class CadastroResolucao {
 		
 		Thread.sleep(8000);
 		
-		driver.findElement(By.id("btnProximoBottom")).click();
+		driver.findElement(By.id("btnProximo")).click();
 		
 	}	
 		
@@ -282,7 +284,7 @@ public class CadastroResolucao {
 		
 		Thread.sleep(20000);
 		
-		driver.findElement(By.id("btnProximoBottom")).click();
+		driver.findElement(By.id("btnProximo")).click();
 		
 		
 /*		XSSFWorkbook workbook = null;		
