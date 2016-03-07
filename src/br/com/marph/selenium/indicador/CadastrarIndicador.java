@@ -41,14 +41,14 @@ public class CadastrarIndicador {
 
 		cadastro();
 
-		if (driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
+		if (driver.findElement(By.xpath("//ol[@class='breadcrumb']")).getText()
 				.equalsIgnoreCase("Você está em: Indicador > Novo Indicador")) {
 			validarCadastro();
 		}
 
 		variavel();
 		
-		if (driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
+		if (driver.findElement(By.xpath("//ol[@class='breadcrumb']")).getText()
 				.equalsIgnoreCase("Você está em: Indicador > Novo Indicador > Nova Variável")) {
 			validarVariavel();
 		}
@@ -109,7 +109,7 @@ public class CadastrarIndicador {
 		driver.findElement(By.id("descricao")).sendKeys("TESTEEE");
 
 		// avançar
-		driver.findElement(By.id("btnSalvar")).click();
+		driver.findElement(By.id("btnSalvar1")).click();
 	}
 	
 	private void validarCadastro() throws TesteAutomatizadoException {
@@ -153,7 +153,7 @@ public class CadastrarIndicador {
 		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a")).click();
 
 		// avança
-		driver.findElement(By.id("btnSalvar")).click();
+		driver.findElement(By.id("btnSalvar1")).click();
 
 	}
 	
@@ -165,16 +165,21 @@ public class CadastrarIndicador {
 		}
 	}
 
-	public void formula() {
+	public void formula() throws InterruptedException {
+		
+		Thread.sleep(2000);
+		
 		// clica para adicionar
 		driver.findElement(By.xpath("//*[@id='heading0']/div[3]/ul/li/a")).click();
 
-		driver.findElement(By.id("formula")).sendKeys("+");
+		/*driver.findElement(By.id("formula")).sendKeys("+");
 
-		driver.findElement(By.xpath("//*[@id='headingBeneficiario0']/div[3]/ul/li/a")).click();
+		driver.findElement(By.xpath("//*[@id='headingBeneficiario0']/div[3]/ul/li/a")).click();*/
 
 		// clica para salvar
-		driver.findElement(By.id("btnSalvar")).click();
+		driver.findElement(By.id("btnSalvar1")).click();
+		
+		driver.findElement(By.xpath("//*[@id='toast-container']/div/button")).click();
 
 	}
 	
