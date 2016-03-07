@@ -60,7 +60,7 @@ public class CadastrarBloco {
 		driver.findElement(By.id("nome")).sendKeys("marph");
 		
 		//insere descrição
-		driver.findElement(By.id("descricao")).sendKeys("marphhhhhhhhhhh");
+		driver.findElement(By.id("descricao")).sendKeys("marhhhhh");
 		
 		//clica em salvar
 		driver.findElement(By.id("btnSalvar")).click();

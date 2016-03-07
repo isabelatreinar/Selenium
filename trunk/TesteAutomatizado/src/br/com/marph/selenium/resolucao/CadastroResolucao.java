@@ -27,8 +27,8 @@ public class CadastroResolucao {
 	private Logger log = LogManager.getLogger(LOG_NAME);
 	JavascriptExecutor js;
 	String nomeIndicador = "teste";
-	String baseLegal = "123";
-	int linhaBaseLegal = 11;
+	String baseLegal = "1015";
+	int linhaBaseLegal = 2;
 	
 	
 	@Before
@@ -96,8 +96,10 @@ public class CadastroResolucao {
 		driver.findElement(By.xpath("//li[@id='ui-id-"+linhaBaseLegal+"']"))
 				.click(); /* NUMERO PARA PEGAR UTRA RESOLUÇÃO NA LISTAGEM */
 
-		AcessoUtils.xpathClick(driver, "//*[@id='termosBaseLegal_chosen']","//*[@id='termosBaseLegal_chosen']/div/ul/li[2]");
-
+		//seleciona base legal
+		driver.findElement(By.xpath("//*[@class='chosen-container chosen-container-multi']")).click();
+		driver.findElement(By.xpath("//*[@id='termosBaseLegal_chosen']/div/ul/li[2]")).click();
+		
 		// tempo
 		driver.findElement(By.id("tempoVigencia")).sendKeys("25");
 
@@ -123,7 +125,7 @@ public class CadastroResolucao {
 		// importa
 		driver.findElement(By.id("buttonImportar")).click();		
 		
-		 Thread.sleep(10000);			
+		 Thread.sleep(6000);			
 		
 		//proximo 
 		driver.findElement(By.id("btnProximoBottom")).click();
@@ -184,6 +186,7 @@ public class CadastroResolucao {
 		Thread.sleep(2500);
 
 		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a")).click();
+		Thread.sleep(1000);
 		
 		driver.findElement(By.id("btnProximoBottom")).click();
 	} 
@@ -230,13 +233,19 @@ public class CadastroResolucao {
 		driver.findElement(By.id("btnProximoBottom")).click();
 	}
 
-	protected void indicadoresXCronograma(){
+	protected void indicadoresXCronograma() throws InterruptedException{
 		
 		AcessoUtils.xpathClick(driver, "//*[@class='panel-heading']/ul/li[3]/a","//*[@class='chosen-container chosen-container-single']/a/div/b");
 		
 		AcessoUtils.xpathChoosenSend(driver, "//*[@class='chosen-container chosen-container-single chosen-with-drop chosen-container-active']/div/div/input", "teste",Keys.TAB);
 		
-		AcessoUtils.xpathClick(driver, "//*[@class='panel-collapse collapse in']/div/div[2]/ul/li/a","//*[@class='panel-heading']/ul/li[1]/a");
+		driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[2]/ul/li/a")).click();
+		
+		Thread.sleep(1000);
+		
+		driver.findElement(By.xpath("//*[@class='panel-heading']/ul/li[1]/a")).click();
+		
+		Thread.sleep(1000);
 		
 		driver.findElement(By.id("btnProximoBottom")).click();
 	}
@@ -255,7 +264,7 @@ public class CadastroResolucao {
 		
 		driver.findElement(By.id("buttonImportar")).click();
 		
-		Thread.sleep(10000);
+		Thread.sleep(8000);
 		
 		driver.findElement(By.id("btnProximoBottom")).click();
 		
@@ -327,6 +336,9 @@ public class CadastroResolucao {
 		
 		driver.findElement(By.id("btnFinalizar")).click();
 		
-		driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[4]/button[1]")).click();		
+		Thread.sleep(500);
+		
+		driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[4]/button[1]")).click();
+		
 	}
 }
