@@ -2,6 +2,7 @@ package br.com.marph.selenium.indicador;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -14,6 +15,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
+import br.com.marph.selenium.utils.LogOut;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class EditarIndicador {
@@ -37,12 +39,17 @@ public class EditarIndicador {
 		long timestart = System.currentTimeMillis();
 
 		MenuIndicadorTemplate.prepararAcessoIndicador(driver);
-		
+
 		PesquisarIndicador.pesquisar(driver);
-		
+
 		VisualizarIndicador.visualizar(driver);
 
 		editar();
+
+		if (driver.findElement(By.xpath("//ol[@class='breadcrumb']")).getText()
+				.equalsIgnoreCase("Você está em: Indicador > Visualizar Indicador > Editar Indicador")) {
+			validar();
+		} else LogOut.logOut(driver);		
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -78,19 +85,19 @@ public class EditarIndicador {
 
 		// media movel
 		driver.findElement(By.id("mesesDaMediaMovel")).clear();
-		driver.findElement(By.id("mesesDaMediaMovel")).sendKeys("4");
+		driver.findElement(By.id("mesesDaMediaMovel")).sendKeys("12");
 
 		// meses de defasagem
 		driver.findElement(By.id("mesesDeDefasagem")).clear();
-		driver.findElement(By.id("mesesDeDefasagem")).sendKeys("0");
+		driver.findElement(By.id("mesesDeDefasagem")).sendKeys("21");
 
 		// nome do indicador
 		driver.findElement(By.id("nomeIndicador")).clear();
-		driver.findElement(By.id("nomeIndicador")).sendKeys("Excluir1");
+		driver.findElement(By.id("nomeIndicador")).sendKeys("Indicador3");
 
 		// nome da fonte
 		driver.findElement(By.id("nomeFonte")).clear();
-		driver.findElement(By.id("nomeFonte")).sendKeys("SIGAF");
+		driver.findElement(By.id("nomeFonte")).sendKeys("marph");
 
 		// programa
 		driver.findElement(By.id("programa_chosen")).click();
@@ -98,11 +105,36 @@ public class EditarIndicador {
 		driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
 		// descrição
-		driver.findElement(By.id("descricao")).clear();
-		driver.findElement(By.id("descricao"))
-				.sendKeys("Este indicador expressa o percentual de itens da relação"
-						+ " de plantas medicinais, fitoterápicos e homeopáticos, "
-						+ "dispensados na unidade do componente verde da Rede Farmácia de Minas. "
-						+ "O Indicador será obtido através do SIGAF");
+		driver.findElement(By.id("descricao")).sendKeys("TESTEEE");
+
+		// avançar
+		driver.findElement(By.id("btnSalvar1")).click();
+	}
+
+	private void validar() throws TesteAutomatizadoException {
+		if (driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/a/span")).getText()
+				.equalsIgnoreCase("Tipo de Indicador")) {
+			throw new TesteAutomatizadoException(EnumMensagens.TIPO_INDICADOR_EM_BRANCO, this.getClass());
+		} else if (driver.findElement(By.xpath("//*[@id='tipoFonte_chosen']/a/span")).getText()
+				.equalsIgnoreCase("Tipo de Fonte")) {
+			throw new TesteAutomatizadoException(EnumMensagens.TIPO_DE_FONTE_EM_BRANCO, this.getClass());
+		} else if (driver.findElement(By.xpath("//*[@id='polaridade_chosen']/a/span")).getText()
+				.equalsIgnoreCase("Polaridade")) {
+			throw new TesteAutomatizadoException(EnumMensagens.POLARIDADE_EM_BRANCO, this.getClass());
+		} else if (StringUtils.isBlank(driver.findElement(By.id("mesesDaMediaMovel")).getAttribute("value"))) {
+			throw new TesteAutomatizadoException(EnumMensagens.MESES_DA_MEDIA_MOVEL_EM_BRANCO, this.getClass());
+		} else if (StringUtils.isBlank(driver.findElement(By.id("mesesDaMediaMovel")).getAttribute("value"))) {
+			throw new TesteAutomatizadoException(EnumMensagens.MESES_DE_DEFASAGEM_EM_BRANCO, this.getClass());
+		} else if (StringUtils.isBlank(driver.findElement(By.id("nomeIndicador")).getAttribute("value"))) {
+			throw new TesteAutomatizadoException(EnumMensagens.NOME_INDICADOR_EM_BRANCO, this.getClass());
+		} else if (StringUtils.isBlank(driver.findElement(By.id("nomeFonte")).getAttribute("value"))) {
+			throw new TesteAutomatizadoException(EnumMensagens.NOME_DA_FONTE_EM_BRANCO, this.getClass());
+		} else if (driver.findElement(By.xpath("//*[@id='programa_chosen']/a/span")).getText()
+				.equalsIgnoreCase("Programa")) {
+			throw new TesteAutomatizadoException(EnumMensagens.PROGRAMA_EM_BRANCO, this.getClass());
+		} else if (StringUtils.isBlank(driver.findElement(By.id("descricao")).getAttribute("value"))) {
+			throw new TesteAutomatizadoException(EnumMensagens.DESCRICAO_EM_BRANCO, this.getClass());
+		} else
+			throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_JA_CADASTRADO, this.getClass());
 	}
 }
