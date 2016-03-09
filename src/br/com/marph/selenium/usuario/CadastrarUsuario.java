@@ -9,15 +9,13 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
-import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class CadastrarUsuarioMozilla {
+public class CadastrarUsuario {
 
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
@@ -46,16 +44,7 @@ public class CadastrarUsuarioMozilla {
 
 		cadastro();
 
-		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
-
-		if (validar == true) {
-			LogUtils.log(EnumMensagens.BASE_LEGAL_VALIDADO, this.getClass());
-		} else {
-			throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_NAO_VALIDADO, this.getClass());
-		}
-
-		// *[@id="modalPerfil_chosen"]/div/div/input
-		// FIM
+		perfil();
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -73,40 +62,48 @@ public class CadastrarUsuarioMozilla {
 		 * sb.append("Entrada no sistema - "); sb.append(tempoGasto);
 		 * sb.append("segundos");
 		 */
-
 	}
 
 	private void cadastro() {
-		WebElement botaoCadastrar = driver.findElement(By.id("btnNovoUsuario"));
-		botaoCadastrar.click();
 
-		//nome
+		driver.findElement(By.id("btnNovoUsuario")).click();
+
+		// nome
 		driver.findElement(By.id("usuarioNome")).sendKeys("Jóse hau");
 
-		//email
+		// email
 		driver.findElement(By.id("usuarioEmail")).sendKeys("hua@gmail.com");
 
-		//cpf
-		driver.findElement(By.id("usuarioCpf")).sendKeys("-78662617760");	//- E NECESSARIO PARA INSERIR O CPF CORRETAMENTE
+		/**
+		 * É NECESSÁRIO O - PARA INSERIR O CPF CORRETAMENTE
+		 * E O MESMO NUNCA DEVE SER CADASTRADO REPETIDO
+		 * POIS SE JÁ EXISTIR NO BANCO,SERÁ RECUSADO.
+		 */
 
-		//cargo
+		// cpf
+		driver.findElement(By.id("usuarioCpf")).sendKeys("-78662617760"); 
+		
+		// cargo
 		driver.findElement(By.id("cargo_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='cargo_chosen']/div/div/input")).sendKeys("Prefeito");
 		driver.findElement(By.xpath("//*[@id='cargo_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
-		//avançar
-		driver.findElement(By.id("btnSalvar")).click();
+		// avançar
+		driver.findElement(By.id("btnSalvar1")).click();
+	}
 
-		//perfil
+	private void perfil() throws InterruptedException {
+		// perfil
 		driver.findElement(By.id("modalPerfil_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='modalPerfil_chosen']/div/div/input")).sendKeys("Gestor do Beneficiário");
 		driver.findElement(By.xpath("//*[@id='modalPerfil_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
-		//extensão
+		// extensão
 		driver.findElement(By.id("modalExtensaoPerfilId")).sendKeys("FUNDO MUNICIPAL DE SAÚDE DE ABAETÉ");
+		Thread.sleep(5000);
 		driver.findElement(By.id("ui-id-2")).click();
-		
-		//salvar
-		driver.findElement(By.id("btnSalvar")).click();
+
+		// salvar
+		driver.findElement(By.id("btnSalvar1")).click();
 	}
 }
