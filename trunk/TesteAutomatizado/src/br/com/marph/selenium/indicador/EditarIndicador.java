@@ -105,6 +105,7 @@ public class EditarIndicador {
 		driver.findElement(By.xpath("//*[@id='programa_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
 		// descrição
+		driver.findElement(By.id("descricao")).clear();
 		driver.findElement(By.id("descricao")).sendKeys("TESTEEE");
 
 		// avançar
