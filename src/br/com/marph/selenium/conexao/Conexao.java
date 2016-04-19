@@ -7,5 +7,5 @@ public class Conexao {
 	
 	public static void 	ip(WebDriver driver){
 		driver.get("http://172.16.10.115:8081");
-		}
+	}
 }
