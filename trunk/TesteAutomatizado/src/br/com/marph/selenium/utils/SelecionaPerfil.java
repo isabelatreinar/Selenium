@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 public class SelecionaPerfil {
 	public static void administrador(WebDriver driver){
-		driver.findElement(By.id("17069")).click();
+		driver.findElement(By.id("18256")).click();
 	}
 	
 		public static void equipeGeicom(WebDriver driver){
