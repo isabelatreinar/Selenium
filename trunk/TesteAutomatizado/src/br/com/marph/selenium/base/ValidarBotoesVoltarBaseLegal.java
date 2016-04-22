@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
@@ -38,10 +39,13 @@ public class ValidarBotoesVoltarBaseLegal {
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
+		// Acessar Sistema
+		AcessoSistema.perfilAdministrador(driver);
+		
 		// Acessar menu
 		MenuBaseLegalTemplate.menuBaseLegal(driver);
 
-		// Validação dos botões SUPERIORES
+		// Validação dos botões
 		// Acessar tela Visualizar Base Legal
 		VisualizarBaseLegal.visualizar(driver);
 
@@ -70,35 +74,7 @@ public class ValidarBotoesVoltarBaseLegal {
 			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
 		}
 
-		// Validação dos botões INFERIORES
-		// Acessar tela Visualizar Base Legal
-		VisualizarBaseLegal.visualizar(driver);
-
-		// Acessar tela de Histórico de Base Legal
-		VisualizarHistoricoBaseLegal.visualizar(driver);
-
-		/**
-		 * Validar botão 'Voltar' Histórico de Base Legal 
-		 * Tela corrente: Histórico de Base Legal 
-		 * Tela futura: Visualizar Base Legal
-		 **/
-		driver.findElement(By.id("btnVoltar")).click();
-		if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar base legal")) {
-			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
-		}
-
-		/**
-		 * Validar botão 'Voltar' Visualizar Base Legal 
-		 * Tela corrente: Visualizar Base Legal 
-		 * Tela futura: Listagem de Base Legal A validação
-		 * vefifica se existe um botão de cadastrar nova base legal, pois esse
-		 * botão só existe na tela de listagem.
-		 **/
-		driver.findElement(By.id("btnVoltar")).click();
-		if (!driver.findElement(By.id("btnNovaBaseLegal")).getText().equalsIgnoreCase("Cadastrar Nova Base Legal")) {
-			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
-		}
-
+		
 		// se as telas estiverem corretas o teste é finalizado com sucesso
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;

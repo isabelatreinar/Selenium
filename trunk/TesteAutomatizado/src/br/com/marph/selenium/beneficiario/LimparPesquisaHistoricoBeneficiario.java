@@ -36,7 +36,7 @@ public class LimparPesquisaHistoricoBeneficiario {
 		long timestart = System.currentTimeMillis();
 
 		// Acessar o menu
-		MenuBeneficiarioTemplate.prepararAcessoBeneficiario(driver);
+		MenuBeneficiarioTemplate.menuBeneficiario(driver);
 
 		// Pesquisar um beneficiário
 		PesquisarBeneficiarioMozilla.pesquisar(driver);

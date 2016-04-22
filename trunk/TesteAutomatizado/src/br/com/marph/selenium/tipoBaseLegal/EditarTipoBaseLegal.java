@@ -122,7 +122,7 @@ public class EditarTipoBaseLegal {
 			if (driver.findElement(By.xpath("//*[@id='nomeTipoBaseLegal_maindiv']/div")).isDisplayed()
 					&& driver.findElement(By.xpath("//*[@id='nomeTipoBaseLegal_maindiv']/div")).getText()
 							.equalsIgnoreCase("Preenchimento obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.NOME_EM_BRANCO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagens.VALIDACAO_NOME, this.getClass());
 			}
 
 			if (driver.findElement(By.xpath("//*[@id='nomeTipoBaseLegal_maindiv']/div")).getText()

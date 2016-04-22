@@ -100,7 +100,7 @@ public class UsuarioExcell {
 			if (StringUtils.isNotBlank(nome)) {
 				driver.findElement(By.id("usuarioNome")).sendKeys(nome);
 			} else
-				LogUtils.log(EnumMensagens.NOME_EM_BRANCO, this.getClass());
+				LogUtils.log(EnumMensagens.VALIDACAO_NOME, this.getClass());
 
 			if (StringUtils.isNotBlank(email)) {
 				driver.findElement(By.id("usuarioEmail")).sendKeys(email);

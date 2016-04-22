@@ -100,7 +100,7 @@ public class EditarTipoBaseLegalExcell {
 				WebElement nomeCampo = driver.findElement(By.id("nome"));
 				nomeCampo.sendKeys(nomePesquisa);
 			} else
-				LogUtils.log(EnumMensagens.NOME_EM_BRANCO, this.getClass());
+				LogUtils.log(EnumMensagens.VALIDACAO_NOME, this.getClass());
 			
 			if (StringUtils.isNotBlank(transferenciaPesquisa)) {
 				WebElement transferenciaCampo = driver.findElement(By.id("transferenciaRecursosFinanceiros_chosen"));
@@ -142,7 +142,7 @@ public class EditarTipoBaseLegalExcell {
 				nomeCampo.clear();
 				nomeCampo.sendKeys(nome);
 			} else
-				LogUtils.log(EnumMensagens.NOME_EM_BRANCO, this.getClass());
+				LogUtils.log(EnumMensagens.VALIDACAO_NOME, this.getClass());
 
 			if (StringUtils.isNotBlank(transferencia)) {
 				WebElement transferenciaCampo = driver.findElement(By.id("transferenciaRecursosFinanceiros_chosen"));

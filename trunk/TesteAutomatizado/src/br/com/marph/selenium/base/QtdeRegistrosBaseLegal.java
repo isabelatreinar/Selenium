@@ -13,6 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
@@ -40,6 +41,9 @@ public class QtdeRegistrosBaseLegal {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
+		
+		// Acessar sistema
+		AcessoSistema.perfilAdministrador(driver);
 
 		// Acessar menu
 		MenuBaseLegalTemplate.menuBaseLegal(driver);

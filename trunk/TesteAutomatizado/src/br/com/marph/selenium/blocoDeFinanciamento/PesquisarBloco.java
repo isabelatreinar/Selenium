@@ -36,7 +36,7 @@ public class PesquisarBloco {
 
 		long timestart = System.currentTimeMillis();
 
-		MenuBlocoTemplate.prepararAcessoBloco(driver);
+		MenuBlocoTemplate.menuBlocoFinanciamento(driver);
 		
 		pesquisar(driver);
 		

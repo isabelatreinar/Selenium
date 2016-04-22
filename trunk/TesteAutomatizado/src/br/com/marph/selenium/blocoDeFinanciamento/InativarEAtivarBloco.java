@@ -35,7 +35,7 @@ public class InativarEAtivarBloco {
 
 		long timestart = System.currentTimeMillis();
 
-		MenuBlocoTemplate.prepararAcessoBloco(driver);
+		MenuBlocoTemplate.menuBlocoFinanciamento(driver);
 		
 		PesquisarBloco.pesquisar(driver);
 		
