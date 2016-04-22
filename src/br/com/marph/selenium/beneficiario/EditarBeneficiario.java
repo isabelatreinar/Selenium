@@ -41,7 +41,7 @@ public class EditarBeneficiario {
 		long timestart = System.currentTimeMillis();
 
 		// Acessar menu
-		MenuBeneficiarioTemplate.prepararAcessoBeneficiario(driver);
+		MenuBeneficiarioTemplate.menuBeneficiario(driver);
 
 		// Pesquisar Beneficiario
 		PesquisarBeneficiarioMozilla.pesquisar(driver);

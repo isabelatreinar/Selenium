@@ -1,5 +1,6 @@
 package br.com.marph.selenium.base;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
@@ -12,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
@@ -36,6 +38,9 @@ public class PesquisarHistoricoBaseLegal {
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
+		//Acessar Sistema
+		AcessoSistema.perfilAdministrador(driver);
+		
 		// Acessa menu Base Legal
 		MenuBaseLegalTemplate.menuBaseLegal(driver);
 
@@ -65,20 +70,43 @@ public class PesquisarHistoricoBaseLegal {
 	}
 
 	public static void pesquisar(WebDriver driver) throws TesteAutomatizadoException {
-		WebElement exibirPesquisa = driver.findElement(By.id("btnExpandirPesquisaAvancada"));
-		exibirPesquisa.click();
 
 		/*
 		 * O sinal de menos é colocado antes da data para a máscara do campo
 		 * seja considerada.
 		 */
 		//data inicial
-		driver.findElement(By.id("dataInicialHistorico")).sendKeys("-14012015");
-		driver.findElement(By.id("dataInicialHistorico")).sendKeys(Keys.TAB);
+		// Abrir o dataPicker 
+		driver.findElement(By.id("filtroDataInicialHistorico")).click();
+		
+		//Passando o dataPicker para uma tabela
+		WebElement datePickerInicial = driver.findElement(By.xpath("/html/body/div[5]/div[1]"));
+		//List<WebElement> rows = datePicker.findElements(By.tagName("tr"));
+		List<WebElement> columnsInicial = datePickerInicial.findElements(By.tagName("td"));
+		System.out.println("Inicial");
+		//Selecionar célula
+		for(WebElement cellInicial : columnsInicial){
+			if(cellInicial.getText().equals("23")){
+				cellInicial.click();
+				break;
+			}
+		}
 
 		//data final
-		driver.findElement(By.id("dataFinalHistorico")).sendKeys("-14012015");
-		driver.findElement(By.id("dataFinalHistorico")).sendKeys(Keys.TAB);
+		// Abrir o dataPicker 
+		driver.findElement(By.id("filtroDataFinalHistorico")).click();
+		System.out.println("Final");
+		//Passando o dataPicker para uma tabela
+		WebElement datePickerFinal = driver.findElement(By.xpath("/html/body/div[5]/div[1]"));
+		//List<WebElement> rows = datePicker.findElements(By.tagName("tr"));
+		List<WebElement> columnsFinal = datePickerFinal.findElements(By.tagName("td"));
+		//Selecionar célula
+		/*for(WebElement cellFinal : columnsFinal){
+			if(cellFinal.getText().equals("23")){
+				cellFinal.click();
+				break;
+			}
+		}
 
 		//campo Alterado
 		driver.findElement(By.xpath("//div[@id='camposBaseLegal_chosen']/ul/li/input")).click();
@@ -92,7 +120,7 @@ public class PesquisarHistoricoBaseLegal {
 		 * mensagem e não possui usuário -> erro na exibição
 		 */
 		// verifica se possui a mensagem "Resultado não encontrado"
-		if (!driver.findElement(By.xpath("/html/body/div[2]/div[5]/div[2]")).getText()
+	/*	if (!driver.findElement(By.xpath("/html/body/div[2]/div[5]/div[2]")).getText()
 				.contains("Resultado não encontrado.")) {
 			System.out.println(driver.findElements(By.cssSelector(".chosen-results li")).size());
 			// verifica se possui usuários, se não possui a mensagem nem
@@ -109,7 +137,7 @@ public class PesquisarHistoricoBaseLegal {
 			modificadoPor.sendKeys(Keys.ENTER);
 		}
 
-		driver.findElement(By.id("btnPesquisar")).click();
+		driver.findElement(By.id("btnPesquisar")).click();*/
 	}
 
 }

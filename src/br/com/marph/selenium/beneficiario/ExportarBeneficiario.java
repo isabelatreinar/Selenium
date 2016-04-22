@@ -35,7 +35,7 @@ public class ExportarBeneficiario {
 
 		long timestart = System.currentTimeMillis();
 
-		MenuBeneficiarioTemplate.prepararAcessoBeneficiario(driver);
+		MenuBeneficiarioTemplate.menuBeneficiario(driver);
 
 		exportar();
 

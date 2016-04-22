@@ -38,7 +38,7 @@ public class BeneficiarioPesquisar {
 	public void teste() throws Exception {
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
-		MenuBeneficiarioTemplate.prepararAcessoBeneficiario(driver);
+		MenuBeneficiarioTemplate.menuBeneficiario(driver);
 
 		pesquisa();
 		

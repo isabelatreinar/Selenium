@@ -11,6 +11,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
@@ -33,10 +34,11 @@ public class VisualizarBloco {
 	public void realizaBusca() throws InterruptedException, TesteAutomatizadoException {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
-
 		long timestart = System.currentTimeMillis();
+		
+		AcessoSistema.perfilAdministrador(driver);
 
-		MenuBlocoTemplate.prepararAcessoBloco(driver);
+		MenuBlocoTemplate.menuBlocoFinanciamento(driver);
 		
 		PesquisarBloco.pesquisar(driver);
 		
@@ -57,7 +59,9 @@ public class VisualizarBloco {
 	
 	public static void visualizar (WebDriver driver) throws TesteAutomatizadoException {
 		try {
-			driver.findElement(By.xpath("//td[@class='sorting_1']")).click();
+			driver.findElement(By.xpath("//*[@id='rowId7']/td[1]")).click();
+		//	driver.findElement(By.id("btnAcaoLinha-0")).click();
+		//	driver.findElement(By.id("btnAcaoItem-0-0")).click();
 		} catch (NoSuchElementException e) {
 			throw new TesteAutomatizadoException(EnumMensagens.BLOCO_NAO_ENCONTRADO,VisualizarBloco.class);
 		}

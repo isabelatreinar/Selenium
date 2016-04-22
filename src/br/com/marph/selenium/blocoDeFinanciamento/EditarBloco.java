@@ -12,6 +12,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
@@ -36,8 +37,10 @@ public class EditarBloco {
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
+		
+		AcessoSistema.perfilAdministrador(driver);
 
-		MenuBlocoTemplate.prepararAcessoBloco(driver);
+		MenuBlocoTemplate.menuBlocoFinanciamento(driver);
 
 		PesquisarBloco.pesquisar(driver);
 
@@ -86,7 +89,7 @@ public class EditarBloco {
 				throw new TesteAutomatizadoException(EnumMensagens.BLOCO_JA_CADASTRADO, this.getClass());
 			} else if (driver.findElement(By.xpath("//*[@id='nome_maindiv']/div")).getText()
 					.equalsIgnoreCase("Preenchimento obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.NOME_EM_BRANCO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagens.VALIDACAO_NOME, this.getClass());
 			}
 		} catch (NoSuchElementException e) {
 

@@ -4,7 +4,7 @@ public enum EnumMensagens {
 	CPF_INVALIDO("CPF inválido - Obrigatório\n"),
 	CPF_JA_CADASTRADO("CPF já cadastrado\n"),
 	CNPJ_INVALIDO("CNPJ inválido\n"),
-	NOME_EM_BRANCO("Nome em branco - Obrigatório\n"),
+	VALIDACAO_NOME("Validação no campo nome faltando - Obrigatório.\n"),
 	CPF_EM_BRANCO("CPF em branco - Obrigatório\n"),
 	CARGO_EM_BRANCO("Cargo em branco - Obrigatório\n"),
 	PERFIL_EM_BRANCO("Perfil em branco - Obrigatório\n"),

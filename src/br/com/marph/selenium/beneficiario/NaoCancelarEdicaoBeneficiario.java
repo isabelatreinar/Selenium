@@ -39,7 +39,7 @@ public class NaoCancelarEdicaoBeneficiario {
 		long timestart = System.currentTimeMillis();
 
 		// Acessa menu
-		MenuBeneficiarioTemplate.prepararAcessoBeneficiario(driver);
+		MenuBeneficiarioTemplate.menuBeneficiario(driver);
 
 		// Pesquisa um beneficiário na base de dados
 		PesquisarBeneficiarioMozilla.pesquisar(driver);

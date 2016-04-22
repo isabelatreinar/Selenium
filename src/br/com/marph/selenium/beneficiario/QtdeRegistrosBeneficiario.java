@@ -42,7 +42,7 @@ public class QtdeRegistrosBeneficiario {
 		long timestart = System.currentTimeMillis();
 
 		// Acessar menu
-		MenuBeneficiarioTemplate.prepararAcessoBeneficiario(driver);
+		MenuBeneficiarioTemplate.menuBeneficiario(driver);
 
 		/**
 		 * validar quantidade selecionada --> 10

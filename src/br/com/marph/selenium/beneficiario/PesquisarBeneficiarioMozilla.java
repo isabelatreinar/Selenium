@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.utils.LogUtils;
@@ -34,8 +35,11 @@ public class PesquisarBeneficiarioMozilla {
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();		
 		
+		//Acessar Sistema
+		AcessoSistema.perfilAdministrador(driver);
+		
 		// Acessar menu
-		MenuBeneficiarioTemplate.prepararAcessoBeneficiario(driver);
+		MenuBeneficiarioTemplate.menuBeneficiario(driver);
 		
 		//Pesquisar Beneficiario
 		pesquisar(driver);
@@ -52,6 +56,8 @@ public class PesquisarBeneficiarioMozilla {
 		} else {
 			log.info(sb.toString() + "\n");
 		}
+		
+		driver.quit();
 	}
 	
 	public static void pesquisar(WebDriver driver){		
@@ -64,14 +70,13 @@ public class PesquisarBeneficiarioMozilla {
 		WebElement unidadeRegional = driver.findElement(By.xpath("//*[@id='unidadeRegional_chosen']/div/div/input"));
 		unidadeRegional.sendKeys("Belo Horizonte");
 		unidadeRegional.sendKeys(Keys.TAB);
-		
+
 		// Abrir pesquisa avançada
-		WebElement pesquisaAvancada = driver.findElement(By.id("btnPesquisaAvancada"));
-		pesquisaAvancada.click();
-		
+		driver.findElement(By.id("btnPesquisaAvancada")).click();
+
 		//Preenche CNPJ - O sinal '-' é necessário para pegar a máscara do campo
-		WebElement cnpj = driver.findElement(By.id("buscaCnpj"));
-		cnpj.sendKeys("-13064113000100");
+		driver.findElement(By.id("buscaCnpj")).sendKeys("-13064113000100");
+	
 		
 		// Seleciona tipo de beneficiário
 		driver.findElement(By.id("buscaTipoBeneficiario_chosen")).click();
