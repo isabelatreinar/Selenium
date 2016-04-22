@@ -5,18 +5,7 @@ import org.openqa.selenium.WebDriver;
 
 public class MenuAssinauraTemplate {
 	
-	public static void prepararAcessoBaseLegal(WebDriver driver) {
-		
-	
-	driver.findElement(By.id("closeModalHome")).click();
-	
-	driver.findElement(By.id("btnEntradaSistemaID")).click();
-	
-	driver.findElement(By.id("btnAcessar")).click();
-	
-	driver.findElement(By.id("confirmarDados")).click();
-	
-	driver.findElement(By.id("acessarSistema")).click();			
+	public static void menuAssinaturaTermoAditivo(WebDriver driver) {		
 	
 	driver.findElement(By.xpath("//td[@onmouseup='cmItemMouseUp (this,0)']")).click(); 
 	

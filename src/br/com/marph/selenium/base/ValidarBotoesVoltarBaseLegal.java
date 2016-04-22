@@ -39,7 +39,7 @@ public class ValidarBotoesVoltarBaseLegal {
 		long timestart = System.currentTimeMillis();
 
 		// Acessar menu
-		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
+		MenuBaseLegalTemplate.menuBaseLegal(driver);
 
 		// Validação dos botões SUPERIORES
 		// Acessar tela Visualizar Base Legal

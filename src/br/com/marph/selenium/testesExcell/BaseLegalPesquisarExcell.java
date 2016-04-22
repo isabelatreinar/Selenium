@@ -42,7 +42,7 @@ public class BaseLegalPesquisarExcell {
 	public void teste() throws Exception {
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
-		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
+		MenuBaseLegalTemplate.menuBaseLegal(driver);
 
 		pesquisaEdicao();
 		

@@ -35,7 +35,7 @@ public class VisualizarHistoricoBaseLegal {
 		long timestart = System.currentTimeMillis();
 
 		// Acessar menu
-		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
+		MenuBaseLegalTemplate.menuBaseLegal(driver);
 
 		// Preencher os filtros de pesquisa
 		PesquisarBaseLegal.pesquisar(driver);

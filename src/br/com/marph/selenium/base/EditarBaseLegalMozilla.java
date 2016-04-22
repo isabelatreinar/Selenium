@@ -1,6 +1,6 @@
 package br.com.marph.selenium.base;
 
-import java.io.File;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
@@ -11,8 +11,10 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
@@ -38,7 +40,9 @@ public class EditarBaseLegalMozilla {
 
 		long timestart = System.currentTimeMillis();
 
-		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
+		AcessoSistema.perfilAdministrador(driver);
+		
+		MenuBaseLegalTemplate.menuBaseLegal(driver);
 
 		PesquisarBaseLegal.pesquisar(driver);
 
@@ -71,29 +75,37 @@ public class EditarBaseLegalMozilla {
 
 		// tipoBase
 		driver.findElement(By.id("tipoBaseLegal_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys("Deliberação");
+		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys("Resolução");
 		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
 		// numero
 		driver.findElement(By.id("numero")).clear();
-		driver.findElement(By.id("numero")).sendKeys("789789");
+		driver.findElement(By.id("numero")).sendKeys("159");
 
 		// data
-		driver.findElement(By.id("dataPublicacao")).clear();
-		driver.findElement(By.id("dataPublicacao")).sendKeys("-12022016");
-
-		File arquivo = new File("./data/TESTEEE.pdf");
-
-		// pdf
-		driver.findElement(By.id("textoPublicado")).sendKeys(arquivo.getAbsolutePath());
+		// Abrir o dataPicker 
+		driver.findElement(By.id("dataPublicacao")).click();
+		
+		//Passando o dataPicker para uma tabela
+		WebElement datePicker = driver.findElement(By.xpath("/html/body/div[5]/div[1]"));
+		//List<WebElement> rows = datePicker.findElements(By.tagName("tr"));
+		List<WebElement> columns = datePicker.findElements(By.tagName("td"));
+		for(WebElement cell : columns){
+			if(cell.getText().equals("24")){
+				cell.click();
+				break;
+			}
+		}		
 
 		// ano vigencia
 		driver.findElement(By.id("dataVigencia_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys("2017");
+		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys("2014");
 		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys(Keys.TAB);
-
+		
+		//driver.findElement(By.id("textoPublicado_inputFileType")).sendKeys("./data/TESTEEE.pdf");
+		
 		// salvar
-		driver.findElement(By.id("btnSalvar")).click();
+		driver.findElement(By.id("btnSalvar1")).click();
 		// FIM CADASTRO
 	}
 
@@ -105,9 +117,7 @@ public class EditarBaseLegalMozilla {
 			throw new TesteAutomatizadoException(EnumMensagens.NUMERO_EM_BRANCO, this.getClass());
 		} else if (StringUtils.isBlank(driver.findElement(By.id("dataPublicacao")).getAttribute("value"))) {
 			throw new TesteAutomatizadoException(EnumMensagens.DATA_EM_BRANCO, this.getClass());
-		} else if (StringUtils.isBlank(driver.findElement(By.id("textoPublicado")).getAttribute("value"))) {
-			throw new TesteAutomatizadoException(EnumMensagens.PDF_EM_BRANCO, this.getClass());
-		}
+		} 
 		if (driver.findElement(By.id("dataVigencia_chosen")).getText().equalsIgnoreCase("Ano do início da vigência")) {
 			throw new TesteAutomatizadoException(EnumMensagens.DATA_VIGENCIA_EM_BRANCO, this.getClass());
 		} else
