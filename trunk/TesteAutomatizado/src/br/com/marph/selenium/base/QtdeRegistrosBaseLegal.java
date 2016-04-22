@@ -42,7 +42,7 @@ public class QtdeRegistrosBaseLegal {
 		long timestart = System.currentTimeMillis();
 
 		// Acessar menu
-		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
+		MenuBaseLegalTemplate.menuBaseLegal(driver);
 
 		/**
 		 * validar quantidade selecionada --> 10

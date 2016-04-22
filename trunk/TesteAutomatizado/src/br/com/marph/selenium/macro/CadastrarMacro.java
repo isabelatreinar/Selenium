@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
@@ -21,12 +21,11 @@ public class CadastrarMacro {
 	
 	@Before
 	public void startBrowser() {
-		System.setProperty("webdriver.ie.driver", "C:\\IEDriverServer.exe");
-		driver = new InternetExplorerDriver();
-		Conexao.ip(driver);
+		driver = new FirefoxDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		AcessoSistema.acesso(driver);
+		Conexao.ip(driver);
+		AcessoSistema.perfilAdministrador(driver);
 	}
 	
 	@Test

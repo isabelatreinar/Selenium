@@ -1,4 +1,7 @@
 package br.com.marph.selenium.utils;
+
+//Não está sendo utilizado 
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 

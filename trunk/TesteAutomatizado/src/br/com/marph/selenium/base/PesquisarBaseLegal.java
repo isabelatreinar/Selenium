@@ -1,7 +1,6 @@
 package br.com.marph.selenium.base;
 
 import java.util.concurrent.TimeUnit;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -11,6 +10,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.utils.LogUtils;
@@ -36,7 +36,9 @@ public class PesquisarBaseLegal {
 
 		long timestart = System.currentTimeMillis();
 
-		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
+		AcessoSistema.perfilAdministrador(driver);
+		
+		MenuBaseLegalTemplate.menuBaseLegal(driver);
 
 		pesquisar(driver);
 
@@ -57,19 +59,31 @@ public class PesquisarBaseLegal {
 	public static void pesquisar(WebDriver driver) {
 		//tipo
 		driver.findElement(By.id("tipoBaseLegal_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys("Deliberação");
+		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys("Resolução");
 		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);
 		
 		//numero
-		driver.findElement(By.id("numero")).sendKeys("789789");
+		driver.findElement(By.id("numero")).sendKeys("159");
 
-		//data
-		driver.findElement(By.id("dataPublicacao")).sendKeys("-12022016");		
+		/*Pesquisar com data
+		// Abrir o dataPicker 
+		driver.findElement(By.id("dataPublicacao")).click();
+		
+		//Passando o dataPicker para uma tabela
+		WebElement datePicker = driver.findElement(By.xpath("/html/body/div[5]/div[1]"));
+		//List<WebElement> rows = datePicker.findElements(By.tagName("tr"));
+		List<WebElement> columns = datePicker.findElements(By.tagName("td"));
+		for(WebElement cell : columns){
+			if(cell.getText().equals("23")){
+				cell.click();
+				break;
+			}
+		}		
 
-		//anoVigencia
+		//Pesquisar com anoVigencia
 		driver.findElement(By.id("dataVigencia_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys("2017");
-		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys(Keys.TAB);
+		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys(Keys.TAB); */
 		
 		//salvar
 		driver.findElement(By.id("btnPesquisar")).click();

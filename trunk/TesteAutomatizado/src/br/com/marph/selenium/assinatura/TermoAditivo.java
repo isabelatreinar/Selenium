@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.utils.LogUtils;
@@ -33,12 +34,15 @@ public class TermoAditivo {
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());		
 		long timestart = System.currentTimeMillis();		
 		
-		MenuAssinauraTemplate.prepararAcessoBaseLegal(driver);
-		
+		AcessoSistema.perfilAdministrador(driver);
+		MenuAssinauraTemplate.menuAssinaturaTermoAditivo(driver);
 		
 		Thread.sleep(10000);           
 	
 		// Seleciona programa
+		
+		// Problema com o applet de assinatura
+		
 		driver.findElement(By.id("programaFiltro_chosen")).click();		
 		driver.findElement(By.xpath("//li[@data-option-array-index='2']")).click();
 		

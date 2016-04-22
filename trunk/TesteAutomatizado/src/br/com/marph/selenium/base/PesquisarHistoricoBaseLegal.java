@@ -37,7 +37,7 @@ public class PesquisarHistoricoBaseLegal {
 		long timestart = System.currentTimeMillis();
 
 		// Acessa menu Base Legal
-		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
+		MenuBaseLegalTemplate.menuBaseLegal(driver);
 
 		// Realiza pesquisa de uma base
 		PesquisarBaseLegal.pesquisar(driver);

@@ -45,7 +45,7 @@ public class BaseLegalExcell {
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
-		MenuBaseLegalTemplate.prepararAcessoBaseLegal(driver);
+		MenuBaseLegalTemplate.menuBaseLegal(driver);
 
 		WebElement botaoCadastrar = driver.findElement(By.id("btnNovaBaseLegal"));
 		botaoCadastrar.click();
