@@ -14,6 +14,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.testeExclusao.VisualizarHistoricoTipoBaseLegal;
+import br.com.marph.selenium.testeExclusao.VisualizarTipoBaseLegal;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class PesquisarHistoricoTipoBaseLegal {

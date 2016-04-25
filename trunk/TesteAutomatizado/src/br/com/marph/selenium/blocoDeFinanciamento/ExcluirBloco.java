@@ -14,6 +14,7 @@ import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
+import br.com.marph.selenium.testeExclusao.VisualizarBloco;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class ExcluirBloco {

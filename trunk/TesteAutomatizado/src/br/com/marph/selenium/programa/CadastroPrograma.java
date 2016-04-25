@@ -86,7 +86,7 @@ public class CadastroPrograma {
 
 		driver.findElement(By.id("descricao")).sendKeys("TESTE TESTE TESTE ");
 
-		driver.findElement(By.id("btnSalvar")).click();
+		driver.findElement(By.id("btnSalvar1")).click();
 	}
 
 	private void validar() throws TesteAutomatizadoException {
