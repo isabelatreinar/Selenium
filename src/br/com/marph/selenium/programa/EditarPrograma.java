@@ -15,6 +15,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
+import br.com.marph.selenium.testeExclusao.VisualizarPrograma;
 import br.com.marph.selenium.utils.LogOut;
 import br.com.marph.selenium.utils.LogUtils;
 
