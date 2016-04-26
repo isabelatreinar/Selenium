@@ -81,7 +81,7 @@ public class EditarSubSecretaria {
 
 	private void validar() throws TesteAutomatizadoException {
 		if(StringUtils.isBlank(driver.findElement(By.id("nome")).getAttribute("value"))){
-			throw new TesteAutomatizadoException(EnumMensagens.VALIDACAO_NOME, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagens.NOME_VALIDACAO, this.getClass());
 		}else if(StringUtils.isBlank(driver.findElement(By.id("sigla")).getAttribute("value"))){
 			throw new TesteAutomatizadoException(EnumMensagens.SIGLA_EM_BRANCO, this.getClass());
 		}else throw new TesteAutomatizadoException(EnumMensagens.SUBSECRETARIA_NAO_PODE_SER_INATIVADA, this.getClass());

@@ -1,4 +1,4 @@
-package br.com.marph.selenium.base;
+package br.com.marph.selenium.testeExclusao;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -13,12 +13,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.marph.selenium.base.MenuBaseLegalTemplate;
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
-import br.com.marph.selenium.testeExclusao.VisualizarBaseLegal;
-import br.com.marph.selenium.testeExclusao.VisualizarHistoricoBaseLegal;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class PesquisarHistoricoBaseLegal {

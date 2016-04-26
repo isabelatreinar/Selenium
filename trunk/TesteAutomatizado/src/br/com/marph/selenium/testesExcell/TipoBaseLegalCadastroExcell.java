@@ -95,7 +95,7 @@ public class TipoBaseLegalCadastroExcell {
 				WebElement nomeCampo = driver.findElement(By.id("nomeTipoBaseLegal"));
 				nomeCampo.sendKeys(nome);
 			} else
-				LogUtils.log(EnumMensagens.VALIDACAO_NOME, this.getClass());
+				LogUtils.log(EnumMensagens.NOME_VALIDACAO, this.getClass());
 
 			if (StringUtils.isNotBlank(transferencia)) {
 				WebElement transferenciaCampo = driver.findElement(By.id("transferenciaRecursosFinanceiros_chosen"));

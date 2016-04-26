@@ -109,7 +109,7 @@ public class CadastrarBeneficiario {
 			tipo.click();
 			if (driver.findElement(By.xpath("//*[@id='modalNovoTipo_maindiv']/div")).getText()
 					.equalsIgnoreCase("Obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.TIPO_EM_BRANCO, getClass());
+				throw new TesteAutomatizadoException(EnumMensagens.TIPO_VALIDACAO, getClass());
 			}
 		} else {
 			// Botão salvar superior

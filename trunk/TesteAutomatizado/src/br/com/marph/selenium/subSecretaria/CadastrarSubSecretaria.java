@@ -79,7 +79,7 @@ public class CadastrarSubSecretaria {
 			driver.findElement(By.id("nome")).click();
 			if (driver.findElement(By.xpath("//*[@id='nome_maindiv']/div")).getText()
 					.equalsIgnoreCase("Preenchimento obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.VALIDACAO_NOME, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagens.NOME_VALIDACAO, this.getClass());
 			} else if (driver.findElement(By.xpath("//*[@id='nome_maindiv']/div")).getText()
 					.equalsIgnoreCase("Subsecretaria já cadastrada.")) {
 				throw new TesteAutomatizadoException(EnumMensagens.SUBSECRETARIA_JA_CADASTRADA, this.getClass());

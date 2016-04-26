@@ -95,7 +95,7 @@ public class CadastrarBlocoComValidacao {
 		try {
 			//Valida se existe validação de preenchimento obrigatório no campo
 			if(!driver.findElement(By.xpath("//*[@id='nome_maindiv']/div")).getText().equalsIgnoreCase("Preenchimento obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.VALIDACAO_NOME, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagens.NOME_VALIDACAO, this.getClass());
 			}
 			
 		} catch (NoSuchElementException e) {

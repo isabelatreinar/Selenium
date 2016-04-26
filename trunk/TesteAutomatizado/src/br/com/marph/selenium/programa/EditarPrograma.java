@@ -88,7 +88,7 @@ public class EditarPrograma {
 
 	private void validar() throws TesteAutomatizadoException {
 		if(StringUtils.isBlank(driver.findElement(By.id("nome")).getAttribute("value"))){
-			throw new TesteAutomatizadoException(EnumMensagens.VALIDACAO_NOME, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagens.NOME_VALIDACAO, this.getClass());
 		} else if(driver.findElement(By.id("subsecretaria_chosen")).getText()
 				.equalsIgnoreCase("Subsecretaria")){
 			throw new TesteAutomatizadoException(EnumMensagens.SUBSECRETARIA_EM_BRANCO, this.getClass());
