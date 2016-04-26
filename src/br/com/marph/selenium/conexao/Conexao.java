@@ -6,6 +6,6 @@ public class Conexao {
 	private Conexao(){}
 	
 	public static void 	ip(WebDriver driver){
-		driver.get("http://172.16.10.115:8081");
+		driver.get("http://172.16.10.115:8080");
 	}
 }

@@ -109,7 +109,7 @@ public class CadastrarTipoBaseLegalComValidacao {
 			if (driver.findElement(By.xpath("//*[@id='nomeTipoBaseLegal_maindiv']/div")).isDisplayed()
 					&& driver.findElement(By.xpath("//*[@id='nomeTipoBaseLegal_maindiv']/div")).getText()
 							.equalsIgnoreCase("Preenchimento obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.VALIDACAO_NOME, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagens.NOME_VALIDACAO, this.getClass());
 			}
 
 			if (driver.findElement(By.xpath("//*[@id='nomeTipoBaseLegal_maindiv']/div")).getText()

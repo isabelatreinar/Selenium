@@ -2,7 +2,6 @@ package br.com.marph.selenium.base;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -19,6 +18,7 @@ import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class CadastrarBaseLegal {
+	
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -34,21 +34,25 @@ public class CadastrarBaseLegal {
 		
 
 	@Test
-	public void realizaCadastro() throws Exception {
+	public void testeCadastro() throws Exception {
+		
+		/** 
+		 * Teste do caminho feliz do Cadastro de Base Legal
+		 */
 
+		// Recolhendo informações do log
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
+		// Acessando o sistema/menu
 		AcessoSistema.perfilAdministrador(driver);
 		MenuBaseLegalTemplate.menuBaseLegal(driver);
 
+		// Realizando o cadastro
 		cadastro();
 
-		if (driver.findElement(By.xpath("//ol[@class='breadcrumb']")).getText()
-				.equalsIgnoreCase("Você está em: Base Legal > Nova Base Legal")) {
-			validar();
-		}
-
+		
+		// Recolhendo informações do teste
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
 
@@ -64,20 +68,20 @@ public class CadastrarBaseLegal {
 	}
 
 	private void cadastro() throws TesteAutomatizadoException {
-		// CADASTRO
 
-		// btn novo
+		// Botão Nova Base Legal
 		driver.findElement(By.id("btnNovaBaseLegal")).click();
 
-		// tipoBase
+		// Preenchimento do formulário
+		// Tipo de Base Legal
 		driver.findElement(By.id("tipoBaseLegal_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys("Deliberação");
 		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);
 
-		// numero
-		driver.findElement(By.id("numero")).sendKeys("69916621");
+		// Número
+		driver.findElement(By.id("numero")).sendKeys("567");
 		
-		//Data da publicação
+		//Data da Publicação
 		// Abrir o dataPicker 
 		driver.findElement(By.id("dataPublicacao")).click();
 		
@@ -85,14 +89,14 @@ public class CadastrarBaseLegal {
 		WebElement datePicker = driver.findElement(By.xpath("/html/body/div[5]/div[1]"));
 		//List<WebElement> rows = datePicker.findElements(By.tagName("tr"));
 		List<WebElement> columns = datePicker.findElements(By.tagName("td"));
-		for(WebElement cell : columns){
+		for(WebElement cell : columns){ 
 			if(cell.getText().equals("23")){
 				cell.click();
 				break;
 			}
 		}
 
-		// ano vigencia
+		// Ano vigência
 		driver.findElement(By.id("dataVigencia_chosen")).click();
 		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys("2016");
 		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys(Keys.TAB);
@@ -105,24 +109,10 @@ public class CadastrarBaseLegal {
 		// Não tem como anexar arquivo, pois não há como interagir com a janela do windows
 		
 
-		// salvar
+		// Salvar
 		driver.findElement(By.id("btnSalvar")).click();
-		// FIM CADASTRO
 	}
 
-	private void validar() throws TesteAutomatizadoException {
-
-		if (driver.findElement(By.id("tipoBaseLegal_chosen")).getText().equalsIgnoreCase("Tipo")) {
-			throw new TesteAutomatizadoException(EnumMensagens.TIPO_EM_BRANCO, this.getClass());
-		} else if (StringUtils.isBlank(driver.findElement(By.id("numero")).getAttribute("value"))) {
-			throw new TesteAutomatizadoException(EnumMensagens.NUMERO_EM_BRANCO, this.getClass());
-		} else if (StringUtils.isBlank(driver.findElement(By.id("dataPublicacao")).getAttribute("value"))) {
-			throw new TesteAutomatizadoException(EnumMensagens.DATA_EM_BRANCO, this.getClass());
-		} 
-		if (driver.findElement(By.id("dataVigencia_chosen")).getText().equalsIgnoreCase("Ano do início da vigência")) {
-			throw new TesteAutomatizadoException(EnumMensagens.DATA_VIGENCIA_EM_BRANCO, this.getClass());
-		} else
-			throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_JA_CADASTRADA, this.getClass());
-	}
+	
 
 }

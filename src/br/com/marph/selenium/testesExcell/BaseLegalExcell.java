@@ -78,7 +78,7 @@ public class BaseLegalExcell {
 			driver.findElement(By.id("numero")).click();
 			if ("Existe tipo de base legal cadastrado com esse número"
 					.equalsIgnoreCase(driver.findElement(By.xpath("//*[@id='numero_maindiv']/div")).getText())) {
-				throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_JA_CADASTRADA, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_VALIDACAO, this.getClass());
 			} else {
 				throw new TesteAutomatizadoException(EnumMensagens.PDF_MAIOR, this.getClass());
 			}
@@ -110,12 +110,12 @@ public class BaseLegalExcell {
 			driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(tipo);
 			driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);
 		} else
-			throw new TesteAutomatizadoException(EnumMensagens.TIPO_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagens.TIPO_VALIDACAO, this.getClass());
 
 		if (StringUtils.isNotBlank(numero)) {
 			driver.findElement(By.id("numero")).sendKeys(numero);
 		} else
-			throw new TesteAutomatizadoException(EnumMensagens.NUMERO_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagens.NUMERO_VALIDACAO, this.getClass());
 
 		if (StringUtils.isNotBlank(data)) {
 			driver.findElement(By.id("dataPublicacao")).sendKeys(data);
