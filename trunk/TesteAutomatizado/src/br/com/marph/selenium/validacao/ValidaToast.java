@@ -14,7 +14,7 @@ public class ValidaToast {
 		if (validar == true) {
 			LogUtils.log(EnumMensagens.BASE_LEGAL_VALIDADO, ValidaToast.class);
 		} else {
-			throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_NAO_VALIDADO, ValidaToast.class);
+			throw new TesteAutomatizadoException(null, Thread.currentThread().getStackTrace()[1].getMethodName());
 		}
 	}
 }

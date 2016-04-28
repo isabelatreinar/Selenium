@@ -1,4 +1,4 @@
-package br.com.marph.selenium.beneficiario;
+package br.com.marph.selenium.testeExclusao;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.marph.selenium.beneficiario.MenuBeneficiarioTemplate;
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;

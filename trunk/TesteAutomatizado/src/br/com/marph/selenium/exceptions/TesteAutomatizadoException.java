@@ -16,17 +16,17 @@ public class TesteAutomatizadoException extends Exception {
 	 * @param clazz
 	 *            Classe de onde o erro esta sendo gerado
 	 */
-	public TesteAutomatizadoException(EnumMensagens erro, String metodo) {
+	public TesteAutomatizadoException(EnumMensagens erro, Class<?> clazz) {
 		super(erro.getMensagem());
-		LogUtils.log(erro, metodo);
+		LogUtils.log(erro, clazz);
 	}
 	
-	public TesteAutomatizadoException(List<String> mensagens, String metodo) {
+	public TesteAutomatizadoException(List<String> mensagens, Class<?> clazz) {
 		StringBuilder sb = new StringBuilder();
 		for (String string : mensagens) {
 			sb.append(string).append("\n");
 		}
-		LogUtils.logError(sb.toString(), metodo);
+		LogUtils.logError(sb.toString(), clazz);
 	}
 
 }

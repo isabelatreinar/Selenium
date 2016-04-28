@@ -3,8 +3,10 @@ package br.com.marph.selenium.base;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -15,6 +17,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumValidacao;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -24,14 +27,18 @@ public class CadastrarBaseLegalValidacoes {
 	private Logger log = LogManager.getLogger(LOG_NAME);
 	private List<String> erros;
 
-	
 	@Before
-	public void startBrowser(){
+	public void startDriver(){
 		driver = new FirefoxDriver();
-		Conexao.ip(driver);  
+		Conexao.ip(driver);
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
-		}
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	}
+	
+	@After
+	public void driverClose(){
+		driver.quit();
+	}
 		
 	@Test
 	public void testeCadastroValidacoes() throws Exception {
@@ -98,12 +105,12 @@ public class CadastrarBaseLegalValidacoes {
 		//------------------- Validação dos campos habilitados--------------------
 		
 		// Valida obrigatoriedade do campo "Tipo"
-		if(driver.findElement(By.id("tipoBaseLegal_chosen")).getAttribute("class").equals("chosen-container chosen-container-single chosen-container-active"))
-			erros.add(EnumMensagens.TIPO_VALIDACAO.getMensagem());
+		if(driver.findElement(By.id("tipoBaseLegal_chosen")).getAttribute("class").equals(EnumValidacao.MARCACAO_ERRO.getHtml()))
+			erros.add(EnumMensagens.CAMPO_OBRIGATORIO.getMensagem() + " Tipo ");
 						
 		// Valida obrigatoriedade da data da publicação
-		if(driver.findElement(By.id("dataPublicacao")).getAttribute("class").equals("chosen-container chosen-container-single chosen-container-active"))
-			erros.add(EnumMensagens.DATA_PUBLICACAO_VALIDACAO.getMensagem());
+		if(driver.findElement(By.id("dataPublicacao")).getAttribute("class").equals(EnumValidacao.MARCACAO_ERRO.getHtml()))
+			erros.add(EnumMensagens.CAMPO_OBRIGATORIO.getMensagem() + " Data da Publicação");
 		
 		//-------------------Habilitar o restante dos campos para validação--------------------
 		
@@ -132,16 +139,19 @@ public class CadastrarBaseLegalValidacoes {
 		//---------------------Validação dos campos que estavam desabilitados-----------------------------
 		
 		// Valida obrigatoriedade do número da base legal
-		if(driver.findElement(By.id("numero")).getAttribute("class").equals("chosen-container chosen-container-single chosen-container-active"))
-			erros.add(EnumMensagens.NUMERO_VALIDACAO.getMensagem());
+		if(driver.findElement(By.id("numero")).getAttribute("class").equals(EnumValidacao.MARCACAO_ERRO.getHtml()))
+			erros.add(EnumMensagens.CAMPO_OBRIGATORIO.getMensagem() + " Número");
 		
 		// Valida obrigatoriedade da data da vigência
-		if (driver.findElement(By.id("dataVigencia_chosen")).getAttribute("class").equals("chosen-container chosen-container-single chosen-container-active"))
-			erros.add(EnumMensagens.DATA_VIGENCIA_VALIDACAO.getMensagem());
+		if (driver.findElement(By.id("dataVigencia_chosen")).getAttribute("class").equals(EnumValidacao.MARCACAO_ERRO.getHtml()))
+			erros.add(EnumMensagens.CAMPO_OBRIGATORIO.getMensagem() + "Data do início da vigênica");
 		
 		// Verifica se existem mensagens de erro
 		if(erros.size() != 0){
-			throw new TesteAutomatizadoException(erros, Thread.currentThread().getStackTrace()[1].getMethodName());
+			throw new TesteAutomatizadoException(erros, getClass());
 		}
 	}
+	
+
+	
 }

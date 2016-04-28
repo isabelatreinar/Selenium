@@ -13,8 +13,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.beneficiario.MenuBeneficiarioTemplate;
-import br.com.marph.selenium.beneficiario.PesquisarBeneficiarioMozilla;
-import br.com.marph.selenium.beneficiario.PesquisarHistoricoBeneficiario;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
