@@ -1,21 +1,18 @@
 package br.com.marph.selenium.base;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.openqa.selenium.JavascriptExecutor;
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
@@ -23,6 +20,17 @@ import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class EditarBaseLegal {
+	/** 
+	 * Teste de edição de Base Legal (Caminho Feliz)
+	 * Neste teste são realizados em conjunto o teste de pesquisa de base legal
+	 * 
+	 * Dados de Teste
+	 * Tipo de Base Legal: Resolução
+	 * Numero: 1678
+	 * Data da Publicacao: 10/10/2015
+	 * Ano do inicio da vigencia: 2015
+	 */
+	
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -30,24 +38,26 @@ public class EditarBaseLegal {
 	
 
 	@Before
-	public void startBrowser() {
+	public void startDriver(){
 		driver = new FirefoxDriver();
 		Conexao.ip(driver);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
+	
+	@After
+	public void driverClose(){
+		driver.quit();
+	}
 
 	@Test
-	public void realizaCadastro() throws Exception {
-
-		/** 
-		 * Teste de edição de Base Legal (Caminho Feliz)
-		 * Neste teste são realizados em conjunto o teste de pesquisa de base legal
-		 */
+	public void testeEditarBaseLegal() throws Exception {
 		
 		// Recolhe informações de log
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
+		
+		erros = new ArrayList<>();
 
 		// Acesso ao sistema com perfil "Administrador"
 		AcessoSistema.perfilAdministrador(driver);
@@ -55,12 +65,22 @@ public class EditarBaseLegal {
 		// Acesso ao menu
 		MenuBaseLegalTemplate.menuBaseLegal(driver);
 
+		// Pesquisar Base Legal
 		pesquisarBaseLegal(driver, "Resolução", "159");
 
-		// Editar formulário
-		testeEdicao();
+		// Editar formulario
+		CadastrarBaseLegal.cadastro(driver, erros, "Resolução", "1678", "10-10-2015", "2015");
+		
+		// Salvar edição
+		CadastrarBaseLegal.salvarCadastro(driver);
 
-		verificaValidacoes();
+		// Verifica os resultados dos testes
+		CadastrarBaseLegal.verificaValidacao(driver, erros, "Resolução", "1678", "10/10/2015", "2015");
+		
+		// Verifica se existem erros
+		if(erros.size() != 0){
+			throw new TesteAutomatizadoException(erros, getClass());
+		}
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -85,19 +105,9 @@ public class EditarBaseLegal {
 		driver.findElement(By.id("numero")).sendKeys(numero);
 
 		/*Pesquisar com data
-		// Abrir o dataPicker 
-		driver.findElement(By.id("dataPublicacao")).click();
-		
-		//Passando o dataPicker para uma tabela
-		WebElement datePicker = driver.findElement(By.xpath("/html/body/div[5]/div[1]"));
-		//List<WebElement> rows = datePicker.findElements(By.tagName("tr"));
-		List<WebElement> columns = datePicker.findElements(By.tagName("td"));
-		for(WebElement cell : columns){
-			if(cell.getText().equals("23")){
-				cell.click();
-				break;
-			}
-		}		
+		// Altera a data da publicação via java script 
+		String script = "$('.input-group.date').datepicker('update', '" + data +"');";
+		((JavascriptExecutor)driver).executeScript(script);
 
 		//Pesquisar com anoVigencia
 		driver.findElement(By.id("dataVigencia_chosen")).click();
@@ -112,73 +122,6 @@ public class EditarBaseLegal {
 		
 		// Acessa a tela do registro pesquisado
 		driver.findElement(By.className("sorting_1")).click();
-	}
-	
-	private void testeEdicao() throws TesteAutomatizadoException {
-		// Acesso formulário
-		driver.findElement(By.id("btnEditar1")).click();
-
-		// Alteração do campo "Tipo de Base Legal"
-		driver.findElement(By.id("tipoBaseLegal_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys("Resolução");
-		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);
-
-		// Alteração do campo "Número"
-		driver.findElement(By.id("numero")).clear();
-		driver.findElement(By.id("numero")).sendKeys("159");
-
-		// Alteração da "Data da publicação"
-		// Abrir o dataPicker 
-		driver.findElement(By.id("dataPublicacao")).click();
-		
-		//Passando o dataPicker para uma tabela
-		WebElement datePicker = driver.findElement(By.xpath("/html/body/div[5]/div[1]"));
-		//List<WebElement> rows = datePicker.findElements(By.tagName("tr"));
-		List<WebElement> columns = datePicker.findElements(By.tagName("td"));
-		for(WebElement cell : columns){
-			if(cell.getText().equals("24")){
-				cell.click();
-				break;
-			}
-		}		
-
-		// Alteração do "Ano do início da vigência"
-		driver.findElement(By.id("dataVigencia_chosen")).click();
-		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys("2014");
-		driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys(Keys.TAB);
-		
-		//driver.findElement(By.id("textoPublicado_inputFileType")).sendKeys("./data/TESTEEE.pdf");
-		
-		// Salvar
-		driver.findElement(By.id("btnSalvar1")).click();
-	}
-
-	private void verificaValidacoes() throws TesteAutomatizadoException {
-		// Valida breadCrumb
-		if (!driver.findElement(By.xpath("//ol[@class='breadcrumb']")).getText()
-				.equalsIgnoreCase("Você está em: Base Legal > Visualizar Base Legal > Editar Base Legal")) {
-			 erros.add(EnumMensagens.BREADCRUMB_INCORRETO.getMensagem());
-		}
-		
-		// Valida obrigatoriedade do tipo de base legal
-		if (driver.findElement(By.id("tipoBaseLegal_chosen")).getText().equalsIgnoreCase("Tipo")) {
-			erros.add(EnumMensagens.TIPO_VALIDACAO.getMensagem());
-		}
-		
-		// Valida obrigatoriedade do número da base legal
-		if (StringUtils.isBlank(driver.findElement(By.id("numero")).getAttribute("value"))) {
-			erros.add(EnumMensagens.NUMERO_VALIDACAO.getMensagem());
-		}
-		
-		// Valida obrigatoriedade da data da publicação
-		if (StringUtils.isBlank(driver.findElement(By.id("dataPublicacao")).getAttribute("value"))) {
-			erros.add(EnumMensagens.DATA_PUBLICACAO_VALIDACAO.getMensagem());
-		} 
-		
-		// Valida obrigatoriedade da data da vigência
-		if (driver.findElement(By.id("dataVigencia_chosen")).getText().equalsIgnoreCase("Ano do início da vigência")) {
-			erros.add(EnumMensagens.DATA_VIGENCIA_VALIDACAO.getMensagem());
-		}
 	}
 }
 

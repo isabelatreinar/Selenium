@@ -1,10 +1,20 @@
 package br.com.marph.selenium.enums;
 
 public enum EnumMensagens {
+	INICIO("INICIO DA ROTINA", TipoMensagem.INFO),
+	CAMPO_OBRIGATORIO("Validação de campo obrigatório faltando - Campo "),
+	ANO_VIGENCIA_DESABILITADO("Campo 'Ano do inicio da vigencia' desabilitado, com o campo 'Data da publicação' preenchido"),
+	BREADCRUMB_INCORRETO("Breadcrumb incorreto.\n"),
+	REGISTRO_DUPLICADO("Falta validação de registro já cadastrado - CRUD \n"),
+	CONFIRMACAO_DESABILITADA("Não exibe popup de confirmação.\n"),
+	TOAST_DESABILITADO("Toast desabilitado.\n"),
+	ERRO_SALVAR("Erro ao salvar o campo "),
+	VALIDACAO_INCORRETA("A validação/mensagem realizada no campo está incorreta."),
+	
+	
 	CPF_INVALIDO("CPF inválido - Obrigatório\n"),
 	CPF_JA_CADASTRADO("CPF já cadastrado\n"),
 	CNPJ_INVALIDO("CNPJ inválido\n"),
-	NOME_VALIDACAO("Validação no campo 'NOME' faltando - Obrigatório.\n"),
 	CPF_EM_BRANCO("CPF em branco - Obrigatório\n"),
 	CARGO_EM_BRANCO("Cargo em branco - Obrigatório\n"),
 	PERFIL_EM_BRANCO("Perfil em branco - Obrigatório\n"),
@@ -21,17 +31,13 @@ public enum EnumMensagens {
 	TIPO_VALIDACAO("Validação no campo 'TIPO' faltando - Obrigatório"),
 	NUMERO_VALIDACAO("Validação no campo 'NÚMERO' faltando - Obrigatório\n"),
 	DELIBERACAO_CADASTRADO("Existe uma Deliberação cadastrada com este número.\n"),
-	DATA_PUBLICACAO_VALIDACAO("Validação no campo 'DATA DA PUBLICAÇÃO' faltando - Obrigatório\n"),
-	DATA_VIGENCIA_VALIDACAO("Validação no campo 'DATA DA VIGÊNCIA' faltando - Obrigatório\n"),
 	PDF_EM_BRANCO("Campo PDF em branco - Obrigatório\n"),
 	PDF_MAIOR("PDF maior que 5mb.\n"),
 	QUANTIDADE_EXCEDIDA("Quantidade de registros excedida.\n"),
 	ANO_EM_BRANCO("Ano em branco! - Obrigatório\n"),
 	DATA_EM_BRANCO("Data em branco! - Obrigatório\n"),
-	BREADCRUMB_INCORRETO("Breadcrumb incorreto.\n"),
 	BASE_LEGAL_INCORRETA("Base legal incorreta !"),
 	ERRO_HISTORICO("Erro na pesquisa do histórico.\n"),
-	TOAST_DESABILITADO("Toast desabilitado.\n"),
 	MENSAGEM_INCORRETA("Mensagem incorreta.\n"),
 	USUARIO_ERRADO("Nome do usuario não corresponde com o clicado\n"),
 	USUARIO_ERRADO_PERFIL("Nome do usuario não corresponde com o clicado em perfil\n"),
@@ -44,8 +50,6 @@ public enum EnumMensagens {
 	PRESTACAO_DE_CONTAS_EM_BRANCO("Prestação de contas está vazia.\n"),
 	TIPO_BASE_LEGAL_VALIDADO("**Tipo base legal validado**\n",TipoMensagem.VALIDACAO),
 	TIPO_BASE_LEGAL_NAO_VALIDO("**Tipo base não legal validada**\n",TipoMensagem.VALIDACAO),
-	CONFIRMACAO_DESABILITADA("Não exibe popup de confirmação.\n"),
-	BASE_LEGAL_VALIDACAO("Falta validação de base legal já cadastrada.\n"),
 	TIPO_DE_BASE_LEGAL_JA_CADASTRADA("Tipo de base legal já cadastrado.\n"),
 	PROGRAMA_EM_BRANCO("Programa em branco.\n"),
 	RESOLUCAO_JA_CADASTRADA("Ja existe uma resolução cadastrada com esse número\n"),
@@ -88,8 +92,7 @@ public enum EnumMensagens {
 	INDICADOR_FIM("Não é necessário inserir informações nesta aba.\n FINALIZADO",TipoMensagem.INFO),
 	MESES_DA_MEDIA_MOVEL_EM_BRANCO("Meses da media movel em branco.\n"),
 	PERTENCE_A_UM_BLOCO_EM_BRANCO("Pertence a um Bloco de Financiamento em branco\n"),
-	SUBSECRETARIA_NAO_PODE_SER_INATIVADA("A subsecretaria não pode ser inativada pois está vinculada a um ou mais programas.\n"),
-	INICIO("INICIO DA ROTINA", TipoMensagem.INFO);
+	SUBSECRETARIA_NAO_PODE_SER_INATIVADA("A subsecretaria não pode ser inativada pois está vinculada a um ou mais programas.\n");
 	
 	private String mensagem;
 	private TipoMensagem tipoMensagem;

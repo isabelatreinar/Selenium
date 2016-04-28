@@ -6,26 +6,42 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumValidacao;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
+import org.openqa.selenium.JavascriptExecutor;
 
-public class CadastrarBeneficiario {
+public class CadastrarBeneficiarioValidacoes {
 	/**
-	 * Teste de Cadastro de Beneficiário (Caminho Feliz)
-	 * Pre-condicao: O beneficiario deve ser cadastrado no CAGEC
+	 * Teste das validações sobre o campo Cnpj no cadastro de Beneficiário
+	 * Validações Realizadas:
+	 * CNPJ Duplicado ou já utilizado
+	 * Pré-condicao: Existir beneficiário com o Cnpj cadastrado
 	 * Dados de Teste
 	 * CNPJ: 17217985003472
-	 * Beneficiario: Hospital das Clinicas da Universidade Federal de Minas Gerais
 	 * 
+	 * CNPJ Não Cadastrado no Cagec
+	 * Pre-Condição: O beneficiário não pode estar cadastrado na base de dados do Cagec
+	 * Dados de Teste
+	 * CNPJ: 18862807000107
+	 * 
+	 * CNPJ Inválido
+	 * Dados de Teste
+	 * CNPJ: 18862807003456
+	 * 
+	 *  CNPJ e Tipo de beneficiário em branco
 	 */
+	
+	
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -45,7 +61,7 @@ public class CadastrarBeneficiario {
 	}
 
 	@Test
-	public void testeCadastroBeneficiario() throws TesteAutomatizadoException {
+	public void testeCadastroBeneficiarioValidacoes() throws TesteAutomatizadoException {
 
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
@@ -58,17 +74,17 @@ public class CadastrarBeneficiario {
 		
 		erros = new ArrayList<>();
 		
-		//Acessar tela de Cadastro
+		
+		// Realiza teste de Cnpj duplicado
 		driver.findElement(By.id("btnNovoBeneficiario")).click();
-
-		// Realizar cadastro de novo beneficiário (preencher formulario)
-		cadastro(driver, "17217985003472", "Entidade");
+		CadastrarBeneficiario.cadastro(driver, "17217985003472", "");
+		validacaoCnpjDuplicado();
 		
-		// Salvar Cadastro
-		salvarCadastro();
 		
-		// Verifica as validações
-		verificaValidacao(driver, "17.217.985/0034-72", "Entidade");
+		// Realiza teste Cnpj não cadastrado no Cagec
+		driver.findElement(By.id("btnNovoBeneficiario")).click();
+		CadastrarBeneficiario.cadastro(driver, "18862807000107", "");
+		validacaoCnpjForaCagec();
 		
 		// Verifica se existem erros
 		if(erros.size() != 0){
@@ -87,41 +103,27 @@ public class CadastrarBeneficiario {
 			log.info(sb.toString() + "\n");
 		}
 	}
+	
 
-	public static void cadastro(WebDriver driver, String cnpj, String tipo) {
+	private void validacaoCnpjDuplicado() {
+		String script = "$('#modalNovoCnpj').focus();";
+		((JavascriptExecutor)driver).executeScript(script);
 		
-		// Preenche campo "CNPJ"
-		driver.findElement(By.id("modalNovoCnpj")).clear();
-		driver.findElement(By.id("modalNovoCnpj")).sendKeys(cnpj);
-
-		// Seleciona campo "Tipo" da entidade 
-		if(!tipo.isEmpty()){
-			driver.findElement(By.id("modalNovoTipo_chosen")).click();
-			driver.findElement(By.xpath("//*[@id='modalNovoTipo_chosen']/div/div/input")).sendKeys(tipo);
-			driver.findElement(By.xpath("//*[@id='modalNovoTipo_chosen']/div/div/input")).sendKeys(Keys.TAB);
+		if(driver.findElement(By.id("modalNovoCnpj")).getAttribute("class").equals(EnumValidacao.MARCACAO_ERRO.getHtml())){
+			erros.add(EnumMensagens.REGISTRO_DUPLICADO.getMensagem() + " Beneficiario - CNPJ já utilizado");
+		}
+		
+		// Verifica primeiramente se o elemento Html está visível, pois existe tooltip somente se o campo tiver marcado em vermelho
+		if(driver.findElement(By.xpath("//*[contains(concat(' ', @class, ' '), ' tooltip-error ')]")).isDisplayed()){
+			if(!driver.findElement(By.xpath("//*[contains(concat(' ', @class, ' '), ' tooltip-error ')]/div[2]")).getText().equals("CNPJ já utilizado."))
+				erros.add(EnumMensagens.VALIDACAO_INCORRETA.getMensagem());
 		}
 	}
 	
-	public void verificaValidacao(WebDriver driver, String cnpj, String tipo){
-		// Valida exibicao do toast apos salvar registro
+	private void validacaoCnpjForaCagec() {
+		// Valida exibicao do toast apos inserir Cnpj
 		if(!driver.findElement(By.id("toast-container")).isDisplayed()){
 			erros.add(EnumMensagens.TOAST_DESABILITADO.getMensagem());
 		}
-		
-		// Valida dado exibido no campo "Numero"
-		if (!driver.findElement(By.id("modalVisualizarCnpj")).getText().equalsIgnoreCase(cnpj)) {
-			erros.add(EnumMensagens.ERRO_SALVAR.getMensagem() + "'CNPJ'");
-		}
-		
-		// Valida dado exibido no campo "Tipo"
-		if (!driver.findElement(By.id("modalVisualizarTipo")).getText().equalsIgnoreCase(tipo)) {
-			erros.add(EnumMensagens.ERRO_SALVAR.getMensagem() + "'Tipo'");
-		}
 	}
-	
-	public void salvarCadastro(){
-		// Clica no botão "Salvar"
-		driver.findElement(By.id("btnAvancar1")).click();
-	}
-	
 }

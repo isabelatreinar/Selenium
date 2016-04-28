@@ -78,7 +78,7 @@ public class BaseLegalExcell {
 			driver.findElement(By.id("numero")).click();
 			if ("Existe tipo de base legal cadastrado com esse número"
 					.equalsIgnoreCase(driver.findElement(By.xpath("//*[@id='numero_maindiv']/div")).getText())) {
-				throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_VALIDACAO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagens.REGISTRO_DUPLICADO, this.getClass());
 			} else {
 				throw new TesteAutomatizadoException(EnumMensagens.PDF_MAIOR, this.getClass());
 			}

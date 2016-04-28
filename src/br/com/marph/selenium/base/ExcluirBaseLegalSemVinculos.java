@@ -6,12 +6,14 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
@@ -19,31 +21,34 @@ import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class ExcluirBaseLegalSemVinculos {
+	/** 
+	 * Teste de Exclusão da Base Legal sem vinculos
+	 * Pré-Condição do Teste: Ter executado o script de teste de cadastro de base legal
+	 * Dados de Teste
+	 * Tipo de Base: Deliberação
+	 * Número: 567
+	 */
+	
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
 	private List<String> erros = new ArrayList<>();
 
-	
 	@Before
-	public void startBrowser(){
+	public void startDriver(){
 		driver = new FirefoxDriver();
-		Conexao.ip(driver);  
+		Conexao.ip(driver);
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
-		}
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	}
+	
+	@After
+	public void driverClose(){
+		driver.quit();
+	}
 		
 	@Test
 	public void testeExclusao() throws Exception {
-		
-		/** 
-		 * Teste de Exclusão da Base Legal
-		 * Pré-Condição do Teste: Ter executado o script de teste de cadastro de base legal
-		 * Dados de Teste
-		 * Tipo de Base: Deliberação
-		 * Número: 567
-		 */
-
 		// Recolhe informações do log
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
@@ -107,6 +112,7 @@ public class ExcluirBaseLegalSemVinculos {
 		
 		//Thread.currentThread().getStackTrace()[1].getMethodName() -> Retorna o nome do Método em Execução
 		if(erros.size() != 0)
-			throw new TesteAutomatizadoException(erros, Thread.currentThread().getStackTrace()[1].getMethodName());
+			throw new TesteAutomatizadoException(erros, getClass());
 	}
+	
 }
