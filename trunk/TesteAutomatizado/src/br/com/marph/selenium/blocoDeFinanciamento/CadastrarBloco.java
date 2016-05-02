@@ -1,5 +1,7 @@
 package br.com.marph.selenium.blocoDeFinanciamento;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
@@ -17,9 +19,17 @@ import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class CadastrarBloco {
+	/**
+	 * Teste de Cadastro de Bloco de Financiamento (Caminho Feliz)
+	 * Dados de Teste:
+	 * Nome: Bloco teste
+	 * Descrição: Este bloco de financiamento foi cadastrado no teste automatizado.
+	 */
+	
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
+	private List<String> erros;
 	
 	@Before
 	public void startBrowser() {
@@ -30,17 +40,32 @@ public class CadastrarBloco {
 	}
 	
 	@Test
-	public void realizaBusca() throws InterruptedException, TesteAutomatizadoException {
+	public void testeCadastroBloco() throws InterruptedException, TesteAutomatizadoException {
 
+		// Recolhe informacoes de log
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
-
 		long timestart = System.currentTimeMillis();
 		
+		// Acessa o sistema
 		AcessoSistema.perfilAdministrador(driver);
 
+		// Acessa o menu
 		MenuBlocoTemplate.menuBlocoFinanciamento(driver);
 		
-		cadastrar();		
+		// Inicializa list
+		erros = new ArrayList<>();
+		
+		// Acessa tela de cadastro
+		driver.findElement(By.id("btnNovoBlocoFinanciamento")).click();
+		
+		// Insere as informações no formulário
+		cadastroBlocoFinanciamento(driver, "Bloco teste", "Este bloco de financiamento foi cadastrado no teste automatizado.");
+		
+		// Armazena as informacoes
+		salvarCadastro();
+		
+		// Realiza as validações do cadastro
+		verificaValidacoes(driver, "Bloco teste", "Este bloco de financiamento foi cadastrado no teste automatizado.");
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -55,17 +80,21 @@ public class CadastrarBloco {
 		}
 	}
 
-	private void cadastrar() {
-		//acessa pagina para cadastrar
-		driver.findElement(By.id("btnNovoBlocoFinanciamento")).click();
+	public static void cadastroBlocoFinanciamento(WebDriver driver, String nome, String descricao) {
+		// Preenche o campo "Nome"
+		driver.findElement(By.id("nome")).sendKeys(nome);
 		
-		//insere o nome
-		driver.findElement(By.id("nome")).sendKeys("marph");
-		
-		//insere descrição
-		driver.findElement(By.id("descricao")).sendKeys("marhhhhh");
-		
-		//clica em salvar
-		driver.findElement(By.id("btnSalvar1")).click();
+		//Preenche o campo "Descrição"
+		driver.findElement(By.id("descricao")).sendKeys(descricao);
 	}	
+	
+	private void salvarCadastro(){
+		// Armazena registro
+		driver.findElement(By.id("btnSalvar1")).click();
+	}
+	
+	private void verificaValidacoes(WebDriver driver, String nome, String descricao){
+		
+	}
+	
 }

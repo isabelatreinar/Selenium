@@ -1,7 +1,11 @@
 package br.com.marph.selenium.enums;
 
 public enum EnumValidacao {
-	MARCACAO_ERRO("chosen-container chosen-container-single chosen-container-active");
+	/**
+	 * Quando os campos estão marcados com erro o atributo class da div "main" do campo recebe a classe "has-error"
+	 */
+	MARCACAO_ERRO("has-error");
+	
 	
 	private String html;
 

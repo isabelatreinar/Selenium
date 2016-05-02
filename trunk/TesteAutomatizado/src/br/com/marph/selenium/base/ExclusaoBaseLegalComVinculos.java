@@ -99,7 +99,8 @@ public class ExclusaoBaseLegalComVinculos {
 		WebElement divExterna = driver.findElement(By.className("jconfirm-box"));
 		
 		// Verifica mensagem de alerta
-		if(!divExterna.findElement(By.className("content")).getText().equals("A base legal não pode ser excluída pois está vinculada a uma ou mais resoluções.")){
+		if(!divExterna.findElement(By.className("content")).getText().equals(
+				"A base legal não pode ser excluída pois está vinculada a uma ou mais resoluções.")){
 			erros.add(EnumMensagens.MENSAGEM_INCORRETA.getMensagem());
 		}
 		

@@ -47,6 +47,7 @@ public class CadastrarBeneficiario {
 	@Test
 	public void testeCadastroBeneficiario() throws TesteAutomatizadoException {
 
+		// Recolhendo informações de log
 		LogUtils.log(EnumMensagens.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 		
@@ -56,6 +57,7 @@ public class CadastrarBeneficiario {
 		// Acessar menu
 		MenuBeneficiarioTemplate.menuBeneficiario(driver);
 		
+		// Inicializa list de mensagens
 		erros = new ArrayList<>();
 		
 		//Acessar tela de Cadastro
