@@ -130,6 +130,7 @@ public class EditarBeneficiarioCF {
 		WebElement btnPesquisar = driver.findElement(By.id("btnPesquisar"));
 		btnPesquisar.click();
 		
+		// Aguarda por 20 segundos o elemento "sorting_1" ser exibido.
 		WebDriverWait wait = new WebDriverWait(driver, 20);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("sorting_1")));
 		

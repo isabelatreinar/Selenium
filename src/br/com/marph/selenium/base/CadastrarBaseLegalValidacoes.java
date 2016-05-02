@@ -20,6 +20,7 @@ import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.enums.EnumValidacao;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
+import br.marph.selenium.validacaoUtils.Validacoes;
 
 public class CadastrarBaseLegalValidacoes {
 	private final String LOG_NAME = System.getProperty("user.name");
@@ -63,7 +64,7 @@ public class CadastrarBaseLegalValidacoes {
 		// Clica no botão "Salvar"
 		driver.findElement(By.id("btnSalvar1")).click();
 		
-		// Inicializa ArrayList com as mensagens
+		// Inicializa ArrayList de as mensagens
 		erros = new ArrayList<>();
 		
 		// Verifica as validações dos campos obrigatórios da tela
@@ -84,14 +85,7 @@ public class CadastrarBaseLegalValidacoes {
 	}
 	
 	public void verificaValidacoes() throws TesteAutomatizadoException, InterruptedException{
-		/**
-		 * Verifica se o campo está marcado em vermelho. Se não estiver marcado em vermelho, significa que o campo está
-		 * sem validação.
-		 * Quando o campo fica em branco o sistema possui o seguinte HTML class = "chosen-container chosen-container-single chosen-container-active"
-		 * Quando está em vermelho o sistema remove o HTML "chosen-container-active"
-		 * Logo, o teste da validação é realizado verificando se o valor do atributo class do campo é igual a classe acima.
-		 */
-		
+	
 		// Valida toast de erro
 		if(!driver.findElement(By.id("toast-container")).isDisplayed())
 			erros.add(EnumMensagens.TOAST_DESABILITADO.getMensagem());
@@ -105,11 +99,11 @@ public class CadastrarBaseLegalValidacoes {
 		//------------------- Validação dos campos habilitados--------------------
 		
 		// Valida obrigatoriedade do campo "Tipo"
-		if(driver.findElement(By.id("tipoBaseLegal_chosen")).getAttribute("class").equals(EnumValidacao.MARCACAO_ERRO.getHtml()))
+		if(Validacoes.verificaMarcacaoErroId(driver, "tipoBaseLegal_maindiv") == false)
 			erros.add(EnumMensagens.CAMPO_OBRIGATORIO.getMensagem() + " Tipo ");
 						
 		// Valida obrigatoriedade da data da publicação
-		if(driver.findElement(By.id("dataPublicacao")).getAttribute("class").equals(EnumValidacao.MARCACAO_ERRO.getHtml()))
+		if(Validacoes.verificaMarcacaoErroxPath(driver, "//*[@id='tipoBaseLegal_maindiv'/div") == false)
 			erros.add(EnumMensagens.CAMPO_OBRIGATORIO.getMensagem() + " Data da Publicação");
 		
 		//-------------------Habilitar o restante dos campos para validação--------------------
@@ -139,11 +133,11 @@ public class CadastrarBaseLegalValidacoes {
 		//---------------------Validação dos campos que estavam desabilitados-----------------------------
 		
 		// Valida obrigatoriedade do número da base legal
-		if(driver.findElement(By.id("numero")).getAttribute("class").equals(EnumValidacao.MARCACAO_ERRO.getHtml()))
+		if(Validacoes.verificaMarcacaoErroId(driver, "numero_maindiv") == false)
 			erros.add(EnumMensagens.CAMPO_OBRIGATORIO.getMensagem() + " Número");
 		
 		// Valida obrigatoriedade da data da vigência
-		if (driver.findElement(By.id("dataVigencia_chosen")).getAttribute("class").equals(EnumValidacao.MARCACAO_ERRO.getHtml()))
+		if (Validacoes.verificaMarcacaoErroId(driver, "dataVigencia_maindiv") == false)
 			erros.add(EnumMensagens.CAMPO_OBRIGATORIO.getMensagem() + "Data do início da vigênica");
 		
 		// Verifica se existem mensagens de erro

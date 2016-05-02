@@ -15,10 +15,12 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagens;
-import br.com.marph.selenium.enums.EnumValidacao;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
+import br.com.marph.selenium.javaScriptUtils.JavaScript;
 import br.com.marph.selenium.utils.LogUtils;
-import org.openqa.selenium.JavascriptExecutor;
+import br.com.marph.selenium.utils.WaitUtils;
+import br.marph.selenium.validacaoUtils.Validacoes;
+import org.openqa.selenium.Keys;
 
 public class CadastrarBeneficiarioValidacoes {
 	/**
@@ -37,8 +39,6 @@ public class CadastrarBeneficiarioValidacoes {
 	 * CNPJ Inválido
 	 * Dados de Teste
 	 * CNPJ: 18862807003456
-	 * 
-	 *  CNPJ e Tipo de beneficiário em branco
 	 */
 	
 	
@@ -74,18 +74,29 @@ public class CadastrarBeneficiarioValidacoes {
 		
 		erros = new ArrayList<>();
 		
+		// Acessa a tela de cadastro de Beneficiário
+		driver.findElement(By.id("btnNovoBeneficiario")).click();
 		
 		// Realiza teste de Cnpj duplicado
-		driver.findElement(By.id("btnNovoBeneficiario")).click();
 		CadastrarBeneficiario.cadastro(driver, "17217985003472", "");
+		driver.findElement(By.id("modalNovoCnpj")).sendKeys(Keys.TAB); // retira o foco do campo para que o campo seja marcado
 		validacaoCnpjDuplicado();
 		
 		
 		// Realiza teste Cnpj não cadastrado no Cagec
-		driver.findElement(By.id("btnNovoBeneficiario")).click();
+		driver.findElement(By.id("modalNovoCnpj")).sendKeys(Keys.SHIFT, Keys.HOME, Keys.BACK_SPACE); //apaga as informações do campo CNPJ
 		CadastrarBeneficiario.cadastro(driver, "18862807000107", "");
+		driver.findElement(By.id("modalNovoCnpj")).sendKeys(Keys.TAB); // retira o foco do campo para que o toast seja exibido
 		validacaoCnpjForaCagec();
 		
+		
+		// Realiza teste Cnpj inválido
+		driver.findElement(By.id("modalNovoCnpj")).sendKeys(Keys.SHIFT, Keys.HOME, Keys.BACK_SPACE);  //apaga as informações do campo CNPJ
+		CadastrarBeneficiario.cadastro(driver, "18862807003456", "");
+		driver.findElement(By.id("modalNovoCnpj")).sendKeys(Keys.TAB); // retira o foco do campo para que o campo seja marcado
+		validacaoCnpjInvalido();
+		
+
 		// Verifica se existem erros
 		if(erros.size() != 0){
 			throw new TesteAutomatizadoException(erros, getClass());
@@ -102,28 +113,64 @@ public class CadastrarBeneficiarioValidacoes {
 		} else {
 			log.info(sb.toString() + "\n");
 		}
-	}
-	
+	}	
 
 	private void validacaoCnpjDuplicado() {
-		String script = "$('#modalNovoCnpj').focus();";
-		((JavascriptExecutor)driver).executeScript(script);
+		/* A variavel "marcacao" verifica se existe marcacao no campo, pois se não existir
+		 * os elementos do tooltip não serão encontrados, ocasionando um erro no script de teste.
+		 */
+		boolean marcacao = true;
+		JavaScript.removerFocoCampo(driver, "modalNovoCnpj");	// remove o foco do campo para ser marcado com erro
+		JavaScript.getTooltip(driver, "modalNovoCnpj");			// coloca o foco no campo para exibir o tooltip
 		
-		if(driver.findElement(By.id("modalNovoCnpj")).getAttribute("class").equals(EnumValidacao.MARCACAO_ERRO.getHtml())){
+		// Verifica se o campo possui validação (está marcado em vermelho)
+		if(Validacoes.verificaMarcacaoErroId(driver, "modalNovoCnpj_maindiv") == false){
 			erros.add(EnumMensagens.REGISTRO_DUPLICADO.getMensagem() + " Beneficiario - CNPJ já utilizado");
+			marcacao = false;
 		}
 		
-		// Verifica primeiramente se o elemento Html está visível, pois existe tooltip somente se o campo tiver marcado em vermelho
-		if(driver.findElement(By.xpath("//*[contains(concat(' ', @class, ' '), ' tooltip-error ')]")).isDisplayed()){
-			if(!driver.findElement(By.xpath("//*[contains(concat(' ', @class, ' '), ' tooltip-error ')]/div[2]")).getText().equals("CNPJ já utilizado."))
-				erros.add(EnumMensagens.VALIDACAO_INCORRETA.getMensagem());
+		if(marcacao == true){			
+			// Verifica se a validação realizada é a de CNPJ já utilizado
+			if(Validacoes.verificaMensagemTooltip(driver, "CNPJ já utilizado."))
+				erros.add(EnumMensagens.VALIDACAO_INCORRETA.getMensagem() + " Campo 'CNPJ'");
 		}
+		
 	}
 	
 	private void validacaoCnpjForaCagec() {
 		// Valida exibicao do toast apos inserir Cnpj
 		if(!driver.findElement(By.id("toast-container")).isDisplayed()){
-			erros.add(EnumMensagens.TOAST_DESABILITADO.getMensagem());
+			erros.add(EnumMensagens.TOAST_DESABILITADO.getMensagem() + " Toast");
+		} 
+		// Verifica a mensagem de erro (mensagem de CNPJ não encontrado no CAGEC) 
+		else if(!driver.findElement(By.xpath("//div[@class='toast-message']")).getText().equals("Não foi possível buscar as informações no CAGEC. [CNPJ-CPF não localizado]")){
+			erros.add(EnumMensagens.MENSAGEM_INCORRETA.getMensagem() + " Toast");
 		}
 	}
+	
+	private void validacaoCnpjInvalido(){
+		/* A variavel "marcacao" verifica se existe marcacao no campo, pois se não existir
+		 * os elementos do tooltip não serão encontrados, ocasionando um erro no script de teste.
+		 */
+		boolean marcacao = true;	
+		JavaScript.removerFocoCampo(driver, "modalNovoCnpj");	// remove o foco do campo para ser marcado com erro
+		JavaScript.getTooltip(driver, "modalNovoCnpj");			// coloca o foco no campo para exibir o tooltip
+		
+		// Verifica se o campo possui validação (está marcado em vermelho)
+		if(Validacoes.verificaMarcacaoErroId(driver, "modalNovoCnpj_maindiv") == false){
+			erros.add(EnumMensagens.DADO_INVALIDO.getMensagem() + " CNPJ - CNPJ inválido");
+			marcacao = false;
+		}
+		
+		if(marcacao == true){
+			// Aguarda 10 segundos até o elemento ser exibido
+			WaitUtils.waitCondicionalXPath(driver, 20, "//*[contains(concat(' ', @class, ' '), ' tooltip-error ')]/div[2]");
+			
+			// Verifica se a validação realizada é a de CNPJ inválido
+			if(Validacoes.verificaMensagemTooltip(driver, "CNPJ inválido!") == false)
+				erros.add(EnumMensagens.VALIDACAO_INCORRETA.getMensagem() + " Campo 'CNPJ'");
+		}
+	}
+	
+	
 }

@@ -62,6 +62,7 @@ public class CadastrarBaseLegal {
 		// Acessar menu
 		MenuBaseLegalTemplate.menuBaseLegal(driver);
 		
+		// Inicializa list de mensagens
 		erros = new ArrayList<>();
 
 		// Realizar o cadastro

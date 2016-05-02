@@ -4,13 +4,14 @@ public enum EnumMensagens {
 	INICIO("INICIO DA ROTINA", TipoMensagem.INFO),
 	CAMPO_OBRIGATORIO("Validação de campo obrigatório faltando - Campo "),
 	ANO_VIGENCIA_DESABILITADO("Campo 'Ano do inicio da vigencia' desabilitado, com o campo 'Data da publicação' preenchido"),
-	BREADCRUMB_INCORRETO("Breadcrumb incorreto.\n"),
-	REGISTRO_DUPLICADO("Falta validação de registro já cadastrado - CRUD \n"),
-	CONFIRMACAO_DESABILITADA("Não exibe popup de confirmação.\n"),
+	BREADCRUMB_INCORRETO("Breadcrumb incorreto."),
+	REGISTRO_DUPLICADO("Falta validação de registro já cadastrado - CRUD "),
+	CONFIRMACAO_DESABILITADA("Não exibe popup de confirmação."),
 	TOAST_DESABILITADO("Toast desabilitado.\n"),
 	ERRO_SALVAR("Erro ao salvar o campo "),
 	VALIDACAO_INCORRETA("A validação/mensagem realizada no campo está incorreta."),
-	
+	DADO_INVALIDO("Falta validação de dado inválido inserido - Campo "),
+	MENSAGEM_INCORRETA("Mensagem incorreta."),
 	
 	CPF_INVALIDO("CPF inválido - Obrigatório\n"),
 	CPF_JA_CADASTRADO("CPF já cadastrado\n"),
@@ -38,7 +39,7 @@ public enum EnumMensagens {
 	DATA_EM_BRANCO("Data em branco! - Obrigatório\n"),
 	BASE_LEGAL_INCORRETA("Base legal incorreta !"),
 	ERRO_HISTORICO("Erro na pesquisa do histórico.\n"),
-	MENSAGEM_INCORRETA("Mensagem incorreta.\n"),
+	
 	USUARIO_ERRADO("Nome do usuario não corresponde com o clicado\n"),
 	USUARIO_ERRADO_PERFIL("Nome do usuario não corresponde com o clicado em perfil\n"),
 	RESOLUCAO_ERRADA("Numero da resolução não corresponde com o clicado\n"),

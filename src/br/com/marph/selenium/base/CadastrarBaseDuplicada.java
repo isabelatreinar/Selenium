@@ -18,6 +18,7 @@ import br.com.marph.selenium.enums.EnumMensagens;
 import br.com.marph.selenium.enums.EnumValidacao;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
+import br.marph.selenium.validacaoUtils.Validacoes;
 
 
 public class CadastrarBaseDuplicada {
@@ -89,18 +90,8 @@ public class CadastrarBaseDuplicada {
 	}
 	
 	public void verificaBaseDuplicada() throws TesteAutomatizadoException{
-		/** 
-		 * Este metodo verifica a validacao de cadastro de base legal duplicado
-		 * Esta validacao e realizada sobre o campo "Numero", quando o foco sair do mesmo
-		 * 
-		 * Verifica se o campo esta marcado em vermelho. Se nao estiver marcado em vermelho, significa que o campo esta
-		 * sem validacao.
-		 * Quando o campo fica em branco o sistema possui o seguinte HTML class = "chosen-container chosen-container-single chosen-container-active"
-		 * Quando esta em vermelho o sistema remove o HTML "chosen-container-active"
-		 * Logo, o teste da validacao e realizado verificando se o valor do atributo class do campo e igual a classe acima.
-		 */
-		
-		if(driver.findElement(By.id("numero")).getAttribute("class").equals(EnumValidacao.MARCACAO_ERRO.getHtml()))
+		// Verifica se o campo possui validação (está marcado em vermelho)		
+		if(Validacoes.verificaMarcacaoErroId(driver, "numero_maindiv") == false)
 			erros.add(EnumMensagens.REGISTRO_DUPLICADO.getMensagem() + " Base Legal");
 		
 		// Verifica se existem mensagens de erro
