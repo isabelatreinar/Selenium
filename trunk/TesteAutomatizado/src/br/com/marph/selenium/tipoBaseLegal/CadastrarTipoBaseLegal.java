@@ -13,7 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class CadastrarTipoBaseLegal {
@@ -32,7 +32,7 @@ public class CadastrarTipoBaseLegal {
 	@Test
 	public void cadastroTipoBaseLegal() {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
 

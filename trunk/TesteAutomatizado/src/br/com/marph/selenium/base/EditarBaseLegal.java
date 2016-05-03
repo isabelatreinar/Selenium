@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.JavascriptExecutor;
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -54,7 +54,7 @@ public class EditarBaseLegal {
 	public void testeEditarBaseLegal() throws Exception {
 		
 		// Recolhe informações de log
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 		
 		erros = new ArrayList<>();

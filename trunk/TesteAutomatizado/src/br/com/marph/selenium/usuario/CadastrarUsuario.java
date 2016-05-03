@@ -12,7 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class CadastrarUsuario {
@@ -36,7 +36,7 @@ public class CadastrarUsuario {
 	@Test
 	public void realizaBusca() throws Exception {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
 

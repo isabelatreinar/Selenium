@@ -15,7 +15,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.usuario.MenuUsuarioTemplate;
 import br.com.marph.selenium.utils.LogUtils;
@@ -38,7 +38,7 @@ public class UsuarioPesquisarExcell {
 
 	@Test
 	public void teste() throws Exception {
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 		MenuUsuarioTemplate.prepararAcessoUsuario(driver);
 
@@ -62,9 +62,9 @@ public class UsuarioPesquisarExcell {
 		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
 
 		if (validar == true) {
-			LogUtils.log(EnumMensagens.USUARIO_VALIDADO, this.getClass());
+			LogUtils.log(EnumMensagensLog.USUARIO_VALIDADO, this.getClass());
 		} else {
-			throw new TesteAutomatizadoException(EnumMensagens.USUARIO_NAO_VALIDADO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.USUARIO_NAO_VALIDADO, this.getClass());
 		}
 	}
 
@@ -157,7 +157,7 @@ public class UsuarioPesquisarExcell {
 				WebElement selecionarCargo = driver.findElement(By.xpath("//*[@id='cargo_chosen']/div/div/input"));
 				selecionarCargo.sendKeys(cargo);
 			} else
-				throw new TesteAutomatizadoException(EnumMensagens.CARGO_EM_BRANCO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.CARGO_EM_BRANCO, this.getClass());
 
 			if (StringUtils.isNotBlank(masp)) {
 				WebElement maspCampo = driver.findElement(By.id("usuarioMasp"));

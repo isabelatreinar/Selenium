@@ -2,7 +2,7 @@ package br.com.marph.selenium.exceptions;
 
 import java.util.List;
 
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class TesteAutomatizadoException extends Exception {
@@ -16,7 +16,7 @@ public class TesteAutomatizadoException extends Exception {
 	 * @param clazz
 	 *            Classe de onde o erro esta sendo gerado
 	 */
-	public TesteAutomatizadoException(EnumMensagens erro, Class<?> clazz) {
+	public TesteAutomatizadoException(EnumMensagensLog erro, Class<?> clazz) {
 		super(erro.getMensagem());
 		LogUtils.log(erro, clazz);
 	}

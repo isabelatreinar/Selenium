@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.testeExclusao.EditarResolucao;
 import br.com.marph.selenium.utils.LogUtils;
@@ -33,7 +33,7 @@ public class VerificarResolucaoCorreta {
 	@Test
 	public void pesquisarBaseLegal() throws TesteAutomatizadoException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
 
@@ -51,7 +51,7 @@ public class VerificarResolucaoCorreta {
 		String numeroCompara = driver.findElement(By.id("baseLegal")).getAttribute("value");
 
 		if (!numero.equals(numeroCompara)) {
-			throw new TesteAutomatizadoException(EnumMensagens.RESOLUCAO_ERRADA, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.RESOLUCAO_ERRADA, this.getClass());
 		} else {
 			WebElement voltar = driver.findElement(By.id("btnIrParaListagem"));
 			voltar.click();

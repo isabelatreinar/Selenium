@@ -16,7 +16,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -50,7 +50,7 @@ public class ExcluirBaseLegalSemVinculos {
 	@Test
 	public void testeExclusao() throws Exception {
 		// Recolhe informações do log
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
 		// Acessa o sistema
@@ -92,13 +92,13 @@ public class ExcluirBaseLegalSemVinculos {
 		// Modal de Confirmação de Exclusão
 		// Verifica se o sistema exibiu o modal de confirmação (método getWindowHandle())
 		if(driver.getWindowHandle().isEmpty()){
-			erros.add(EnumMensagens.CONFIRMACAO_DESABILITADA.getMensagem());
+			erros.add(EnumMensagensLog.MODAL_DESABILITADO.getMensagem());
 		}
 		WebElement divExterna = driver.findElement(By.className("jconfirm-box"));
 		
 		// Verifica mensagem de confirmação
 		if(!divExterna.findElement(By.className("content")).getText().equals("Tem certeza que deseja excluir a Base Legal?")){
-			erros.add(EnumMensagens.MENSAGEM_INCORRETA.getMensagem());
+			erros.add(EnumMensagensLog.MENSAGEM_INCORRETA.getMensagem());
 		}
 		
 		// Confirma exclusão
@@ -107,7 +107,7 @@ public class ExcluirBaseLegalSemVinculos {
 		
 		// Verifica a Exibição do Toast
 		if(!driver.findElement(By.id("toast-container")).isDisplayed()){
-			erros.add(EnumMensagens.TOAST_DESABILITADO.getMensagem());
+			erros.add(EnumMensagensLog.TOAST_DESABILITADO.getMensagem());
 		}
 		
 		//Thread.currentThread().getStackTrace()[1].getMethodName() -> Retorna o nome do Método em Execução

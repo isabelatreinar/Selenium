@@ -3,11 +3,11 @@ package br.com.marph.selenium.utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.enums.TipoMensagem;
 
 public class LogUtils {
-	public static void log(EnumMensagens mensagem, Class<?> clazz) {
+	public static void log(EnumMensagensLog mensagem, Class<?> clazz) {
 		Logger log = LogManager.getLogger(clazz.getSimpleName());
 
 		// if(EnumMensagens.INICIO.equals(mensagem)){

@@ -12,7 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.beneficiario.MenuBeneficiarioTemplate;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -35,7 +35,7 @@ public class CancelarEdicaoBeneficiario {
 	@Test
 	public void cancelarEdicaoBeneficiario() throws TesteAutomatizadoException, InterruptedException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
 		// Acessa menu
@@ -60,7 +60,7 @@ public class CancelarEdicaoBeneficiario {
 		
 		// verifica se o sistema redireciona para tela de visualizar beneficiario
 		if(!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar beneficiário")){
-			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.TELA_INCORRETA, this.getClass());
 		}
 		
 		// Se a tela e o beneficiario forem os corretos o teste se encerra

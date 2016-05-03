@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.programa.MenuProgramaTemplate;
 import br.com.marph.selenium.programa.PesquisarPrograma;
@@ -32,7 +32,7 @@ public class VisualizarPrograma {
 
 	@Test
 	public void realizaBusca() throws InterruptedException, TesteAutomatizadoException {
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
 

@@ -21,4 +21,12 @@ public class WaitUtils {
 		WebDriverWait wait = new WebDriverWait(driver, tempo);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(idElemento)));
 	}
+	
+	public static void waitCondicionalClass(WebDriver driver, int tempo, String classElemento){
+		/**
+		 * Aguarda por "tempo" segundos o elemento "classElemento" ser exibido para exibir um exception na tela
+		 */
+		WebDriverWait wait = new WebDriverWait(driver, tempo);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(classElemento)));
+	}
 }

@@ -13,7 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.usuario.MenuUsuarioTemplate;
 import br.com.marph.selenium.usuario.PesquisarUsuario;
@@ -35,7 +35,7 @@ public class LimparPesquisaUsuario {
 	@Test
 	public void limparPesquisaBaseLegal() throws TesteAutomatizadoException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
 		// Acessar menu
@@ -53,7 +53,7 @@ public class LimparPesquisaUsuario {
 				|| (StringUtils.isNotBlank(driver.findElement(By.id("extensaoPerfilId")).getText()))
 				|| (StringUtils.isNotBlank(driver.findElement(By.id("statusSituacaoPerfil")).getText()))
 				|| (StringUtils.isNotBlank(driver.findElement(By.id("cargo")).getText()))) {
-			throw new TesteAutomatizadoException(EnumMensagens.CAMPO_PREENCHIDO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.CAMPO_PREENCHIDO, this.getClass());
 		}
 
 		// se o campo estiver vazio o teste é finalizado com sucesso

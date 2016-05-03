@@ -14,7 +14,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.beneficiario.MenuBeneficiarioTemplate;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -33,7 +33,7 @@ public class LimparPesquisaHistoricoBeneficiario {
 
 	@Test
 	public void limparPesquisaHistoricoBeneficiario() throws TesteAutomatizadoException, InterruptedException {
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
 		// Acessar o menu
@@ -77,7 +77,7 @@ public class LimparPesquisaHistoricoBeneficiario {
 			|| StringUtils.isNotBlank(driver.findElement(By.id("dataFinalHistorico")).getText())
 			|| StringUtils.isNotBlank(driver.findElement(By.id("camposBeneficiario_chosen")).getText())
 			|| !driver.findElement(By.id("usuariosAlteracao_chosen")).getText().equalsIgnoreCase("Modificado Por")) {
-			throw new TesteAutomatizadoException(EnumMensagens.CAMPO_PREENCHIDO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.CAMPO_PREENCHIDO, this.getClass());
 		}
 	}
 }

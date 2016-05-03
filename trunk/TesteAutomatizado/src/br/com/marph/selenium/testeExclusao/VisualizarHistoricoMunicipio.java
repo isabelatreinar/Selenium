@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.municipio.MenuMunicipioTemplate;
 import br.com.marph.selenium.municipio.PesquisarMunicipio;
 import br.com.marph.selenium.utils.LogUtils;
@@ -32,7 +32,7 @@ public class VisualizarHistoricoMunicipio {
 	@Test
 public void visualizar(){			
 		
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		
 		long timestart = System.currentTimeMillis();		
 		

@@ -15,7 +15,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.javaScriptUtils.JavaScript;
 import br.com.marph.selenium.utils.LogUtils;
@@ -43,7 +43,7 @@ public class CadastroBeneficiarioCampoObrigatorio {
 	@Test
 	public void testeCadastroBeneficiarioValidacoes() throws TesteAutomatizadoException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 		
 		//Acessar Sistema
@@ -87,25 +87,25 @@ public class CadastroBeneficiarioCampoObrigatorio {
 		
 		// verifica se o campo possui marcacão de erro
 		if(Validacoes.verificaMarcacaoErroId(driver, "modalNovoCnpj_maindiv") == false){
-			erros.add(EnumMensagens.CAMPO_OBRIGATORIO.getMensagem() + " CNPJ");
+			erros.add(EnumMensagensLog.CAMPO_OBRIGATORIO.getMensagem() + " CNPJ");
 			marcacao = false;
 		}
 		
 		// Verifica a mensagem do tooltip no campo "CNPJ"
 		if((marcacao == true) && (Validacoes.verificaMensagemTooltip(driver, "Preenchimento obrigatório!") == false)){
-			erros.add(EnumMensagens.MENSAGEM_INCORRETA.getMensagem());			
+			erros.add(EnumMensagensLog.MENSAGEM_INCORRETA.getMensagem());			
 		}
 		
 		marcacao = true;	// seta marcacao como true para realizar a validação do campo "Tipo"
 		JavaScript.getTooltipClear(driver, "modalNovoTipo_chosen");			// coloca o foco no campo "Tipo" para exibir o tooltip
 		
 		if(Validacoes.verificaMarcacaoErroId(driver, "modalNovoTipo_maindiv") == false){
-			erros.add(EnumMensagens.CAMPO_OBRIGATORIO.getMensagem() + " Tipo");
+			erros.add(EnumMensagensLog.CAMPO_OBRIGATORIO.getMensagem() + " Tipo");
 		}
 		
 		// Verifica a mensagem do tooltip no campo "Tipo"
 		if((marcacao == true) && (Validacoes.verificaMensagemTooltip(driver, "Preenchimento obrigatório!") == false)){
-			erros.add(EnumMensagens.MENSAGEM_INCORRETA.getMensagem());			
+			erros.add(EnumMensagensLog.MENSAGEM_INCORRETA.getMensagem());			
 		}
 	}
 }

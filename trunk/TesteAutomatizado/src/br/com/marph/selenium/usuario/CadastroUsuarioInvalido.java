@@ -15,7 +15,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -36,7 +36,7 @@ public class CadastroUsuarioInvalido {
 	@Test
 	public void realizaBusca() throws TesteAutomatizadoException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
 
@@ -96,7 +96,7 @@ public class CadastroUsuarioInvalido {
 			if (driver.findElement(By.xpath("//*[@id='usuarioNome_maindiv']/div")).isDisplayed()
 					&& driver.findElement(By.xpath("//*[@id='usuarioNome_maindiv']/div")).getText()
 							.equalsIgnoreCase("Preenchimento obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.NOME_VALIDACAO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.NOME_VALIDACAO, this.getClass());
 			}
 		}
 
@@ -115,17 +115,17 @@ public class CadastroUsuarioInvalido {
 			driver.findElement(By.id("usuarioCpf")).click();
 			if (driver.findElement(By.xpath("//*[@id='usuarioCpf_maindiv']/div")).getText()
 					.equalsIgnoreCase("Preenchimento obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.CPF_EM_BRANCO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.CPF_EM_BRANCO, this.getClass());
 			}
 
 			if (driver.findElement(By.xpath("//*[@id='usuarioCpf_maindiv']/div")).getText()
 					.equalsIgnoreCase("CPF já cadastrado.")) {
-				throw new TesteAutomatizadoException(EnumMensagens.CPF_JA_CADASTRADO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.CPF_JA_CADASTRADO, this.getClass());
 			}
 
 			if (driver.findElement(By.xpath("//*[@id='usuarioCpf_maindiv']/div")).getText()
 					.equalsIgnoreCase("CPF inválido!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.CPF_INVALIDO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.CPF_INVALIDO, this.getClass());
 			}
 		}
 
@@ -135,7 +135,7 @@ public class CadastroUsuarioInvalido {
 			driver.findElement(By.id("cargo_chosen")).click();
 			if (driver.findElement(By.xpath("//*[@id='cargo_maindiv']/div[2]")).getText()
 					.equalsIgnoreCase("Preenchimento obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.CARGO_EM_BRANCO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.CARGO_EM_BRANCO, this.getClass());
 			}
 		}
 	}
@@ -162,7 +162,7 @@ public class CadastroUsuarioInvalido {
 			perfil.click();
 			if (driver.findElement(By.xpath("//*[@id='modalPerfil_maindiv']/div[2]")).getText()
 					.equalsIgnoreCase("Obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.PERFIL_EM_BRANCO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.PERFIL_EM_BRANCO, this.getClass());
 			}
 		}
 

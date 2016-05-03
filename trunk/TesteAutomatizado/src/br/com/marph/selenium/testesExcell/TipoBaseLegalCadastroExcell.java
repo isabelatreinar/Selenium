@@ -16,7 +16,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.tipoBaseLegal.MenuTipoBaseLegalTemplate;
 import br.com.marph.selenium.utils.LogUtils;
@@ -40,7 +40,7 @@ public class TipoBaseLegalCadastroExcell {
  
 	@Test
 	public void teste() throws Exception {
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
 		MenuTipoBaseLegalTemplate.prepararAcessoTipoBaseLegal(driver);
@@ -67,9 +67,9 @@ public class TipoBaseLegalCadastroExcell {
 		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
 
 		if (validar == true) {
-			LogUtils.log(EnumMensagens.TIPO_BASE_LEGAL_VALIDADO, this.getClass());
+			LogUtils.log(EnumMensagensLog.TIPO_BASE_LEGAL_VALIDADO, this.getClass());
 		} else {
-			throw new TesteAutomatizadoException(EnumMensagens.TIPO_BASE_LEGAL_NAO_VALIDO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.TIPO_BASE_LEGAL_NAO_VALIDO, this.getClass());
 		}
 	}
 
@@ -95,7 +95,7 @@ public class TipoBaseLegalCadastroExcell {
 				WebElement nomeCampo = driver.findElement(By.id("nomeTipoBaseLegal"));
 				nomeCampo.sendKeys(nome);
 			} else
-				LogUtils.log(EnumMensagens.NOME_VALIDACAO, this.getClass());
+				LogUtils.log(EnumMensagensLog.NOME_VALIDACAO, this.getClass());
 
 			if (StringUtils.isNotBlank(transferencia)) {
 				WebElement transferenciaCampo = driver.findElement(By.id("transferenciaRecursosFinanceiros_chosen"));
@@ -105,7 +105,7 @@ public class TipoBaseLegalCadastroExcell {
 				selecionarTransferencia.sendKeys(transferencia);
 				selecionarTransferencia.sendKeys(Keys.TAB);
 			} else
-				throw new TesteAutomatizadoException(EnumMensagens.TRANSFERENCIA_DE_RECURSOS_EM_BRANCO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.TRANSFERENCIA_DE_RECURSOS_EM_BRANCO, this.getClass());
 
 			if (StringUtils.isNotBlank(prestacaoMetas)) {
 				WebElement prestacaoMetasClica = driver.findElement(By.id("prestacaoMetas_chosen"));
@@ -114,7 +114,7 @@ public class TipoBaseLegalCadastroExcell {
 				prestacaoMetasPreenche.sendKeys(prestacaoMetas);
 				prestacaoMetasPreenche.sendKeys(Keys.TAB);
 			}else 
-				throw new TesteAutomatizadoException(EnumMensagens.PRESTACAO_DE_METAS_EM_BRANCO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.PRESTACAO_DE_METAS_EM_BRANCO, this.getClass());
 
 			if (StringUtils.isNotBlank(descricao)) {
 				WebElement descricaoPreenche = driver.findElement(By.id("descricao"));
@@ -128,7 +128,7 @@ public class TipoBaseLegalCadastroExcell {
 				prestacaoContasSeleciona.sendKeys(prestacaoContas);
 				prestacaoContasSeleciona.sendKeys(Keys.TAB);
 			} else
-				throw new TesteAutomatizadoException(EnumMensagens.EXTENSAO_EM_BRANCO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.EXTENSAO_EM_BRANCO, this.getClass());
 			
 			WebElement salvar = driver.findElement(By.id("btnSalvar"));
 			salvar.click();

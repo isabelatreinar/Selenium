@@ -13,7 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.testeExclusao.VisualizarPrograma;
 import br.com.marph.selenium.utils.LogOut;
@@ -34,7 +34,7 @@ public class EditarPrograma {
 
 	@Test
 	public void realizaBusca() throws InterruptedException, TesteAutomatizadoException {
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
 
@@ -88,15 +88,15 @@ public class EditarPrograma {
 
 	private void validar() throws TesteAutomatizadoException {
 		if(StringUtils.isBlank(driver.findElement(By.id("nome")).getAttribute("value"))){
-			throw new TesteAutomatizadoException(EnumMensagens.NOME_VALIDACAO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.NOME_VALIDACAO, this.getClass());
 		} else if(driver.findElement(By.id("subsecretaria_chosen")).getText()
 				.equalsIgnoreCase("Subsecretaria")){
-			throw new TesteAutomatizadoException(EnumMensagens.SUBSECRETARIA_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.SUBSECRETARIA_EM_BRANCO, this.getClass());
 		}else if(driver.findElement(By.id("blocoFinanciamento_chosen")).getText()
 				.equalsIgnoreCase("Bloco de Financiamento")){
-			throw new TesteAutomatizadoException(EnumMensagens.BLOCO_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.BLOCO_EM_BRANCO, this.getClass());
 		}else if(StringUtils.isBlank(driver.findElement(By.id("descricao")).getAttribute("value"))){
-			throw new TesteAutomatizadoException(EnumMensagens.DESCRICAO_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.DESCRICAO_EM_BRANCO, this.getClass());
 		}// else  throw new TesteAutomatizadoException(EnumMensagens.PROGRAMA_JA_CADASTRADO, this.getClass());
 	}	
 }

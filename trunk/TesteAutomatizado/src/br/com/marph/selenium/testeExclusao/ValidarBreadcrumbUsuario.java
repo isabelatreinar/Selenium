@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.usuario.MenuUsuarioTemplate;
 import br.com.marph.selenium.usuario.PesquisarUsuario;
@@ -33,7 +33,7 @@ public class ValidarBreadcrumbUsuario {
 	@Test
 	public void visualizarBreadcrumbUsuario() throws TesteAutomatizadoException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
 		// Acessar menu
@@ -51,7 +51,7 @@ public class ValidarBreadcrumbUsuario {
 		// validar breadcrumb
 		if (!driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText()
 				.equalsIgnoreCase("Você está em: Usuário > Visualizar Usuário > Histórico")) {
-			throw new TesteAutomatizadoException(EnumMensagens.BREADCRUMB_INCORRETO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.BREADCRUMB_INCORRETO, this.getClass());
 		}
 
 		// Se a tela e a base legal forem os corretos o teste se encerra

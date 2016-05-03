@@ -16,7 +16,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.base.MenuBaseLegalTemplate;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.javaScriptUtils.ValidaToast;
 import br.com.marph.selenium.utils.LogUtils;
@@ -40,7 +40,7 @@ public class BaseLegalPesquisarExcell {
 
 	@Test
 	public void teste() throws Exception {
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 		MenuBaseLegalTemplate.menuBaseLegal(driver);
 
@@ -108,7 +108,7 @@ public class BaseLegalPesquisarExcell {
 			driver.findElement(By.id("btnPesquisar")).click();
 			
 			if(driver.findElement(By.xpath("//*[@id='baseLegalDataTable']/tbody/tr/td")).getText().equalsIgnoreCase("Resultado não encontrado.")){
-				throw new TesteAutomatizadoException(EnumMensagens.RESULTADO_NAO_ENCONTRADO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.RESULTADO_NAO_ENCONTRADO, this.getClass());
 			}else{
 				driver.findElement(By.xpath("//td[@class='sorting_1']")).click();
 			}			
@@ -134,7 +134,7 @@ public class BaseLegalPesquisarExcell {
 			if (StringUtils.isNotBlank(pdf)) {
 				driver.findElement(By.id("textoPublicado")).sendKeys(pdf);
 			} else
-				LogUtils.log(EnumMensagens.PDF_EM_BRANCO, this.getClass());
+				LogUtils.log(EnumMensagensLog.PDF_EM_BRANCO, this.getClass());
 
 			if (StringUtils.isNotBlank(anoEditar)) {
 				driver.findElement(By.id("dataVigencia_chosen")).click();

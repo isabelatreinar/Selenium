@@ -14,10 +14,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 
 import br.com.marph.selenium.blocoDeFinanciamento.MenuBlocoTemplate;
-import br.com.marph.selenium.blocoDeFinanciamento.PesquisarBloco;
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -37,7 +36,7 @@ public class VisualizarBloco {
 	@Test
 	public void realizaBusca() throws InterruptedException, TesteAutomatizadoException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 		
 		AcessoSistema.perfilAdministrador(driver);
@@ -70,7 +69,7 @@ public class VisualizarBloco {
 		//	driver.findElement(By.id("btnAcaoLinha-0")).click();
 		//	driver.findElement(By.id("btnAcaoItem-0-0")).click();
 		} catch (NoSuchElementException e) {
-			throw new TesteAutomatizadoException(EnumMensagens.BLOCO_NAO_ENCONTRADO,VisualizarBloco.class);
+			throw new TesteAutomatizadoException(EnumMensagensLog.BLOCO_NAO_ENCONTRADO,VisualizarBloco.class);
 		}
 	}
 }

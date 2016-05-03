@@ -16,7 +16,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.usuario.MenuUsuarioTemplate;
 import br.com.marph.selenium.utils.LogUtils;
@@ -40,7 +40,7 @@ public class UsuarioExcell {
  
 	@Test
 	public void teste() throws Exception {
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
 		MenuUsuarioTemplate.prepararAcessoUsuario(driver);
@@ -51,12 +51,12 @@ public class UsuarioExcell {
 		
 		if ("CPF inválido!"
 				.equals(driver.findElement(By.xpath("//*[@id='usuarioCpf_label']/label/span")).getText())) {
-			throw new TesteAutomatizadoException(EnumMensagens.CPF_INVALIDO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.CPF_INVALIDO, this.getClass());
 		}
 
 		if ("CPF já cadastrado."
 				.equals(driver.findElement(By.xpath("//*[@id='usuarioCpf_label']/label/span")).getText())) {
-			throw new TesteAutomatizadoException(EnumMensagens.CPF_JA_CADASTRADO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.CPF_JA_CADASTRADO, this.getClass());
 		}
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
@@ -100,7 +100,7 @@ public class UsuarioExcell {
 			if (StringUtils.isNotBlank(nome)) {
 				driver.findElement(By.id("usuarioNome")).sendKeys(nome);
 			} else
-				LogUtils.log(EnumMensagens.NOME_VALIDACAO, this.getClass());
+				LogUtils.log(EnumMensagensLog.NOME_VALIDACAO, this.getClass());
 
 			if (StringUtils.isNotBlank(email)) {
 				driver.findElement(By.id("usuarioEmail")).sendKeys(email);
@@ -109,14 +109,14 @@ public class UsuarioExcell {
 			if (StringUtils.isNotBlank(cpf)) {
 				driver.findElement(By.id("usuarioCpf")).sendKeys(cpf);
 			} else
-				LogUtils.log(EnumMensagens.CPF_EM_BRANCO, this.getClass());
+				LogUtils.log(EnumMensagensLog.CPF_EM_BRANCO, this.getClass());
 
 			if (StringUtils.isNotBlank(cargo)) {
 				driver.findElement(By.id("cargo_chosen")).click();
 				driver.findElement(By.xpath("//*[@id='cargo_chosen']/div/div/input")).sendKeys(cargo);
 				driver.findElement(By.xpath("//*[@id='cargo_chosen']/div/div/input")).sendKeys(Keys.TAB);
 			} else
-				throw new TesteAutomatizadoException(EnumMensagens.CARGO_EM_BRANCO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.CARGO_EM_BRANCO, this.getClass());
 
 			if (StringUtils.isNotBlank(masp)) {
 				driver.findElement(By.id("usuarioMasp")).clear();
@@ -147,7 +147,7 @@ public class UsuarioExcell {
 				driver.findElement(By.id("ui-id-1")).click();
 				driver.findElement(By.id("ui-id-1")).sendKeys(Keys.TAB);
 			} else
-				throw new TesteAutomatizadoException(EnumMensagens.EXTENSAO_EM_BRANCO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.EXTENSAO_EM_BRANCO, this.getClass());
 
 			driver.findElement(By.id("btnSalvar1")).click();
 	}

@@ -12,7 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.beneficiario.MenuBeneficiarioTemplate;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -32,7 +32,7 @@ public class ValidarCagecBeneficiario {
 	@Test
 	public void atualizarCagecBeneficiario() throws TesteAutomatizadoException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
 		// Acessar menu
@@ -52,7 +52,7 @@ public class ValidarCagecBeneficiario {
 		// Valida se os dados foram atualizados
 		// se o campo Ultima atualização não sofrer alteração significa que os dados não foram atualizados
 		if(dataHoraUltimaAtualizacao.equalsIgnoreCase(driver.findElement(By.id("dataHoraUltimaAtualizacao")).getText())){
-			new TesteAutomatizadoException(EnumMensagens.CAGEC_NAO_VALIDADO, this.getClass());
+			new TesteAutomatizadoException(EnumMensagensLog.CAGEC_NAO_VALIDADO, this.getClass());
 		}
 		
 		else{

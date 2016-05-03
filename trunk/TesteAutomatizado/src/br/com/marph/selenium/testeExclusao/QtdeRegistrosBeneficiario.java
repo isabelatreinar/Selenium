@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import br.com.marph.selenium.beneficiario.MenuBeneficiarioTemplate;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -39,7 +39,7 @@ public class QtdeRegistrosBeneficiario {
 	@Test
 	public void qtdeRegistrosBaseLegal() throws TesteAutomatizadoException, InterruptedException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
 		// Acessar menu
@@ -53,7 +53,7 @@ public class QtdeRegistrosBeneficiario {
 		selecionarQuantidade(driver, "10");
 		Thread.sleep(1000);
 		if (contaRegistros(driver) != 10) {
-			throw new TesteAutomatizadoException(EnumMensagens.QUANTIDADE_EXCEDIDA, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.QUANTIDADE_EXCEDIDA, this.getClass());
 		}
 
 		
@@ -65,7 +65,7 @@ public class QtdeRegistrosBeneficiario {
 		selecionarQuantidade(driver, "50");
 		Thread.sleep(1000); 
 		if (contaRegistros(driver) != 50) {
-			throw new TesteAutomatizadoException(EnumMensagens.QUANTIDADE_EXCEDIDA, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.QUANTIDADE_EXCEDIDA, this.getClass());
 		}
 
 		/**
@@ -76,7 +76,7 @@ public class QtdeRegistrosBeneficiario {
 		selecionarQuantidade(driver, "100");
 		Thread.sleep(1000); 
 		if (contaRegistros(driver) != 100) {
-			throw new TesteAutomatizadoException(EnumMensagens.QUANTIDADE_EXCEDIDA, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.QUANTIDADE_EXCEDIDA, this.getClass());
 		}
 
 		// se o campo estiver vazio o teste é finalizado com sucesso
