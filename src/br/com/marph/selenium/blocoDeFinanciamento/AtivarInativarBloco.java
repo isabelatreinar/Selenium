@@ -18,16 +18,14 @@ import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
-import br.marph.selenium.validacaoUtils.Validacoes;
 
-public class ExcluirBlocoSemVinculo {
+public class AtivarInativarBloco {
 	/**
-	 * Teste de Exclusão de Bloco de Financiamento sem vínculo com programas
-	 * Pré-condicao: Ter o bloco cadastrado na base de dados
+	 * Teste Ativar e Inativar Bloco de Financiamento (Caminho Feliz)
+	 * Pré-Condicao: O bloco deve estar cadastrado na base de dados
 	 * Dados de Teste
-	 * Nome: Bloco de teste exclusao sem Vinculo
-	 * Descrição: Teste de exclusão sem vínculo
-	 * Status: Ativo
+	 * Nome: Teste Ativar Inativar bloco de financiamento
+	 * Status Inicial: Ativo
 	 */
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
@@ -48,30 +46,38 @@ public class ExcluirBlocoSemVinculo {
 	}
 	
 	@Test
-	public void testeExcluirSemVinculo() throws TesteAutomatizadoException {
+	public void testeAtivarInativarBloco() throws TesteAutomatizadoException {
 		// Recolhendo informacoes de log
 		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
-		
-		// Acesso ao sistema
-		AcessoSistema.perfilAdministrador(driver);
 
-		// Acesso ao menu
+		// Acesso o sistema
+		AcessoSistema.perfilAdministrador(driver);
+		
+		// Acesso menu
 		MenuBlocoTemplate.menuBlocoFinanciamento(driver);
 		
-		// Inicializa list
-		erros = new ArrayList<String>();
+		// Inicializar List
+		erros = new ArrayList<>();
 		
 		// Pesquisa e seleciona registro a ser editado
-		EditarBlocoSemVinculo.pesquisar(driver, "Bloco de teste exclusao sem Vinculo", "Ativo");
+		EditarBlocoSemVinculo.pesquisar(driver, "Teste Ativar Inativar bloco de financiamento", "Ativo");
 		
-		// Exclui o registro
-		excluirSemVinculo();
+		// Inativa o bloco e realiza a validação
+		if(verificaStatus(driver, "btnInativar", "inativo") == false){
+			erros.add(EnumMensagensLog.ALTERACAO_STATUS.getMensagem() + "Ativo/Inativo");
+		}
+		
+		// Ativa o bloco e realiza a validação
+		if(verificaStatus(driver, "btnAtivar", "ativo") == false){
+			erros.add(EnumMensagensLog.ALTERACAO_STATUS.getMensagem() + "Inativo/Ativo");
+		}
 		
 		// Verifica se existem erros
 		if(erros.size() != 0){
 			throw new TesteAutomatizadoException(erros, getClass());
 		}
+		
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -86,31 +92,14 @@ public class ExcluirBlocoSemVinculo {
 		}
 	}
 	
-	private void excluirSemVinculo() {
+	private boolean verificaStatus(WebDriver driver, String idBotao, String status) {
+		// Clica no botão "Inativar"
+		driver.findElement(By.id(idBotao)).click();
 		
-		//clica no botão excluir.
-		driver.findElement(By.id("btnExcluir1")).click();
+		// Verifica a alteração de status
+		if(driver.findElement(By.id("pSituacao")).getAttribute("class").equals(status))
+			return true;
+		return false;
+	}	
 		
-		// Valida a exibição do modal de confirmação
-		if(Validacoes.verificaModalAlerta(driver) == false){
-			erros.add(EnumMensagensLog.MODAL_DESABILITADO.getMensagem());
-		}
-		// Valida a mensagem de confirmação
-		else if(Validacoes.verificaMensagemModalAlerta(driver, "Tem certeza que deseja excluir o Bloco de Financiamento?") == false){
-			erros.add(EnumMensagensLog.MENSAGEM_INCORRETA.getMensagem() + "Modal");
-		}
-		else {
-			//Confirma a exclusão
-			driver.findElement(By.xpath("//*[@class='jconfirm-box']/div[4]/button[1]")).click();
-			
-			// Valida a exibição do toast
-			if(Validacoes.verificaExibicaoToast(driver) == false){
-				erros.add(EnumMensagensLog.TOAST_DESABILITADO.getMensagem());
-			}
-			// Valida mensagem exibida no toast
-			else if(Validacoes.verificaMensagemToast(driver, "Bloco de Financiamento excluido com sucesso.") == false){
-				erros.add(EnumMensagensLog.MENSAGEM_INCORRETA.getMensagem() + "Toast");
-			}
-		}
-	}
 }

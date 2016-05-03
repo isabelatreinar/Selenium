@@ -21,6 +21,7 @@ import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
+import br.com.marph.selenium.utils.WaitUtils;
 
 public class EditarBeneficiarioCF {
 	/**
@@ -131,8 +132,7 @@ public class EditarBeneficiarioCF {
 		btnPesquisar.click();
 		
 		// Aguarda por 20 segundos o elemento "sorting_1" ser exibido.
-		WebDriverWait wait = new WebDriverWait(driver, 20);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("sorting_1")));
+		WaitUtils.waitFluentClass(driver, 20, 5, "sorting_1");
 		
 		// Seleciona Beneficiario pesquisado
 		driver.findElement(By.className("sorting_1")).click();

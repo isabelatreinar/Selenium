@@ -20,14 +20,14 @@ import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 import br.marph.selenium.validacaoUtils.Validacoes;
 
-public class ExcluirBlocoSemVinculo {
+public class InativarBlocoComVinculo {
 	/**
-	 * Teste de Exclusão de Bloco de Financiamento sem vínculo com programas
-	 * Pré-condicao: Ter o bloco cadastrado na base de dados
+	 * Teste Inativar Bloco de Financiamento com vínculo com Programa
+	 * Pré-Condicao: O bloco deve ter vínculo com algum programa
 	 * Dados de Teste
-	 * Nome: Bloco de teste exclusao sem Vinculo
-	 * Descrição: Teste de exclusão sem vínculo
-	 * Status: Ativo
+	 * Nome: Teste Inativar Bloco com Programa Vinculado
+	 * Programa Vinculado: Programa Teste Inativar Bloco com programa vinculado
+	 * 
 	 */
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
@@ -48,25 +48,26 @@ public class ExcluirBlocoSemVinculo {
 	}
 	
 	@Test
-	public void testeExcluirSemVinculo() throws TesteAutomatizadoException {
+	public void testeAtivarInativarBloco() throws TesteAutomatizadoException {
 		// Recolhendo informacoes de log
 		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
-		
-		// Acesso ao sistema
-		AcessoSistema.perfilAdministrador(driver);
 
-		// Acesso ao menu
+		// Acesso o sistema
+		AcessoSistema.perfilAdministrador(driver);
+		
+		// Acesso menu
 		MenuBlocoTemplate.menuBlocoFinanciamento(driver);
 		
-		// Inicializa list
-		erros = new ArrayList<String>();
+		// Inicializar List
+		erros = new ArrayList<>();
 		
 		// Pesquisa e seleciona registro a ser editado
-		EditarBlocoSemVinculo.pesquisar(driver, "Bloco de teste exclusao sem Vinculo", "Ativo");
+		EditarBlocoSemVinculo.pesquisar(driver, "Teste Inativar Bloco com Programa Vinculado", "Ativo");
 		
-		// Exclui o registro
-		excluirSemVinculo();
+		// Inativa o bloco e realiza a validação
+		inativaBloco();
+		
 		
 		// Verifica se existem erros
 		if(erros.size() != 0){
@@ -86,31 +87,17 @@ public class ExcluirBlocoSemVinculo {
 		}
 	}
 	
-	private void excluirSemVinculo() {
+	private void inativaBloco(){
+		// Clica no botão "Inativar"
+		driver.findElement(By.id("btnInativar")).click();
 		
-		//clica no botão excluir.
-		driver.findElement(By.id("btnExcluir1")).click();
-		
-		// Valida a exibição do modal de confirmação
-		if(Validacoes.verificaModalAlerta(driver) == false){
-			erros.add(EnumMensagensLog.MODAL_DESABILITADO.getMensagem());
+		// Valida a exibição do toast
+		if(Validacoes.verificaExibicaoToast(driver) == false){
+			erros.add(EnumMensagensLog.TOAST_DESABILITADO.getMensagem());
 		}
-		// Valida a mensagem de confirmação
-		else if(Validacoes.verificaMensagemModalAlerta(driver, "Tem certeza que deseja excluir o Bloco de Financiamento?") == false){
-			erros.add(EnumMensagensLog.MENSAGEM_INCORRETA.getMensagem() + "Modal");
+		// valida a mensagem exibida para o usuário
+		else if(Validacoes.verificaMensagemToast(driver, "O bloco de financiamento não pode ser inativado pois está vinculado a um ou mais programas ativos.") == false){
+			erros.add(EnumMensagensLog.MENSAGEM_INCORRETA.getMensagem() + "Toast");
 		}
-		else {
-			//Confirma a exclusão
-			driver.findElement(By.xpath("//*[@class='jconfirm-box']/div[4]/button[1]")).click();
-			
-			// Valida a exibição do toast
-			if(Validacoes.verificaExibicaoToast(driver) == false){
-				erros.add(EnumMensagensLog.TOAST_DESABILITADO.getMensagem());
-			}
-			// Valida mensagem exibida no toast
-			else if(Validacoes.verificaMensagemToast(driver, "Bloco de Financiamento excluido com sucesso.") == false){
-				erros.add(EnumMensagensLog.MENSAGEM_INCORRETA.getMensagem() + "Toast");
-			}
-		}
-	}
+	}	
 }

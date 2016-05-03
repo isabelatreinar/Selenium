@@ -3,16 +3,17 @@ package br.com.marph.selenium.blocoDeFinanciamento;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagensLog;
@@ -114,14 +115,12 @@ public class EditarBlocoSemVinculo {
 		driver.findElement(By.id("btnPesquisar")).click();
 		
 		// Aguarda exibição do elemento
-		//WaitUtils.waitCondicionalClass(driver, 10, "sorting_1");
+		WaitUtils.waitFluentClass(driver, 30, 5, "sorting_1");
 		
 		// Seleciona registro
-		//driver.findElement(By.className("sorting_1")).click();
-		
-		((JavascriptExecutor)driver).executeScript("$('.sorting_1').click();");
+		driver.findElement(By.className("sorting_1")).click();
+
 	}
-	
 	private void limparDados(){
 		// Apagar informacoes do campo "Nome"
 		driver.findElement(By.id("nome")).sendKeys(Keys.SHIFT, Keys.HOME, Keys.BACK_SPACE);

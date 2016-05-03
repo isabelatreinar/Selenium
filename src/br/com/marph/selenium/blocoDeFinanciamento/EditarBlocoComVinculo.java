@@ -103,13 +103,14 @@ public class EditarBlocoComVinculo {
 				"O Bloco de Financiamento não pode ser editado pois está vinculado a um ou mais programas.") == false){
 			erros.add(EnumMensagensLog.MENSAGEM_INCORRETA.getMensagem() + "Modal");
 		}
-		
-		// Fecha o modal
-		driver.findElement(By.xpath("//*[@class='jconfirm-box']/div[4]/button")).click();
-		
-		// Verifica se o sistema mantém o usuario na tela de visualizar bloco de Financiamento
-		if(!driver.findElement(By.id("gridSystemModalLabel")).getText().equals("VISUALIZAR BLOCO DE FINANCIAMENTO")){
-			erros.add(EnumMensagensLog.OPERACAO_INVALIDA.getMensagem());
+		else{
+			// Fecha o modal
+			driver.findElement(By.xpath("//*[@class='jconfirm-box']/div[4]/button")).click();
+			
+			// Verifica se o sistema mantém o usuario na tela de visualizar bloco de Financiamento
+			if(!driver.findElement(By.id("gridSystemModalLabel")).getText().equals("VISUALIZAR BLOCO DE FINANCIAMENTO")){
+				erros.add(EnumMensagensLog.OPERACAO_INVALIDA.getMensagem());
+			}
 		}
 	}
 	
