@@ -16,7 +16,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.enums.EnumValidacao;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
@@ -49,7 +49,7 @@ public class CadastrarBaseLegalValidacoes {
 		 */
 
 		// Recolhe informações do log
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
 		// Acessa o sistema
@@ -88,23 +88,23 @@ public class CadastrarBaseLegalValidacoes {
 	
 		// Valida toast de erro
 		if(!driver.findElement(By.id("toast-container")).isDisplayed())
-			erros.add(EnumMensagens.TOAST_DESABILITADO.getMensagem());
+			erros.add(EnumMensagensLog.TOAST_DESABILITADO.getMensagem());
 		
 		// Valida breadCrumb
 		if (!driver.findElement(By.xpath("//ol[@class='breadcrumb']")).getText()
 				.equalsIgnoreCase("Você está em: Base Legal > Nova Base Legal")) {
-			 erros.add(EnumMensagens.BREADCRUMB_INCORRETO.getMensagem());
+			 erros.add(EnumMensagensLog.BREADCRUMB_INCORRETO.getMensagem());
 		}
 	
 		//------------------- Validação dos campos habilitados--------------------
 		
 		// Valida obrigatoriedade do campo "Tipo"
 		if(Validacoes.verificaMarcacaoErroId(driver, "tipoBaseLegal_maindiv") == false)
-			erros.add(EnumMensagens.CAMPO_OBRIGATORIO.getMensagem() + " Tipo ");
+			erros.add(EnumMensagensLog.CAMPO_OBRIGATORIO.getMensagem() + " Tipo ");
 						
 		// Valida obrigatoriedade da data da publicação
 		if(Validacoes.verificaMarcacaoErroxPath(driver, "//*[@id='tipoBaseLegal_maindiv'/div") == false)
-			erros.add(EnumMensagens.CAMPO_OBRIGATORIO.getMensagem() + " Data da Publicação");
+			erros.add(EnumMensagensLog.CAMPO_OBRIGATORIO.getMensagem() + " Data da Publicação");
 		
 		//-------------------Habilitar o restante dos campos para validação--------------------
 		
@@ -134,11 +134,11 @@ public class CadastrarBaseLegalValidacoes {
 		
 		// Valida obrigatoriedade do número da base legal
 		if(Validacoes.verificaMarcacaoErroId(driver, "numero_maindiv") == false)
-			erros.add(EnumMensagens.CAMPO_OBRIGATORIO.getMensagem() + " Número");
+			erros.add(EnumMensagensLog.CAMPO_OBRIGATORIO.getMensagem() + " Número");
 		
 		// Valida obrigatoriedade da data da vigência
 		if (Validacoes.verificaMarcacaoErroId(driver, "dataVigencia_maindiv") == false)
-			erros.add(EnumMensagens.CAMPO_OBRIGATORIO.getMensagem() + "Data do início da vigênica");
+			erros.add(EnumMensagensLog.CAMPO_OBRIGATORIO.getMensagem() + "Data do início da vigênica");
 		
 		// Verifica se existem mensagens de erro
 		if(erros.size() != 0){

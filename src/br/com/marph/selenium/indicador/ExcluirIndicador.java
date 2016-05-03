@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.testeExclusao.VisualizarIndicador;
 import br.com.marph.selenium.tipoBaseLegal.ExcluirTipoBaseLegal;
@@ -33,7 +33,7 @@ public class ExcluirIndicador {
 	@Test
 	public void realizaBusca() throws InterruptedException, TesteAutomatizadoException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
 
@@ -64,7 +64,7 @@ public class ExcluirIndicador {
 		if ("O indicador não pode ser excluído pois está vinculado a um ou mais registros de: Resolução"
 				.equalsIgnoreCase(
 						driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[3]")).getText())) {
-			throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_NAO_PODE_SER_EXCLUIDO,
+			throw new TesteAutomatizadoException(EnumMensagensLog.INDICADOR_NAO_PODE_SER_EXCLUIDO,
 					ExcluirTipoBaseLegal.class);
 		} else if (driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[4]/button[1]"))
 				.isDisplayed()) {

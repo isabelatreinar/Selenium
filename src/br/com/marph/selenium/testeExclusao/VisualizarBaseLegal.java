@@ -13,7 +13,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.marph.selenium.base.MenuBaseLegalTemplate;
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -34,7 +34,7 @@ public class VisualizarBaseLegal {
 	@Test
 	public void visualizarBaseLegal() throws TesteAutomatizadoException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
 		//Acessar Sistema
@@ -52,11 +52,11 @@ public class VisualizarBaseLegal {
 		
 		// valida se a tela acessada é a correta
 		if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar base legal")) {
-			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.TELA_INCORRETA, this.getClass());
 		}
 		// validar se a tela corresponde a base legal acessada
 		if (!baseSelecionada.equalsIgnoreCase(driver.findElement(By.id("numero")).getText())) {
-			throw new TesteAutomatizadoException(EnumMensagens.BASE_LEGAL_INCORRETA, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.BASE_LEGAL_INCORRETA, this.getClass());
 		}
 
 		// Se a tela e a base legal forem os corretos o teste se encerra

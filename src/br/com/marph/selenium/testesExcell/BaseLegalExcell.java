@@ -18,7 +18,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.base.MenuBaseLegalTemplate;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.javaScriptUtils.ValidaToast;
 import br.com.marph.selenium.utils.LogUtils;
@@ -42,7 +42,7 @@ public class BaseLegalExcell {
 
 	@Test
 	public void teste() throws Exception {
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
 		MenuBaseLegalTemplate.menuBaseLegal(driver);
@@ -78,9 +78,9 @@ public class BaseLegalExcell {
 			driver.findElement(By.id("numero")).click();
 			if ("Existe tipo de base legal cadastrado com esse número"
 					.equalsIgnoreCase(driver.findElement(By.xpath("//*[@id='numero_maindiv']/div")).getText())) {
-				throw new TesteAutomatizadoException(EnumMensagens.REGISTRO_DUPLICADO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.REGISTRO_DUPLICADO, this.getClass());
 			} else {
-				throw new TesteAutomatizadoException(EnumMensagens.PDF_MAIOR, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.PDF_MAIOR, this.getClass());
 			}
 		} catch (NoSuchElementException e) {
 
@@ -110,29 +110,29 @@ public class BaseLegalExcell {
 			driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(tipo);
 			driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);
 		} else
-			throw new TesteAutomatizadoException(EnumMensagens.TIPO_VALIDACAO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.TIPO_VALIDACAO, this.getClass());
 
 		if (StringUtils.isNotBlank(numero)) {
 			driver.findElement(By.id("numero")).sendKeys(numero);
 		} else
-			throw new TesteAutomatizadoException(EnumMensagens.NUMERO_VALIDACAO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.NUMERO_VALIDACAO, this.getClass());
 
 		if (StringUtils.isNotBlank(data)) {
 			driver.findElement(By.id("dataPublicacao")).sendKeys(data);
 		} else
-			throw new TesteAutomatizadoException(EnumMensagens.DATA_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.DATA_EM_BRANCO, this.getClass());
 
 		if (StringUtils.isNotBlank(ano)) {
 			driver.findElement(By.id("dataVigencia_chosen")).click();
 			driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys(ano);
 			driver.findElement(By.xpath("//*[@id='dataVigencia_chosen']/div/div/input")).sendKeys(Keys.TAB);
 		} else
-			throw new TesteAutomatizadoException(EnumMensagens.ANO_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.ANO_EM_BRANCO, this.getClass());
 
 		if (StringUtils.isNotBlank(pdf)) {
 			driver.findElement(By.id("textoPublicado")).sendKeys(pdf);
 		} else
-			throw new TesteAutomatizadoException(EnumMensagens.PDF_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.PDF_EM_BRANCO, this.getClass());
 
 		driver.findElement(By.id("btnSalvar")).click();
 

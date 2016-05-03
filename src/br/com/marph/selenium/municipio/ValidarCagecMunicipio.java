@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -32,7 +32,7 @@ public class ValidarCagecMunicipio {
 		@Test
 		public void realizaBusca() throws TesteAutomatizadoException{			
 			
-			LogUtils.log(EnumMensagens.INICIO, this.getClass());
+			LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 			
 			long timestart = System.currentTimeMillis();		
 			
@@ -49,9 +49,9 @@ public class ValidarCagecMunicipio {
 				boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
 
 				if (validar == true) {
-					LogUtils.log(EnumMensagens.CAGEC_VALIDADO, this.getClass());
+					LogUtils.log(EnumMensagensLog.CAGEC_VALIDADO, this.getClass());
 				} else {
-					throw new TesteAutomatizadoException(EnumMensagens.CAGEC_NAO_VALIDADO, this.getClass());
+					throw new TesteAutomatizadoException(EnumMensagensLog.CAGEC_NAO_VALIDADO, this.getClass());
 				}		
 			 		
 			

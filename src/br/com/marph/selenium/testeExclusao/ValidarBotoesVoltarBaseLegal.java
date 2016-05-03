@@ -13,7 +13,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.marph.selenium.base.MenuBaseLegalTemplate;
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -37,7 +37,7 @@ public class ValidarBotoesVoltarBaseLegal {
 	@Test
 	public void qtdeRegistrosBaseLegal() throws TesteAutomatizadoException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
 		// Acessar Sistema
@@ -60,7 +60,7 @@ public class ValidarBotoesVoltarBaseLegal {
 		 **/
 		driver.findElement(By.id("btnVoltar")).click();
 		if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar base legal")) {
-			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.TELA_INCORRETA, this.getClass());
 		}
 
 		/**
@@ -72,7 +72,7 @@ public class ValidarBotoesVoltarBaseLegal {
 		 **/
 		driver.findElement(By.id("btnVoltar1")).click();
 		if (!driver.findElement(By.id("btnNovaBaseLegal")).getText().equalsIgnoreCase("Cadastrar Nova Base Legal")) {
-			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.TELA_INCORRETA, this.getClass());
 		}
 
 		

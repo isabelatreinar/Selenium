@@ -13,7 +13,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.marph.selenium.base.MenuBaseLegalTemplate;
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -33,7 +33,7 @@ public class ValidarBreadcrumbBaseLegal {
 	@Test
 	public void visualizarBreadcrumbBaseLegal() throws TesteAutomatizadoException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
 		//Acessar Sistema
@@ -53,7 +53,7 @@ public class ValidarBreadcrumbBaseLegal {
 		
 		// validar breadcrumb
 		if(!driver.findElement(By.xpath("//ol[@class='breadcrumb small']")).getText().equalsIgnoreCase("Você está em: Base Legal > Visualizar Base Legal > Histórico")){
-			throw new TesteAutomatizadoException(EnumMensagens.BREADCRUMB_INCORRETO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.BREADCRUMB_INCORRETO, this.getClass());
 		}
 
 

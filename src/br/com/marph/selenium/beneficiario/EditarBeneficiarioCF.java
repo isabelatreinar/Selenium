@@ -16,7 +16,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
@@ -53,7 +53,7 @@ public class EditarBeneficiarioCF {
 	@Test
 	public void testeEditarBeneficiario() throws TesteAutomatizadoException{
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 		
 		//Acessar Sistema
@@ -156,12 +156,12 @@ public class EditarBeneficiarioCF {
 		
 		// Valida exibicao do toast apos salvar registro
 		if(!driver.findElement(By.id("toast-container")).isDisplayed()){
-			erros.add(EnumMensagens.TOAST_DESABILITADO.getMensagem());
+			erros.add(EnumMensagensLog.TOAST_DESABILITADO.getMensagem());
 		}
 		
 		// Valida dado exibido no campo "Numero"
 		if (!driver.findElement(By.id("modalVisualizarCnpj")).getText().equalsIgnoreCase(cnpj)) {
-			erros.add(EnumMensagens.ERRO_SALVAR.getMensagem() + "'CNPJ'");
+			erros.add(EnumMensagensLog.ERRO_SALVAR.getMensagem() + "'CNPJ'");
 		}
 	}
 		

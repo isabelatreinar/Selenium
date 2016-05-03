@@ -14,7 +14,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -34,7 +34,7 @@ public class CadastrarTipoBaseLegalComValidacao {
 	@Test
 	public void cadastroTipoBaseLegal() throws TesteAutomatizadoException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
 
@@ -109,12 +109,12 @@ public class CadastrarTipoBaseLegalComValidacao {
 			if (driver.findElement(By.xpath("//*[@id='nomeTipoBaseLegal_maindiv']/div")).isDisplayed()
 					&& driver.findElement(By.xpath("//*[@id='nomeTipoBaseLegal_maindiv']/div")).getText()
 							.equalsIgnoreCase("Preenchimento obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.NOME_VALIDACAO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.NOME_VALIDACAO, this.getClass());
 			}
 
 			if (driver.findElement(By.xpath("//*[@id='nomeTipoBaseLegal_maindiv']/div")).getText()
 					.equalsIgnoreCase("Tipo de base legal já cadastrado.")) {
-				throw new TesteAutomatizadoException(EnumMensagens.TIPO_DE_BASE_LEGAL_JA_CADASTRADA, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.TIPO_DE_BASE_LEGAL_JA_CADASTRADA, this.getClass());
 			}
 		}
 
@@ -125,7 +125,7 @@ public class CadastrarTipoBaseLegalComValidacao {
 			transferencia.click();
 			if (driver.findElement(By.xpath("//*[@id='transferenciaRecursosFinanceiros_maindiv']/div[2]")).getText()
 					.equalsIgnoreCase("Preenchimento obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.TRANSFERENCIA_DE_RECURSOS_EM_BRANCO,
+				throw new TesteAutomatizadoException(EnumMensagensLog.TRANSFERENCIA_DE_RECURSOS_EM_BRANCO,
 						this.getClass());
 			}
 		}
@@ -137,7 +137,7 @@ public class CadastrarTipoBaseLegalComValidacao {
 			transferencia.click();
 			if (driver.findElement(By.xpath("//*[@id='prestacaoMetas_maindiv']/div[2]")).getText()
 					.equalsIgnoreCase("Preenchimento obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.PRESTACAO_DE_METAS_EM_BRANCO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.PRESTACAO_DE_METAS_EM_BRANCO, this.getClass());
 			}
 		}
 
@@ -148,7 +148,7 @@ public class CadastrarTipoBaseLegalComValidacao {
 			transferencia.click();
 			if (driver.findElement(By.xpath("//*[@id='prestacaoContas_maindiv']/div[2]")).getText()
 					.equalsIgnoreCase("Preenchimento obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.PRESTACAO_DE_CONTAS_EM_BRANCO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.PRESTACAO_DE_CONTAS_EM_BRANCO, this.getClass());
 			}
 		}
 	}

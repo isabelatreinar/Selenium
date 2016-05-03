@@ -14,7 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.javaScriptUtils.JavaScript;
 import br.com.marph.selenium.utils.LogUtils;
@@ -63,7 +63,7 @@ public class CadastrarBeneficiarioValidacoes {
 	@Test
 	public void testeCadastroBeneficiarioValidacoes() throws TesteAutomatizadoException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 		
 		//Acessar Sistema
@@ -125,14 +125,14 @@ public class CadastrarBeneficiarioValidacoes {
 		
 		// Verifica se o campo possui validação (está marcado em vermelho)
 		if(Validacoes.verificaMarcacaoErroId(driver, "modalNovoCnpj_maindiv") == false){
-			erros.add(EnumMensagens.REGISTRO_DUPLICADO.getMensagem() + " Beneficiario - CNPJ já utilizado");
+			erros.add(EnumMensagensLog.REGISTRO_DUPLICADO.getMensagem() + " Beneficiario - CNPJ já utilizado");
 			marcacao = false;
 		}
 		
 		if(marcacao == true){			
 			// Verifica se a validação realizada é a de CNPJ já utilizado
 			if(Validacoes.verificaMensagemTooltip(driver, "CNPJ já utilizado."))
-				erros.add(EnumMensagens.VALIDACAO_INCORRETA.getMensagem() + " Campo 'CNPJ'");
+				erros.add(EnumMensagensLog.VALIDACAO_INCORRETA.getMensagem() + " Campo 'CNPJ'");
 		}
 		
 	}
@@ -140,11 +140,11 @@ public class CadastrarBeneficiarioValidacoes {
 	private void validacaoCnpjForaCagec() {
 		// Valida exibicao do toast apos inserir Cnpj
 		if(!driver.findElement(By.id("toast-container")).isDisplayed()){
-			erros.add(EnumMensagens.TOAST_DESABILITADO.getMensagem() + " Toast");
+			erros.add(EnumMensagensLog.TOAST_DESABILITADO.getMensagem() + " Toast");
 		} 
 		// Verifica a mensagem de erro (mensagem de CNPJ não encontrado no CAGEC) 
 		else if(!driver.findElement(By.xpath("//div[@class='toast-message']")).getText().equals("Não foi possível buscar as informações no CAGEC. [CNPJ-CPF não localizado]")){
-			erros.add(EnumMensagens.MENSAGEM_INCORRETA.getMensagem() + " Toast");
+			erros.add(EnumMensagensLog.MENSAGEM_INCORRETA.getMensagem() + " Toast");
 		}
 	}
 	
@@ -158,7 +158,7 @@ public class CadastrarBeneficiarioValidacoes {
 		
 		// Verifica se o campo possui validação (está marcado em vermelho)
 		if(Validacoes.verificaMarcacaoErroId(driver, "modalNovoCnpj_maindiv") == false){
-			erros.add(EnumMensagens.DADO_INVALIDO.getMensagem() + " CNPJ - CNPJ inválido");
+			erros.add(EnumMensagensLog.DADO_INVALIDO.getMensagem() + " CNPJ - CNPJ inválido");
 			marcacao = false;
 		}
 		
@@ -168,7 +168,7 @@ public class CadastrarBeneficiarioValidacoes {
 			
 			// Verifica se a validação realizada é a de CNPJ inválido
 			if(Validacoes.verificaMensagemTooltip(driver, "CNPJ inválido!") == false)
-				erros.add(EnumMensagens.VALIDACAO_INCORRETA.getMensagem() + " Campo 'CNPJ'");
+				erros.add(EnumMensagensLog.VALIDACAO_INCORRETA.getMensagem() + " Campo 'CNPJ'");
 		}
 	}
 	

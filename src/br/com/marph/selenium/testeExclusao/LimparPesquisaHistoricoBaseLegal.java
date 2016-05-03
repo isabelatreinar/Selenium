@@ -14,7 +14,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.marph.selenium.base.MenuBaseLegalTemplate;
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -34,7 +34,7 @@ public class LimparPesquisaHistoricoBaseLegal {
 	@Test
 	public void limparPesquisaBaseLegal() throws TesteAutomatizadoException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 		
 		//Acessar Sistema
@@ -82,7 +82,7 @@ public class LimparPesquisaHistoricoBaseLegal {
 			StringUtils.isNotBlank(driver.findElement(By.id("dataFinalHistorico")).getText()) ||
 			StringUtils.isNotBlank(driver.findElement(By.id("camposBaseLegal_chosen")).getText()) || 
 			!driver.findElement(By.id("usuariosAlteracao_chosen")).getText().equalsIgnoreCase("Modificado Por:")){
-			throw new TesteAutomatizadoException(EnumMensagens.CAMPO_PREENCHIDO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.CAMPO_PREENCHIDO, this.getClass());
 		}
 				
 	}

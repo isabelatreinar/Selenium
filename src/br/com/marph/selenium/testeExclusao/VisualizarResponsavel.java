@@ -13,7 +13,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.beneficiario.MenuBeneficiarioTemplate;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -33,7 +33,7 @@ public class VisualizarResponsavel {
 	@Test
 	public void visualizarResponsavel() throws TesteAutomatizadoException{
 		
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 		
 		//Acessa Menu Cadastros Beneficiário
@@ -50,7 +50,7 @@ public class VisualizarResponsavel {
 		
 		// Validar o responsável é do beneficiário acessado
 		if(!VisualizarBeneficiario.getBeneficiarioSelecionado().equalsIgnoreCase(driver.findElement(By.id("idNomeBeneficiarioP")).getText())){
-			throw new TesteAutomatizadoException(EnumMensagens.BENEFICIARIO_INCORRETO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.BENEFICIARIO_INCORRETO, this.getClass());
 		}
 		
 		// Se o beneficiário é o mesmmo acessoado o teste se encerra

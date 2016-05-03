@@ -1,4 +1,4 @@
-package br.com.marph.selenium.blocoDeFinanciamento;
+package br.com.marph.selenium.testeExclusao;
 
 import java.util.concurrent.TimeUnit;
 
@@ -7,17 +7,17 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import br.com.marph.selenium.conexao.AcessoSistema;
+import br.com.marph.selenium.blocoDeFinanciamento.MenuBlocoTemplate;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
-import br.com.marph.selenium.testeExclusao.VisualizarBloco;
 import br.com.marph.selenium.utils.LogUtils;
 
-public class ExcluirBloco {
+public class PesquisarBloco {
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -33,18 +33,13 @@ public class ExcluirBloco {
 	@Test
 	public void realizaBusca() throws InterruptedException, TesteAutomatizadoException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
+
 		long timestart = System.currentTimeMillis();
-		
-		AcessoSistema.perfilAdministrador(driver);
 
 		MenuBlocoTemplate.menuBlocoFinanciamento(driver);
 		
-		PesquisarBloco.pesquisar(driver);
-		
-		VisualizarBloco.visualizar(driver);
-		
-		excluir();
+		pesquisar(driver);
 		
 		float tempoGasto = (System.currentTimeMillis() - timestart);
 		float tempoSegundos = tempoGasto / 1000;
@@ -59,11 +54,16 @@ public class ExcluirBloco {
 		}
 	}
 	
-	protected void excluir () {
-		//clica no botão ecluir.
-		driver.findElement(By.id("btnExcluir1")).click();
+	public static void pesquisar(WebDriver driver) {
+		//insere o nome a ser pesquisado
+		driver.findElement(By.id("nome")).sendKeys("marph");
 		
-		//confirma o botão sim a exclusão.
-		driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[4]/button[1]")).click();
-	}
+		//situação
+		driver.findElement(By.id("situacao_chosen")).click();
+		driver.findElement(By.xpath("//*[@id='situacao_chosen']/div/div/input")).sendKeys("Ativo");
+		driver.findElement(By.xpath("//*[@id='situacao_chosen']/div/div/input")).sendKeys(Keys.TAB);
+		
+		//clica em pesquisar
+		driver.findElement(By.id("btnPesquisar")).click();
+	}	
 }

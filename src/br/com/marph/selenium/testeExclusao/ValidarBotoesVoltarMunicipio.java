@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.municipio.MenuMunicipioTemplate;
 import br.com.marph.selenium.utils.LogUtils;
@@ -36,7 +36,7 @@ public class ValidarBotoesVoltarMunicipio {
 	@Test
 	public void qtdeRegistrosBaseLegal() throws TesteAutomatizadoException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
 		// Acessar menu
@@ -56,14 +56,14 @@ public class ValidarBotoesVoltarMunicipio {
 		 **/
 		driver.findElement(By.id("btnVoltar")).click();
 		if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar município")) {
-			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.TELA_INCORRETA, this.getClass());
 		}
 		
 		VisualizarPrefeitoMunicipio.visualizar(driver);
 		
 		driver.findElement(By.id("btnVoltar1")).click();
 		if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar município")) {
-			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.TELA_INCORRETA, this.getClass());
 		}
 		/**
 		 * Validar botão 'Voltar' Visualizar Município 
@@ -74,7 +74,7 @@ public class ValidarBotoesVoltarMunicipio {
 		 **/
 		driver.findElement(By.id("btnEditar1")).click();
 		if (!driver.findElement(By.id("unidadeRegional_label")).getText().equalsIgnoreCase("Unidade Regional")) {
-			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.TELA_INCORRETA, this.getClass());
 		}
 
 		// Validação dos botões INFERIORES
@@ -90,14 +90,14 @@ public class ValidarBotoesVoltarMunicipio {
 		 **/
 		driver.findElement(By.id("btnVoltar")).click();
 		if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar município")) {
-			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.TELA_INCORRETA, this.getClass());
 		}
 		
 		VisualizarPrefeitoMunicipio.visualizar(driver);
 		
 		driver.findElement(By.id("btnVoltar1")).click();
 		if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar município")) {
-			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.TELA_INCORRETA, this.getClass());
 		}
 
 		/**
@@ -109,7 +109,7 @@ public class ValidarBotoesVoltarMunicipio {
 		 **/
 		driver.findElement(By.id("btnVoltar")).click();
 		if (!driver.findElement(By.id("unidadeRegional_label")).getText().equalsIgnoreCase("Unidade Regional")) {
-			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.TELA_INCORRETA, this.getClass());
 		}
 
 		// se as telas estiverem corretas o teste é finalizado com sucesso

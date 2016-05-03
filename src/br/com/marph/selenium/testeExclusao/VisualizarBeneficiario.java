@@ -13,7 +13,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.beneficiario.MenuBeneficiarioTemplate;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.utils.LogUtils;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 
@@ -35,7 +35,7 @@ public class VisualizarBeneficiario {
 	@Test
 	public void visualizarBeneficiario() throws TesteAutomatizadoException, InterruptedException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
 		// Acessa menu
@@ -49,12 +49,12 @@ public class VisualizarBeneficiario {
 
 		// valida se a tela acessada é a correta
 		if (!driver.findElement(By.id("gridSystemModalLabel")).getText().equalsIgnoreCase("Visualizar beneficiário")) {
-			throw new TesteAutomatizadoException(EnumMensagens.TELA_INCORRETA, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.TELA_INCORRETA, this.getClass());
 		}
 		
 		// se a tela é a correta -> verifica se é do beneficiario correto
 		if (!beneficiarioSelecionado.equalsIgnoreCase(driver.findElement(By.id("modalVisualizarNome")).getText())) {
-			throw new TesteAutomatizadoException(EnumMensagens.BENEFICIARIO_INCORRETO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.BENEFICIARIO_INCORRETO, this.getClass());
 		}
 
 		// Se a tela e o beneficiario forem os corretos o teste se encerra

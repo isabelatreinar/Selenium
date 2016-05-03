@@ -14,7 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.enums.EnumValidacao;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
@@ -56,7 +56,7 @@ public class CadastrarBaseDuplicada {
 		
 	
 		// Recolhe informacoes do log
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 	
 		// Acessa o sistema
@@ -92,7 +92,7 @@ public class CadastrarBaseDuplicada {
 	public void verificaBaseDuplicada() throws TesteAutomatizadoException{
 		// Verifica se o campo possui validação (está marcado em vermelho)		
 		if(Validacoes.verificaMarcacaoErroId(driver, "numero_maindiv") == false)
-			erros.add(EnumMensagens.REGISTRO_DUPLICADO.getMensagem() + " Base Legal");
+			erros.add(EnumMensagensLog.REGISTRO_DUPLICADO.getMensagem() + " Base Legal");
 		
 		// Verifica se existem mensagens de erro
 		if(erros.size() != 0){

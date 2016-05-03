@@ -13,7 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -48,7 +48,7 @@ public class CadastrarBeneficiario {
 	public void testeCadastroBeneficiario() throws TesteAutomatizadoException {
 
 		// Recolhendo informações de log
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 		
 		//Acessar Sistema
@@ -107,17 +107,17 @@ public class CadastrarBeneficiario {
 	public void verificaValidacao(WebDriver driver, String cnpj, String tipo){
 		// Valida exibicao do toast apos salvar registro
 		if(!driver.findElement(By.id("toast-container")).isDisplayed()){
-			erros.add(EnumMensagens.TOAST_DESABILITADO.getMensagem());
+			erros.add(EnumMensagensLog.TOAST_DESABILITADO.getMensagem());
 		}
 		
 		// Valida dado exibido no campo "Numero"
 		if (!driver.findElement(By.id("modalVisualizarCnpj")).getText().equalsIgnoreCase(cnpj)) {
-			erros.add(EnumMensagens.ERRO_SALVAR.getMensagem() + "'CNPJ'");
+			erros.add(EnumMensagensLog.ERRO_SALVAR.getMensagem() + "'CNPJ'");
 		}
 		
 		// Valida dado exibido no campo "Tipo"
 		if (!driver.findElement(By.id("modalVisualizarTipo")).getText().equalsIgnoreCase(tipo)) {
-			erros.add(EnumMensagens.ERRO_SALVAR.getMensagem() + "'Tipo'");
+			erros.add(EnumMensagensLog.ERRO_SALVAR.getMensagem() + "'Tipo'");
 		}
 	}
 	

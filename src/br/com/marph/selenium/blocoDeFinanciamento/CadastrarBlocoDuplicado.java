@@ -3,7 +3,6 @@ package br.com.marph.selenium.blocoDeFinanciamento;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.After;
@@ -12,24 +11,27 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
 import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagensLog;
+import br.com.marph.selenium.enums.EnumMensagensSistema;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
+import br.com.marph.selenium.javaScriptUtils.JavaScript;
 import br.com.marph.selenium.utils.LogUtils;
 import br.marph.selenium.validacaoUtils.Validacoes;
 
-public class CadastrarBloco {
+public class CadastrarBlocoDuplicado {
 	/**
-	 * Teste de Cadastro de Bloco de Financiamento (Caminho Feliz)
-	 * Dados de Teste:
+	 * Teste de cadastro de Bloco de Financiamento duplicado
+	 * 
+	 * Bloco Duplicado
+	 * Pré-Condicao: Executar o script de teste de cadastro e não ter executado o script de 
+	 * teste de exclusão.
+	 * Dados de Teste
 	 * Nome: Bloco teste
-	 * Descrição: Este bloco de financiamento foi cadastrado no teste automatizado.
-	 * Status: Ativo (Status Default)
+	 * Descrição: Teste de cadastro de bloco duplicado
 	 *
 	 */
-	
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -49,34 +51,30 @@ public class CadastrarBloco {
 	}
 	
 	@Test
-	public void testeCadastroBloco() throws InterruptedException, TesteAutomatizadoException {
+	public void testeCadastroDuplicado() throws InterruptedException, TesteAutomatizadoException {
 
-		// Recolhe informacoes de log
+		// Recolhendo infomacoes de log
 		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 		
-		// Acessa o sistema
+		// Acesso ao sistema
 		AcessoSistema.perfilAdministrador(driver);
 
-		// Acessa o menu
+		// Acesso ao menu
 		MenuBlocoTemplate.menuBlocoFinanciamento(driver);
 		
 		// Inicializa list
 		erros = new ArrayList<>();
 		
-		// Acessa tela de cadastro
+		//Acesso a tela de cadastro
 		driver.findElement(By.id("btnNovoBlocoFinanciamento")).click();
 		
-		// Insere as informações no formulário
-		cadastroBlocoFinanciamento(driver, "Bloco teste", "Este bloco de financiamento foi cadastrado no teste automatizado.");
+		// Insere informacões no formulário
+		CadastrarBloco.cadastroBlocoFinanciamento(driver, "Bloco teste", "Teste de cadastro de bloco duplicado");
 		
-		// Armazena cadastro
-		salvarCadastro(driver);
-			
-		// Realiza as validações do cadastro
-		verificaValidacoes(driver, erros, "Bloco teste", "Este bloco de financiamento foi cadastrado no teste automatizado.");
+		// Realiza as validações na tela
+		verificaValidacoes();
 		
-		// verifica se existem erros
 		if(erros.size() != 0){
 			throw new TesteAutomatizadoException(erros, getClass());
 		}
@@ -93,40 +91,36 @@ public class CadastrarBloco {
 			log.info(sb.toString() + "\n");
 		}
 	}
-
-	public static void cadastroBlocoFinanciamento(WebDriver driver, String nome, String descricao) {
-		// Preenche o campo "Nome"
-		driver.findElement(By.id("nome")).sendKeys(nome);
-		
-		//Preenche o campo "Descrição"
-		driver.findElement(By.id("descricao")).sendKeys(descricao);
-		
-	}	
 	
-	public static void salvarCadastro(WebDriver driver){
-		// Armazena registro
-		driver.findElement(By.id("btnSalvar1")).click();
-	}
-	
-	public static void verificaValidacoes(WebDriver driver, List<String> erros, String nome, String descricao){
-		// Verifica se o toast foi exibido
+	private void verificaValidacoes(){
+		boolean marcacao = true;
+		// Verifica BreadCrumb
+		if(Validacoes.verificaBreadCrumb(driver, "Bloco de financiamento > Novo Bloco de Financiamento") == false){
+			erros.add(EnumMensagensLog.BREADCRUMB_INCORRETO.getMensagem());
+		}
+		
+		// Verifica exibicao do toast
 		if(Validacoes.verificaExibicaoToast(driver) == false){
 			erros.add(EnumMensagensLog.TOAST_DESABILITADO.getMensagem());
 		}
 		
-		// Valida a mensagem exibida no toast
-		if(Validacoes.verificaMensagemToast(driver, "Bloco de Financiamento salvo com sucesso") == false){
-			erros.add(EnumMensagensLog.MENSAGEM_INCORRETA.getMensagem() + " Toast");
+		//Verifica mensagem do toast
+		if(Validacoes.verificaMensagemToast(driver, EnumMensagensSistema.ERRO.getMensagem()) == false){
+			erros.add(EnumMensagensLog.MENSAGEM_INCORRETA + " Toast");
 		}
 		
-		// Valida as informacoes salvas no campo "Nome"
-		if(!driver.findElement(By.id("tipo")).getText().equals(nome)){
-			erros.add(EnumMensagensLog.ERRO_SALVAR.getMensagem() + " Nome");
+		// Verifica marcação no campo "Nome"
+		if(Validacoes.verificaMarcacaoErroId(driver, "nome_maindiv") == false){
+			erros.add(EnumMensagensLog.REGISTRO_DUPLICADO.getMensagem());
+			marcacao = false;
 		}
 		
-		// Valida as informacoes salvas no campo "Descricao"
-		if(!driver.findElement(By.id("numero")).getText().equals(descricao)){
-			erros.add(EnumMensagensLog.ERRO_SALVAR.getMensagem() + " Descricao");
+		// Verifica tooltip e tipo de validacao
+		if(marcacao == true){
+			JavaScript.getTooltip(driver, "nome");	// abre tooltip
+			if(Validacoes.verificaMensagemTooltip(driver, "Bloco de financiamento já cadastrado.") == false){
+				erros.add(EnumMensagensLog.VALIDACAO_INCORRETA.getMensagem() + "Nome");
+			}
 		}
 	}
 }

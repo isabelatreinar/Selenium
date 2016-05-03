@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.testeExclusao.VisualizarTipoBaseLegal;
 import br.com.marph.selenium.utils.LogUtils;
@@ -33,7 +33,7 @@ public class ExcluirTipoBaseLegal {
 	@Test
 	public void excluirTipoBase() throws TesteAutomatizadoException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
 
@@ -64,12 +64,12 @@ public class ExcluirTipoBaseLegal {
 		if ("O tipo de base legal não pode ser excluído pois está vinculado a uma ou mais bases legais."
 				.equalsIgnoreCase(
 						driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[3]")).getText())) {
-			throw new TesteAutomatizadoException(EnumMensagens.TIPO_BASE_NAO_PODE_SER_EXCLUIDA,ExcluirTipoBaseLegal.class);
+			throw new TesteAutomatizadoException(EnumMensagensLog.TIPO_BASE_NAO_PODE_SER_EXCLUIDA,ExcluirTipoBaseLegal.class);
 			//WebElement ok = driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[4]/button"));
 			//ok.click();		
 		} else 	if (driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[4]/button[1]")).isDisplayed()) {
 			WebElement sim = driver.findElement(By.xpath("/html/body/div[5]/div[2]/div/div/div/div/div[4]/button[1]"));
 			sim.click();		
-		}else throw new TesteAutomatizadoException(EnumMensagens.TIPO_BASE_LEGAL_ERRO,ExcluirTipoBaseLegal.class);
+		}else throw new TesteAutomatizadoException(EnumMensagensLog.TIPO_BASE_LEGAL_ERRO,ExcluirTipoBaseLegal.class);
 	}
 }

@@ -12,7 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogOut;
 import br.com.marph.selenium.utils.LogUtils;
@@ -32,7 +32,7 @@ public class CadastrarSubSecretaria {
 
 	@Test
 	public void realizaBusca() throws InterruptedException, TesteAutomatizadoException {
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
 
@@ -79,13 +79,13 @@ public class CadastrarSubSecretaria {
 			driver.findElement(By.id("nome")).click();
 			if (driver.findElement(By.xpath("//*[@id='nome_maindiv']/div")).getText()
 					.equalsIgnoreCase("Preenchimento obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.NOME_VALIDACAO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.NOME_VALIDACAO, this.getClass());
 			} else if (driver.findElement(By.xpath("//*[@id='nome_maindiv']/div")).getText()
 					.equalsIgnoreCase("Subsecretaria já cadastrada.")) {
-				throw new TesteAutomatizadoException(EnumMensagens.SUBSECRETARIA_JA_CADASTRADA, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.SUBSECRETARIA_JA_CADASTRADA, this.getClass());
 			}
 		} catch (NoSuchElementException e) {
-			throw new TesteAutomatizadoException(EnumMensagens.SIGLA_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.SIGLA_EM_BRANCO, this.getClass());
 		}
 	}
 }

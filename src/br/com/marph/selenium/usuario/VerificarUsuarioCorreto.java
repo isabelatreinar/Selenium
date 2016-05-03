@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 
@@ -32,7 +32,7 @@ public class VerificarUsuarioCorreto {
 
 	@Test
 	public void VerificarUsuario() throws TesteAutomatizadoException {
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
 
@@ -64,7 +64,7 @@ public class VerificarUsuarioCorreto {
 		String nomeCompara = driver.findElement(By.xpath("/html/body/div[2]/div[5]/div[1]/div/div[1]/div/p")).getText();
 
 		if (!nome.equals(nomeCompara)) {
-			throw new TesteAutomatizadoException(EnumMensagens.USUARIO_ERRADO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.USUARIO_ERRADO, this.getClass());
 		} else {
 			WebElement perfil = driver.findElement(By.id("btnPerfil1"));
 			perfil.click();
@@ -73,7 +73,7 @@ public class VerificarUsuarioCorreto {
 		String nomeComparaPerfil = driver.findElement(By.xpath("//*[@id='ulNome']/span")).getText();
 		
 		if (!nome.equals(nomeComparaPerfil)) {
-			throw new TesteAutomatizadoException(EnumMensagens.USUARIO_ERRADO_PERFIL, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.USUARIO_ERRADO_PERFIL, this.getClass());
 		}
 	}
 

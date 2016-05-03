@@ -13,7 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.testeExclusao.VisualizarUsuario;
 import br.com.marph.selenium.utils.LogUtils;
@@ -34,7 +34,7 @@ public class EditarUsuario {
 	@Test
 	public void realizaBusca() throws Exception {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
 
@@ -54,9 +54,9 @@ public class EditarUsuario {
 		boolean validar = driver.findElement(By.id("toast-container")).isDisplayed();
 
 		if (validar == true) {
-			LogUtils.log(EnumMensagens.USUARIO_VALIDADO, this.getClass());
+			LogUtils.log(EnumMensagensLog.USUARIO_VALIDADO, this.getClass());
 		} else {
-			throw new TesteAutomatizadoException(EnumMensagens.USUARIO_NAO_VALIDADO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.USUARIO_NAO_VALIDADO, this.getClass());
 		}
 
 		float tempoGasto = (System.currentTimeMillis() - timestart);
@@ -80,7 +80,7 @@ public class EditarUsuario {
 			if (driver.findElement(By.xpath("//*[@id='usuarioNome_maindiv']/div")).isDisplayed()
 					&& driver.findElement(By.xpath("//*[@id='usuarioNome_maindiv']/div")).getText()
 							.equalsIgnoreCase("Preenchimento obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.NOME_VALIDACAO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.NOME_VALIDACAO, this.getClass());
 			}
 		}
 
@@ -90,7 +90,7 @@ public class EditarUsuario {
 			driver.findElement(By.id("cargo_chosen")).click();
 			if (driver.findElement(By.xpath("//*[@id='cargo_maindiv']/div[2]")).getText()
 					.equalsIgnoreCase("Preenchimento obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagens.CARGO_EM_BRANCO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.CARGO_EM_BRANCO, this.getClass());
 			}
 		}
 	}

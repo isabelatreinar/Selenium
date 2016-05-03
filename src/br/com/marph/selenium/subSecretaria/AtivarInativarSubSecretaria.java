@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.testeExclusao.VisualizarSubSecretaria;
 import br.com.marph.selenium.utils.LogOut;
@@ -32,7 +32,7 @@ public class AtivarInativarSubSecretaria {
 
 	@Test
 	public void realizaBusca() throws InterruptedException, TesteAutomatizadoException {
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
 
@@ -63,9 +63,9 @@ public class AtivarInativarSubSecretaria {
 		driver.findElement(By.id("btnAtivarInativar")).click();
 		
 		if(driver.findElement(By.id("btnAtivarInativar")).getText().equalsIgnoreCase("Inativar Subsecretaria")){
-			LogUtils.log(EnumMensagens.BLOCO_ATIVADO, this.getClass());
+			LogUtils.log(EnumMensagensLog.BLOCO_ATIVADO, this.getClass());
 		}else if(driver.findElement(By.id("btnAtivarInativar")).getText().equalsIgnoreCase("Ativar Subsecretaria")){
-			LogUtils.log(EnumMensagens.BLOCO_INATIVADO, this.getClass());
+			LogUtils.log(EnumMensagensLog.BLOCO_INATIVADO, this.getClass());
 		}
 	}	
 }

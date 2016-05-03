@@ -12,7 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.testeExclusao.VisualizarSubSecretaria;
 import br.com.marph.selenium.utils.LogOut;
@@ -33,7 +33,7 @@ public class EditarSubSecretaria {
 
 	@Test
 	public void realizaBusca() throws InterruptedException, TesteAutomatizadoException {
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
 
@@ -81,10 +81,10 @@ public class EditarSubSecretaria {
 
 	private void validar() throws TesteAutomatizadoException {
 		if(StringUtils.isBlank(driver.findElement(By.id("nome")).getAttribute("value"))){
-			throw new TesteAutomatizadoException(EnumMensagens.NOME_VALIDACAO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.NOME_VALIDACAO, this.getClass());
 		}else if(StringUtils.isBlank(driver.findElement(By.id("sigla")).getAttribute("value"))){
-			throw new TesteAutomatizadoException(EnumMensagens.SIGLA_EM_BRANCO, this.getClass());
-		}else throw new TesteAutomatizadoException(EnumMensagens.SUBSECRETARIA_NAO_PODE_SER_INATIVADA, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.SIGLA_EM_BRANCO, this.getClass());
+		}else throw new TesteAutomatizadoException(EnumMensagensLog.SUBSECRETARIA_NAO_PODE_SER_INATIVADA, this.getClass());
 		
 	}
 }

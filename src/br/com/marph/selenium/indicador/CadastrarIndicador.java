@@ -13,7 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogOut;
 import br.com.marph.selenium.utils.LogUtils;
@@ -34,7 +34,7 @@ public class CadastrarIndicador {
 	@Test
 	public void realizaBusca() throws InterruptedException, TesteAutomatizadoException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
 
@@ -116,28 +116,28 @@ public class CadastrarIndicador {
 
 		if (driver.findElement(By.xpath("//*[@id='tipoIndicador_chosen']/a/span")).getText()
 				.equalsIgnoreCase("Tipo de Indicador")) {
-			throw new TesteAutomatizadoException(EnumMensagens.TIPO_INDICADOR_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.TIPO_INDICADOR_EM_BRANCO, this.getClass());
 		} else if (driver.findElement(By.xpath("//*[@id='tipoFonte_chosen']/a/span")).getText()
 				.equalsIgnoreCase("Tipo de Fonte")) {
-			throw new TesteAutomatizadoException(EnumMensagens.TIPO_DE_FONTE_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.TIPO_DE_FONTE_EM_BRANCO, this.getClass());
 		} else if (driver.findElement(By.xpath("//*[@id='polaridade_chosen']/a/span")).getText()
 				.equalsIgnoreCase("Polaridade")) {
-			throw new TesteAutomatizadoException(EnumMensagens.POLARIDADE_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.POLARIDADE_EM_BRANCO, this.getClass());
 		} else if (StringUtils.isBlank(driver.findElement(By.id("mesesDaMediaMovel")).getAttribute("value"))) {
-			throw new TesteAutomatizadoException(EnumMensagens.MESES_DA_MEDIA_MOVEL_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.MESES_DA_MEDIA_MOVEL_EM_BRANCO, this.getClass());
 		} else if (StringUtils.isBlank(driver.findElement(By.id("mesesDaMediaMovel")).getAttribute("value"))) {
-			throw new TesteAutomatizadoException(EnumMensagens.MESES_DE_DEFASAGEM_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.MESES_DE_DEFASAGEM_EM_BRANCO, this.getClass());
 		} else if (StringUtils.isBlank(driver.findElement(By.id("nomeIndicador")).getAttribute("value"))) {
-			throw new TesteAutomatizadoException(EnumMensagens.NOME_INDICADOR_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.NOME_INDICADOR_EM_BRANCO, this.getClass());
 		} else if (StringUtils.isBlank(driver.findElement(By.id("nomeFonte")).getAttribute("value"))) {
-			throw new TesteAutomatizadoException(EnumMensagens.NOME_DA_FONTE_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.NOME_DA_FONTE_EM_BRANCO, this.getClass());
 		} else if (driver.findElement(By.xpath("//*[@id='programa_chosen']/a/span")).getText()
 				.equalsIgnoreCase("Programa")) {
-			throw new TesteAutomatizadoException(EnumMensagens.PROGRAMA_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.PROGRAMA_EM_BRANCO, this.getClass());
 		} else if (StringUtils.isBlank(driver.findElement(By.id("descricao")).getAttribute("value"))) {
-			throw new TesteAutomatizadoException(EnumMensagens.DESCRICAO_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.DESCRICAO_EM_BRANCO, this.getClass());
 		} else
-			throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_JA_CADASTRADO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.INDICADOR_JA_CADASTRADO, this.getClass());
 	}
 
 	public void variavel() {
@@ -161,11 +161,11 @@ public class CadastrarIndicador {
 	public void validarVariavel() throws TesteAutomatizadoException {
 		if (StringUtils.isBlank(
 				driver.findElement(By.xpath("//*[@class='panel-heading']/span/input")).getAttribute("value"))) {
-			throw new TesteAutomatizadoException(EnumMensagens.NOME_DO_MODELO_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.NOME_DO_MODELO_EM_BRANCO, this.getClass());
 		} else if (StringUtils.isBlank(
 				driver.findElement(By.xpath("//*[@class='panel-collapse collapse in']/div/div[2]/div/p/textarea"))
 						.getAttribute("value"))) {
-			throw new TesteAutomatizadoException(EnumMensagens.DESCRICAO_EM_BRANCO, this.getClass());
+			throw new TesteAutomatizadoException(EnumMensagensLog.DESCRICAO_EM_BRANCO, this.getClass());
 		}
 	}
 

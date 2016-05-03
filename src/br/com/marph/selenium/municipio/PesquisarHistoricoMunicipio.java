@@ -13,7 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.testeExclusao.VisualizarHistoricoMunicipio;
 import br.com.marph.selenium.testeExclusao.VisualizarMunicipio;
@@ -35,7 +35,7 @@ public class PesquisarHistoricoMunicipio {
 	@Test
 	public void pesquisarHistoricoMunicipio() throws TesteAutomatizadoException{			
 		
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();		
 		
 		// Acessar menu Cadastro > Município
@@ -95,7 +95,7 @@ public class PesquisarHistoricoMunicipio {
 		
 			// verifica se possui usuários, se não possui a mensagem nem usuários -> erro
 			if(driver.findElements(By.cssSelector(".chosen-results li")).size() == 0){
-				throw new TesteAutomatizadoException(EnumMensagens.ERRO_HISTORICO, PesquisarHistoricoMunicipio.class);
+				throw new TesteAutomatizadoException(EnumMensagensLog.ERRO_HISTORICO, PesquisarHistoricoMunicipio.class);
 			}
 			
 			driver.findElement(By.id("usuariosAlteracao_chosen")).click();

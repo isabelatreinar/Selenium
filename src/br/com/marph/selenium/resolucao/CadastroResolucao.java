@@ -16,7 +16,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.marph.selenium.conexao.Conexao;
-import br.com.marph.selenium.enums.EnumMensagens;
+import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.AcessoUtils;
 import br.com.marph.selenium.utils.LogUtils;
@@ -43,7 +43,7 @@ public class CadastroResolucao {
 	@Test
 	public void realizaBusca() throws InterruptedException, TesteAutomatizadoException, IOException {
 
-		LogUtils.log(EnumMensagens.INICIO, this.getClass());
+		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
 
@@ -136,7 +136,7 @@ public class CadastroResolucao {
 		
 		try {
 			if(driver.findElement(By.id("mensagemNaoPrestacaoMetas")).getText().equalsIgnoreCase("Não é necessário inserir informações nesta aba.")){
-				throw new TesteAutomatizadoException(EnumMensagens.INDICADOR_FIM, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.INDICADOR_FIM, this.getClass());
 			}
 		} catch (NoSuchElementException e) {
 			
