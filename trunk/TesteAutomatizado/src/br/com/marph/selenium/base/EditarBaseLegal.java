@@ -18,6 +18,7 @@ import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
+import br.com.marph.selenium.utils.WaitUtils;
 
 public class EditarBaseLegal {
 	/** 
@@ -117,8 +118,8 @@ public class EditarBaseLegal {
 		//Clicar no botão pesquisar
 		driver.findElement(By.id("btnPesquisar")).click();
 		
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("sorting_1")));
+		// Aguarda o registro ser exibido
+		WaitUtils.waitFluentClass(driver, 20, 5, "sorting_1");
 		
 		// Acessa a tela do registro pesquisado
 		driver.findElement(By.className("sorting_1")).click();
