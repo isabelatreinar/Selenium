@@ -14,7 +14,6 @@ import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.indicador.MenuIndicadorTemplate;
-import br.com.marph.selenium.indicador.PesquisarIndicador;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class VisualizarHistoricoIndicador {
@@ -37,7 +36,7 @@ public class VisualizarHistoricoIndicador {
 
 		long timestart = System.currentTimeMillis();
 
-		MenuIndicadorTemplate.prepararAcessoIndicador(driver);
+		MenuIndicadorTemplate.menuIndicador(driver);
 		
 		PesquisarIndicador.pesquisar(driver);
 		

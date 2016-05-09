@@ -36,7 +36,7 @@ public class ExportarIndicadores {
 
 		long timestart = System.currentTimeMillis();
 
-		MenuIndicadorTemplate.prepararAcessoIndicador(driver);
+		MenuIndicadorTemplate.menuIndicador(driver);
 		
 		exportar();
 		
