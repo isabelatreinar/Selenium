@@ -5,8 +5,6 @@ import br.com.marph.selenium.enums.EnumAcesso;
 import br.com.marph.selenium.utils.AcessoUtils;
 
 public class AcessoSistema {
-	
-	
 	public static void perfilAdministrador(WebDriver driver) {
 		AcessoUtils.idClick(driver, "btnEntradaSistemaID", "btnAcessar", "confirmarDados",
 				EnumAcesso.ADMINISTRADOR.getId(), "acessarSistema");

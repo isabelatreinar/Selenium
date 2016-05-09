@@ -1,4 +1,4 @@
-package br.com.marph.selenium.indicador;
+package br.com.marph.selenium.testeExclusao;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,6 +14,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
+import br.com.marph.selenium.indicador.MenuIndicadorTemplate;
 import br.com.marph.selenium.utils.LogUtils;
 
 public class PesquisarIndicador {
@@ -36,7 +37,7 @@ public class PesquisarIndicador {
 
 		long timestart = System.currentTimeMillis();
 
-		MenuIndicadorTemplate.prepararAcessoIndicador(driver);
+		MenuIndicadorTemplate.menuIndicador(driver);
 		
 		pesquisar(driver);
 		
