@@ -20,17 +20,17 @@ import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
 import br.marph.selenium.validacaoUtils.Validacoes;
 
-public class ExcluirIndicadorSemVinculo {
+public class ExcluirIndicadorComVinculo {
 	/**
-	 * Teste exclusão de indicador sem vínculos
-	 * Pré-condição: O registro deve constar na base de dados
+	 * Teste exclusão de indicador com vínculos
+	 * Pré-condição: O indicador deve ter vínculo com alguma entidade
 	 * Dados de teste
 	 * Tipo de Indicador: Finalístico
-	 * Nome do Indicador: Teste exclusão sem vínculo
-	 * Tipo de Fonte: Declaratório
-	 * Nome da Fonte: Beneficiário
+	 * Nome do Indicador: Adesão ao Programa Saúde na Escola
+	 * Tipo de Fonte: Oficial
+	 * Nome da Fonte: Portaria/MS
 	 * Polaridade: Quanto maior, melhor
-	 * Programa: Programa Teste
+	 * Programa: SAPS-Saúde na Escola
 	 */
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
@@ -51,7 +51,7 @@ public class ExcluirIndicadorSemVinculo {
 	}
 
 	@Test
-	public void testeExclusaoSemVinculo() throws TesteAutomatizadoException {
+	public void testeExclusaoComVinculo() throws TesteAutomatizadoException {
 
 		// Recolhendo informações de log
 		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
@@ -67,10 +67,10 @@ public class ExcluirIndicadorSemVinculo {
 		erros = new ArrayList<String>();
 
 		// Pesquisar registro
-		EditarIndicadorSemVinculo.pesquisar(driver, "Finalístico", "Indicador teste CRUD Indicador", "Quanto maior, melhor", "Programa Teste");
+		EditarIndicadorSemVinculo.pesquisar(driver, "Finalístico", "Adesão ao Programa Saúde na Escola", "Quanto maior, melhor", "SAPS-Saúde na Escola");
 
 		// Excluir Registro
-		excluirSemVinculo();
+		excluirComVinculo();
 		
 		// Verifica se existem erros
 		if(erros.size() != 0){
@@ -90,7 +90,7 @@ public class ExcluirIndicadorSemVinculo {
 		}
 	}
 
-	private void excluirSemVinculo() {
+	private void excluirComVinculo() {
 		driver.findElement(By.id("btnExcluir1")).click();
 		
 		// Verifica a exibição do modal
@@ -99,21 +99,11 @@ public class ExcluirIndicadorSemVinculo {
 		}
 		
 		// Verifica a mensagem do modal
-		if(Validacoes.verificaMensagemModalAlerta(driver, "Tem certeza que deseja excluir o indicador?") == false){
+		if(Validacoes.verificaMensagemModalAlerta(driver, "O indicador não pode ser excluído pois está vinculado a um ou mais registros de:\nResolução") == false){
 			erros.add(EnumMensagensLog.MENSAGEM_INCORRETA.getMensagem() + "Modal");
 		}
 		
 		// Confirma exclusão
 		driver.findElement(By.xpath("//*[@class='jconfirm-box']/div[4]/button[1]")).click();
-		
-		// Verifica a exibição do toast
-		if(Validacoes.verificaExibicaoToast(driver) == false){
-			erros.add(EnumMensagensLog.TOAST_DESABILITADO.getMensagem());
-		}
-		// verifica mensagem do toast
-		if(Validacoes.verificaMensagemToast(driver, "Indicador excluido com sucesso.") == false){
-			erros.add(EnumMensagensLog.MENSAGEM_INCORRETA.getMensagem() + "Toast");
-		}
-		
 	}
 }
