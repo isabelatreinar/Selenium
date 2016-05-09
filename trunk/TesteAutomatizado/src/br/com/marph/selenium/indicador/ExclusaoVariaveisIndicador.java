@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -18,20 +17,23 @@ import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
 import br.com.marph.selenium.utils.LogUtils;
-import br.marph.selenium.validacaoUtils.Validacoes;
 
-public class ExcluirIndicadorSemVinculo {
-	/**
-	 * Teste exclusão de indicador sem vínculos
-	 * Pré-condição: O registro deve constar na base de dados
-	 * Dados de teste
+public class ExclusaoVariaveisIndicador {
+	/** 
+	 * Teste de exclusão de todas as variáveis do 
+	* Dados de Teste
+	 * Informações do indicador
 	 * Tipo de Indicador: Finalístico
-	 * Nome do Indicador: Teste exclusão sem vínculo
+	 * Nome: Indicador teste CRUD Indicador
 	 * Tipo de Fonte: Declaratório
 	 * Nome da Fonte: Beneficiário
 	 * Polaridade: Quanto maior, melhor
 	 * Programa: Programa Teste
+	 * Meses da média Móvel: 12
+	 * Meses de Defasagem: 13
+	 * Descrição: Teste automatizado do cadastro de indicador
 	 */
+	
 	private final String LOG_NAME = System.getProperty("user.name");
 	private WebDriver driver;
 	private Logger log = LogManager.getLogger(LOG_NAME);
@@ -51,7 +53,7 @@ public class ExcluirIndicadorSemVinculo {
 	}
 
 	@Test
-	public void testeExclusaoSemVinculo() throws TesteAutomatizadoException {
+	public void testeExclusaoVariaveis() throws TesteAutomatizadoException {
 
 		// Recolhendo informações de log
 		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
@@ -70,7 +72,6 @@ public class ExcluirIndicadorSemVinculo {
 		EditarIndicadorSemVinculo.pesquisar(driver, "Finalístico", "Indicador teste CRUD Indicador", "Quanto maior, melhor", "Programa Teste");
 
 		// Excluir Registro
-		excluirSemVinculo();
 		
 		// Verifica se existem erros
 		if(erros.size() != 0){
@@ -88,32 +89,5 @@ public class ExcluirIndicadorSemVinculo {
 		} else {
 			log.info(sb.toString() + "\n");
 		}
-	}
-
-	private void excluirSemVinculo() {
-		driver.findElement(By.id("btnExcluir1")).click();
-		
-		// Verifica a exibição do modal
-		if(Validacoes.verificaModalAlerta(driver) == false){
-			erros.add(EnumMensagensLog.MODAL_DESABILITADO.getMensagem());
-		}
-		
-		// Verifica a mensagem do modal
-		if(Validacoes.verificaMensagemModalAlerta(driver, "Tem certeza que deseja excluir o indicador?") == false){
-			erros.add(EnumMensagensLog.MENSAGEM_INCORRETA.getMensagem() + "Modal");
-		}
-		
-		// Confirma exclusão
-		driver.findElement(By.xpath("//*[@class='jconfirm-box']/div[4]/button[1]")).click();
-		
-		// Verifica a exibição do toast
-		if(Validacoes.verificaExibicaoToast(driver) == false){
-			erros.add(EnumMensagensLog.TOAST_DESABILITADO.getMensagem());
-		}
-		// verifica mensagem do toast
-		if(Validacoes.verificaMensagemToast(driver, "Indicador excluido com sucesso.") == false){
-			erros.add(EnumMensagensLog.MENSAGEM_INCORRETA.getMensagem() + "Toast");
-		}
-		
 	}
 }
