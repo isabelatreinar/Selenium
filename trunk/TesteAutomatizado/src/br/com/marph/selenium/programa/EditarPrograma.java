@@ -37,6 +37,8 @@ public class EditarPrograma {
 		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
+		
+		AcessoSistema.
 
 		MenuProgramaTemplate.prepararAcessoPrograma(driver);
 

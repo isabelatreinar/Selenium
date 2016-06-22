@@ -104,7 +104,7 @@ public class CadastrarBaseLegal {
 		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(tipo);
 		driver.findElement(By.xpath("//*[@id='tipoBaseLegal_chosen']/div/div/input")).sendKeys(Keys.TAB);
 		
-		// Valida se o campo "Ano do inicio da vigencia" esta habilitando apos o preenchimento do campo "Data da publicacao"
+		// Valida se o campo "Número" esta habilitando apos o preenchimento do campo "Tipo"  ----- Corrigir
 		if(driver.findElement(By.id("dataVigencia_chosen")).getAttribute("class").equals(
 				"chosen-container chosen-container-single chosen-container-single-nosearch chosen-disabled")){
 			erros.add(EnumMensagensLog.ANO_VIGENCIA_DESABILITADO.getMensagem());

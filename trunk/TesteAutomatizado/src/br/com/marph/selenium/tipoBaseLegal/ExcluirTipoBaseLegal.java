@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
@@ -36,8 +37,10 @@ public class ExcluirTipoBaseLegal {
 		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
+		
+		AcessoSistema.perfilAdministrador(driver);
 
-		MenuTipoBaseLegalTemplate.prepararAcessoTipoBaseLegal(driver);
+		MenuTipoBaseLegalTemplate.menuTipoBaseLegal(driver);
 
 		PesquisarTipoBaseLegal.pesquisar(driver);
 		

@@ -36,7 +36,7 @@ public class ExportarTipoBaseLegal {
 
 		long timestart = System.currentTimeMillis();
 
-		MenuTipoBaseLegalTemplate.prepararAcessoTipoBaseLegal(driver);
+		MenuTipoBaseLegalTemplate.menuTipoBaseLegal(driver);
 
 		exportar();
 

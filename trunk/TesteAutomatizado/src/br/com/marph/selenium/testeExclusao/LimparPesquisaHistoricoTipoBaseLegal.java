@@ -40,7 +40,7 @@ public class LimparPesquisaHistoricoTipoBaseLegal {
 		long timestart = System.currentTimeMillis();
 
 		// Acessar Menu Cadastro > Tipo Base Legal
-		MenuTipoBaseLegalTemplate.prepararAcessoTipoBaseLegal(driver);
+		MenuTipoBaseLegalTemplate.menuTipoBaseLegal(driver);
 		
 		// Pesquisar Tipo Base Legal
 		PesquisarTipoBaseLegal.pesquisar(driver);

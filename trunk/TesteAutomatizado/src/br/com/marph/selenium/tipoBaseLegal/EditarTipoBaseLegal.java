@@ -13,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.exceptions.TesteAutomatizadoException;
@@ -37,8 +38,10 @@ public class EditarTipoBaseLegal {
 		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
+		
+		AcessoSistema.perfilAdministrador(driver);
 
-		MenuTipoBaseLegalTemplate.prepararAcessoTipoBaseLegal(driver);
+		MenuTipoBaseLegalTemplate.menuTipoBaseLegal(driver);
 
 		PesquisarTipoBaseLegal.pesquisar(driver);
 
@@ -122,7 +125,7 @@ public class EditarTipoBaseLegal {
 			if (driver.findElement(By.xpath("//*[@id='nomeTipoBaseLegal_maindiv']/div")).isDisplayed()
 					&& driver.findElement(By.xpath("//*[@id='nomeTipoBaseLegal_maindiv']/div")).getText()
 							.equalsIgnoreCase("Preenchimento obrigatório!")) {
-				throw new TesteAutomatizadoException(EnumMensagensLog.NOME_VALIDACAO, this.getClass());
+				throw new TesteAutomatizadoException(EnumMensagensLog.CAMPO_OBRIGATORIO, this.getClass());
 			}
 
 			if (driver.findElement(By.xpath("//*[@id='nomeTipoBaseLegal_maindiv']/div")).getText()

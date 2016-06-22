@@ -10,14 +10,12 @@ public class MenuProgramaTemplate {
 	private MenuProgramaTemplate(){}
 	
 	public static void prepararAcessoPrograma(WebDriver driver) {
-		AcessoUtils.idClick(driver, "btnEntradaSistemaID","btnAcessar","confirmarDados",EnumAcesso.ADMINISTRADOR.getId(),"acessarSistema");
-		
+				
 		AcessoUtils.xpathClick(driver, "//td[@onmouseup='cmItemMouseUp (this,3)']");
 		
-		programa(driver);
-	}
-
-	private static void programa(WebDriver driver) {
 		driver.findElement(By.xpath("//*[@id='programaMenu']")).click();
-	}
+		
+		}
+
+	
 }

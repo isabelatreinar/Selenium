@@ -6,7 +6,7 @@ import br.com.marph.selenium.utils.AcessoUtils;
 
 public class AcessoSistema {
 	public static void perfilAdministrador(WebDriver driver) {
-		AcessoUtils.idClick(driver, "btnEntradaSistemaID", "btnAcessar", "confirmarDados",
+		AcessoUtils.idClick(driver, "closeModalHome", "btnEntradaSistemaID", "btnAcessar", "confirmarDados",
 				EnumAcesso.ADMINISTRADOR.getId(), "acessarSistema");
 	}
 }
