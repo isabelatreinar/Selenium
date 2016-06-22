@@ -37,7 +37,7 @@ public class VisualizarTipoBaseLegal {
 
 		long timestart = System.currentTimeMillis();
 
-		MenuTipoBaseLegalTemplate.prepararAcessoTipoBaseLegal(driver);
+		MenuTipoBaseLegalTemplate.menuTipoBaseLegal(driver);
 
 		PesquisarTipoBaseLegal.pesquisar(driver);
 

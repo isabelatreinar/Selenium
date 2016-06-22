@@ -11,6 +11,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.utils.LogUtils;
@@ -39,6 +40,8 @@ public class CadastrarUsuario {
 		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 
 		long timestart = System.currentTimeMillis();
+		
+		AcessoSistema.perfilAdministrador(driver);
 
 		MenuUsuarioTemplate.prepararAcessoUsuario(driver);
 

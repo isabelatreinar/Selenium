@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 import br.com.marph.selenium.enums.EnumMensagensLog;
 import br.com.marph.selenium.utils.LogUtils;
@@ -36,7 +37,9 @@ public class CadastrarTipoBaseLegal {
 
 		long timestart = System.currentTimeMillis();
 
-		MenuTipoBaseLegalTemplate.prepararAcessoTipoBaseLegal(driver);
+		AcessoSistema.perfilAdministrador(driver);
+		
+		MenuTipoBaseLegalTemplate.menuTipoBaseLegal(driver);
 
 		cadastro();
 
@@ -51,6 +54,11 @@ public class CadastrarTipoBaseLegal {
 		} else {
 			log.info(sb.toString() + "\n");
 		}
+	}
+	
+	public static void cadastro() {
+		
+		
 	}
 
 	public void cadastro() {

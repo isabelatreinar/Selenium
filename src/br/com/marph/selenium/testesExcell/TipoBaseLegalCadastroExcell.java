@@ -43,7 +43,7 @@ public class TipoBaseLegalCadastroExcell {
 		LogUtils.log(EnumMensagensLog.INICIO, this.getClass());
 		long timestart = System.currentTimeMillis();
 
-		MenuTipoBaseLegalTemplate.prepararAcessoTipoBaseLegal(driver);
+		MenuTipoBaseLegalTemplate.menuTipoBaseLegal(driver);
 		WebElement botaoCadastrar = driver.findElement(By.id("btnNovoTipoBaseLegal"));
 		botaoCadastrar.click();
 

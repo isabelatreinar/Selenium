@@ -37,7 +37,7 @@ public class VisualizarHistoricoTipoBaseLegal {
 		long timestart = System.currentTimeMillis();
 
 		// Acessar menu Cadastro > Tipo Base Legal
-		MenuTipoBaseLegalTemplate.prepararAcessoTipoBaseLegal(driver);
+		MenuTipoBaseLegalTemplate.menuTipoBaseLegal(driver);
 
 		// Pesquisar Tipo de Base Legal
 		PesquisarTipoBaseLegal.pesquisar(driver);

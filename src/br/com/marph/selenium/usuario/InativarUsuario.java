@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.com.marph.selenium.conexao.AcessoSistema;
 import br.com.marph.selenium.conexao.Conexao;
 
 public class InativarUsuario {
@@ -32,7 +33,9 @@ public class InativarUsuario {
 		
 		log.info("Inicio do teste - Inativar Usuario");
 		
-		long timestart = System.currentTimeMillis();		
+		long timestart = System.currentTimeMillis();	
+		
+		AcessoSistema.perfilAdministrador(driver);
 		
 		MenuUsuarioTemplate.prepararAcessoUsuario(driver);
 		
