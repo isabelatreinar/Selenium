@@ -56,11 +56,6 @@ public class CadastrarTipoBaseLegal {
 		}
 	}
 	
-	public static void cadastro() {
-		
-		
-	}
-
 	public void cadastro() {
 		WebElement cadastrar = driver.findElement(By.id("btnNovoTipoBaseLegal"));
 		cadastrar.click();
